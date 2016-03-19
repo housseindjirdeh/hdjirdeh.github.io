@@ -83,6 +83,7 @@ li {
  */
 h1, h2, h3, h4, h5, h6 {
     font-weight: $base-font-weight;
+    font-family: $headings-font-family;
 }
 
 
@@ -93,6 +94,7 @@ h1, h2, h3, h4, h5, h6 {
 a {
     color: $brand-color;
     text-decoration: none;
+    font-weight: 600;
 
     &:visited {
         color: darken($brand-color, 15%);
