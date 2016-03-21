@@ -4,6 +4,7 @@
 
  */
 .site-header {
+    min-height: 70px;
     // Positioning context for the mobile navigation icon
     position: relative;
 }
@@ -49,7 +50,6 @@
             -moz-animation: spinAround 2s linear infinite;
             animation: spinAround 2s linear infinite;
         }
-        ;
     }
 }
 .site-nav {
@@ -115,12 +115,33 @@
  */
 
 .site-footer {
-    border-top: 1px solid $grey-color-light;
+    overflow: hidden;
     padding: $spacing-unit 0;
+    margin: 30px 0;
+
+    .author {
+        display: block;
+        float: left;
+        width: 12%;
+        -webkit-border-radius: 96px;
+        -moz-border-radius: 96px / 96px;
+        border-radius: 96px / 96px;
+    }
+
+    .wrapper {
+        padding: $spacing-unit 0;
+    border-top: 1px solid $grey-color-light;
+    border-bottom: 1px solid $grey-color-light;
+    }
 }
 .footer-heading {
     font-size: 18px;
-    margin-bottom: $spacing-unit / 2;
+    margin: $spacing-unit / 2 0;
+}
+.footer-info {
+    width: 82%;
+    display: block;
+    float: right;
 }
 .contact-list,
 .social-media-list {

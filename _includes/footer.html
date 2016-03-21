@@ -2,17 +2,25 @@
 
   <div class="wrapper">
 
+    <img src="http://housseindjirdeh.com/img/me2.jpg" class="author" alt="user">
+
+    <div class="footer-info">
+
     <h2 class="footer-heading">{{ site.title }}</h2>
+    <a href="/">{{ site.url }}</a>
 
     <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
+            <div class="footer-col footer-col-3">
+        <p>{{ site.description }}</p>
+      </div>
+      <!-- <div class="footer-col footer-col-1">
         <ul class="contact-list">
           <li>{{ site.title }}</li>
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
         </ul>
-      </div>
+      </div> -->
 
-      <div class="footer-col footer-col-2">
+      <div class="footer-col footer-col-3">
         <ul class="social-media-list">
           {% if site.github_username %}
           <li>
@@ -27,12 +35,28 @@
           {% endif %}
         </ul>
       </div>
-
-      <div class="footer-col footer-col-3">
-        <p>{{ site.description }}</p>
-      </div>
     </div>
-
+  </div>
   </div>
 
 </footer>
+
+<!-- <div class="postprofile">
+        <img src="/assets/images/me-82cf3e63.jpg" class="author" alt="user">
+        <div class="info">
+          <h4>Seth Vargo</h4>
+          <a href="/">https://sethvargo.com</a>
+          <p>Seth Vargo is the Director of Evangelism at <a href="https://www.hashicorp.com" target="_TOP">HashiCorp</a>. Previously, Seth worked at Chef (Opscode), CustomInk, and a few Pittsburgh-based startups. He the author of <a href="http://shop.oreilly.com/product/0636920032397.do">Learning Chef</a> and is passionate about reducing inequality in technology. When he is not writing, working on open source, or speaking at conferences, Seth enjoys spending time with his friends and advising non-profits. He loves all things bacon.
+</p>
+          <ul class="social">
+            <li><a href="https://twitter.com/sethvargo" class="twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="https://facebook.com/sethvargo" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="https://github.com/sethvargo" class="github" target="_blank"><i class="fa fa-github-alt"></i></a></li>
+            <li><a href="/feed.xml" class="rss" target="_blank"><i class="fa fa-rss"></i></a></li>
+            <li><a href="https://youtube.com/sethvargo" class="youtube" target="_blank"><i class="fa fa-youtube"></i></a></li>
+            <li><a href="https://dribbble.com/sethvargo" class="dribbble" target="_blank"><i class="fa fa-dribbble"></i></a></li>
+            <li><a href="https://plus.google.com/+SethVargo?rel=author" class="googleplus" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="https://linkedin.com/in/sethvargo" class="linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div> -->

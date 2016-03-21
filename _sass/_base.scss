@@ -95,6 +95,11 @@ a {
     color: $brand-color;
     text-decoration: none;
     font-weight: 600;
+    border-bottom: 3px solid transparent;
+    -webkit-transition: border .2s,color .2s ease-out;
+    -moz-transition: border .2s,color .2s ease-out;
+    -o-transition: border .2s,color .2s ease-out;
+    transition: border .2s,color .2s ease-out;
 
     &:visited {
         color: darken($brand-color, 15%);
@@ -102,7 +107,7 @@ a {
 
     &:hover {
         color: $text-color;
-        text-decoration: underline;
+        border-bottom: 3px solid #f1ece9;
     }
 }
 
