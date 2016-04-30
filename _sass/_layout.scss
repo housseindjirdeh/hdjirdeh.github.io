@@ -34,6 +34,7 @@
         padding: 9px 12px 6px;
         &:hover {
             background: #3287c1;
+            border: none;
             span {
                 display: inline-block;
                 width: auto;
@@ -246,10 +247,25 @@
 .post-meta {
     font-size: $small-font-size;
     color: $grey-color;
+
+    .date-icon {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .meta-date {
+        color: $brand-alternate-color;
+        font-weight: bold;
+    }
 }
 .post-link {
     display: block;
-    font-size: 24px;
+    font-size: $head-font-size;
+}
+.post-divider {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    border: 1px solid #b5b5b5;
 }
 /**
 

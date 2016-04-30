@@ -9,19 +9,22 @@
 $headings-font-family: 'Domine', Serif;
 $base-font-family: 'Lato', "Open Sans",Serif;
 $base-font-size:   18px;
+$head-font-size: 34px;
 $base-font-weight: 400;
-$small-font-size:  $base-font-size * 0.875;
+$small-font-size:  $base-font-size * 0.9;
 $base-line-height: 1.5;
 
 $spacing-unit:     30px;
 
 $text-color:       #111;
 $background-color: #fdfdfd;
-$brand-color:      #026ed2;
+$brand-color:      #111;
+$brand-alternate-color: #026ed2;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 20%);
 $grey-color-dark:  darken($grey-color, 25%);
+$border-grey-color: #f1ece9;
 
 // Width of the content area
 $content-width:    800px;

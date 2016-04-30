@@ -13,14 +13,42 @@
             <div class="footer-col footer-col-3">
         <p>{{ site.description }}</p>
       </div>
-      <!-- <div class="footer-col footer-col-1">
+      <div class="footer-col footer-col-1">
         <ul class="contact-list">
           <li>{{ site.title }}</li>
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
         </ul>
-      </div> -->
+      </div>
 
-      <div class="footer-col footer-col-3">
+       <div class="footer-col footer-col-3">
+        <ul class="social-media-list">
+          {% if site.email %}
+          <li>
+            {% include icon-twitter.html %}
+          </li>
+          {% endif %}
+
+          {% if site.github_username %}
+          <li>
+            {% include icon-github.html %}
+          </li>
+          {% endif %}
+
+          {% if site.facebook_username %}
+          <li>
+            {% include icon-twitter.html %}
+          </li>
+          {% endif %}
+
+          {% if site.linkedin_username %}
+          <li>
+            {% include icon-twitter.html %}
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+
+     <!--  <div class="footer-col footer-col-3">
         <ul class="social-media-list">
           {% if site.github_username %}
           <li>
@@ -34,7 +62,7 @@
           </li>
           {% endif %}
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
   </div>
