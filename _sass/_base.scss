@@ -100,11 +100,6 @@ a {
     -moz-transition: border .2s,color .2s ease-out;
     -o-transition: border .2s,color .2s ease-out;
     transition: border .2s,color .2s ease-out;
-
-    &:visited {
-        color: darken($brand-color, 15%);
-    }
-
     &:hover {
         color: $brand-alternate-color;
         border-bottom: 3px solid $border-grey-color;
