@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Faster Rails Development with Vagrant"
+title:  "First post!"
 date:   2016-03-13 21:38:55 -0400
 categories: jekyll update
-preview: Vagrant is an excellent tool for Rails development - you do not need to worry about installing dependencies, damaging your local workstation, or disparity between different machines and operating systems. You can quickly scale the size and shape of the virtual...
+preview: We ballin...
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 

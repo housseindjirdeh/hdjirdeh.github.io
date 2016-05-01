@@ -8,6 +8,54 @@
     // Positioning context for the mobile navigation icon
     position: relative;
 }
+.title-header {
+    font-family: "Kaushan Script", Serif;
+    letter-spacing: 3px;
+    float: left;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 24px;
+    overflow: hidden;
+}
+
+.title-header a {
+    font-weight: 100;
+    overflow: hidden;
+    padding: 0 4px;
+    height: 1em;
+
+    &:hover {
+        color: #262b30;
+        border: none;
+    }
+}
+
+.title-header a span {
+    position: relative;
+    display: inline-block;
+    -webkit-transition: -webkit-transform 0.3s;
+    -moz-transition: -moz-transform 0.3s;
+    transition: transform 0.3s;
+}
+
+.title-header a span::before {
+    position: absolute;
+    top: 100%;
+    content: attr(data-hover);
+    font-weight: 700;
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.title-header a:hover span,
+.title-header a:focus span {
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    transform: translateY(-100%);
+}
+
 .title {
     font-family: "Kaushan Script", Serif;
     letter-spacing: 4px;
@@ -28,11 +76,78 @@
     .page-link {
         color: $text-color;
         line-height: $base-line-height;
+         position: relative;
+    z-index: 1;
         // Gaps between nav items, but not on the last one
         &:not(:last-child) {
             margin-right: 20px;
         }
     }
+.page-link{
+    padding: 0 5px;
+    color: #111;
+    font-weight: 700;
+    -webkit-transition: color 0.3s;
+    -moz-transition: color 0.3s;
+    transition: color 0.3s;
+}
+
+.page-link::before,
+.page-link::after {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    background: #b6b6b6;
+    opacity: 0;
+    content: '';
+    z-index: -1;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+    pointer-events: none;
+}
+
+.page-link::before {
+    -webkit-transform: translateY(-20px);
+    -moz-transform: translateY(-20px);
+    transform: translateY(-20px);
+}
+
+.page-link::after {
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    transform: translateY(20px);
+}
+
+.page-link:hover,
+.page-link:focus {
+    color: #026ed2;
+    border: none;
+}
+
+.page-link:hover::before,
+.page-link:hover::after,
+.page-link:focus::before,
+.page-link:focus::after {
+    opacity: 0.7;
+}
+
+.page-link:hover::before,
+.page-link:focus::before {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.page-link:hover::after,
+.page-link:focus::after {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
     @include media-query($on-palm) {
         position: absolute;
         top: 9px;
