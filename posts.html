@@ -6,19 +6,15 @@ permalink: /posts/
 
 <div class="home">
 
-  <div class="title">
-    <strong>Houssein</strong> Djirdeh
-  </div>
-
   <ul class="post-list">
     {% for post in site.posts %}
       <li>
         <h1>
-          {{ post.tags }}
+          {% include post-tags.html %}
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h1>
 
-        <span class="post-meta">Posted on <i class="fa fa-calendar date-icon" aria-hidden="true"></i> <span class="meta-date">{{ post.date | date: "%b %-d, %Y" }}</span></span>
+        <span class="post-meta">Posted on <i class="fa fa-calendar date-icon" aria-hidden="true"></i><span class="meta-date">{{ post.date | date: "%b %-d, %Y" }}</span></span>
 
         <p>{{ post.preview }}</p>
       </li>

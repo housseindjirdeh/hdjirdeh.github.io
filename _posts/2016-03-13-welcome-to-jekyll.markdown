@@ -1,9 +1,13 @@
 ---
 layout: post
-title:  "First post!"
+title:  "Boom Shakalaka"
 date:   2016-03-13 21:38:55 -0400
 categories: jekyll update
-preview: We ballin...
+preview: Boom Shakalaka
+tags:
+- Rails
+- Tips
+- Vagrant
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
