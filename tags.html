@@ -3,17 +3,18 @@ layout: page
 permalink: /tags/
 ---
 
-<ul class="tag-cloud">
+<div class="post-tags">
 {% for tag in site.tags %}
-  <li style="font-size: {{ tag | last | size | times: 100 | divided_by: site.tags.size | plus: 70  }}%">
+  <!-- <div style="font-size: {{ tag | last | size | times: 100 | divided_by: site.tags.size | plus: 70  }}%"> -->
     <a href="#{{ tag | first | slugize }}">
       {{ tag | first }}
     </a>
-  </li>
+    {% unless forloop.last %} • {% endunless %}
+  <!-- </div> -->
 {% endfor %}
-</ul>
+</div>
 
-<div id="archives">
+<div id="tag-archives">
 {% for tag in site.tags %}
   <div class="archive-group">
     {% capture tag_name %}{{ tag | first }}{% endcapture %}
@@ -21,7 +22,7 @@ permalink: /tags/
     <a name="{{ tag_name | slugize }}"></a>
     {% for post in site.tags[tag_name] %}
     <article class="archive-item">
-      <h4><a href="{{ root_url }}{{ post.url }}">{{post.title}}</a></h4>
+      <h4><a class="post-link" href="{{ root_url }}{{ post.url }}">{{post.title}}</a></h4>
     </article>
     {% endfor %}
   </div>

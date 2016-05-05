@@ -12,7 +12,7 @@
     font-family: "Kaushan Script", Serif;
     letter-spacing: 3px;
     float: left;
-    position: fixed;
+    position: absolute;
     top: 15px;
     left: 15px;
     font-size: 24px;
@@ -438,12 +438,23 @@
     margin: 0 12px 12px 0; 
   }
 }
-#archives {
+#tag-archives {
   padding: 5px;
 }
 .archive-group {
   margin: 5px;
   border-top: 1px solid #ddd;
+
+  h3 {
+    font: $tag-font;
+    color: $tag-color;
+
+    &:hover {
+        color: $tag-hover-color;
+        border: none;
+    }
+
+  }
 }
 .archive-item {
   margin-left: 5px;
