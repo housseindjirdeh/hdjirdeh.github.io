@@ -372,3 +372,13 @@
         border: none;
     }
 }
+
+.article-image {
+    left: 50%;
+    margin-right: -50%;
+    position: relative;
+    transform: translate(-50%, 0%);
+    top: 50%;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
