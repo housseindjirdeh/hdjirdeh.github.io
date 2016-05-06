@@ -75,119 +75,17 @@
         display: none;
     }
     .page-link {
+        padding: 0 5px;
         color: $text-color;
         line-height: $base-line-height;
-         position: relative;
-    z-index: 1;
+        position: relative;
+        z-index: 1;
         // Gaps between nav items, but not on the last one
         &:not(:last-child) {
             margin-right: 20px;
         }
-    }
-.page-link{
-    padding: 0 5px;
-    color: #111;
-    font-weight: 700;
-    -webkit-transition: color 0.3s;
-    -moz-transition: color 0.3s;
-    transition: color 0.3s;
-}
-
-.page-link::before,
-.page-link::after {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 50%;
-    height: 2px;
-    margin-top: -1px;
-    background: #b6b6b6;
-    opacity: 0;
-    content: '';
-    z-index: -1;
-    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
-    transition: transform 0.3s, opacity 0.3s;
-    pointer-events: none;
-}
-
-.page-link::before {
-    -webkit-transform: translateY(-20px);
-    -moz-transform: translateY(-20px);
-    transform: translateY(-20px);
-}
-
-.page-link::after {
-    -webkit-transform: translateY(20px);
-    -moz-transform: translateY(20px);
-    transform: translateY(20px);
-}
-
-.page-link:hover,
-.page-link:focus {
-    color: #026ed2;
-    border: none;
-}
-
-.page-link:hover::before,
-.page-link:hover::after,
-.page-link:focus::before,
-.page-link:focus::after {
-    opacity: 0.7;
-}
-
-.page-link:hover::before,
-.page-link:focus::before {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.page-link:hover::after,
-.page-link:focus::after {
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}
-    @include media-query($on-palm) {
-        position: absolute;
-        top: 9px;
-        right: $spacing-unit / 2;
-        background-color: $background-color;
-        border: 1px solid $grey-color-light;
-        border-radius: 5px;
-        text-align: right;
-        .menu-icon {
-            display: block;
-            float: right;
-            width: 36px;
-            height: 26px;
-            line-height: 0;
-            padding-top: 10px;
-            text-align: center;
-            > svg {
-                width: 18px;
-                height: 15px;
-                path {
-                    fill: $grey-color-dark;
-                }
-            }
-        }
-        .trigger {
-            clear: both;
-            display: none;
-        }
-        &:hover .trigger {
-            display: block;
-            padding-bottom: 5px;
-        }
-        .page-link {
-            display: block;
-            padding: 5px 10px;
-            &:not(:last-child) {
-                margin-right: 0;
-            }
-            margin-left: 20px;
+        &:hover {
+            color: $brand-alternate-color;
         }
     }
 }
