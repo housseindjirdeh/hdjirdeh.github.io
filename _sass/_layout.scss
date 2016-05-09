@@ -228,7 +228,7 @@
     }
     p {
         margin: 30px 0 0;
-        line-height: 30px;
+        line-height: 38px;
         word-wrap: break-word;
     }
 }
@@ -382,3 +382,113 @@
     padding-top: 20px;
     padding-bottom: 30px;
 }
+
+.author-image {
+    position: relative;
+    width: 110px;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 100%;
+    left: 30px;
+    bottom: 7px;
+}
+
+/*Posts header*/
+.post-nav-header {
+    position: relative;
+    display: table;
+    width: 100%;
+    background-size: cover;
+    text-align: center;
+    overflow: hidden;
+    height: 85px;
+    min-height: 0;
+    margin-bottom: 0;
+    background: transparent;
+}
+
+.post-nav {
+    position: relative;
+    padding: 35px 40px;
+    margin: 0 0 30px 0;
+}
+
+@media only screen and (max-width: 900px) {
+    .post-nav {
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .post-nav {
+        padding: 0;
+        margin-bottom: 2rem;
+        border-bottom: #e0e4e7 1px solid;
+    }
+}
+
+.back-button {
+    /* -webkit-box-sizing: border-box; */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    float: left;
+    height: 38px;
+    padding: 0 15px 0 10px;
+    border: transparent 1px solid;
+    color: #9EABB3;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 35px;
+    border-radius: 3px;
+    transition: all ease 0.3s;
+}
+.back-button:before {
+    position: relative;
+    bottom: -2px;
+    font-size: 13px;
+    line-height: 0;
+    margin-right: 8px;
+}
+
+.subscribe-button {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    float: right;
+    height: 38px;
+    padding: 0 20px;
+    border: transparent 1px solid;
+    color: #9EABB3;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 35px;
+    white-space: nowrap;
+    border-radius: 3px;
+    transition: all ease 0.3s;
+}
+.subscribe-button:before {
+    font-size: 9px;
+    margin-right: 6px;
+}
+
+.back-button:hover,
+.subscribe-button:hover {
+    border-color: #bfc8cd;
+    color: #9EABB3;
+}
+
+/*Utilites*/
+
+/* Clears tingz */
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {clear: both;}
+.clearfix { *zoom: 1; }
