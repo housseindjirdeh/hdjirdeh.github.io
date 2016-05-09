@@ -6,9 +6,10 @@ layout: default
 
   <div class="title">
     <strong>Houssein</strong> Djirdeh
+    <p>JavaScript, AngularJS, Node and all things web (with a pinch of Android).</p>
   </div>
 
-  <section>
+<!--   <section>
     <p>Weightlifter, consultant, gamer, and developer… in no particular order. <i class="fa fa-smile-o" aria-hidden="true"></i></p>
     <p>
       I'm a web designer and developer currently living in Toronto. I enjoy building everything from small and simple websites to rich interactive web applications.
@@ -19,5 +20,20 @@ layout: default
     <p>
       <strong>Move fast, break things, and learn faster.</strong>
     </p>
-  </section>
+  </section> -->
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <h1>
+          {% include post-tags.html %}
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h1>
+
+        <span class="post-meta">Posted on <i class="fa fa-calendar date-icon" aria-hidden="true"></i><span class="meta-date">{{ post.date | date: "%b %-d, %Y" }}</span></span>
+
+        <p>{{ post.preview }}</p>
+      </li>
+    {% endfor %}
+  </ul>
 </div>
