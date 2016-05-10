@@ -70,6 +70,14 @@
     padding-bottom: 70px;
 }
 
+.alternate-tag-title {
+    font-family: "Kaushan Script", Serif;
+    letter-spacing: 4px;
+    float: left;
+    font-size: 34px;
+    float: right;
+}
+
 .title {
     font-family: "Kaushan Script", Serif;
     letter-spacing: 4px;
@@ -364,6 +372,16 @@
 }
 
 /*for tag cloud and archives*/
+.tag-title {
+    padding-bottom: 100px; 
+
+    .name {
+        font: 600 40px 'Open Sans',Serif;
+        color: #D5D5D5;
+        float: left;
+    }
+}
+
 .tag-cloud {
   list-style: none;
   padding: 0;
@@ -432,9 +450,13 @@
     bottom: 7px;
 }
 
+.post, .home {
+    margin-top: 80px;
+}
+
 /*Posts header*/
 .post-nav-header {
-    position: relative;
+    position: fixed;
     display: table;
     width: 100%;
     background-size: cover;
@@ -448,8 +470,26 @@
 
 .post-nav {
     position: relative;
-    padding: 35px 40px;
-    /*margin: 0 0 30px 0;*/
+    padding: 35px 40px 0;
+}
+
+@media only screen and (max-width: 1200px) {
+    .post, .home {
+        margin: 0;
+    }
+
+    .post-nav-header {
+        position: relative;
+        display: table;
+        width: 100%;
+        background-size: cover;
+        text-align: center;
+        overflow: hidden;
+        height: 85px;
+        min-height: 0;
+        margin-bottom: 0;
+        background: transparent;
+    }
 }
 
 @media only screen and (max-width: 900px) {

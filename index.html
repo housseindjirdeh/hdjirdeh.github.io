@@ -17,11 +17,12 @@ layout: default
     </p>
   </section> -->
 
-  <div class="alternate-title" id="posts">
+<!--   <h1 class="alternate-title">
+    Posts
     A <strong>{{ site.posts | size }}</strong>-post collection
-  </div>
+  </h1> -->
 
-  <ul class="post-list">
+  <ul class="post-list" id="posts">
     {% for post in site.posts %}
       <li>
         <h1>
