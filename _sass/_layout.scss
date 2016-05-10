@@ -4,7 +4,7 @@
 
  */
 .site-header {
-    min-height: 70px;
+    min-height: 100%;
     // Positioning context for the mobile navigation icon
     position: relative;
 }
@@ -12,12 +12,13 @@
     font-family: "Kaushan Script", Serif;
     letter-spacing: 3px;
     float: left;
-    position: absolute;
-    top: 15px;
-    left: 15px;
     font-size: 24px;
     overflow: hidden;
-    width: 120px;
+    width: 120px; 
+    z-index: 100;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 38px;
 }
 
 .title-header a {
@@ -57,7 +58,7 @@
     transform: translateY(-100%);
 }
 
-.title {
+.alternate-title {
     font-family: "Kaushan Script", Serif;
     letter-spacing: 4px;
     float: left;
@@ -68,10 +69,35 @@
     padding-bottom: 70px;
 }
 
-.title p{
-    letter-spacing: 2px;
-    font-size: 18px;
+.title {
+    font-family: "Kaushan Script", Serif;
+    letter-spacing: 4px;
+    float: left;
+    font-size: 60px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    p {
+        letter-spacing: 2px;
+        font-size: 20px;
+    }
+
+    .title-chevron {
+        font-size: 24px;
+        position: relative;
+
+        &:hover {
+            top: 2px;
+            border: none;
+        }
+    }
 }
+
 
 .site-nav {
     float: right;
