@@ -14,7 +14,6 @@
     float: left;
     font-size: 24px;
     overflow: hidden;
-    position: fixed;
     width: 120px; 
     z-index: 100;
     box-sizing: border-box;
@@ -99,10 +98,34 @@
     .title-chevron {
         font-size: 24px;
         position: relative;
+        padding: 50px;
 
         &:hover {
             top: 2px;
             border: none;
+        }
+    }
+
+    ul.page-link {
+        font-family: "Domine", Serif;
+        padding: 0 5px;
+        color: #333332;
+        line-height: 1.5;
+        position: relative;
+        z-index: 1;
+        font-size: 24px;
+        list-style: none;
+
+        li {
+            display: inline;
+            padding: 20px;
+        }
+        // Gaps between nav items, but not on the last one
+        &:not(:last-child) {
+            margin-right: 20px;
+        }
+        &:hover {
+            color: $brand-alternate-color;
         }
     }
 }
