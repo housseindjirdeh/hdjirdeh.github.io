@@ -7,7 +7,6 @@ permalink: /posts/
 <div class="home">
   <ul class="post-list">
     {% for post in site.posts %}
-      {% if post.tags == 'javascript' %}
         <li>
           <h1>
             {% include post-tags.html %}
@@ -18,7 +17,6 @@ permalink: /posts/
 
           <p>{{ post.preview }}</p>
         </li>
-      {% endif %}
     {% endfor %}
   </ul>
 </div>
