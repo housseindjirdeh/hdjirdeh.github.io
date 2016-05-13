@@ -95,14 +95,18 @@
         font-size: 20px;
     }
 
-    .title-chevron {
-        font-size: 24px;
-        position: relative;
+    .divider-icon {
         padding: 50px;
 
-        &:hover {
-            top: 2px;
-            border: none;
+        .fa {
+            font-size: 24px;
+            position: relative;
+
+            &:hover {
+                top: 2px;
+                border: none;
+                color: $brand-alternate-color;
+            }
         }
     }
 
@@ -115,6 +119,7 @@
         z-index: 1;
         font-size: 24px;
         list-style: none;
+        padding-top: 50px;
 
         li {
             display: inline;
@@ -343,20 +348,23 @@
     }
 }
 .post-content {
-    margin-bottom: $spacing-unit;
+    margin-bottom: 2*$spacing-unit;
     h2 {
+        margin-top: 2*$spacing-unit;
         font-size: 32px;
         @include media-query($on-laptop) {
             font-size: 28px;
         }
     }
     h3 {
+        margin-top: $spacing-unit;
         font-size: 26px;
         @include media-query($on-laptop) {
             font-size: 22px;
         }
     }
     h4 {
+        margin-top: 2*$spacing-unit;
         font-size: 20px;
         @include media-query($on-laptop) {
             font-size: 18px;
