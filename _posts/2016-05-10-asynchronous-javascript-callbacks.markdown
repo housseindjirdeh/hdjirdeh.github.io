@@ -97,5 +97,5 @@ Observing the snippet, we can see that `functionFirst` accepts `functionSecond` 
 
 So why is this useful? Say you send off an HTTP request and you need to do something with the response. Instead of holding up your browser, you can use a callback to handle the response *whenever it arrives*. Another useful example in this context could be when your application is dependent on user input. 
 
-Conclusion
+Wrapping things up
 ------------------

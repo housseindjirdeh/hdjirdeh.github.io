@@ -28,12 +28,12 @@
     height: 1em;
 
     &:hover {
-        color: #262b30;
+        color: $brand-color;
         border: none;
     }
 }
 
-.title-header a span {
+.hover-feature span {
     position: relative;
     display: inline-block;
     -webkit-transition: -webkit-transform 0.3s;
@@ -41,7 +41,7 @@
     transition: transform 0.3s;
 }
 
-.title-header a span::before {
+.hover-feature span::before {
     position: absolute;
     top: 100%;
     content: attr(data-hover);
@@ -51,8 +51,8 @@
     transform: translate3d(0,0,0);
 }
 
-.title-header a:hover span,
-.title-header a:focus span {
+.hover-feature:hover span,
+.hover-feature:focus span {
     -webkit-transform: translateY(-100%);
     -moz-transform: translateY(-100%);
     transform: translateY(-100%);
@@ -202,11 +202,15 @@
     p {
         margin: 10px;
         line-height: 1.75em;
+
+        .the6ix {
+            width: auto;
+            padding-left: 5px;
+        }
     }
 
     .author {
         text-align: center;
-
         .author-meta {
             padding: 0;
             margin: 20px 0;
@@ -214,14 +218,18 @@
             line-height: 1;
             font-style: italic;
             color: $grey-color;
+            overflow: hidden;
+
+            &:hover {
+                color: $brand-color;
+            }
         }
     }
 
     .share {
-        position: absolute;
-        top: 6rem;
-        right: 0;
-        width: 140px;
+        text-align: center;
+        position: relative;
+        top: 30px;
     }
 }
 .footer-heading {
