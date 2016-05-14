@@ -9,7 +9,7 @@
     position: relative;
 }
 .title-header {
-    font-family: "Kaushan Script", Serif;
+    font-family: $fancy-font-family;
     letter-spacing: 3px;
     float: left;
     font-size: 24px;
@@ -59,7 +59,7 @@
 }
 
 .alternate-title {
-    font-family: "Kaushan Script", Serif;
+    font-family: $fancy-font-family;
     letter-spacing: 4px;
     float: left;
     font-size: 60px;
@@ -70,7 +70,7 @@
 }
 
 .alternate-tag-title {
-    font-family: "Kaushan Script", Serif;
+    font-family: $fancy-font-family;
     letter-spacing: 4px;
     float: left;
     font-size: 34px;
@@ -78,7 +78,7 @@
 }
 
 .title {
-    font-family: "Kaushan Script", Serif;
+    font-family: $fancy-font-family;
     letter-spacing: 4px;
     float: left;
     font-size: 60px;
@@ -90,9 +90,25 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
+    @include media-query($on-laptop) {
+        font-size: 42px;
+    }
+
+    @include media-query($on-palm) {
+        font-size: 32px;
+    }
+
     p {
         letter-spacing: 2px;
         font-size: 20px;
+
+        @include media-query($on-laptop) {
+            font-size: 16px;
+        }
+
+        @include media-query($on-palm) {
+            font-size: 14px;
+        }
     }
 
     .divider-icon {
@@ -120,6 +136,14 @@
         font-size: 24px;
         list-style: none;
         padding-top: 50px;
+
+        @include media-query($on-laptop) {
+            font-size: 16px;
+        }
+
+        @include media-query($on-palm) {
+            font-size: 14px;
+        }
 
         li {
             display: inline;
@@ -164,23 +188,40 @@
  */
 
 .site-footer {
-    overflow: hidden;
-    padding: $spacing-unit 0;
-    margin: 30px 0;
+    position: relative;
+    padding: 60px 0 0 0;
+    border-top: $grey-color-light 1px solid;
 
-    .author {
-        display: block;
-        float: left;
-        width: 12%;
-        -webkit-border-radius: 96px;
-        -moz-border-radius: 96px / 96px;
-        border-radius: 96px / 96px;
+    h4 {
+        font-family: $fancy-font-family;
+        letter-spacing: 2px;
+        font-size: 22px;
+        margin: 0;
     }
 
-    .wrapper {
-        padding: $spacing-unit 0;
-    border-top: 1px solid $grey-color-light;
-    border-bottom: 1px solid $grey-color-light;
+    p {
+        margin: 10px;
+        line-height: 1.75em;
+    }
+
+    .author {
+        text-align: center;
+
+        .author-meta {
+            padding: 0;
+            margin: 20px 0;
+            list-style: none;
+            line-height: 1;
+            font-style: italic;
+            color: $grey-color;
+        }
+    }
+
+    .share {
+        position: absolute;
+        top: 6rem;
+        right: 0;
+        width: 140px;
     }
 }
 .footer-heading {
@@ -344,7 +385,7 @@
     letter-spacing: -1px;
     line-height: 56px;
     @include media-query($on-laptop) {
-        font-size: 36px;
+        font-size: 34px;
     }
 }
 .post-content {
@@ -353,7 +394,7 @@
         margin-top: 2*$spacing-unit;
         font-size: 32px;
         @include media-query($on-laptop) {
-            font-size: 28px;
+            font-size: 32px;
         }
     }
     h3 {
@@ -471,14 +512,22 @@
 }
 
 .author-image {
-    position: relative;
-    width: 110px;
-    height: 100%;
-    background-size: cover;
-    background-position: center center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    margin-left: -40px;
+    width: 80px;
+    height: 80px;
     border-radius: 100%;
-    left: 30px;
-    bottom: 7px;
+    overflow: hidden;
+    padding: 6px;
+    background: #fff;
+    z-index: 2;
+    box-shadow: #E7EEF2 0 0 0 1px;
 }
 
 .post, .home {
@@ -497,6 +546,11 @@
     min-height: 0;
     margin-bottom: 0;
     background: transparent;
+}
+
+.post-nav-home {
+    position: relative;
+    padding: 35px 40px 0;
 }
 
 .post-nav {

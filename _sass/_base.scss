@@ -12,12 +12,26 @@ h1, h2, h3, h4, h5, h6, blockquote, pre, hr,
 dl, dd, ol, ul, figure {
     margin: 0;
     padding: 0;
+
+    a {
+        &:hover {
+            color: $brand-alternate-color;
+            border-bottom: 3px solid $border-grey-color;
+        }
+    }
 }
 
 p {
     margin: 30px 0;
     padding: 0;
     line-height: 38px;
+
+    a {
+        &:hover {
+            color: $brand-alternate-color;
+            border-bottom: 3px solid $border-grey-color;
+        }
+    }
 }
 
 /**
@@ -110,10 +124,6 @@ a {
     -moz-transition: border .2s,color .2s ease-out;
     -o-transition: border .2s,color .2s ease-out;
     transition: border .2s,color .2s ease-out;
-    &:hover {
-        color: $brand-alternate-color;
-        border-bottom: 3px solid $border-grey-color;
-    }
 }
 
 

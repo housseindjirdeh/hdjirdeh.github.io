@@ -19,7 +19,7 @@ function functionFirst(){
 }
 
 function functionSecond(){
-  console.log( 'Back at it again with the white Vans!');
+  console.log( 'Back at it again!');
 }
 
 functionFirst();
@@ -29,7 +29,7 @@ functionSecond();
 The result might be what you expect.
 
 `Damn Daniel` <br>
-`Back at it again with the white Vans!`
+`Back at it again!`
 
 Asynchronous JavaScript
 ------------------
@@ -43,7 +43,7 @@ function functionFirst() {
 }
 
 function functionSecond(){
- console.log( 'Back at it again with the white Vans!');
+ console.log( 'Back at it again!');
 }
 
 functionFirst();
@@ -52,7 +52,7 @@ functionSecond();
 
 Running this will give you:
 
-`Back at it again with the white Vans!` <br>
+`Back at it again!` <br>
 `undefined`
 
 And three seconds later, this will pop up: `Damn Daniel`
@@ -63,35 +63,35 @@ Disclaimer: The only reason I used `setTimeout` was to simulate an operation tha
 
 Callbacks
 ------------------
-Now, for obvious reasons, we want the text `Back at it again with the white Vans!` to appear only after `Damn Daniel` is shown. To do so, we can store `functionSecond()` as a **callback**.
+Now, for obvious reasons, we want the text `Back at it again!` to appear only after `Damn Daniel` is shown. To do so, we can store `functionSecond()` as a **callback**.
 
 {% highlight javascript %}
 function functionFirst(callback) {
  setTimeout(function() {
-  console.log('Damn Daniel');
+  console.log('Back at it again');
   callback();
  }, 3000);
 }
 
 function functionSecond() {
- console.log('Back at it again with the white Vans!');
+ console.log('with the white Vans!');
 }
 
 functionFirst( function(){
  functionSecond();
 });
 
-console.log('DAMN!');
+console.log('Damn Daniel');
 {% endhighlight %}
 
 The output:
 
-`DAMN!` 
+`Damn Daniel` 
 
 Followed by a three second delay, then:
 
-`Damn Daniel` <br>
-`Back at it again with the white Vans!`
+`Back at it again` <br>
+`with the white Vans!`
 
 Observing the snippet, we can see that `functionFirst` accepts `functionSecond` as an argument, or callback, and this means that `functionFirst` is a **higher-order function**. In other words, `functionFirst` will *call the second function back later* once its operation is complete.
 
