@@ -65,8 +65,7 @@
     font-size: 60px;
     display: block;
     width: 100%;
-    padding-top: 30px;
-    padding-bottom: 70px;
+    padding-bottom: 30px;
 }
 
 .alternate-tag-title {
@@ -181,6 +180,32 @@
         }
     }
 }
+
+.share {
+    position: relative;
+    width: auto;
+    display: block;
+    text-align: center;
+    margin: 60px;
+
+    h3 {
+        font-family: $base-font-family;
+        font-weight: bold;
+    }
+
+    a {
+        padding: 5px;
+        color: $grey-color;
+
+        &:hover {
+            color: $grey-color-dark;
+        }
+    }
+}
+
+.aboutme {
+    margin-bottom: 60px;
+}
 /**
 
  * Site footer
@@ -190,7 +215,7 @@
 .site-footer {
     position: relative;
     padding: 60px 0 0 0;
-    border-top: $grey-color-light 1px solid;
+    border-top: $border-grey-color 1px solid;
 
     h4 {
         font-family: $fancy-font-family;
@@ -213,7 +238,7 @@
         text-align: center;
         .author-meta {
             padding: 0;
-            margin: 20px 0;
+            margin: 20px 0 40px;
             list-style: none;
             line-height: 1;
             font-style: italic;
@@ -224,12 +249,6 @@
                 color: $brand-color;
             }
         }
-    }
-
-    .share {
-        text-align: center;
-        position: relative;
-        top: 30px;
     }
 }
 .footer-heading {

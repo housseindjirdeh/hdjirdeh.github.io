@@ -3,7 +3,7 @@ layout: post
 title:  "Asynchronous JavaScript: Callbacks"
 date:   2016-05-10 18:36:55 -0400
 categories: javascript
-preview: Functions in Javascript are treated as first-class objects. This means that they have a type of `Object` and can be referenced like any other first-class object, such as `Date`, `Number`, `String` and so forth. This may seem obvious, but it's important to remember that the nature of functions in Javascript are quite different then, for example, methods in Ruby.
+preview: Functions in Javascript are treated as first-class objects. This means that they have a type of `Object` and can be referenced like any other first-class object, such as `Date`, `Number`, `String` and so forth. This may seem obvious, but it's important to remember that the nature of functions in Javascript are quite different then, for example, methods in Ruby...
 tags:
 - javascript
 ---
@@ -95,7 +95,4 @@ Followed by a three second delay, then:
 
 Observing the snippet, we can see that `functionFirst` accepts `functionSecond` as an argument, or callback, and this means that `functionFirst` is a **higher-order function**. In other words, `functionFirst` will *call the second function back later* once its operation is complete.
 
-So why is this useful? Say you send off an HTTP request and you need to do something with the response. Instead of holding up your browser, you can use a callback to handle the response *whenever it arrives*. Another useful example in this context could be when your application is dependent on user input. 
-
-Wrapping things up
-------------------
+So why is this useful? Say you send off an HTTP request and you need to do something with the response. Instead of holding up your browser, you can use a callback to handle the response *whenever it arrives*. Another useful example in this context could be when your application is dependent on user input.
