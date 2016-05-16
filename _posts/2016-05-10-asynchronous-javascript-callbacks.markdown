@@ -39,7 +39,7 @@ Now let's add a timeout to the first function.
 {% highlight javascript %}
 function functionFirst() {
   setTimeout(function() {
-    console.log('Damn Daniel');
+  console.log('Damn Daniel');
   }, 3000);
 }
 
@@ -66,7 +66,7 @@ Now, for obvious reasons, we want the text `Back at it again!` to show after `Da
 function functionFirst(callback) {
   setTimeout(function() {
     console.log('Back at it again');
-      callback();
+    callback();
     }, 3000);
 }
 
@@ -87,7 +87,7 @@ The output:
 `Back at it again` <br>
 `with the white Vans!`
 
-Observing the snippet, we can see that `functionFirst` accepts `functionSecond` as an argument, or callback, and this means that `functionFirst` is a **higher-order function**. In other words, `functionFirst` will *call the second function back later* once its operation is complete.
+We can see that `functionFirst` accepts `functionSecond` as an argument, or callback, and this means that `functionFirst` is a **higher-order function**. In other words, `functionFirst` will *call the second function back later* once its operation is complete.
 
 So why is this useful? Say you send off an HTTP request and you need to do something with the response. Instead of holding up your browser, you can use a callback to handle the response *whenever it arrives*. Another useful example in this context could be when your application is dependent on user input.
 
