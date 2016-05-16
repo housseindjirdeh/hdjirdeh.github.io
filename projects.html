@@ -1,24 +1,22 @@
 ---
 layout: main-default
-title: Posts
+title: Projects
 permalink: /projects/
 ---
 
 <div class="home">
   <ul class="post-list">
-    {% for project in site.posts %}
-      {% if project.type == "project" %}
+    {% for post in site.posts %}
+      {% if post.type == "project" %}
         <li>
-          <img src="{{ site.url }}/public/anotherone.png" class="project-image" alt="project-image">
           <h1>
-            <a class="post-link" href="">{{ project.title }}</a>
+            {% include post-tags.html %}
+            <a class="post-link" href="{{ post.github }}">{{ post.title }}</a>
           </h1>
-
-          <p>{{ project.description }}</p>
-
-          <h2>How it works:</h2>
-
-          <p>{{ project.howitworks }}</p>
+          <p>{{ post.description }}</p>
+          <img src="{{ site.url }}/public/{{ post.img }}" class="project-image" alt="project-image">
+          <p><strong>How it works:</strong> {{ post.howitworks }}</p>
+          <a href="{{ post.github }}"><i class="fa fa-github fa-2x project-link" aria-hidden="true"></i></a>
         </li>
       {% endif %}
     {% endfor %}

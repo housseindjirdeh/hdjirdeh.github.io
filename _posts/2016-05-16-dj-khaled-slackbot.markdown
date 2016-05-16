@@ -1,8 +1,12 @@
 ---
 title:  "DJKhaled Slack Bot"
-description: A Slack Bot that allows you to post major key material with just a simple slash command
-tags:
-howitworks: Functions in Javascript are treated as first-class objects. This means that they have a type of `Object` and can be referenced like any other first-class object, such as `Date`, `Number`, `String` and so forth. This may seem obvious, but it's important to remember that the nature of functions in Javascript are quite different then, for example, methods in Ruby...
+description: A DJ Khaled Slack Bot that allows you to post major key material with just a simple slash command.
+tags: 
+- angular
+- node
+- cheerio
+howitworks: Once the Slash Command is set up in your configurations, issuing the /djkhaled command will send data to the Node instance URL where <a href="https://github.com/cheeriojs/cheerio">cheerio</a> is then used to web scrape and send the top Bing image search back to the Slack channel.
 img: anotherone.png
+github: https://github.com/hdjirdeh/slack-djkhaled
 type: project
 ---

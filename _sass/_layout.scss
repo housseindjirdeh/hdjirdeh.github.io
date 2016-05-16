@@ -573,6 +573,10 @@
     box-shadow: #E7EEF2 0 0 0 1px;
 }
 
+.project-image {
+    padding-top: 30px;
+}
+
 .post, .home {
     margin-top: 80px;
 }
@@ -636,6 +640,15 @@
         margin-bottom: 2rem;
         border-bottom: #e0e4e7 1px solid;
     }
+}
+
+.project-link {
+    padding-top: 20px;
+    color: $grey-color;
+
+    &:hover {
+        color: $grey-color-dark;
+    };
 }
 
 .back-button {
