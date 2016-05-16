@@ -387,6 +387,11 @@
     .meta-date {
         color: $brand-alternate-color;
         font-weight: bold;
+        padding-right: 5px;
+    }
+
+    .comment-meta {
+        padding: 5px;
     }
 }
 .post-link {
@@ -479,6 +484,11 @@
 /*for tag cloud and archives*/
 .tag-title {
     padding-bottom: 100px; 
+
+    @include media-query($on-palm) {
+        padding-bottom: 150px;
+        border-bottom: 1px solid $grey-color-light;
+    }
 
     .name {
         font: 600 40px 'Open Sans',Serif;

@@ -1,0 +1,26 @@
+---
+layout: main-default
+title: Posts
+permalink: /projects/
+---
+
+<div class="home">
+  <ul class="post-list">
+    {% for project in site.posts %}
+      {% if project.type == "project" %}
+        <li>
+          <img src="{{ site.url }}/public/anotherone.png" class="project-image" alt="project-image">
+          <h1>
+            <a class="post-link" href="">{{ project.title }}</a>
+          </h1>
+
+          <p>{{ project.description }}</p>
+
+          <h2>How it works:</h2>
+
+          <p>{{ project.howitworks }}</p>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>

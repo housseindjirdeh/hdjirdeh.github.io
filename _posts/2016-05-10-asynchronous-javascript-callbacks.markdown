@@ -7,6 +7,7 @@ preview: Functions in Javascript are treated as first-class objects. This means 
 tags:
 - javascript
 comments: true
+type: post
 ---
 
 Functions in Javascript are treated as first-class objects. This means that they have a type of `Object` and can be referenced like any other first-class object, such as `Date`, `Number`, and `String`. This may seem obvious to you, but it's important to remember that the nature of functions in Javascript are quite different then, for example, methods in Ruby.
