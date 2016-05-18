@@ -33,7 +33,7 @@ $grey-color-dark:  darken($grey-color, 25%);
 $border-grey-color: #f1ece9;
 
 // Width of the content area
-$content-width:    820px;
+$content-width:    890px;
 
 $on-palm:          600px;
 $on-laptop:        800px;
@@ -57,6 +57,7 @@ $on-laptop:        800px;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
+		"../bower_components/bootstrap-sass/assets/stylesheets/bootstrap",
         "base",
         "layout",
         "syntax-highlighting-alternate"

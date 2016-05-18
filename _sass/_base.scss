@@ -17,6 +17,7 @@ dl, dd, ol, ul, figure {
         &:hover {
             color: $brand-alternate-color;
             border-bottom: 3px solid $border-grey-color;
+            text-decoration: none;
         }
     }
 }

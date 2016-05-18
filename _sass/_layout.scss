@@ -30,6 +30,7 @@
     &:hover {
         color: $brand-color;
         border: none;
+        text-decoration: none;
     }
 }
 
@@ -392,6 +393,10 @@
 
     .comment-meta {
         padding: 5px;
+
+        &:hover {
+            text-decoration: none;
+        }
     }
 }
 .post-link {
@@ -703,6 +708,7 @@
 .subscribe-button:hover {
     border-color: #bfc8cd;
     color: #9EABB3;
+    text-decoration: none;
 }
 
 /*Utilites*/
