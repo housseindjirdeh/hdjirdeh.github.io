@@ -721,3 +721,20 @@
 }
 .clearfix:after {clear: both;}
 .clearfix { *zoom: 1; }
+
+/*Projects*/
+.projects {
+    .post-link {
+        margin-top: 20px;
+    }
+
+    .post-tags {
+        padding: 0;
+    }
+
+    .post-list {
+        p {
+            margin: 20px 0 0;
+        }
+    }
+}
