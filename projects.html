@@ -5,29 +5,13 @@ permalink: /projects/
 ---
 
 <div class="projects home">
-<!--     {% for post in site.posts %}
-      {% if post.type == "project" %}
-        <div class="row">
-          <div class="col-md-6">
-            <img src="{{ site.url }}/public/{{ post.img }}" class="project-image" alt="project-image">
-          </div>
-
-          <div class="col-md-6">
-            <a class="post-link" href="{{ post.github }}">{{ post.title }}</a>
-            {% include post-tags.html %}
-            <p><strong>How it works:</strong> {{ post.howitworks }}</p>
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %} -->
-
-
-
   <ul class="post-list">
     {% for post in site.posts %}
       {% if post.type == "project" %}
         <li>
-          <img src="{{ site.url }}/public/{{ post.img }}" class="project-image" alt="project-image">
+          <a class="post-link" href="{{ post.github }}">
+            <img src="{{ site.url }}/public/{{ post.img }}" class="project-image" alt="project-image">
+          </a>
           <h1>
             <a class="post-link" href="{{ post.github }}">{{ post.title }}</a>
             {% include post-tags.html %}
@@ -37,6 +21,7 @@ permalink: /projects/
         </li>
       {% endif %}
     {% endfor %}
-</ul>
+  </ul>
 
+  <!-- <h1>Websites</h1> -->
 </div>

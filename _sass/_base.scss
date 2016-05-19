@@ -125,6 +125,22 @@ a {
     -moz-transition: border .2s,color .2s ease-out;
     -o-transition: border .2s,color .2s ease-out;
     transition: border .2s,color .2s ease-out;
+
+    img {
+        -webkit-transition-duration: 0.8s;
+        -moz-transition-duration: 0.8s;
+        -ms-transition-duration: 0.8s;
+        -o-transition-duration: 0.8s;
+        transition-duration: 0.8s;
+
+        &:hover {
+            opacity: 0.8;
+            -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+            filter: alpha(opacity=80);
+            -moz-opacity:0.8;
+            -khtml-opacity: 0.8;
+        }
+    }
 }
 
 
