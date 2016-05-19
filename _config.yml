@@ -19,8 +19,3 @@ github_username:  hdjirdeh
 
 # Build settings
 markdown: kramdown
-
-sass:
-    load_paths:
-        - _sass
-        - bower_components/bootstrap-sass/assets/stylesheets
