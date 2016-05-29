@@ -12,6 +12,7 @@
     font-family: $fancy-font-family;
     letter-spacing: 3px;
     float: left;
+    text-align: left;
     font-size: 24px;
     overflow: hidden;
     width: 120px; 
@@ -597,7 +598,12 @@
     height: 85px;
     min-height: 0;
     margin-bottom: 0;
-    background: transparent;
+    background: -webkit-gradient(linear, top, bottom, from(#fff), to(rgba(255,255,255,0)));
+    background: -webkit-linear-gradient(top, #fff, rgba(255,255,255,0));
+    background: -moz-linear-gradient(top, #fff, rgba(255,255,255,0));
+    background: -ms-linear-gradient(top, #fff, rgba(255,255,255,0));
+    background: -o-linear-gradient(top, #fff, rgba(255,255,255,0));
+    background: linear-gradient(top, #fff, rgba(255,255,255,0));
 }
 
 .post-nav-home {
@@ -629,7 +635,6 @@
         height: 85px;
         min-height: 0;
         margin-bottom: 0;
-        background: transparent;
     }
 }
 
