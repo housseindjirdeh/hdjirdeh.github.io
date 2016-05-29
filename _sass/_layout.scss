@@ -101,8 +101,8 @@
     }
 
     p {
-        letter-spacing: 2px;
-        font-size: 20px;
+        letter-spacing: 3px;
+        font-size: 22px;
 
         @include media-query($on-laptop) {
             font-size: 16px;
@@ -620,7 +620,7 @@
     padding: 35px 40px 0;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1400px) {
     .post, .home {
         margin: 0;
     }
@@ -649,6 +649,29 @@
         padding: 0;
         margin-bottom: 2rem;
         border-bottom: #e0e4e7 1px solid;
+    }
+
+    .title-header {
+        width: auto;
+    }
+
+    .hover-feature span {
+        -webkit-transition: none;
+        -moz-transition: none;
+        transition: none;
+    }
+
+    .hover-feature span::before {
+        -webkit-transform: none;
+        -moz-transform: none;
+        transform: none;
+    }
+
+    .hover-feature:hover span,
+    .hover-feature:focus span {
+        -webkit-transform: none;
+        -moz-transform: none;
+        transform: none;
     }
 }
 

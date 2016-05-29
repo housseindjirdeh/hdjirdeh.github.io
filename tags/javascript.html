@@ -8,7 +8,7 @@ permalink: /tags/javascript
 
   <ul class="post-list">
     {% for post in site.posts %}
-      {% if post.tags contains 'javascript' %}
+      {% if post.tags contains 'javascript' and post.type == 'post' %}
       <li>
         <h1>
           {% include post-tags.html %}

@@ -126,6 +126,10 @@ a {
     -o-transition: border .2s,color .2s ease-out;
     transition: border .2s,color .2s ease-out;
 
+    &:hover {
+        text-decoration: none;
+    }
+
     img {
         -webkit-transition-duration: 0.8s;
         -moz-transition-duration: 0.8s;
