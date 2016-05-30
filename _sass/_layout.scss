@@ -560,6 +560,23 @@
     padding-bottom: 30px;
 }
 
+.article-image-with-source {
+    left: 50%;
+    margin-right: -50%;
+    position: relative;
+    transform: translate(-50%, 0%);
+    top: 50%;
+    padding-top: 20px;
+}
+
+.image-source {
+    font-size: 18px;
+    letter-spacing: -1px;
+    font-style: italic;
+    margin: 0px;
+    text-align: center;
+}
+
 .author-image {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -593,6 +610,7 @@
     display: table;
     width: 100%;
     background-size: cover;
+    z-index: 1;
     text-align: center;
     overflow: hidden;
     height: 85px;
