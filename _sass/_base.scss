@@ -35,6 +35,12 @@ p {
     }
 }
 
+iframe {
+    width: 100%;
+    min-height: 200px;
+    border-radius: 5px;
+}
+
 /**
  * Basic styling
  */
@@ -196,6 +202,7 @@ pre {
         border: 0;
         padding-right: 0;
         padding-left: 0;
+        color: #f8f8f2;
     }
 }
 

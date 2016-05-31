@@ -16,6 +16,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://hdjirdeh.github.io" # the base hostname & protocol for your site
 linkedin_username: Houssein Djirdeh
 github_username:  hdjirdeh
+highlighter: pygments
 
 # Build settings
 markdown: kramdown

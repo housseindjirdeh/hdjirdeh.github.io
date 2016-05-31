@@ -41,7 +41,7 @@ Now let's add a timeout to the first function.
 {% highlight javascript %}
 function functionFirst() {
   setTimeout(function() {
-  console.log('Damn Daniel');
+    console.log('Damn Daniel');
   }, 3000);
 }
 
@@ -76,7 +76,7 @@ function functionSecond() {
   console.log('with the white Vans!');
 }
 
-functionFirst( function(){
+functionFirst(function(){
   functionSecond();
 });
 
