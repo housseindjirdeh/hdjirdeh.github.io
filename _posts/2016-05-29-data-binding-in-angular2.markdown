@@ -65,13 +65,44 @@ export class MyApp {
 }
 {% endhighlight %}
 
-Notice how the *target event*, `(click)` is in parentheses. In Angular 1.x, this would have looked like  `ng
-
 <iframe src="https://embed.plnkr.co/uz7glTDWzw8D2UiyTXPG/"></iframe>
+
+Notice how the **target event** `(click)` is in parentheses. In Angular 1.x, this would have looked like  `ng-click="changeName()"`.
 
 Class Binding
 ------------------
-Add to it - add and remove class
+Class binding allows you to add or remove classes based on variables or expressions. There are two ways to do this:
+
+`[class.class-name]` This is a great way to add or remove a *single class*.<br> 
+`[ngClass]` This directive is prefered when you need to add or remove *multiple classes*. 
+
+Here are two examples illustrating each of the methods.
+
+{% highlight html %}
+{% raw %}<h1 [class.awesome]="isHoussein()">{{firstname}}</h1>{% endraw %}
+Name: <input type="text" [(ngModel)]="firstname">
+<button (click)="changeName()">Change Name</button>
+{% endhighlight %}
+
+{% highlight javascript %}
+export class MyApp {
+  firstname: string = 'Jimmy';
+  
+  changeName () {
+    this.firstname = 'Houssein';
+  }
+  
+  isHoussein() {
+    return this.firstname === 'Houssein';
+  }
+}
+{% endhighlight %}
+
+<iframe src="https://embed.plnkr.co/BEwduasMI8xotkJKRUsN/"></iframe>
+
+`[class.awesome]` binds to the specific *awesome* class when the template expression, `isHoussein()`, is truthy. As you can see from the function, this happens when `firstname` is Houssein. Try changing the name through the input field or by clicking the button.
+
+Now let's see how it would like if we wanted to add multiple classes.  
 
 Style Binding
 ------------------
