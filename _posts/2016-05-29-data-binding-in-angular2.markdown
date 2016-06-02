@@ -11,12 +11,10 @@ comments: true
 type: post
 ---
 
-In Angular, data binding describes the **synchronization between model and view**.
+In Angular, data binding describes the **synchronization between model and view**. This is 
 
-One-way Binding
+Property Binding
 ------------------
-One way binding - Angular 1
-Propery binding - Angular 2
 
 Two-way Data Binding
 ------------------
@@ -28,40 +26,48 @@ Two-way data binding explains how the view updates when the model changes **and 
 [Source: AngularJS Developer Guide - Data Binding](https://docs.angularjs.org/guide/databinding)
 {: two way}
 
-In Angular 1.x
-------------------
-Lets look at a simple example of how this works in Angular 1.3.
+Lets look at a simple example of how this works.
 
 {% highlight html %}
-<html ng-app="myApp">
-  <body ng-controller="appCtrl as vm">
-  {% raw %}  <h1>{{vm.firstname}}</h1>{% endraw %}
-    Name: <input ng-model="vm.firstname">
-  </body>
-</html>
-
-<script>
-var appCtrl = function(){
-  var vm = this;
-  vm.firstname = 'Jimmy';
-};
-
-angular.module('myApp', []).controller('appCtrl', appCtrl);
-</script>
+{% raw %}<h1>{{firstname}}</h1>{% endraw %}
+Name: <input type="text" [(ngModel)]="firstname">
 {% endhighlight %}
 
-<iframe src="https://embed.plnkr.co/vCkXc3qlrIupUBkvKUxn/"></iframe>
+{% highlight javascript %}
+export class MyApp {
+  firstname: string = 'Jimmy';
+}
+{% endhighlight %}
 
-As you can see, the *ng-model* directive is used to bind the input value to a variable. If you change the input value, the binded variable changes as well.
+<iframe src="https://embed.plnkr.co/HpQHJ6ljGFrHy8abCPuh/"></iframe>
 
-In Angular 2
-------------------
+We can see that the HTML is extremely similar to what you would see in Angular 1.x. However, the two way binding syntax, `[(ngModel)]`, is slightly different. 
+
+Just as you would expect, changing the input value changes the interpolation automatically which is evidence that the value is flowing to the model and vice-versa.
 
 Event Binding
 ------------------
-Add to it
-ng-click - Angular 1
-(click) - Angular 2
+Now let's add a click event to make things a little more exciting.
+
+{% highlight html %}
+{% raw %}<h1>{{firstname}}</h1>{% endraw %}
+Name: <input type="text" [(ngModel)]="firstname">
+<button (click)="changeName()">Change Name</button>
+{% endhighlight %}
+
+{% highlight javascript %}
+export class MyApp {
+  firstname: string = 'Jimmy';
+  
+  changeName () {
+    this.firstname = 'Houssein';
+  }
+}
+{% endhighlight %}
+
+Notice how the *target event*, `(click)` is in parentheses. In Angular 1.x, this would have looked like  `ng
+
+<iframe src="https://embed.plnkr.co/uz7glTDWzw8D2UiyTXPG/"></iframe>
 
 Class Binding
 ------------------
