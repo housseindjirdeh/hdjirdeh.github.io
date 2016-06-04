@@ -59,7 +59,7 @@ Name: <input type="text" [(ngModel)]="firstname">
 export class MyApp {
   firstname: string = 'Jimmy';
   
-  changeName () {
+  changeName() {
     this.firstname = 'Houssein';
   }
 }
@@ -88,7 +88,7 @@ Name: <input type="text" [(ngModel)]="firstname">
 export class MyApp {
   firstname: string = 'Jimmy';
   
-  changeName () {
+  changeName() {
     this.firstname = 'Houssein';
   }
   
@@ -97,6 +97,22 @@ export class MyApp {
   }
 }
 {% endhighlight %}
+
+<pre>
+<code class="language-typescript">
+export class MyApp {
+  firstname: string = 'Jimmy';
+  
+  changeName() {
+    this.firstname = 'Houssein';
+  }
+  
+  isHoussein() {
+    return this.firstname === 'Houssein';
+  }
+}
+</code>
+</pre>
 
 <iframe src="https://embed.plnkr.co/BEwduasMI8xotkJKRUsN/"></iframe>
 
