@@ -129,7 +129,7 @@
     }
 
     ul.page-link {
-        font-family: "Domine", Serif;
+        font-family: "Open Sans", Serif;
         padding: 0 5px;
         color: #333332;
         line-height: 1.5;
@@ -404,11 +404,7 @@
     display: block;
     font-size: $head-font-size;
     line-height: 56px;
-}
-.post-title {
-    display: block;
-    font-size: $post-font-size;
-    line-height: 56px;
+    letter-spacing: 0.5px;
 }
 .post-divider {
     margin-top: 60px;
@@ -425,10 +421,13 @@
     margin-bottom: $spacing-unit;
 }
 .post-title {
-    font-size: 42px;
-    letter-spacing: -1px;
-    line-height: 56px;
+    display: block;
+    font-size: 56px;
+    line-height: 76px;
     @include media-query($on-laptop) {
+        font-size: 46px;
+    }
+    @include media-query($on-palm) {
         font-size: 34px;
     }
 }
@@ -658,19 +657,14 @@
 
 @media only screen and (max-width: 900px) {
     .post-nav {
-        padding: 15px;
+        padding: 35px 15px 0;
+        margin-bottom: 20px;
     }
 }
 
 @media only screen and (max-width: 500px) {
-    .post-nav {
-        padding: 0;
-        margin-bottom: 2rem;
-        border-bottom: #e0e4e7 1px solid;
-    }
-
     .title-header {
-        width: auto;
+        width: 100%;
     }
 
     .hover-feature span {
