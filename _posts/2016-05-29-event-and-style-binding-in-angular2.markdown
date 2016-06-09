@@ -231,7 +231,7 @@ export class App {
       awesome: this.isHoussein(),
       move: this.isDaniel(),
       italic: this.isHoussein() || this.isDaniel(),
-    }
+    };
     return classes;
   }
 }
