@@ -228,9 +228,9 @@ export class App {
 
   setClasses() {
     let classes =  {
-      awesome: this.isHoussein();
-      move: this.isDaniel();
-      italic: this.isHoussein() || this.isDaniel();
+      awesome: this.isHoussein(),
+      move: this.isDaniel(),
+      italic: this.isHoussein() || this.isDaniel(),
     }
     return classes;
   }
