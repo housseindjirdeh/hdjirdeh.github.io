@@ -5,8 +5,11 @@
  */
 .site-header {
     min-height: 100%;
-    // Positioning context for the mobile navigation icon
     position: relative;
+
+    @include media-query($on-palm) {
+        display: none;
+    }
 }
 .title-header {
     font-family: $fancy-font-family;
@@ -96,20 +99,22 @@
     }
 
     @include media-query($on-palm) {
-        font-size: 32px;
+        font-size: 36px;
         top: 55%;
     }
 
     p {
+        font-family: $base-font-family;
         letter-spacing: 3px;
         font-size: 22px;
+        padding: 0 20px;
 
         @include media-query($on-laptop) {
             font-size: 16px;
         }
 
         @include media-query($on-palm) {
-            font-size: 14px;
+            font-size: 16px;
         }
     }
 
@@ -402,9 +407,17 @@
 }
 .post-link {
     display: block;
-    font-size: $head-font-size;
-    line-height: 56px;
+    font-size: 56px;
+    line-height: 86px;
     letter-spacing: 0.5px;
+    @include media-query($on-laptop) {
+        font-size: 46px;
+        line-height: 76px;
+    }
+    @include media-query($on-palm) {
+        font-size: 42px;
+        line-height: 66px;
+    }
 }
 .post-divider {
     margin-top: 60px;
@@ -423,12 +436,15 @@
 .post-title {
     display: block;
     font-size: 56px;
-    line-height: 76px;
+    line-height: 86px;
+    letter-spacing: 0.5px;
     @include media-query($on-laptop) {
         font-size: 46px;
+        line-height: 76px;
     }
     @include media-query($on-palm) {
-        font-size: 34px;
+        font-size: 42px;
+        line-height: 66px;
     }
 }
 .post-content {
@@ -442,9 +458,11 @@
     }
     h2 {
         margin-top: 1.2*$spacing-unit;
-        font-size: 28px;
+        padding-top: 1.2*$spacing-unit;
+        border-top: $border-grey-color 1px solid;
+        font-size: 34px;
         @include media-query($on-laptop) {
-            font-size: 22px;
+            font-size: 26px;
         }
     }
     h3 {
@@ -536,7 +554,7 @@
 .post-tags {
     font: 600 20px 'Open Sans',Serif;
     color: #D5D5D5;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .post-tags a {
@@ -637,6 +655,10 @@
     padding: 35px 40px 0;
 }
 
+.menu {
+    float: right;
+}
+
 @media only screen and (max-width: 1400px) {
     .post, .home {
         margin: 0;
@@ -655,6 +677,43 @@
     }
 }
 
+.subscribe-button {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 38px;
+    padding: 0 20px;
+    border: transparent 1px solid;
+    color: #9EABB3;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 35px;
+    white-space: nowrap;
+    border-radius: 3px;
+    transition: all ease 0.3s;
+}
+.subscribe-button:before {
+    font-size: 9px;
+    margin-right: 6px;
+}
+
+.subscribe-button:hover {
+    border-color: #bfc8cd;
+    color: #9EABB3;
+    text-decoration: none;
+}
+
+.project-link {
+    padding-top: 20px;
+    color: $grey-color;
+
+    &:hover {
+        color: $grey-color-dark;
+    };
+}
+
 @media only screen and (max-width: 900px) {
     .post-nav {
         padding: 35px 15px 0;
@@ -664,7 +723,20 @@
 
 @media only screen and (max-width: 500px) {
     .title-header {
+        font-size: 32px;
         width: 100%;
+        margin: 30px 0;
+        text-align: center;
+    }
+
+    .menu {
+        float: none;
+        padding: 40px 0;
+        border-bottom: $border-grey-color 1px solid;
+    }
+
+    .subscribe-button {
+        padding: 0 10px;
     }
 
     .hover-feature span {
@@ -685,70 +757,6 @@
         -moz-transform: none;
         transform: none;
     }
-}
-
-.project-link {
-    padding-top: 20px;
-    color: $grey-color;
-
-    &:hover {
-        color: $grey-color-dark;
-    };
-}
-
-.back-button {
-    /* -webkit-box-sizing: border-box; */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    display: inline-block;
-    float: left;
-    height: 38px;
-    padding: 0 15px 0 10px;
-    border: transparent 1px solid;
-    color: #9EABB3;
-    text-align: center;
-    font-size: 12px;
-    text-transform: uppercase;
-    line-height: 35px;
-    border-radius: 3px;
-    transition: all ease 0.3s;
-}
-.back-button:before {
-    position: relative;
-    bottom: -2px;
-    font-size: 13px;
-    line-height: 0;
-    margin-right: 8px;
-}
-
-.subscribe-button {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    display: inline-block;
-    float: right;
-    height: 38px;
-    padding: 0 20px;
-    border: transparent 1px solid;
-    color: #9EABB3;
-    text-align: center;
-    font-size: 12px;
-    text-transform: uppercase;
-    line-height: 35px;
-    white-space: nowrap;
-    border-radius: 3px;
-    transition: all ease 0.3s;
-}
-.subscribe-button:before {
-    font-size: 9px;
-    margin-right: 6px;
-}
-
-.back-button:hover,
-.subscribe-button:hover {
-    border-color: #bfc8cd;
-    color: #9EABB3;
-    text-decoration: none;
 }
 
 /*Utilites*/
