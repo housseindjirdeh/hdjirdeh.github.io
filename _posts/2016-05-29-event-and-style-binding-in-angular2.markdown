@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Event and style binding in Angular 2"
+title:  "event and style binding in angular 2"
 date:   2016-05-29 7:13:00 -0400
 categories: javascript angular2
 description: Angular 2 introduces new template syntax and directives that allow us to manipulate data in our applications. In this post, I begin with a brief introduction on data and event binding then dive right in to using style and class binding as well as directives to dynamically apply CSS and CSS classes...
