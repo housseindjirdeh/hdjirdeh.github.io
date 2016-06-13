@@ -162,12 +162,16 @@ a.post-link {
  * Blockquotes
  */
 blockquote {
-    color: $grey-color;
+    color: $grey-color-dark;
     border-left: 4px solid $grey-color-light;
     padding-left: $spacing-unit / 2;
     font-size: 18px;
     letter-spacing: -1px;
     font-style: italic;
+
+    footer {
+        color: $text-color;
+    }
 
     > :last-child {
         margin-bottom: 0;

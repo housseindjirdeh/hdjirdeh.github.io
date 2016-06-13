@@ -16,7 +16,7 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 
 Flux
 ------------------
-Flux is simply an architectural pattern to build user interfaces. It's not a different framework or library, it's a design pattern that changes how we can build client side applications. Let's look at it's basic principles.
+Flux is simply an architectural pattern to build user interfaces. It's not a framework or library, it's a design pattern that changes how we can build client side applications. Let's look at it's basic principles.
 
 1) Everything that changes in your application is contained in a single JavaScript object, known as the **store**. <br>
 2) The store acts as the container for the application **state**.<br>
@@ -30,7 +30,7 @@ Flux is simply an architectural pattern to build user interfaces. It's not a dif
 [Source: Flux Documentation - Structure and Data Flow](https://facebook.github.io/flux/docs/overview.html#structure-and-data-flow)
 {: flux architecture}
 
-If you haven't noticed already, the main premise of Flux is it's unidirectional data flow. Actions are sent to a dispatcher (the central hub) which then reports it to the store. This then creates a newer version of the state which gets rendered in the view. This is a simple explanation of Flux but it covers all the main points of the pattern.
+If you haven't noticed already, the main premise of Flux is it's **unidirectional data flow**. Actions are sent to a dispatcher (the central hub) which then reports it to the store. This then creates a newer version of the state which gets rendered in the view. This is a simple explanation of Flux but it covers all the main points of the pattern.
 
 Redux
 ------------------
@@ -41,7 +41,9 @@ Redux is an implementation of Flux created by [Dan Abramov](https://medium.com/@
   <footer>Dan Abramov</footer>
 </blockquote>
 
-One of the main differences of Redux is that there is only a single store that actions are dispatched to directly. 
+One of the main differences of Redux is that there is only a single store that actions are dispatched to directly, where in Flux, multiple stores can compute changes to the state.
+
+Furthermore, the dispatcher logic in Redux is classified
 
 
 
