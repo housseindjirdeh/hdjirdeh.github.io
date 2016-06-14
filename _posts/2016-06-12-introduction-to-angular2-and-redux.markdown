@@ -34,7 +34,7 @@ If you haven't noticed already, the main premise of Flux is it's **unidirectiona
 
 Redux
 ------------------
-Redux is an implementation of Flux created by [Dan Abramov](https://medium.com/@dan_abramov). Although Flux is not a library on it's own, Facebook has created a [Dispatcher library](https://github.com/facebook/flux) in which a Flux application can leverage. Redux follows the same architecture, but aims to make certain abstractions simpler.
+Redux is an implementation of Flux created by [Dan Abramov](https://medium.com/@dan_abramov). Although Flux is not a library on it's own, Facebook has created a [Dispatcher library](https://github.com/facebook/flux) in which a Flux-centered application can leverage. Redux follows the same architecture, but aims to make certain abstractions simpler.
 
 <blockquote>
   <p>Redux preserves all the benefits of Flux (recording and replaying of actions, unidirectional data flow, dependent mutations) and adds new benefits (easy undo-redo, hot reloading) without introducing Dispatcher and store registration.</p>
@@ -43,10 +43,23 @@ Redux is an implementation of Flux created by [Dan Abramov](https://medium.com/@
 
 One of the main differences of Redux is that there is only a single store that actions are dispatched to directly, where in Flux, multiple stores can compute changes to the state.
 
-Furthermore, the dispatcher logic in Redux is classified
+As we mentioned previously, state mutations cannot alter the current state. In Redux, this means that a new JSON object must get returned everytime a mutation occurs. For this to happen, changes to the state need to be triggered through the use of **pure functions**. You may already understand this concept if you are used to functional programming, but a pure function is a function that always returns the same value given the same input. In other words, it cannot modify anything outside of its own scope. This means it can't modify external variables or make calls to a database.
 
+{% highlight javascript %}
+function pureFunction (array) {
+  return array.map(Math.sqrt);
+}
+{% endhighlight %}
 
+{% highlight javascript %}
+function impureFunction (array) {
+  array = array.map(Math.sqrt);
+  return array;
+}
+{% endhighlight %}
 
-
+Shopping Cart Example
+------------------
+To demonstrate how Redux can be used with Angular 2, let's go through a simple shopping cart example. The app will be very simple
 
 You can use any structure for the action, but it must have a type property.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
