@@ -12,7 +12,13 @@ type: post
 ---
 ![angular2 redux]({{ site.url }}/public/angular2-redux.jpg "Angular 2 and Redux"){: .article-image-with-source }
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+If you've been involved with JavaScript development in the past year in any way, then you most definitely heard about the new kid on the block, **Redux**. Popularized with the use of React, some developers claim that it is the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good.
+
+Okay, I got a little carried away there. But seriously, Redux does sort of change the way you can build your applications and this post will explain how exactly. However, a few points on the subject before you dive in;
+
+• Although popularized with the use of React, you can use Redux with any other view library or framework, including Angular 2. <br>
+• Flux is a term you've already probably heard before. React isn't the same thing as Flux, it's an implementation of the Flux system.<br>
+• Redux isn't the only way to build Angular 2 or React applications, neither is it the best way. It's one way to build applications and it can make things easier **under certain circumstances** (which I'll get to later). <br>
 
 Flux
 ------------------
@@ -43,7 +49,7 @@ Redux is an implementation of Flux created by [Dan Abramov](https://medium.com/@
 
 One of the main differences of Redux is that there is only a single store that actions are dispatched to directly, where in Flux, multiple stores can compute changes to the state.
 
-As we mentioned previously, state mutations cannot alter the current state. In Redux, this means that a new JSON object must get returned everytime a mutation occurs. For this to happen, changes to the state need to be triggered through the use of **pure functions**. You may already understand this concept if you are used to functional programming, but a pure function is a function that always returns the same value given the same input. In other words, it cannot modify anything outside of its own scope. This means it can't modify external variables or make calls to a database.
+As we mentioned previously, state mutations cannot alter the current state. In Redux, this means that a new JSON object must get returned everytime a mutation occurs. For this to happen, changes to the state need to be triggered through the use of **pure functions**. A pure function is a function that always returns the same value given the same input. In other words, it cannot modify anything outside of its own scope. This means it can't alter external variables or make calls to a database.
 
 {% highlight javascript %}
 function pureFunction (array) {
@@ -60,6 +66,14 @@ function impureFunction (array) {
 
 Shopping Cart Example
 ------------------
-To demonstrate how Redux can be used with Angular 2, let's go through a simple shopping cart example. The app will be very simple
+To demonstrate how Redux can be used with Angular 2, let's go through a simple shopping cart example step by step. The final application will be simple but will help you grasp the main concepts.
 
+You can find the full code at : 
+
+
+
+
+
+Setting Up
+------------------
 You can use any structure for the action, but it must have a type property.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
