@@ -677,6 +677,14 @@
     }
 }
 
+.site-header .subscribe-button {
+    font-size: 14px;
+}
+
+.post-nav-header .subscribe-button {
+    font-size: 22px;
+}
+
 .subscribe-button {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -687,7 +695,6 @@
     border: transparent 1px solid;
     color: #9EABB3;
     text-align: center;
-    font-size: 12px;
     text-transform: uppercase;
     line-height: 35px;
     white-space: nowrap;
@@ -733,10 +740,6 @@
         float: none;
         padding: 40px 0;
         border-bottom: $border-grey-color 1px solid;
-    }
-
-    .subscribe-button {
-        padding: 0 10px;
     }
 
     .hover-feature span {
