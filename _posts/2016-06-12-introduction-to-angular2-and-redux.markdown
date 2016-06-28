@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "building angular 2 applications with redux"
+title:  "building angular 2 applications with immutable.js and redux"
 date:   2016-06-12 7:13:00 -0400
 categories: redux angular2
 description: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries...
@@ -72,14 +72,14 @@ You can find the full code at :
 
 Getting Started
 ------------------
-Let's build a simple version of the application with purely just Angular elements.
+Let's build a simple version of the application with purely Angular elements. Let's start with a store file to handle the logic of our application.
 
 {% highlight javascript %}
 // Contact Store
 
 export class Contact {
   name: String;
-  star: boolean = false; 
+  star: boolean;
 }
 
 export class ContactStore {
@@ -91,7 +91,8 @@ export class ContactStore {
 
   addContact(newContact: String) {
     this.contacts.push({
-      name: newContact
+      name: newContact,
+      star: false
     });
   }
 
@@ -107,6 +108,10 @@ export class ContactStore {
 }
 {% endhighlight %}
 
+This is very similar to how we would set up a service in our application, however I wanted to mimick the store logic found in Flux applications. The `ContactStore` controls the *state* of the application where we have methods to add, remove and favourite contacts.
+
+Now let's take a look at the component.
+
 {% highlight javascript %}
 // Contact List Component
 
@@ -120,11 +125,7 @@ import { ContactStore } from './contact-store';
 })
 
 export class ContactList {
-  store: ContactStore;
-
-  constructor(store: ContactStore) {
-    this.store = store;
-  }
+  constructor(private store: ContactStore) { }
 
   addContact(contact) {
     this.store.addContact(contact);
@@ -138,41 +139,21 @@ export class ContactList {
     this.store.starContact(contact);
   }
 
-  isFavourited(contact: Contact) {
+  isFavourited(contact) {
     const index = this.store.contacts.indexOf(contact);
     return this.store.contacts[index].star === true;
   }
 }
 {% endhighlight %}
 
-{% highlight html %}
-<!-- Markup -->
+In here, we have a constructor that defines a private `store` property and identifies it as a `ContactStore` injection site.
 
-<div id="container">
-	<header>
-		<div class="user">
-			<img src="http://hdjirdeh.github.io/public/me.jpg">
-		</div>
-		<div class="heading-user">
-			<strong>Houssein Djirdeh</strong>
-			<br/>
-			<small>@hdjirdeh</small>
-		</div>
-	</header>
-	<input #newContact class="add-contact" placeholder="Add Contact"
-	      (keyup.enter)="addContact(newContact.value); newContact.value='' ">
-	<ul class="contact-list">
-	  <li *ngFor="let contact of store.contacts">
-	  	<i class="fa fa-user fa-2x contact-icon"></i>
-	    <div class="contact-info">
-	    	<h3 class="heading--name">{{ contact.name }}</h3>
-	    	<div class="contact-item"><i class="fa fa-phone"></i> 647-XXX-XXXX</div>
-	    </div>
-	    <button class="contact-action" (click)="starContact(contact)"><i class="fa fa-2x" [class.fa-star]="isFavourited(contact)" [class.fa-star-o]="!isFavourited(contact)"></i></button>
-	    <button class="contact-action" (click)="removeContact(contact)"><i class="fa fa-trash fa-2x"></i></button>
-	  </li>
-	</ul>
-</div>
-{% endhighlight %}
+So far we've built something simple which works, so that's a good start :).
 
-You can use any structure for the action, but it must have a type property.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+The case for Immutability 
+------------------
+In Angular 2, each and every component has it's own **change detector** responsible for bindings in their own template. For example, we have the `{% raw %}{{ contact.name }}{% endraw %}` binding for which the `ContactList` component's change detector is responsible for. In other words, the change detection behind`ContactList` projects the data for `contact.name` as well as **it's change.**  
+
+So what really happens when an event is triggered? Angular will check every single component because the application state may have changed. But isn't the state of the component dependent on the input properties (i.e. state changes occur when the user adds/removes/favourites a contact)? Now wouldn't it be cool to tell Angular to run change detection on a component only if one of it's input properties change as opposed to every time an event happens?
+
+Well we can! One way is by using **Immutable objects**. By doing so, we're guaranteeing that these objects cannot change. If we wanted to modify them, we'll create a new referenced object with that change and keep the original intact.
