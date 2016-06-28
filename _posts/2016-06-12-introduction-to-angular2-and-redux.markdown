@@ -12,13 +12,13 @@ type: post
 ---
 ![angular2 redux]({{ site.url }}/public/angular2-redux.jpg "Angular 2 and Redux"){: .article-image-with-source }
 
-If you've been involved with JavaScript development in the past year in any way, then you most definitely heard about the new kid on the block, **Redux**. Popularized with the use of React, some developers claim that it is the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good.
+If you've done any JavaScript development in the past year, then you've probably already heard of the hot kid on the block, **Redux**. Popularized with the use of React, some developers claim that it is the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good.
 
-Okay, I got a little carried away there. But seriously, Redux does sort of change the way you can build your applications and this post will explain how exactly. However, a few points on the subject before you dive in;
+Okay, I got a little carried away there. But seriously, Redux does sort of change the way you can build your applications and this post will explain how. However, a few points on the subject before you dive in;
 
-• Although popularized with the use of React, you can use Redux with any other view library or framework, including Angular 2. <br>
-• Flux is a term you've already probably heard before. React isn't the same thing as Flux, it's an implementation of the Flux system.<br>
-• Redux isn't the only way to build Angular 2 or React applications, neither is it the best way. It's one way to build applications and it can make things easier **under certain circumstances** (which I'll get to later). <br>
+• Although popularized with the use of React, you can use Redux with any other view library or framework, including Angular. <br>
+• Flux is a term you've already probably heard before. React isn't the same thing as Flux, it's an implementation of Flux.<br>
+• Redux isn't the only way to build Angular applications, neither is it the best way. It's one way and it can make things easier under certain circumstances (which I'll get to later). <br>
 
 Flux
 ------------------
@@ -64,16 +64,115 @@ function impureFunction (array) {
 }
 {% endhighlight %}
 
-Shopping Cart Example
+Contact List Example
 ------------------
-To demonstrate how Redux can be used with Angular 2, let's go through a simple shopping cart example step by step. The final application will be simple but will help you grasp the main concepts.
+To demonstrate how Redux can be used with Angular 2, let's go through a simple contact list example step by step. The final application will not be complicated but will hopefully be enough for you to grasp the main concepts.
 
 You can find the full code at : 
 
-
-
-
-
-Setting Up
+Getting Started
 ------------------
+Let's build a simple version of the application with purely just Angular elements.
+
+{% highlight javascript %}
+// Contact Store
+
+export class Contact {
+  name: String;
+  star: boolean = false; 
+}
+
+export class ContactStore {
+  contacts: Contact[];
+
+  constructor() {
+    this.contacts = [];
+  }
+
+  addContact(newContact: String) {
+    this.contacts.push({
+      name: newContact
+    });
+  }
+
+  removeContact(contact: Contact) {
+    const index = this.contacts.indexOf(contact);
+    this.contacts.splice(index, 1);
+  }
+
+  starContact(contact: Contact) {
+    const index = this.contacts.indexOf(contact);
+    this.contacts[index].star = !this.contacts[index].star;
+  }
+}
+{% endhighlight %}
+
+{% highlight javascript %}
+// Contact List Component
+
+import { Component } from '@angular/core';
+import { ContactStore } from './contact-store';
+
+@Component({
+  selector: 'contact-list',
+  templateUrl: 'app/contact-list.html',
+  styleUrls: ['app/contact-list.css'],
+})
+
+export class ContactList {
+  store: ContactStore;
+
+  constructor(store: ContactStore) {
+    this.store = store;
+  }
+
+  addContact(contact) {
+    this.store.addContact(contact);
+  }
+
+  removeContact(contact) {
+    this.store.removeContact(contact);
+  }
+
+  starContact(contact) {
+    this.store.starContact(contact);
+  }
+
+  isFavourited(contact: Contact) {
+    const index = this.store.contacts.indexOf(contact);
+    return this.store.contacts[index].star === true;
+  }
+}
+{% endhighlight %}
+
+{% highlight html %}
+<!-- Markup -->
+
+<div id="container">
+	<header>
+		<div class="user">
+			<img src="http://hdjirdeh.github.io/public/me.jpg">
+		</div>
+		<div class="heading-user">
+			<strong>Houssein Djirdeh</strong>
+			<br/>
+			<small>@hdjirdeh</small>
+		</div>
+	</header>
+	<input #newContact class="add-contact" placeholder="Add Contact"
+	      (keyup.enter)="addContact(newContact.value); newContact.value='' ">
+	<ul class="contact-list">
+	  <li *ngFor="let contact of store.contacts">
+	  	<i class="fa fa-user fa-2x contact-icon"></i>
+	    <div class="contact-info">
+	    	<h3 class="heading--name">{{ contact.name }}</h3>
+	    	<div class="contact-item"><i class="fa fa-phone"></i> 647-XXX-XXXX</div>
+	    </div>
+	    <button class="contact-action" (click)="starContact(contact)"><i class="fa fa-2x" [class.fa-star]="isFavourited(contact)" [class.fa-star-o]="!isFavourited(contact)"></i></button>
+	    <button class="contact-action" (click)="removeContact(contact)"><i class="fa fa-trash fa-2x"></i></button>
+	  </li>
+	</ul>
+</div>
+{% endhighlight %}
+
 You can use any structure for the action, but it must have a type property.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
