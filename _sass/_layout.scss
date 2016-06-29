@@ -99,8 +99,9 @@
     }
 
     @include media-query($on-palm) {
-        font-size: 36px;
-        top: 55%;
+        font-size: 32px;
+        text-align: left;
+        padding: 0 20px;
     }
 
     p {
@@ -114,7 +115,8 @@
         }
 
         @include media-query($on-palm) {
-            font-size: 16px;
+            font-size: 14px;
+            padding: 0;
         }
     }
 
@@ -130,6 +132,10 @@
                 border: none;
                 color: $brand-alternate-color;
             }
+        }
+
+        @include media-query($on-palm) {
+            display: none;
         }
     }
 
@@ -149,7 +155,7 @@
         }
 
         @include media-query($on-palm) {
-            padding-top: 10px;
+            padding: 20px 0;
             margin: 0;
         }
 
@@ -158,7 +164,8 @@
             padding: 20px;
 
             @include media-query($on-palm) {
-                display: list-item;
+                padding: 0;
+                margin-right: 14px;
             }
         }
         // Gaps between nav items, but not on the last one
@@ -229,6 +236,7 @@
     position: relative;
     padding: 60px 0 0 0;
     border-top: $border-grey-color 1px solid;
+    margin-bottom: 30px;
 
     h4 {
         font-family: $fancy-font-family;
@@ -251,7 +259,7 @@
         text-align: center;
         .author-meta {
             padding: 0;
-            margin: 20px 0 40px;
+            margin: 20px 0;
             list-style: none;
             line-height: 1;
             font-style: italic;
@@ -659,7 +667,7 @@
     float: right;
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1600px) {
     .post, .home {
         margin: 0;
     }
@@ -677,14 +685,6 @@
     }
 }
 
-.site-header .subscribe-button {
-    font-size: 14px;
-}
-
-.post-nav-header .subscribe-button {
-    font-size: 22px;
-}
-
 .subscribe-button {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -700,6 +700,7 @@
     white-space: nowrap;
     border-radius: 3px;
     transition: all ease 0.3s;
+    font-size: 14px;
 }
 .subscribe-button:before {
     font-size: 9px;
@@ -760,6 +761,12 @@
         -moz-transform: none;
         transform: none;
     }
+}
+
+.code-embed {
+    width: 100%;
+    min-height: 250px;
+    border-radius: 5px;
 }
 
 /*Utilites*/

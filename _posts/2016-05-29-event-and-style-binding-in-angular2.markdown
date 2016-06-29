@@ -46,7 +46,7 @@ export class MyApp {
 }
 {% endhighlight %}
 
-<iframe src="https://embed.plnkr.co/HpQHJ6ljGFrHy8abCPuh/"></iframe>
+<iframe class="code-embed" src="https://embed.plnkr.co/HpQHJ6ljGFrHy8abCPuh/"></iframe>
 
 We can see that the HTML is similar to what you would see in Angular 1.x. However, the two way binding syntax, `[(ngModel)]`, is slightly different. 
 
@@ -72,7 +72,7 @@ export class MyApp {
 }
 {% endhighlight %}
 
-<iframe src="https://embed.plnkr.co/uz7glTDWzw8D2UiyTXPG/"></iframe>
+<iframe class="code-embed" src="https://embed.plnkr.co/uz7glTDWzw8D2UiyTXPG/"></iframe>
 
 The syntax is simple. The **target event** `(click)` is in parentheses and the response to the event `changeName()` is to the right of it. The notation of having events within parentheses is new in Angular 2, where in Angular 1.x this would have looked like  `ng-click="changeName()"`.
 
@@ -100,7 +100,7 @@ export class MyApp {
 }
 {% endhighlight %}
 
-<iframe src="http://embed.plnkr.co/Z3owwZ7QmBAa52maGwCR/"></iframe>
+<iframe class="code-embed" src="http://embed.plnkr.co/Z3owwZ7QmBAa52maGwCR/"></iframe>
 
 Again, the syntax is straightforward where `style` is preceded by the name of a CSS style property: `[style.color]`. In this example, the color style property binds to the template expression, `isHoussein()`. Try changing the name to *Houssein* through the input field or by clicking the button.
 
@@ -140,7 +140,7 @@ export class App {
 }
 {% endhighlight %}
 
-<iframe src="http://embed.plnkr.co/gnp3hK0wPweSCHHUthWF/"></iframe>
+<iframe class="code-embed" src="http://embed.plnkr.co/gnp3hK0wPweSCHHUthWF/"></iframe>
 
 Class Binding
 ------------------
@@ -174,7 +174,7 @@ export class MyApp {
 }
 {% endhighlight %}
 
-<iframe src="https://embed.plnkr.co/BEwduasMI8xotkJKRUsN/"></iframe>
+<iframe class="code-embed" src="https://embed.plnkr.co/BEwduasMI8xotkJKRUsN/"></iframe>
 
 As you can see, `[class.awesome]` binds to the specific `.awesome` class when the template expression, `isHoussein()`, is truthy.
 
@@ -237,7 +237,7 @@ export class App {
 }
 {% endhighlight %}
 
-<iframe src="https://embed.plnkr.co/TgDG2YCvG53XcOTzJ6VX/"></iframe>
+<iframe class="code-embed" src="https://embed.plnkr.co/TgDG2YCvG53XcOTzJ6VX/"></iframe>
 
 Wrapping things up
 ------------------

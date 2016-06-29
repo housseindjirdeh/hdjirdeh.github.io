@@ -12,13 +12,15 @@ type: post
 ---
 ![angular2 redux]({{ site.url }}/public/angular2-redux.jpg "Angular 2 and Redux"){: .article-image-with-source }
 
-If you've done any JavaScript development in the past year, then you've probably already heard of the hot kid on the block, **Redux**. Popularized with the use of React, some developers claim that it is the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good.
+If you've done any JavaScript development in the past year, then you've probably already heard of [Redux](http://redux.js.org/). Popularized with the use of React, some developers claim that it's the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good.
 
-Okay, I got a little carried away there. But seriously, Redux does sort of change the way you can build your applications and this post will explain how. However, a few points on the subject before you dive in;
+Okay, I got a little carried away there. But seriously, Redux does sort of change the way you can build your applications, and this post will explain how you can integrate it into your Angular 2 applications alongisde another library, [Immutable.js](https://facebook.github.io/immutable-js/).
 
-• Although popularized with the use of React, you can use Redux with any other view library or framework, including Angular. <br>
-• Flux is a term you've already probably heard before. React isn't the same thing as Flux, it's an implementation of Flux.<br>
-• Redux isn't the only way to build Angular applications, neither is it the best way. It's one way and it can make things easier under certain circumstances (which I'll get to later). <br>
+The breakdown
+------------------
+In this post, we will go over the basic concepts of the Flux architecture and the Redux state container. We'll then go over a simple contact list example step by step. The final application will not be complicated but will hopefully be enough for you to grasp the main concepts.
+
+![angular2 redux]({{ site.url }}/public/contact-list.gif "Contact Link Example"){: .article-image }
 
 Flux
 ------------------
@@ -148,12 +150,22 @@ export class ContactList {
 
 In here, we have a constructor that defines a private `store` property and identifies it as a `ContactStore` injection site.
 
-So far we've built something simple which works, so that's a good start :).
+So far we've built something simple which works, so that's a good start. The source code for this can be found here.
 
 The case for Immutability 
 ------------------
-In Angular 2, each and every component has it's own **change detector** responsible for bindings in their own template. For example, we have the `{% raw %}{{ contact.name }}{% endraw %}` binding for which the `ContactList` component's change detector is responsible for. In other words, the change detection behind`ContactList` projects the data for `contact.name` as well as **it's change.**  
+In Angular 2, each and every component has it's own **change detector** responsible for bindings in their own template. For example, we have the `{% raw %}{{ contact.name }}{% endraw %}` binding for which the `ContactList` component is responsible for. In other words, the change detection behind`ContactList` projects the data for `contact.name` as well as **it's change.**  
 
 So what really happens when an event is triggered? Angular will check every single component because the application state may have changed. But isn't the state of the component dependent on the input properties (i.e. state changes occur when the user adds/removes/favourites a contact)? Now wouldn't it be cool to tell Angular to run change detection on a component only if one of it's input properties change as opposed to every time an event happens?
 
 Well we can! One way is by using **Immutable objects**. By doing so, we're guaranteeing that these objects cannot change. If we wanted to modify them, we'll create a new referenced object with that change and keep the original intact.
+
+
+
+
+
+and this post will explain how. However, a few points on the subject before you dive in;
+
+• Although popularized with the use of React, you can use Redux with any other view library or framework, including Angular. <br>
+• Flux is a term you've already probably heard before. React isn't the same thing as Flux, it's an implementation of Flux.<br>
+• Redux isn't the only way to build Angular applications, neither is it the best way. It's one way and it can make things easier under certain circumstances (which I'll get to later). <br>
