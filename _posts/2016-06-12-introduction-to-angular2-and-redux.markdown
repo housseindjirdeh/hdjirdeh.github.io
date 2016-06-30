@@ -540,4 +540,4 @@ Dan Abramov has an absolutely excellent course on egghead.io, [Getting Started w
 Redux and Angular 2
 ------------------
 
-Scott Logic goes into some serious detail on integrating Redux with state persistence and time travel, [Angular 2 Time Travel with Redux](http://blog.scottlogic.com/2016/01/25/angular2-time-travel-with-redux.html)
+Colin Eberhardt goes into some nice detail on integrating Redux with state persistence and time travel, [Angular 2 Time Travel with Redux](http://blog.scottlogic.com/2016/01/25/angular2-time-travel-with-redux.html)
