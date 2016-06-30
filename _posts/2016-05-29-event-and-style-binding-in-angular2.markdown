@@ -14,7 +14,7 @@ type: post
 Angular 2 introduces new template syntax and directives that allow us to manipulate data in our applications. In this post, I begin with a brief introduction on data and event binding then dive right in to using style and class binding as well as directives to dynamically apply CSS and CSS classes.
 
 One-way data binding
-------------------
+==================
 In Angular, data binding describes the **synchronization between model and view**. To explain this simply, assume we have a simple expression in our template.
 
 {% highlight html %}
@@ -24,7 +24,7 @@ In Angular, data binding describes the **synchronization between model and view*
 Whenever the expression `{% raw %}{{firstname}}{% endraw %}` changes, we want the DOM to update. The processes that trigger this instant update of the DOM is known as **data binding** and **one-way** refers to the directional flow of data from model to view.
 
 Two-way data binding
-------------------
+==================
 Two-way data binding explains how the view updates when the model changes **and vice-versa**. This happens immediately which means that the model and view are always in-sync. In other words, you can think of the view as an instant projection of the model.
 
 ![two way]({{ site.url }}/public/two_way_data_binding.png "Two Way Data Binding"){: .article-image-with-source }
@@ -53,7 +53,7 @@ We can see that the HTML is similar to what you would see in Angular 1.x. Howeve
 Just as you would expect, changing the input value changes the interpolation `{% raw %}{{firstname}}{% endraw %}` which is evidence that the value is flowing to the model and vice-versa.
 
 Event Binding
-------------------
+==================
 Now let's add a click event to make things a little more exciting.
 
 {% highlight html %}
@@ -77,7 +77,7 @@ export class MyApp {
 The syntax is simple. The **target event** `(click)` is in parentheses and the response to the event `changeName()` is to the right of it. The notation of having events within parentheses is new in Angular 2, where in Angular 1.x this would have looked like  `ng-click="changeName()"`.
 
 Style Binding
-------------------
+==================
 Angular 2 allows us to conditionally add styles to an element with a few different ways, and one of them is by **style binding**.
 
 {% highlight html %}
@@ -143,7 +143,7 @@ export class App {
 <iframe class="code-embed" src="http://embed.plnkr.co/gnp3hK0wPweSCHHUthWF/"></iframe>
 
 Class Binding
-------------------
+==================
 Similar to style binding, **class binding** allows you to add or remove classes based on variables or expressions.
 
 Here's an example of adding a conditional-based class.
@@ -240,6 +240,6 @@ export class App {
 <iframe class="code-embed" src="https://embed.plnkr.co/TgDG2YCvG53XcOTzJ6VX/"></iframe>
 
 Wrapping things up
-------------------
+==================
 In this post, I covered the basics of one-way and two-way data binding as well as showed how you can manipulate style properties and classes with a few different ways. Hope it proved useful and stay tuned for my next post on Angular 2 <i class="fa fa-smile-o" aria-hidden="true"></i>
 .
