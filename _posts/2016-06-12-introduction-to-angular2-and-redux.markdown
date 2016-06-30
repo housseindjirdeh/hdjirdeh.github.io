@@ -20,11 +20,11 @@ The breakdown
 ------------------
 In this post, we will go over the basic concepts of the Flux architecture and the Redux state container. We'll then go over a simple contact list example step by step. The final application will not be complicated but will hopefully be enough for you to grasp the main concepts.
 
-![angular2 redux]({{ site.url }}/public/contact-list.gif "Contact Link Example"){: .article-image }
+![contact list]({{ site.url }}/public/contact-list.gif "Contact Link Example"){: .article-image }
 
 Flux
 ------------------
-Flux is simply an architectural pattern to build user interfaces. It's not a framework or library, it's a design pattern that changes how we can build client side applications. Let's look at it's basic principles.
+Flux is simply an architectural pattern to build user interfaces. It's not a framework or library, it's a design pattern that changes how we can build client side applications. Let's look at its basic principles.
 
 1) Everything that changes in your application is contained in a single JavaScript object, known as the **store**. <br>
 2) The store acts as the container for the application **state**.<br>
@@ -38,11 +38,11 @@ Flux is simply an architectural pattern to build user interfaces. It's not a fra
 [Source: Flux Documentation - Structure and Data Flow](https://facebook.github.io/flux/docs/overview.html#structure-and-data-flow)
 {: flux architecture}
 
-If you haven't noticed already, the main premise of Flux is it's **unidirectional data flow**. Actions are sent to a dispatcher (the central hub) which then reports it to the store. This then creates a newer version of the state which gets rendered in the view. This is a simple explanation of Flux but it covers all the main points of the pattern.
+If you haven't noticed already, the main premise of Flux is its **unidirectional data flow**. Actions are sent to a dispatcher (the central hub) which then reports it to the store. This then creates a newer version of the state which gets rendered in the view. This is a simple explanation of Flux but it covers all the main points of the pattern.
 
 Redux
 ------------------
-Redux is an implementation of Flux created by [Dan Abramov](https://medium.com/@dan_abramov). Although Flux is not a library on it's own, Facebook has created a [Dispatcher library](https://github.com/facebook/flux) in which a Flux-centered application can leverage. Redux follows the same architecture, but aims to make certain abstractions simpler.
+Redux is an implementation of Flux created by [Dan Abramov](https://medium.com/@dan_abramov). Although Flux is not a library on its own, Facebook has created a [Dispatcher library](https://github.com/facebook/flux) in which a Flux-centered application can leverage. Redux follows the same architecture, but aims to make certain abstractions simpler.
 
 <blockquote>
   <p>Redux preserves all the benefits of Flux (recording and replaying of actions, unidirectional data flow, dependent mutations) and adds new benefits (easy undo-redo, hot reloading) without introducing Dispatcher and store registration.</p>
@@ -68,13 +68,11 @@ function impureFunction (array) {
 
 Contact List Example
 ------------------
-To demonstrate how Redux can be used with Angular 2, let's go through a simple contact list example step by step. The final application will not be complicated but will hopefully be enough for you to grasp the main concepts.
+Let's build a simple version of the contact list application with purely Angular elements.
 
-You can find the full code at : 
+![contact list basic]({{ site.url }}/public/contact-list.gif "Contact Link Example"){: .article-image }
 
-Getting Started
-------------------
-Let's build a simple version of the application with purely Angular elements. Let's start with a store file to handle the logic of our application.
+We'll start with a contact store to handle the logic of our application.
 
 {% highlight javascript %}
 // Contact Store
@@ -110,7 +108,7 @@ export class ContactStore {
 }
 {% endhighlight %}
 
-This is very similar to how we would set up a service in our application, however I wanted to mimick the store logic found in Flux applications. The `ContactStore` controls the *state* of the application where we have methods to add, remove and favourite contacts.
+This is very similar to how we would set up a service in Angular, however I wanted to mimick the store logic found in Flux applications. The `ContactStore` controls the *state* of the application where we have methods to add, remove and favourite contacts.
 
 Now let's take a look at the component.
 
@@ -140,28 +138,197 @@ export class ContactList {
   starContact(contact) {
     this.store.starContact(contact);
   }
+}
+{% endhighlight %}
 
-  isFavourited(contact) {
-    const index = this.store.contacts.indexOf(contact);
-    return this.store.contacts[index].star === true;
+{% highlight html %}
+<!-- Contact List HTML -->
+
+<input #newContact placeholder="Add Contact" 
+  (keyup.enter)="addContact(newContact.value); newContact.value='' ">
+<ul>
+  <li *ngFor="let contact of store.contacts">
+    {% raw %}{{ contact.name }}{% endraw %}
+    <button (click)="starContact(contact)">
+      <i class="fa fa-2x" 
+        [class.fa-star]="contact.star" 
+        [class.fa-star-o]="!contact.star"></i>
+    </button>
+    <button (click)="removeContact(contact)">
+      <i class="fa fa-trash fa-2x"></i>
+    </button>
+  </li>
+</ul>
+{% endhighlight %}
+
+In here, we have a constructor that defines a private `store` property and identifies it as a `ContactStore` injection site. The input property methods, `addContact`, `removeContact` and `starContact`, all link to their respective methods in the `ContactStore`.
+
+So far we've built something simple which works, so that's a good start. The source code for this can be found [here.](https://github.com/hdjirdeh/angular2-redux-contact-list/tree/basic-setup)
+
+Multiple Components
+------------------
+Since Angular 2 is component based, it makes more sense to have another component for each of the contacts. 
+
+{% highlight javascript %}
+// Contact List Component
+
+import { Component } from '@angular/core';
+import { ContactStore } from './contact-store';
+import Contact from './contact';
+
+@Component({
+  selector: 'contact-list',
+  templateUrl: 'app/contact-list.html',
+  styleUrls: ['app/contact-list.css'],
+  directives: [Contact]
+})
+
+export class ContactList {
+  constructor(private store: ContactStore) { }
+
+  addContact(contact) {
+    this.store.addContact(contact);
   }
 }
 {% endhighlight %}
 
-In here, we have a constructor that defines a private `store` property and identifies it as a `ContactStore` injection site.
+{% highlight html %}
+<!-- Contact List HTML -->
 
-So far we've built something simple which works, so that's a good start. The source code for this can be found here.
+<input #newContact placeholder="Add Contact" 
+  (keyup.enter)="addContact(newContact.value); newContact.value='' ">
+<ul>
+  <li *ngFor="let contact of store.contacts">
+    {% raw %}{{ contact.name }}{% endraw %}
+    <contact [contact]="contact"></contact>
+  </li>
+</ul>
+{% endhighlight %}
 
-The case for Immutability 
+{% highlight javascript %}
+// Contact Component
+
+import { Component, Input } from '@angular/core';
+import { ContactStore, Contact as ContactModel} from './contact-store';
+
+@Component({
+  selector: 'contact',
+  templateUrl: 'app/contact.html',
+  styleUrls: ['app/contact.css'],
+})
+
+export default class Contact {
+  @Input()
+  contact: ContactModel;
+
+  constructor(private store: ContactStore) { }
+
+  removeContact(contact) {
+    this.store.removeContact(contact);
+  }
+
+  starContact(contact) {
+    this.store.starContact(contact);
+  }
+}
+{% endhighlight %}
+
+As you can see, the store instance was injected to both the parent and child components. Things are looking a little cleaner now. The source code for this can be found [here.](https://github.com/hdjirdeh/angular2-redux-contact-list/tree/child-contact-component)
+
+Change Detection
 ------------------
-In Angular 2, each and every component has it's own **change detector** responsible for bindings in their own template. For example, we have the `{% raw %}{{ contact.name }}{% endraw %}` binding for which the `ContactList` component is responsible for. In other words, the change detection behind`ContactList` projects the data for `contact.name` as well as **it's change.**  
+In Angular 2, each and every component has its own **change detector** responsible for bindings in their own template. For example, we now have the `{% raw %}{{ contact.name }}{% endraw %}` binding for which the `Contact` component is responsible for. In other words, the change detection behind `Contact` projects the data for `contact.name` as well as **its change.**  
 
-So what really happens when an event is triggered? Angular will check every single component because the application state may have changed. But isn't the state of the component dependent on the input properties (i.e. state changes occur when the user adds/removes/favourites a contact)? Now wouldn't it be cool to tell Angular to run change detection on a component only if one of it's input properties change as opposed to every time an event happens?
+So what really happens when an event is triggered? In Angular 1.x, when a digest cycle is fired, every binding is triggered in the entire application. Similarly in Angular 2, every single component is checked because the application state may have changed. Now wouldn't it be cool to tell Angular to run change detection on a component only if one of its input properties change as opposed to every time an event happens? We can by using `ChangeDetectionStrategy` on our component level.
 
-Well we can! One way is by using **Immutable objects**. By doing so, we're guaranteeing that these objects cannot change. If we wanted to modify them, we'll create a new referenced object with that change and keep the original intact.
+{% highlight javascript %}
+import {..., ChangeDetectionStrategy} from '@angular/core';
 
+@Component({
+  selector: 'contact',
+  templateUrl: 'app/contact.html',
+  styleUrls: ['app/contact.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+{% endhighlight %}
 
+It's as simple as that! Now the change detection for this component will only fire if changes occur to bindings within the component.
 
+Now does this really matter in a simple application like this? Not really, there aren't that many bindings in the entire application in the first place. But for a larger application, this can help significantly reduce the number of bindings to consider when an event is triggered.
+
+The case for Immutability
+------------------
+To take advantage of this change detection strategy, we need to ensure that the state is indeed immutable. However, the nature of JavaScript objects are by default, mutable. We can solve this by using Immutable.js, a library created by Facebook.
+
+<blockquote>
+  <p>Immutable collections should be treated as values rather than objects. While objects represents some thing which could change over time, a value represents the state of that thing at a particular instance of time.</p>
+  <footer>Immutable.js - The case for Immutability</footer>
+</blockquote>
+
+Simply put, immutable objects are essentially objects that cannot change. If we wanted to modify them, we'll create a new referenced object with that change and keep the original intact. Immutable.js provides a number of immutable data structures so let's see how we can include it into our application.
+
+Firstly, you can install immutable using npm: `npm install immutable`. Once that's complete, you may have to update your SystemJS configuration. If you've set up your application following the Angular 2 Quick Start, then this would be in your `systemjs.config.js` file. You'll just need to add a map field to look for the right file when `immutable` is referenced.
+
+{% highlight javascript %}
+/**
+ * System configuration for Angular 2 samples
+ * Adjust as necessary for your application needs.
+ */
+(function(global) {
+  // map tells the System loader where to look for things
+  var map = {
+    'app':                        'app', // 'dist',
+    '@angular':                   'node_modules/@angular',
+    'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
+    'rxjs':                       'node_modules/rxjs',
+    'immutable':                  'node_modules/immutable/dist/immutable.js'
+  };
+// ...
+{% endhighlight %}
+
+And that's it! Now let's get to updating the `ContactStore`.
+
+{% highlight javascript %}
+// Contact List Component
+
+import Immutable = require('immutable');
+
+export class Contact {
+  name: String;
+  star: boolean;
+}
+
+export class ContactStore {
+  contacts = Immutable.List(Contact);
+
+  addContact(newContact: String) {
+    this.contacts = this.contacts.push({
+      name: newContact,
+      star: false
+    });
+  }
+
+  removeContact(contact: Contact) {
+    const index = this.contacts.indexOf(contact);
+    this.contacts = this.contacts.delete(index);
+  }
+
+  starContact(contact: Contact) {
+    const index = this.contacts.indexOf(contact);
+    this.contacts = this.contacts.update(index, function(contact) {
+      return {
+        name: contact.name,
+        star: !contact.star
+      };
+    });
+  }
+}
+{% endhighlight %}
+
+Here's the [link](https://github.com/hdjirdeh/angular2-redux-contact-list/tree/immutable-store) to the source code.
+
+Including Redux
+------------------
 
 
 and this post will explain how. However, a few points on the subject before you dive in;
