@@ -166,6 +166,10 @@ blockquote {
 
     footer {
         color: $text-color;
+
+        a {
+            letter-spacing: 0.02rem;
+        }
     }
 
     > :last-child {

@@ -214,7 +214,7 @@
     }
 
     a {
-        padding: 5px;
+        padding: 10px;
         color: $grey-color;
 
         &:hover {
@@ -263,7 +263,8 @@
             list-style: none;
             line-height: 1;
             font-style: italic;
-            color: $grey-color;
+            font-weight: bold;
+            color: $grey-color-darker;
             overflow: hidden;
 
             &:hover {
@@ -599,6 +600,10 @@
     font-style: italic;
     margin: 0px;
     text-align: center;
+
+    a {
+        letter-spacing: 0.02rem;
+    }
 }
 
 .author-image {
@@ -684,6 +689,35 @@
     }
 }
 
+.blog-button {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 38px;
+    padding: 0 20px;
+    border: #5badf0 1px solid;
+    background: #5badf0;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 35px;
+    white-space: nowrap;
+    border-radius: 3px;
+    transition: all ease 0.3s;
+    font-size: 14px;
+}
+.blog-button:before {
+    font-size: 9px;
+    margin-right: 6px;
+}
+
+.blog-button:hover {
+    background: #72b9f2;
+    color:#fff;
+    text-decoration: none;
+}
+
 .subscribe-button {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -692,7 +726,7 @@
     height: 38px;
     padding: 0 20px;
     border: transparent 1px solid;
-    color: #9EABB3;
+    color: $grey-color-darker;
     text-align: center;
     text-transform: uppercase;
     line-height: 35px;
@@ -778,6 +812,10 @@
 }
 .clearfix:after {clear: both;}
 .clearfix { *zoom: 1; }
+
+.twitter-share-button {
+    
+}
 
 /*Projects*/
 .projects {
