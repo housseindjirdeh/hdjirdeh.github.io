@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Asynchronous JavaScript: Callbacks"
+title:  "Asynchronous Javascript: Callbacks"
 date:   2016-05-10 18:36:55 -0400
 categories: javascript
 description: Functions in Javascript are treated as first-class objects. This means that they have a type of `Object` and can be referenced like any other first-class object, such as `Date`, `Number`, and `String`. This may seem obvious to you, but it's important to remember that the nature of functions in Javascript are quite different then, for example, methods in Ruby...
@@ -35,7 +35,7 @@ The result might be what you expect.
 `Back at it again!`
 
 Asynchronous JavaScript
-------------------
+==================
 Now let's add a timeout to the first function. 
 
 {% highlight javascript %}
@@ -61,7 +61,7 @@ After a three second delay, this gets outputted:
 Why? Javascript is of **a single threaded nature**. This means it executes one piece of code at a time (each piece of code, or operation, is queued along this single thread). Notice how `functionFirst()` triggers `setTimeout`, which queues an operation to run after a certain delay (in this case, after 3 seconds). The concept of *running after a certain time* is exactly what **asynchronous** means.
 
 Callbacks
-------------------
+==================
 Now, for obvious reasons, we want the text `Back at it again!` to show after `Damn Daniel`. To do so, we can store `functionSecond()` as a **callback**.
 
 {% highlight javascript %}
@@ -107,5 +107,5 @@ fs.readFile('input.txt', function(err, data) {
 Notice the first argument of the call back is reserved for an error object. This is the *error callback convention* that has been standardized to allow for Node's asynchronous nature.
 
 Wrapping things up
-------------------
+==================
 With that, we've covered the basics of callbacks and how they can be used. However, callbacks aren't the only way to handle asynchronous operations in JavaScript. **Promises** are another way, and I'll write about that in my next post about asynchronous JavaScript <i class="fa fa-smile-o" aria-hidden="true"></i>.

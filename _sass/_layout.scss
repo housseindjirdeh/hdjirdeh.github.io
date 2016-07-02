@@ -85,7 +85,7 @@
     font-family: $fancy-font-family;
     letter-spacing: 4px;
     float: left;
-    font-size: 60px;
+    font-size: 56px;
     display: block;
     width: 100%;
     text-align: center;
@@ -99,8 +99,9 @@
     }
 
     @include media-query($on-palm) {
-        font-size: 36px;
-        top: 55%;
+        font-size: 32px;
+        text-align: left;
+        padding: 0 20px;
     }
 
     p {
@@ -114,7 +115,8 @@
         }
 
         @include media-query($on-palm) {
-            font-size: 16px;
+            font-size: 14px;
+            padding: 0;
         }
     }
 
@@ -130,6 +132,10 @@
                 border: none;
                 color: $brand-alternate-color;
             }
+        }
+
+        @include media-query($on-palm) {
+            display: none;
         }
     }
 
@@ -149,7 +155,7 @@
         }
 
         @include media-query($on-palm) {
-            padding-top: 10px;
+            padding: 20px 0;
             margin: 0;
         }
 
@@ -158,7 +164,8 @@
             padding: 20px;
 
             @include media-query($on-palm) {
-                display: list-item;
+                padding: 0;
+                margin-right: 14px;
             }
         }
         // Gaps between nav items, but not on the last one
@@ -207,7 +214,7 @@
     }
 
     a {
-        padding: 5px;
+        padding: 10px;
         color: $grey-color;
 
         &:hover {
@@ -229,6 +236,7 @@
     position: relative;
     padding: 60px 0 0 0;
     border-top: $border-grey-color 1px solid;
+    margin-bottom: 30px;
 
     h4 {
         font-family: $fancy-font-family;
@@ -251,11 +259,12 @@
         text-align: center;
         .author-meta {
             padding: 0;
-            margin: 20px 0 40px;
+            margin: 20px 0;
             list-style: none;
             line-height: 1;
             font-style: italic;
-            color: $grey-color;
+            font-weight: bold;
+            color: $grey-color-darker;
             overflow: hidden;
 
             &:hover {
@@ -450,19 +459,18 @@
 .post-content {
     margin-bottom: 2*$spacing-unit;
     h1 {
-        margin-top: 1.3*$spacing-unit;
-        font-size: 32px;
-        @include media-query($on-laptop) {
-            font-size: 32px;
-        }
-    }
-    h2 {
         margin-top: 1.2*$spacing-unit;
         padding-top: 1.2*$spacing-unit;
-        border-top: $border-grey-color 1px solid;
         font-size: 34px;
         @include media-query($on-laptop) {
             font-size: 26px;
+        }
+    }
+    h2 {
+        margin-top: 1.1*$spacing-unit;
+        font-size: 26px;
+        @include media-query($on-laptop) {
+            font-size: 20px;
         }
     }
     h3 {
@@ -592,6 +600,10 @@
     font-style: italic;
     margin: 0px;
     text-align: center;
+
+    a {
+        letter-spacing: 0.02rem;
+    }
 }
 
 .author-image {
@@ -659,7 +671,7 @@
     float: right;
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1600px) {
     .post, .home {
         margin: 0;
     }
@@ -677,6 +689,35 @@
     }
 }
 
+.blog-button {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 38px;
+    padding: 0 20px;
+    border: #5badf0 1px solid;
+    background: #5badf0;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 35px;
+    white-space: nowrap;
+    border-radius: 3px;
+    transition: all ease 0.3s;
+    font-size: 14px;
+}
+.blog-button:before {
+    font-size: 9px;
+    margin-right: 6px;
+}
+
+.blog-button:hover {
+    background: #72b9f2;
+    color:#fff;
+    text-decoration: none;
+}
+
 .subscribe-button {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -685,14 +726,14 @@
     height: 38px;
     padding: 0 20px;
     border: transparent 1px solid;
-    color: #9EABB3;
+    color: $grey-color-darker;
     text-align: center;
-    font-size: 12px;
     text-transform: uppercase;
     line-height: 35px;
     white-space: nowrap;
     border-radius: 3px;
     transition: all ease 0.3s;
+    font-size: 14px;
 }
 .subscribe-button:before {
     font-size: 9px;
@@ -735,10 +776,6 @@
         border-bottom: $border-grey-color 1px solid;
     }
 
-    .subscribe-button {
-        padding: 0 10px;
-    }
-
     .hover-feature span {
         -webkit-transition: none;
         -moz-transition: none;
@@ -759,6 +796,12 @@
     }
 }
 
+.code-embed {
+    width: 100%;
+    min-height: 250px;
+    border-radius: 5px;
+}
+
 /*Utilites*/
 
 /* Clears tingz */
@@ -769,6 +812,10 @@
 }
 .clearfix:after {clear: both;}
 .clearfix { *zoom: 1; }
+
+.twitter-share-button {
+    
+}
 
 /*Projects*/
 .projects {

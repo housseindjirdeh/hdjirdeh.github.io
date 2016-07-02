@@ -1,7 +1,7 @@
 ---
 layout: main-default
-title: Posts
-permalink: /posts/
+title: Blog
+permalink: /blog/
 ---
 
 <div class="home">
@@ -11,7 +11,7 @@ permalink: /posts/
           <li>
             <h1>
               {% include post-tags.html %}
-              <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+              <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title | downcase }}</a>
             </h1>
 
             <span class="post-meta">Posted on <i class="fa fa-calendar date-icon" aria-hidden="true"></i><span class="meta-date">{{ post.date | date: "%b %-d, %Y" }}</span> • <a class="comment-meta" href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{post.url}}"></a></span>
