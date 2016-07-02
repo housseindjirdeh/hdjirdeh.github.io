@@ -16,7 +16,7 @@ linkedin_username: Houssein Djirdeh
 github_username:  hdjirdeh
 google_analytics: UA-66348622-2
 gems:
-  - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Build settings
 markdown: kramdown
