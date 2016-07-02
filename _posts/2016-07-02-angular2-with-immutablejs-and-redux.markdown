@@ -546,7 +546,7 @@ export default class Contact {
 
 And that's it! That covers up the basics of using Redux in your application. The final source code is [here.](https://github.com/hdjirdeh/angular2-redux-contact-list/tree/master/app)
 
-![that's a wrap]({{ site.url }}/public/thatsawrap.jpg.jpg "That's a wrap"){: .article-image }
+![that's a wrap]({{ site.url }}/public/thatsawrap.jpg "That's a wrap"){: .article-image }
 
 Wrapping things up
 ==================
