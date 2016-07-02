@@ -464,6 +464,8 @@
         font-size: 34px;
         @include media-query($on-laptop) {
             font-size: 26px;
+            line-height: 1.5;
+            font-weight: bold;
         }
     }
     h2 {
@@ -471,6 +473,8 @@
         font-size: 26px;
         @include media-query($on-laptop) {
             font-size: 20px;
+            line-height: 1.5;
+            font-weight: bold;
         }
     }
     h3 {
@@ -478,6 +482,8 @@
         font-size: 20px;
         @include media-query($on-laptop) {
             font-size: 18px;
+            line-height: 1.5;
+            font-weight: bold;
         }
     }
 }
@@ -706,6 +712,12 @@
     border-radius: 3px;
     transition: all ease 0.3s;
     font-size: 14px;
+
+    .fa {
+        @include media-query($on-palm) {
+            display: none;
+        }
+    }
 }
 .blog-button:before {
     font-size: 9px;
@@ -734,6 +746,12 @@
     border-radius: 3px;
     transition: all ease 0.3s;
     font-size: 14px;
+
+    .fa {
+        @include media-query($on-palm) {
+            display: none;
+        }
+    }
 }
 .subscribe-button:before {
     font-size: 9px;
