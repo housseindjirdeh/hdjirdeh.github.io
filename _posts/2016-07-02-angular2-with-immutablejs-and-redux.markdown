@@ -22,6 +22,11 @@ The breakdown
 ==================
 In this post, we'll go over the basic concepts of the Flux architecture and Redux. We'll then go over a simple contact list application step by step, building the basic setup first, adding immutability then finally creating a Redux state container.
 
+<div class="button-center">
+  <a class="blog-button" href="https://embed.plnkr.co/ns1tfi/">View Demo</a>
+  <a class="blog-button" href="https://github.com/hdjirdeh/angular2-redux-contact-list">Source Code</a>
+</div>
+
 ![contact list]({{ site.url }}/public/contact-list.gif "Contact Link Example"){: .article-image }
 
 As we go along, I'll do my best to explain why we're doing each and every step. The final application will not be complicated but will hopefully be enough for you to grasp the main concepts.

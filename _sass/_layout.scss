@@ -718,16 +718,22 @@
             display: none;
         }
     }
-}
-.blog-button:before {
-    font-size: 9px;
-    margin-right: 6px;
-}
 
-.blog-button:hover {
-    background: #72b9f2;
-    color:#fff;
-    text-decoration: none;
+    &:before {
+        font-size: 9px;
+        margin-right: 6px;
+    }
+
+    &:hover {
+        background: #72b9f2;
+        color:#fff;
+        text-decoration: none;
+    }
+
+    &:focus {
+        color:#fff;
+        text-decoration: none;
+    }
 }
 
 .subscribe-button {
@@ -752,16 +758,28 @@
             display: none;
         }
     }
-}
-.subscribe-button:before {
-    font-size: 9px;
-    margin-right: 6px;
+
+    &:before {
+        font-size: 9px;
+        margin-right: 6px;
+    }
+
+    &:hover {
+        border-color: #bfc8cd;
+        color: #9EABB3;
+        text-decoration: none;
+    }
+
+    &:focus {
+        color: $grey-color-darker;
+        text-decoration: none;
+    }
 }
 
-.subscribe-button:hover {
-    border-color: #bfc8cd;
-    color: #9EABB3;
-    text-decoration: none;
+.button-center {
+    padding: 30px 0 10px;
+    text-align: center;
+    margin-right: 10px;
 }
 
 .project-link {
