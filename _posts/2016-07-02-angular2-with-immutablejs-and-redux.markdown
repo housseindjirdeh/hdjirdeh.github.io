@@ -77,9 +77,9 @@ Don't worry if all of this isn't crystal clear yet. It'll make more sense as you
 
 Contact List Example
 ==================
-Let's start building the contact list example! If you haven't already, you can set up your application using the [Angular 2 QuickStart.](https://angular.io/docs/ts/latest/quickstart.html) I'll remove the unnecessary class definitions and styling elements in the code embeds and just show you what's needed. However, I'll link to the complete source code after each step.
+Let's start building the contact list example! If you haven't already, you can set up your application using the [Angular 2 QuickStart.](https://angular.io/docs/ts/latest/quickstart.html) I'll remove the unnecessary class definitions and styling elements in the code embeds and just show you what's needed. However, I'll link to the complete source code for each step.
 
-Firstly, let's build a simple version with purely Angular elements. We'll start with a contact store to handle the logic of our application.
+To kick things off, let's build a simple version with purely Angular elements. We'll start with a contact store to handle the logic of our application.
 
 {% highlight javascript %}
 // Contact Store
@@ -117,7 +117,7 @@ export class ContactStore {
 
 This is very similar to how we would set up a service in Angular 1.x. This store now controls the state of the application where we have methods to add, remove and favourite contacts.
 
-Now let's take a look at the only component.
+Now let's set up our component.
 
 {% highlight javascript %}
 // Contact List Component
@@ -369,7 +369,7 @@ var map = {
 // ...
 {% endhighlight %}
 
-Let's add our action file now.
+Let's add our actions file now.
 
 {% highlight javascript %}
 // Actions
@@ -429,7 +429,7 @@ export function addContact(name: string, id: number): IContactAction {
 }
 {% endhighlight %}
 
-These are known as *action creators*, and each one is defined to the `IContactAction` interface that we created. Notice that we also added an `id` property which we'll use to identify the correct contact index to remove or favourite.
+These are known as *action creators*, and each one is defined to the `IContactAction` interface that we created.
 
 Now let's see how we can set up a reducer.
 
