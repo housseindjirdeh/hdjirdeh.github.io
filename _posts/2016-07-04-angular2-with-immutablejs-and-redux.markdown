@@ -59,7 +59,7 @@ Let's look at its basic principles.
 As we mentioned, state mutations cannot alter the current state. In Redux, this means that a new JSON object must get returned everytime a mutation occurs. For this to happen, changes to the state need to be triggered through the use of **pure functions**. A pure function is a function that always returns the same value given the same input. In other words, it cannot modify anything outside of its own scope. This means it can't alter external variables or make calls to a database.
 
 {% highlight javascript %}
-function pureFunction (object){
+function pureFunction(object){
   return object.a * 100;
 }
 
@@ -70,7 +70,7 @@ console.log(x);
 {% endhighlight %}
 
 {% highlight javascript %}
-function impureFunction (object){
+function impureFunction(object){
   object.a = object.a * 100;
   return object.a;
 }
