@@ -10,6 +10,7 @@ tags:
 comments: true
 type: post
 image: angular2-redux.jpg
+permalink: /:title
 ---
 Progressive Web Applications have been the talk of the town in the past few months. In short, **they use modern web capabilities to provide a user experience similar to that of mobile apps.** Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers. Progressive Web Apps are built with [progressive enhancement](http://alistapart.com/article/understandingprogressiveenhancement#section3) in mind.
 
