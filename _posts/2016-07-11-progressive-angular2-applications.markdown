@@ -27,7 +27,7 @@ In this post, we'll go over the basic concepts of a Progressive Web App and what
 
 ![contact list]({{ site.url }}/public/contact-list.gif "Contact Link Example"){: .article-image }
 
-By going through the entire application from the ground up, you should hopefully get a decent grasp on how to build a progressive web application. As usual, I'll explain why we're doing each and every step as we go along.
+By going through the entire application from the ground up, you should hopefully get a decent understanding of how a Progressive Web Application works and how to build one with Angular 2. As usual, I'll explain why we're doing each and every step as we go along.
 
 Progressive Web Applications
 ==================
@@ -60,4 +60,4 @@ Angular and Progressive Enhancement
   <footer><a href="https://twitter.com/synalx">Alex Rickabaugh</a></footer>
 </blockquote>
 
-The beauty of Progressive Web Applications is that they're not dependent  
+You don't need a specific library or framework to build a progressive application. To really learn more about how 
