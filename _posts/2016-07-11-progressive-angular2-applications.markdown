@@ -69,15 +69,12 @@ Let's get cracking!
 
 Steps:
 * https://github.com/angular/mobile-toolkit/blob/master/guides/cli-setup.md
-
 * npm install -g angular-cli
 * ng new angular2-hn --mobile
 * cd angular2-hn
 * git remote add origin http://IP/path/to/repository (actually initializes git already, all you'll need to set up git)
-
 * ng serve
 * If you see error Cannot read property 'makeCurrent' of undefined then do the following (http://stackoverflow.com/questions/38195887/cannot-read-property-makecurrent-of-undefined-in-angular-mobile)
-
 * * update package.json 
 * * "angular2-broccoli-prerender": "0.11.3",
 * * "angular2-universal": "0.104.4",
@@ -85,17 +82,24 @@ Steps:
 * * "child-process-promise": "^2.0.2",
 * * "optimist": "^0.6.1"
 * * npm update
+* * * If you see the error The Broccoli Plugin: [Funnel] failed with:
+* * * Error: watch /home/houssein/Dev/angular/angular2-hn/src ENOSPC 
+* * * http://unix.stackexchange.com/questions/13751/kernel-inotify-watch-limit-reached
+* * * Raised the value to 10000 (temporarily)
 
 * Now we got it set up, let's create our Application Shell
 * * Explain Application Shell
 * * Diagram
+* * Mention cant use templateurl and styleurl (https://github.com/angular/angular-cli/issues/810)
+* * Set up header, npm install angular material toolbar, update angular-cli-build.js, update src/system-config.ts, import md-toolbar (after npm install you'll need to run ng build, why?)
+* * Set up footer?
+* * Talk about how it will be nice to have a progress indicator before the routed page renders
+* * Explain shellRender and shellNoRender
+* * Set up loading icon, npm install angular material progress bar, update src/system-config.ts, import progress bar
+
 * * Sweet scaffolding tool: ng generate component header
 * * ng generate component main-content
 * * ng generate component footer
 * * Add default to export classes (and remove onInit for now)
 * * Remove test files for now
 * * Show directory structure
-* * * If you see the error The Broccoli Plugin: [Funnel] failed with:
-* * * Error: watch /home/houssein/Dev/angular/angular2-hn/src ENOSPC 
-* * * http://unix.stackexchange.com/questions/13751/kernel-inotify-watch-limit-reached
-* * * Raised the value to 10000
