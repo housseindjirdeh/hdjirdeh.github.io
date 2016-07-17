@@ -49,9 +49,9 @@ The case for Progressive Web
 [XKCD - Installing](http://xkcd.com/1367/)
 {: installing}
 
-Although installing an app is usually a fast and simple process, when was the last time you were about to install something but decided not to? Maybe you felt like you didn't want to go through the hassle of installing it, or maybe you didn't want use up any more memory on your device. Whatever the reason, almost every single mobile user has experienced this at some point. 
+Although installing an app is usually a fast and simple process, when was the last time you were about to install something but decided not to? Maybe you felt like you didn't want to go through the hassle of installing it, or maybe you just didn't want use to up any more memory. Whatever the reason, almost every single mobile user has experienced this at some point. 
 
-However, most people feel a lot less *restricted* to open up a browser and just type in a URL. You may have not really thought of this, but the convenience, security and simplicity of just typing into an address bar is a powerful advantage of the web. Progressive Web Apps combine this with the best of native applications.
+However, most people feel a lot less *restricted* to open up a browser and just type in to the address bas. You may have not really thought of this, but the convenience, security and simplicity of just typing a URL into an address bar is a powerful advantage of the web. Progressive Web Apps combine this with the best of native applications.
 
 Angular and Progressive Enhancement
 ==================
@@ -64,7 +64,6 @@ You don't need a specific library or framework to build a progressive applicatio
 
 Progressive Hacker News Client
 ==================
-
 Let's get cracking!
 
 Steps:
@@ -74,6 +73,7 @@ Steps:
 * cd angular2-hn
 * git remote add origin http://IP/path/to/repository (actually initializes git already, all you'll need to set up git)
 * ng serve
+
 * If you see error Cannot read property 'makeCurrent' of undefined then do the following (http://stackoverflow.com/questions/38195887/cannot-read-property-makecurrent-of-undefined-in-angular-mobile)
 * * update package.json 
 * * "angular2-broccoli-prerender": "0.11.3",
@@ -91,15 +91,17 @@ Steps:
 * * Explain Application Shell
 * * Diagram
 * * Mention cant use templateurl and styleurl (https://github.com/angular/angular-cli/issues/810)
-* * Set up header, npm install angular material toolbar, update angular-cli-build.js, update src/system-config.ts, import md-toolbar (after npm install you'll need to run ng build, why?)
-* * Set up footer?
-* * Talk about how it will be nice to have a progress indicator before the routed page renders
-* * Explain shellRender and shellNoRender
-* * Set up loading icon, npm install angular material progress bar, update src/system-config.ts, import progress bar
 
+* * Set up header, content and footer components
 * * Sweet scaffolding tool: ng generate component header
-* * ng generate component main-content
-* * ng generate component footer
 * * Add default to export classes (and remove onInit for now)
 * * Remove test files for now
 * * Show directory structure
+
+* * Set up header, npm install angular material toolbar, update angular-cli-build.js, update src/system-config.ts, import md-toolbar (after npm install you'll need to run ng build, why?)
+* * Set up contenr and footer components
+* * Explain how fast Application Shell renders
+* * Talk about how it will be nice to have a progress indicator before the routed page renders
+* * Explain shellRender and shellNoRender
+* * Set up loading indicator component
+* * Set up loading icon, npm install angular material progress bar, update src/system-config.ts, import progress bar
