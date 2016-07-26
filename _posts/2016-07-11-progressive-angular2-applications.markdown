@@ -109,53 +109,16 @@ Steps:
 * * Awesome, we have the app shell set up. Now looking at the JSON structure of Hacker News api (https://github.com/HackerNews/API), set up for one
 * * Briefly explain pipes, how they seem to break app shell (I opened a issue: https://github.com/angular/mobile-toolkit/issues/88). Domain name function, time UNIX from now method, comments length.
 
-* * Now let's actually use some real data! Let's set up AngularFire
-* * What is AngularFire and Firebase? (Firebase is a NoSQL JSON database meaning everything it's entire database is of a JSON structure)
-* * Set up these instructions: https://github.com/angular/angularfire2/blob/master/docs/1-install-and-setup.md
-* * When you reach the step to bootstrap, create your firebase application if you haven't already
-* * Click add firebase to your web app to retrieve the required credentials
-* * Add some basicdatabase structure:
+* * Now let's get some the real data. Explain the HackerNews API
+* * Explain RxJS, reactive programming, oservables
+* * Set up a service to just populate ids
+* * splice from 0 to 30
+* * set method to change splice number when more link is clicked
+* * set observable and function in service for each id (explain object observable cannto use async pipe)
+* * Things are coming together, wrap up prev and more nav links
 
-angular2-news
- items
- 1
- by: 
-"Melania"
- title: 
-"Never Gonna Give You Up"
- 2
- by: 
-"Will Smith"
- title: 
-"Getting Jiggy With It"
- url: 
-"www.nanananana.com"
-
-* * For rules: {
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
-}
-We'll change this later
-* * In main-content; import { AngularFire, FirebaseObjectObservable } from 'angularfire2';; and  
-	item: FirebaseObjectObservable<any>;
-  constructor(af: AngularFire) {
-    this.item = af.database.object('items/1');
-  }
-* * In template; {{ item | async | json}}
-* * * Item is a an asynchronous value because it's a observale. What's an observable? A collection that arrives over time. Piping to async just says let's subscribe. We then just pipe it to json so we can see the formatted object.
-
-* * Do a ng serve
-* * Awesome, we can see the two objects outputted in our console!
-* * Try changing a value in the database, the changes propagate in real time :)
-* * Now wouldn't it make more sense if we could list out the database values instead of an object? let's do that
-* 
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
-  items: FirebaseListObservable<any>;
-  constructor(af: AngularFire) {
-    this.items = af.database.list('items');
-  }
-<li *ngFor="let item of items | async
-* * (comment out of comment becuase length is erroring) looks good! Now let's set up a proper data astructure for our application
-* 
+* * Now mention how we need to add links to header
+* * Because it'll be a pain to implement routing ofr all story types because we can't share templateUrls and styleUrls, can we just use input component method to communicate and send information from header comp to main-content component?
+* * * Nope, because they're sibling components not parent-child (show component tree diagram)
+* * So how can we communicate between such components? Usng a shared service??
+** Or routing?
