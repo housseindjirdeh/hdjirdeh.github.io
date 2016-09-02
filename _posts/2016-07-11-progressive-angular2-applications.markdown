@@ -1,24 +1,24 @@
 ---
 layout: post
-title:  "Build Progressive Web Applications with Angular 2"
-date:   2016-07-11 9:30:00 -0400
-categories: progressive angular2
+title:  "Building a Hacker News client with Angular 2 CLI and Observables"
+date:   2016-08-05 9:30:00 -0400
+categories: angular2 rxjs
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
 tags:
-- progressive
 - angular2
+- rxjs
 comments: true
 type: post
-image: angular2-redux.jpg
+image: angular2hn.png
 permalink: /:title
 ---
-Progressive Web Applications have been the talk of the town in the past few months. In short, they  are applications that use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers. In other words, they are built with [progressive enhancement](http://alistapart.com/article/understandingprogressiveenhancement#section3) in mind.
+![angular 2 hn](https://files.slack.com/files-pri/T0LA4NDHS-F27GUR6E9/pasted_image_at_2016_09_01_08_24_pm.png "Angular 2 HN"){: .article-image-with-border }
 
-This post will explain how you can build a progressive web application using the Angular 2 framework.
+Angular 2 heavily relies on Observables to manage asynchronous data. This post will explain in detail how you can use an Observable Data Service with Angular 2 to build a complete Hacker News client.
 
 The breakdown
 ==================
-In this post, we'll go over the basic concepts of a Progressive Web App and what makes them different from regular applications. We'll then build a complete progressive application with Angular 2.
+If you've ever built an Angular 2 application before, you'll know that setting up and bootstrapping the application can take a significant amount of time. 
 
 <div class="button-center">
   <a class="blog-button" href="">View App</a>
