@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Building a Hacker News client with Angular 2 CLI and Observables"
+title:  "Building a Hacker News client with Angular 2 CLI and RxJS Observables"
 date:   2016-08-05 9:30:00 -0400
 categories: angular2 rxjs
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
@@ -12,26 +12,42 @@ type: post
 image: angular2hn.png
 permalink: /:title
 ---
-![angular 2 hn](https://files.slack.com/files-pri/T0LA4NDHS-F27GUR6E9/pasted_image_at_2016_09_01_08_24_pm.png "Angular 2 HN"){: .article-image-with-border }
+![angular 2 hn banner](https://files.slack.com/files-pri/T0LA4NDHS-F27HW9N0P/angularhn.jpg "Angular 2 HN Banner"){: .article-image-with-source }
 
-Angular 2 heavily relies on Observables to manage asynchronous data. This post will explain in detail how you can use an Observable Data Service with Angular 2 to build a complete Hacker News client.
+If you've ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out [Angular CLI](https://cli.angular.io/), a command line interface, that makes creating and scaffolding an application significantly easier.
 
 The breakdown
 ==================
-If you've ever built an Angular 2 application before, you'll know that setting up and bootstrapping the application can take a significant amount of time. 
+In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI and RxJS Observables. We'll start by mapping out the component stucture, building a basic setup first then wrapping an Observable Data Service to load data asynchronously as we build the entire application complete with full page routing.
 
 <div class="button-center">
-  <a class="blog-button" href="">View App</a>
-  <a class="blog-button" href="">Source Code</a>
+  <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
+  <a class="blog-button" href="https://github.com/hdjirdeh/angular2-hn">Source Code</a>
 </div>
 
-![contact list]({{ site.url }}/public/contact-list.gif "Contact Link Example"){: .article-image }
+![angular 2 hn preview](http://i.imgur.com/6QquRtl.gif "Angular 2 HN Preview"){: .article-image }
 
-By going through the entire application from the ground up, you should hopefully get a decent understanding of how a Progressive Web Application works and how to build one with Angular 2. As usual, I'll explain why we're doing each and every step as we go along.
+This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts. As usual, I'll explain what and why we're doing each and every step as we go along.
 
-Progressive Web Applications
+Let's get ready to rumble
 ==================
-Let's break down the main concepts of Progressive Web Applications.
+Once you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install the CLI. 
+
+{% highlight bash %}
+npm install -g angular-cli
+{% endhighlight %}
+
+Now you can start your application.
+
+{% highlight bash %}
+ng new angular2-hn
+cd angular2-hn
+ng serve
+{% endhighlight %}
+
+It's that simple. If you now open `http://localhost:4200/`, you'll see the app running. 
+
+[image]
 
 * They are **progressive**, meaning that they work for every user in every browser
 * Although they may provide a mobile-like experience, they are **responsive** and work on every device and every screen size
