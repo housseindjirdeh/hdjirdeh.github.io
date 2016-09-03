@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Building a Hacker News client with Angular 2 CLI and RxJS Observables"
+title:  "Building Hacker News with Angular 2 CLI, Webpack and RxJS Observables"
 date:   2016-08-05 9:30:00 -0400
 categories: angular2 rxjs
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
@@ -16,9 +16,7 @@ permalink: /:title
 
 If you've ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out [Angular CLI](https://cli.angular.io/), a command line interface, that makes creating and scaffolding an application significantly easier.
 
-The breakdown
-==================
-In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI and RxJS Observables. We'll start by mapping out the component stucture, building a basic setup first then wrapping an Observable Data Service to load data asynchronously as we build the entire application complete with full page routing.
+In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI and RxJS Observables. We'll start by mapping out the component stucture then build a basic setup wrapping an Observable Data Service to load data asynchronously. Finally, we'll add routing to allow the user to navigate to different pages. Once we're done, we'll go over bundling and deployment to show you how to get a complete application in production using the [Firebase CLI](https://firebase.google.com/docs/cli/).
 
 <div class="button-center">
   <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
@@ -27,7 +25,7 @@ In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/)
 
 ![angular 2 hn preview](http://i.imgur.com/6QquRtl.gif "Angular 2 HN Preview"){: .article-image }
 
-This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts. As usual, I'll explain what and why we're doing each and every step as we go along.
+This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from start all the way to production. As usual, I'll explain what and why we're doing each and every step as we go along.
 
 Let's get ready to rumble
 ==================
@@ -37,7 +35,7 @@ Once you have the required [Node and NPM versions](https://github.com/angular/an
 npm install -g angular-cli
 {% endhighlight %}
 
-Now you can start your application.
+You can then start your application.
 
 {% highlight bash %}
 ng new angular2-hn
@@ -45,9 +43,32 @@ cd angular2-hn
 ng serve
 {% endhighlight %}
 
-It's that simple. If you now open `http://localhost:4200/`, you'll see the app running. 
+Yep, it's that simple. If you now open `http://localhost:4200/`, you'll see the application running. 
 
-[image]
+![app setup](https://files.slack.com/files-tmb/T0LA4NDHS-F27V871NZ-c531c0b4a6/pasted_image_at_2016_09_03_01_51_am_720.png "App Setup"){: .article-image }
+
+Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks including long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team are in the process of moving moved the build system from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)!
+
+Although this isn't 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in it's alpha state. Once the team narrows everything down and makes an official release, installing Angular CLI will only use Webpack as it's default module loader.
+
+First, you'll need to update globally.
+
+{% highlight bash %}
+npm uninstall -g angular-cli
+npm cache clean
+npm install -g angular-cli@webpack
+{% endhighlight %}
+
+Then you'll need to update locally.
+{% highlight bash %}
+rm -rf node_modules dist tmp typings
+npm install --save-dev angular-cli@webpack
+{% endhighlight %}
+
+Now if you run `ng serve`, you should see the app launch once again.
+
+Let' get 
+==================
 
 * They are **progressive**, meaning that they work for every user in every browser
 * Although they may provide a mobile-like experience, they are **responsive** and work on every device and every screen size
