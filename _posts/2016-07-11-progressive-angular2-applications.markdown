@@ -2,11 +2,12 @@
 layout: post
 title:  "Building Hacker News with Angular 2 CLI, Webpack and RxJS Observables"
 date:   2016-08-05 9:30:00 -0400
-categories: angular2 rxjs
-description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
+categories: angular2 rxjs webpack
+description: If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out Angular CLI, a command line interface that makes creating and scaffolding an application significantly easier...
 tags:
 - angular2
 - rxjs
+- webpack
 comments: true
 type: post
 image: angular2hn.png
@@ -14,9 +15,9 @@ permalink: /:title
 ---
 ![angular 2 hn banner](https://files.slack.com/files-pri/T0LA4NDHS-F27HW9N0P/angularhn.jpg "Angular 2 HN Banner"){: .article-image-with-source }
 
-If you've ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out [Angular CLI](https://cli.angular.io/), a command line interface, that makes creating and scaffolding an application significantly easier.
+If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out [Angular CLI](https://cli.angular.io/), a command line interface that makes creating and scaffolding an application significantly easier.
 
-In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI and RxJS Observables. We'll start by mapping out the component stucture then build a basic setup wrapping an Observable Data Service to load data asynchronously. Finally, we'll add routing to allow the user to navigate to different pages. Once we're done, we'll go over bundling and deployment to show you how to get a complete application in production using the [Firebase CLI](https://firebase.google.com/docs/cli/).
+In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI and RxJS Observables using Webpack as our module loader.
 
 <div class="button-center">
   <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
@@ -25,9 +26,16 @@ In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/)
 
 ![angular 2 hn preview](http://i.imgur.com/6QquRtl.gif "Angular 2 HN Preview"){: .article-image }
 
+Here's a rundown of what we'll be doing.
+
+1. We'll start by building our basic setup first, the front page of Hacker News. <br>
+2. We'll then wrap an Observable Data Service to load data asynchronously from the official [Hacker News API](https://github.com/HackerNews/API)<br>
+3. To allow the user to see different story types, we'll add navigation using the Angular Component Router.
+4. Once we're done, we'll go over bundling and deployment to show you how to get the complete application in production using the [Firebase CLI](https://firebase.google.com/docs/cli/).
+
 This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from start all the way to production. As usual, I'll explain what and why we're doing each and every step as we go along.
 
-Let's get ready to rumble
+Getting Started
 ==================
 Once you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install the CLI. 
 
@@ -47,9 +55,9 @@ Yep, it's that simple. If you now open `http://localhost:4200/`, you'll see the 
 
 ![app setup](https://files.slack.com/files-tmb/T0LA4NDHS-F27V871NZ-c531c0b4a6/pasted_image_at_2016_09_03_01_51_am_720.png "App Setup"){: .article-image }
 
-Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks including long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team are in the process of moving moved the build system from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)!
+Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks, and this includes long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team are in the process of moving the build system from [SystemJS to Webpack!](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
-Although this isn't 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in it's alpha state. Once the team narrows everything down and makes an official release, installing Angular CLI will only use Webpack as it's default module loader.
+Although this is not 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in its alpha state. Once the team narrows everything down and makes an official release, installing Angular CLI will only use Webpack as its default module loader.
 
 First, you'll need to update globally.
 
@@ -60,6 +68,7 @@ npm install -g angular-cli@webpack
 {% endhighlight %}
 
 Then you'll need to update locally.
+
 {% highlight bash %}
 rm -rf node_modules dist tmp typings
 npm install --save-dev angular-cli@webpack
@@ -67,8 +76,82 @@ npm install --save-dev angular-cli@webpack
 
 Now if you run `ng serve`, you should see the app launch once again.
 
-Let' get 
+Understanding RC5
 ==================
+For this application, we'll be using [Angular's RC5 release](http://angularjs.blogspot.se/2016/08/angular-2-rc5-ngmodules-lazy-loading.html). Quite a few changes have been made for the update to RC5, but the biggest one would most probably be the introduction of `@NgModule`. Let's take a quick look at our `app.module.ts` file.
+
+{% highlight javascript %}
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+{% endhighlight %}
+
+So what exactly is happening here? The `@NgModule` decorator is specifying all the declarations (components, directives and pipes), library imports (such as `FormsModule` and `HttpModule`) and providers (a single-instance service for example) that we'll be using in our application. 
+
+You can probably already see how much more organized it is to not need to specify all our module-level components, directives, pipes and so forth in each of our components.
+
+Let's get ready to rumble
+==================
+Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. We can do this for the following command for a project that's already been set up.
+
+{% highlight bash %}
+ng set defaults.styleExt scss
+{% endhighlight %}
+
+Now that we have everything set up, we can create our first few components. To start things off, we'll create a `HeaderComponent`.
+
+{% highlight javascript %}
+ng g component Header
+{% endhighlight %}
+
+You'll notice that a `header` folder is immediately created and scaffolded. Take a look at `app.module.ts` once again and you'll notice that it is now declared there as well.
+
+{% highlight javascript %}
+// ...
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HeaderComponent
+  ],
+//...
+{% endhighlight %}
+
+If you take a look at `header.component.ts`, you can see that its component selector is `app-header`. Let's add this in our root component.
+
+{% highlight html %}
+<!-- app.component.html -->
+<app-header></app-header>
+{% endhighlight %}
+
+
+
+
+
+
+
+
+
+
 
 * They are **progressive**, meaning that they work for every user in every browser
 * Although they may provide a mobile-like experience, they are **responsive** and work on every device and every screen size
