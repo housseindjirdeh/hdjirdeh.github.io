@@ -13,9 +13,9 @@ type: post
 image: angular2hn.png
 permalink: /:title
 ---
-![angular 2 hn banner](https://files.slack.com/files-pri/T0LA4NDHS-F27HW9N0P/angularhn.jpg "Angular 2 HN Banner"){: .article-image-with-source }
+![angular 2 hn banner](https://files.slack.com/files-pri/T0LA4NDHS-F27HW9N0P/angularhn.jpg "Angular 2 HN Banner"){: .article-image }
 
-If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out [Angular CLI](https://cli.angular.io/), a command line interface that makes creating and scaffolding an application significantly easier.
+If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team have rolled out [Angular CLI](https://cli.angular.io/), a command line interface that makes creating and scaffolding an application significantly easier.
 
 In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI and RxJS Observables using Webpack as our module loader.
 
@@ -30,7 +30,7 @@ Here's a rundown of what we'll be doing.
 
 1. We'll start by building our basic setup first, the front page of Hacker News. <br>
 2. We'll then wrap an Observable Data Service to load data asynchronously from the official [Hacker News API](https://github.com/HackerNews/API)<br>
-3. To allow the user to see different story types, we'll add navigation using the [Angular Component Router](https://angular.io/docs/ts/latest/guide/router.html).
+3. To allow the user to see different story types, comments and user profiles, we'll add navigation using the [Angular Component Router](https://angular.io/docs/ts/latest/guide/router.html).
 4. Once we're done, we'll go over bundling and deployment to show you how to get the complete application in production using the [Firebase CLI](https://firebase.google.com/docs/cli/).
 
 This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from scratch all the way to production. As usual, I'll explain what and why we're doing each step as we go along.
@@ -51,7 +51,7 @@ cd angular2-hn
 ng serve
 {% endhighlight %}
 
-Yep, it's that simple. If you now open `http://localhost:4200/`, you'll see the application running. 
+If you now open `http://localhost:4200/`, you'll see the application running. 
 
 ![app setup](https://files.slack.com/files-pri/T0LA4NDHS-F27V871NZ/pasted_image_at_2016_09_03_01_51_am.png "App Setup"){: .article-image }
 
@@ -74,7 +74,7 @@ rm -rf node_modules dist tmp typings
 npm install --save-dev angular-cli@webpack
 {% endhighlight %}
 
-Now if you run `ng serve`, you should see the app launch once again.
+Now if you run `ng serve`, you should see the app launch once again, but this time with Webpack running behind the scenes.
 
 NgModule
 ==================
@@ -111,7 +111,7 @@ You can probably already see how much more organized it is to not need to specif
 
 Let's get ready to rumble
 ==================
-Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. For a project that has already been set up, we can do this with the following command.
+Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. For a project that has already been set up, you can do this with the following command.
 
 {% highlight bash %}
 ng set defaults.styleExt scss
@@ -138,7 +138,7 @@ import { HeaderComponent } from './header/header.component';
 //...
 {% endhighlight %}
 
-If you take a look at `header.component.ts`, you can see that its component selector is `app-header`. Let's add this in our root component.
+If you take a look at `header.component.ts` inside the `header` folder, you can see that its component selector is `app-header`. Let's add this in our root component.
 
 {% highlight html %}
 <!-- app.component.html -->
@@ -162,7 +162,7 @@ Our app component.
 </div>
 {% endhighlight %}
 
-The styling for `app.component.scss` can be found [here](). And now let's work on the header. 
+The styling for `app.component.scss` can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/app.component.scss). Now let's work on the header. 
 
 {% highlight html %}
 <!-- header.component.html -->
@@ -199,7 +199,7 @@ The styling for `app.component.scss` can be found [here](). And now let's work o
 </header>
 {% endhighlight %}
 
-And similarly, you can find the styling for this component [here](). Running the application gives us the following result.
+And similarly, you can find the styling for this component [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/header/header.component.scss). Running the application gives us the following result.
 
 ![header](https://files.slack.com/files-tmb/T0LA4NDHS-F28351WRG-36a0aaf209/pasted_image_at_2016_09_03_10_04_pm_1024.png "Header"){: .article-image }
 
@@ -231,7 +231,7 @@ body {
 // ...
 {% endhighlight %}
 
-So why isn't this rendering the way it should? This is because Angular *encapsulates* CSS styles onto a component. I won't be going into too much detail, but there are three different ways Angular does this.
+So why isn't this rendering the way it should? This is because of the way Angular *encapsulates* CSS styles onto a component. I won't be going into too much detail here, but there are three different ways Angular does this.
 
 - `None`: Angular doesn't do anything. No encapsulation and no Shadow DOM, this is just like adding styles regularly. Adding a style will apply to the entire document.
 - `Emulated`: Angular *emulates* Shadow DOM behaviour. This is defaulted.
@@ -261,18 +261,41 @@ Take a look at our application once more and you'll notice that the styles have 
 
 Multiple Components
 ==================
-Let's create two more components, `Stories` and `Footer`. Stories represent posts in Hacker News, so our `Stories` component will just contain the ordered list of posts. We'll start out with a skeleton just to get an ordered list in place.
+Let's create two more components, `Stories` and `Footer`. Stories represent posts in Hacker News, and we'll start out with a skeleton just to get an ordered list in place.
 
 {% highlight bash %}
 ng g component Stories
+{% endhighlight %}
+
+{% highlight javascript %}
+// stories.component.ts
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-stories',
+  templateUrl: './stories.component.html',
+  styleUrls: ['./stories.component.scss']
+})
+
+export class StoriesComponent implements OnInit {
+  items: number[];
+
+  constructor() { 
+    this.items = Array(30).fill().map((x,i)=>i);
+  }
+
+  ngOnInit() {
+  }
+}
 {% endhighlight %}
 
 {% highlight html %}
 <!-- stories.component.html -->
 
 <div class="main-content">
-  <ol start="0">
-    <li *ngFor="slice:0:0 + 30; let i = index" class="post">
+  <ol>
+    <li *ngFor="let item of items; let i = index" class="post">
       Story #{{i}}
     </li>
   </ol>
@@ -287,7 +310,7 @@ ng g component Stories
 </div>
 {% endhighlight %}
 
-Click [here]() to take a look at the CSS for `Stories`. Our footer is straightfoward (and it's Sass file can be found [here]()).
+Click [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/stories/stories.component.scss) to take a look at the CSS for `Stories`. Our footer is straightfoward (and it's Sass file can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/footer/footer.component.scss)).
 
 {% highlight bash %}
 ng g component Footer
@@ -297,14 +320,18 @@ ng g component Footer
 <!-- footer.component.html -->
 
 <footer id="footer">
-    <p>Show this project some ❤ on <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank">GitHub</a></p>
+    <p>Show this project some ❤ on 
+      <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank">
+        GitHub
+      </a>
+    </p>
 </footer>
 {% endhighlight %}
 
-We'll need to update our root component to show these components.
+We'll also need to update our root component to show these components.
 
 {% highlight html %}
-!-- app.component.html -->
+<!-- app.component.html -->
 
 <div id="wrapper">
   <app-header></app-header>
@@ -314,3 +341,110 @@ We'll need to update our root component to show these components.
 {% endhighlight %}
 
 Let's see what our page is looking like.
+
+![numbered list](https://files.slack.com/files-tmb/T0LA4NDHS-F284M1XLM-c9603362e5/pasted_image_at_2016_09_04_12_20_pm_1024.png "Numbered List"){: .article-image }
+
+Since each story post, or item, will have its own styles and characteristics, it makes sense to create a component for this as well.
+
+{% highlight bash %}
+ng g component Item
+{% endhighlight %}
+
+Once we start getting real data, we'll need to pass down the item identifier from the story component to it's child item component. In the meantime, let's just pass down the list index as `itemID`.
+
+{% highlight html %}
+<!-- stories.component.html -->
+
+<div class="main-content">
+  <ol>
+    <li *ngFor="let item of items; let i = index" class="post">
+      <item class="item-block" itemID=" {% raw %}{{ i + 1 }}{% endraw %}"></item>
+    </li>
+  </ol>
+  <div class="nav">
+    <a href="" class="prev">
+      ‹ Prev
+    </a>
+    <a href="" class="more">
+      More ›
+    </a>
+  <div>
+</div>
+{% endhighlight %}
+
+{% highlight javascript %}
+// item.component.ts
+
+import { Component, Input, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'item',
+  templateUrl: './item.component.html',
+  styleUrls: ['./item.component.scss']
+})
+export class ItemComponent implements OnInit {
+  @Input() itemID: number;
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
+{% endhighlight %}
+
+{% highlight html %}
+<!-- item.component.html -->
+
+<p>Story #{% raw %}{{itemID}}{% endraw %}<p>
+{% endhighlight %}
+
+Refreshing the application will give you the same result, showing that the index parameter is successfully being passed down using the `@Input` decoration.
+
+We have a basic skeleton of the home page done and that's a good start. Here's the [link](https://github.com/hdjirdeh/angular2-hn/tree/initial-setup) for the source code for this step.
+
+RxJS and Observables
+==================
+Okay, now it's time to start obtaining some real data. To do this, we're going to be creating an Observable Data Service and injecting it into our components. However, let's briefly go over the concept of RxJS and observables first.
+
+Angular's [HTTP client](https://angular.io/docs/ts/latest/guide/server-communication.html) allows you to communicate with a server, and you need it to pretty much fetch data from anywhere. To fetch data from a server, the first thing you would most likely do is pass the resource URL through an `http.get` call. But what gets returned exactly?
+
+In Angular 2, we use the [RxJS](https://github.com/Reactive-Extensions/RxJS) library to return an `Observable` of data, or an *asynchronous stream of data*. You may already be familiar with the concept of Promises and how you can use them to fetch data asynchronously. Observables obtain data just like promises do, but they allow us to subscribe to the stream of data respond to specific data changes. This entire concept of using Observables in your application is known as *Reactive Programming.*
+
+[diagram]
+
+An excellent resource comparing Observables and Promises. [link](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises)
+
+Now maybe you're wondering why do we need a data service at all? Can we not just contain all our HTTP logic in our components? We can, but *not clean line*.
+
+<blockquote>
+  <p>This is a golden rule: <strong>always delegate data access to a supporting service class.</strong></p>
+  <footer><a href="https://angular.io/docs/ts/latest/guide/server-communication.html#!#the-herolistcomponent-class">Angular 2 Developer Guide - HTTP Client</a></footer>
+</blockquote>
+
+Observable Data Service
+==================
+
+We've just set up the home page of Hacker News! Click [here]() to access the source code until this step.
+
+Routing
+==================
+
+We've come quite a long way, but before we continue let's map out everything we have left to include in our application.
+
+To allow the user to navigate between all these components, we're going to have to add Routing.
+
+We're almost done now! All that's left now is just to bundle and deploy this bad boy to a production environment.
+
+Bundling and deployment
+==================
+
+Using the Firebase CLI.
+
+![that's a wrap]({{ site.url }}/public/thatsawrap.jpg "That's a wrap"){: .article-image }
+
+Wrapping things up
+==================
+
+Useful resources
+==================
