@@ -30,10 +30,10 @@ Here's a rundown of what we'll be doing.
 
 1. We'll start by building our basic setup first, the front page of Hacker News. <br>
 2. We'll then wrap an Observable Data Service to load data asynchronously from the official [Hacker News API](https://github.com/HackerNews/API)<br>
-3. To allow the user to see different story types, we'll add navigation using the Angular Component Router.
+3. To allow the user to see different story types, we'll add navigation using the [Angular Component Router](https://angular.io/docs/ts/latest/guide/router.html).
 4. Once we're done, we'll go over bundling and deployment to show you how to get the complete application in production using the [Firebase CLI](https://firebase.google.com/docs/cli/).
 
-This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from start all the way to production. As usual, I'll explain what and why we're doing each step as we go along.
+This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from scratch all the way to production. As usual, I'll explain what and why we're doing each step as we go along.
 
 Getting Started
 ==================
@@ -53,7 +53,7 @@ ng serve
 
 Yep, it's that simple. If you now open `http://localhost:4200/`, you'll see the application running. 
 
-![app setup](https://files.slack.com/files-tmb/T0LA4NDHS-F27V871NZ-c531c0b4a6/pasted_image_at_2016_09_03_01_51_am_720.png "App Setup"){: .article-image }
+![app setup](https://files.slack.com/files-pri/T0LA4NDHS-F27V871NZ/pasted_image_at_2016_09_03_01_51_am.png "App Setup"){: .article-image }
 
 Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks, and this includes long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team are in the process of moving the build system from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
@@ -76,11 +76,13 @@ npm install --save-dev angular-cli@webpack
 
 Now if you run `ng serve`, you should see the app launch once again.
 
-Understanding RC5
+NgModule
 ==================
 For this application, we'll be using [Angular's RC5 release](http://angularjs.blogspot.se/2016/08/angular-2-rc5-ngmodules-lazy-loading.html). Quite a few changes have been made for the update to RC5, but the biggest one would most probably be the introduction of `@NgModule`. Let's take a quick look at our `app.module.ts` file.
 
 {% highlight javascript %}
+// app.module.ts
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -103,7 +105,7 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 {% endhighlight %}
 
-So what exactly is happening here? The `@NgModule` decorator is specifying all the declarations (components, directives and pipes), library imports (such as `FormsModule` and `HttpModule`) and providers (a single-instance service for example) that we'll be using in our application. 
+So what exactly is happening here? The `@NgModule` decorator specifies all declarations (components, directives and pipes), library imports (such as `FormsModule` and `HttpModule`) and providers (a single-instance service for example) that we'll be using in our application. 
 
 You can probably already see how much more organized it is to not need to specify all our module-level components, directives, pipes and so forth in each of our components.
 
@@ -115,7 +117,7 @@ Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. For a projec
 ng set defaults.styleExt scss
 {% endhighlight %}
 
-Since that we have everything set up, we can create our first few components. To start things off, we'll create a `HeaderComponent`.
+Now that we have everything set up, we can create our first few components. To start things off, we'll create a `HeaderComponent`.
 
 {% highlight javascript %}
 ng g component Header
@@ -146,7 +148,7 @@ If you take a look at `header.component.ts`, you can see that its component sele
 
 Running the application will show you that the header component loads successfully.
 
-![header loads](https://files.slack.com/files-tmb/T0LA4NDHS-F2804R2V9-ead3134abb/pasted_image_at_2016_09_03_02_20_pm_480.png "Header Loads"){: .article-image }
+![header loads](https://files.slack.com/files-pri/T0LA4NDHS-F2804R2V9/pasted_image_at_2016_09_03_02_20_pm.png "Header Loads"){: .article-image }
 
 Sweet, now let's add some markup and styling to both the root and header components.
 
@@ -199,17 +201,17 @@ The styling for `app.component.scss` can be found [here](). And now let's work o
 
 And similarly, you can find the styling for this component [here](). Running the application gives us the following result.
 
-![header](https://files.slack.com/files-tmb/T0LA4NDHS-F28351WRG-36a0aaf209/pasted_image_at_2016_09_03_10_04_pm_720.png "Header"){: .article-image }
+![header](https://files.slack.com/files-tmb/T0LA4NDHS-F28351WRG-36a0aaf209/pasted_image_at_2016_09_03_10_04_pm_1024.png "Header"){: .article-image }
 
 View Encapsulation
 ==================
 Since we're trying to make this application as responsive as possible to give it a native feel, it's important to check how it looks with different screen sizes regularly. Let's adjust our viewport to see how it would look on a mobile device.
 
-![header mobile](https://files.slack.com/files-tmb/T0LA4NDHS-F282PJG06-b6551c5fe6/pasted_image_at_2016_09_03_10_26_pm_480.png "Header Mobile"){: .article-image }
+![header mobile](https://files.slack.com/files-pri/T0LA4NDHS-F282PJG06/pasted_image_at_2016_09_03_10_26_pm.png "Header Mobile"){: .article-image }
 
 As you can see, there seems to be an offset from the edge of the page. This is because the **body** element has a bult-in offset (through `margin`) that shows in almost all modern browsers. 
 
-![body margin](https://files.slack.com/files-tmb/T0LA4NDHS-F28377QGJ-eac898ada2/pasted_image_at_2016_09_03_10_39_pm_720.png "body margin"){: .article-image }
+![body margin](https://files.slack.com/files-pri/T0LA4NDHS-F28377QGJ/pasted_image_at_2016_09_03_10_39_pm.png "body margin"){: .article-image }
 
 But if you take a look at `app.component.scss`, we explicity set `margin: 0` for screen sizes less then 768px.
 
@@ -255,7 +257,60 @@ export class AppComponent {
 
 Take a look at our application once more and you'll notice that the styles have now been applied to `body`. This is because all of the styles in this component now affect the entire document. (warning)*
 
-![header fixed](https://files.slack.com/files-tmb/T0LA4NDHS-F283AD90A-2908c145f3/pasted_image_at_2016_09_03_11_33_pm_480.png "Header Fixed"){: .article-image }
+![header fixed](https://files.slack.com/files-pri/T0LA4NDHS-F283AD90A/pasted_image_at_2016_09_03_11_33_pm.png "Header Fixed"){: .article-image }
 
 Multiple Components
 ==================
+Let's create two more components, `Stories` and `Footer`. Stories represent posts in Hacker News, so our `Stories` component will just contain the ordered list of posts. We'll start out with a skeleton just to get an ordered list in place.
+
+{% highlight bash %}
+ng g component Stories
+{% endhighlight %}
+
+{% highlight html %}
+<!-- stories.component.html -->
+
+<div class="main-content">
+  <ol start="0">
+    <li *ngFor="slice:0:0 + 30; let i = index" class="post">
+      Story #{{i}}
+    </li>
+  </ol>
+  <div class="nav">
+    <a href="" class="prev">
+      ‹ Prev
+    </a>
+    <a href="" class="more">
+      More ›
+    </a>
+  <div>
+</div>
+{% endhighlight %}
+
+Click [here]() to take a look at the CSS for `Stories`. Our footer is straightfoward (and it's Sass file can be found [here]()).
+
+{% highlight bash %}
+ng g component Footer
+{% endhighlight %}
+
+{% highlight html %}
+<!-- footer.component.html -->
+
+<footer id="footer">
+    <p>Show this project some ❤ on <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank">GitHub</a></p>
+</footer>
+{% endhighlight %}
+
+We'll need to update our root component to show these components.
+
+{% highlight html %}
+!-- app.component.html -->
+
+<div id="wrapper">
+  <app-header></app-header>
+  <app-stories></app-stories>
+  <app-footer></app-footer>
+</div>
+{% endhighlight %}
+
+Let's see what our page is looking like.
