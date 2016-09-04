@@ -33,7 +33,7 @@ Here's a rundown of what we'll be doing.
 3. To allow the user to see different story types, we'll add navigation using the Angular Component Router.
 4. Once we're done, we'll go over bundling and deployment to show you how to get the complete application in production using the [Firebase CLI](https://firebase.google.com/docs/cli/).
 
-This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from start all the way to production. As usual, I'll explain what and why we're doing each and every step as we go along.
+This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from start all the way to production. As usual, I'll explain what and why we're doing each step as we go along.
 
 Getting Started
 ==================
@@ -55,9 +55,9 @@ Yep, it's that simple. If you now open `http://localhost:4200/`, you'll see the 
 
 ![app setup](https://files.slack.com/files-tmb/T0LA4NDHS-F27V871NZ-c531c0b4a6/pasted_image_at_2016_09_03_01_51_am_720.png "App Setup"){: .article-image }
 
-Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks, and this includes long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team are in the process of moving the build system from [SystemJS to Webpack!](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
+Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks, and this includes long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team are in the process of moving the build system from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
-Although this is not 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in its alpha state. Once the team narrows everything down and makes an official release, installing Angular CLI will only use Webpack as its default module loader.
+Although this is not 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in its alpha stage. Once the team narrows everything down and makes an official release, installing Angular CLI will only use Webpack as its default module loader.
 
 First, you'll need to update globally.
 
@@ -109,13 +109,13 @@ You can probably already see how much more organized it is to not need to specif
 
 Let's get ready to rumble
 ==================
-Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. We can do this for the following command for a project that's already been set up.
+Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. For a project that has already been set up, we can do this with the following command.
 
 {% highlight bash %}
 ng set defaults.styleExt scss
 {% endhighlight %}
 
-Now that we have everything set up, we can create our first few components. To start things off, we'll create a `HeaderComponent`.
+Since that we have everything set up, we can create our first few components. To start things off, we'll create a `HeaderComponent`.
 
 {% highlight javascript %}
 ng g component Header
@@ -140,105 +140,122 @@ If you take a look at `header.component.ts`, you can see that its component sele
 
 {% highlight html %}
 <!-- app.component.html -->
+
 <app-header></app-header>
 {% endhighlight %}
 
+Running the application will show you that the header component loads successfully.
 
+![header loads](https://files.slack.com/files-tmb/T0LA4NDHS-F2804R2V9-ead3134abb/pasted_image_at_2016_09_03_02_20_pm_480.png "Header Loads"){: .article-image }
 
+Sweet, now let's add some markup and styling to both the root and header components.
 
+Our app component.
 
+{% highlight html %}
+<!-- app.component.html -->
 
+<div id="wrapper">
+  <app-header></app-header>
+</div>
+{% endhighlight %}
 
+The styling for `app.component.scss` can be found [here](). And now let's work on the header. 
 
+{% highlight html %}
+<!-- header.component.html -->
 
+<header id="header">
+  <a class="home-link" href="/">
+    <img class="logo" src="/assets/images/angular2-hn.png">
+  </a>
+  <div class="header-text">
+    <div class="left">
+      <h1 class="name">
+        <a href="/">Angular 2 HN</a>
+      </h1>
+      <span class="header-nav">
+        <a href="">new</a>
+        <span class="divider">
+          |
+        </span>
+        <a href="">show</a>
+        <span class="divider">
+          |
+        </span>
+        <a href="">ask</a>
+        <span class="divider">
+          |
+        </span>
+        <a href="">jobs</a>
+      </span>
+    </div>
+    <div class="info">
+      Built with <a href="https://cli.angular.io/" target="_blank">Angular CLI</a>
+    </div>
+  </div>
+</header>
+{% endhighlight %}
 
+And similarly, you can find the styling for this component [here](). Running the application gives us the following result.
 
-* They are **progressive**, meaning that they work for every user in every browser
-* Although they may provide a mobile-like experience, they are **responsive** and work on every device and every screen size
-* Push notifications, background syncing and offline capability are all features that can be included
-* They can be **installed** to the home screen of your device
-* They can be accessed directly with just a URL
+![header](https://files.slack.com/files-tmb/T0LA4NDHS-F28351WRG-36a0aaf209/pasted_image_at_2016_09_03_10_04_pm_720.png "Header"){: .article-image }
 
-As you can see, the line between web and app is becoming less distinct.
-
-The case for Progressive Web
+View Encapsulation
 ==================
-![installing]( http://imgs.xkcd.com/comics/installing.png "Installing"){: .article-image }
+Since we're trying to make this application as responsive as possible to give it a native feel, it's important to check how it looks with different screen sizes regularly. Let's adjust our viewport to see how it would look on a mobile device.
 
-{:installing: .image-source}
-[XKCD - Installing](http://xkcd.com/1367/)
-{: installing}
+![header mobile](https://files.slack.com/files-tmb/T0LA4NDHS-F282PJG06-b6551c5fe6/pasted_image_at_2016_09_03_10_26_pm_480.png "Header Mobile"){: .article-image }
 
-Although installing an app is usually a fast and simple process, when was the last time you were about to install something but decided not to? Maybe you felt like you didn't want to go through the hassle of installing it, or maybe you just didn't want use to up any more memory. Whatever the reason, almost every single mobile user has experienced this at some point. 
+As you can see, there seems to be an offset from the edge of the page. This is because the **body** element has a bult-in offset (through `margin`) that shows in almost all modern browsers. 
 
-However, most people feel a lot less *restricted* to open up a browser and just type in to the address bas. You may have not really thought of this, but the convenience, security and simplicity of just typing a URL into an address bar is a powerful advantage of the web. Progressive Web Apps combine this with the best of native applications.
+![body margin](https://files.slack.com/files-tmb/T0LA4NDHS-F28377QGJ-eac898ada2/pasted_image_at_2016_09_03_10_39_pm_720.png "body margin"){: .article-image }
 
-Angular and Progressive Enhancement
+But if you take a look at `app.component.scss`, we explicity set `margin: 0` for screen sizes less then 768px.
+
+{% highlight css %}
+// app.component.scss
+
+$mobile-only: "only screen and (max-width : 768px)";
+
+body {
+  margin-bottom: 0;
+
+  @media #{$mobile-only} {
+    margin: 0;
+  }
+}
+
+// ...
+{% endhighlight %}
+
+So why isn't this rendering the way it should? This is because Angular *encapsulates* CSS styles onto a component. I won't be going into too much detail, but there are three different ways Angular does this.
+
+- `None`: Angular doesn't do anything. No encapsulation and no Shadow DOM, this is just like adding styles regularly. Adding a style will apply to the entire document.
+- `Emulated`: Angular *emulates* Shadow DOM behaviour. This is defaulted.
+- `Native`: Angular uses the browser's native Shadow DOM completely.
+
+In our root component, we're trying to add styles to the `body` element which really doesn't make sense if you think about it. Our root component is within `body`, not the other way around, hence why it's styles will not be affected. We can work around this by telling Angular to not do any view encapsulation in this component whatsoever.
+
+{% highlight javascript %}
+// app.component.ts
+
+import { Component, ViewEncapsulation } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+
+export class AppComponent {
+}
+{% endhighlight %}
+
+Take a look at our application once more and you'll notice that the styles have now been applied to `body`. This is because all of the styles in this component now affect the entire document. (warning)*
+
+![header fixed](https://files.slack.com/files-tmb/T0LA4NDHS-F283AD90A-2908c145f3/pasted_image_at_2016_09_03_11_33_pm_480.png "Header Fixed"){: .article-image }
+
+Multiple Components
 ==================
-<blockquote>
-  <p>Progressive Web Apps are like normal web applications that get superpowers with browsers that have all of this functionality. Angular is the superheroic JavaScript framework, so we think they fit just perfectly together.</p>
-  <footer><a href="https://twitter.com/synalx">Alex Rickabaugh</a></footer>
-</blockquote>
-
-You don't need a specific library or framework to build a progressive application. To really learn more about how 
-
-Progressive Hacker News Client
-==================
-Let's get cracking!
-
-Steps:
-* https://github.com/angular/mobile-toolkit/blob/master/guides/cli-setup.md
-* npm install -g angular-cli
-* ng new angular2-hn --mobile
-* cd angular2-hn
-* git remote add origin http://IP/path/to/repository (actually initializes git already, all you'll need to set up git)
-* ng serve
-
-* If you see error Cannot read property 'makeCurrent' of undefined then do the following (http://stackoverflow.com/questions/38195887/cannot-read-property-makecurrent-of-undefined-in-angular-mobile)
-* * update package.json 
-* * "angular2-broccoli-prerender": "0.11.3",
-* * "angular2-universal": "0.104.4",
-* * add
-* * "child-process-promise": "^2.0.2",
-* * "optimist": "^0.6.1"
-* * npm update
-* * * If you see the error The Broccoli Plugin: [Funnel] failed with:
-* * * Error: watch /home/houssein/Dev/angular/angular2-hn/src ENOSPC 
-* * * http://unix.stackexchange.com/questions/13751/kernel-inotify-watch-limit-reached
-* * * Raised the value to 10000 (temporarily)
-
-* Now we got it set up, let's create our Application Shell
-* * Explain Application Shell
-* * Diagram
-* * Mention cant use templateurl and styleurl (https://github.com/angular/angular-cli/issues/810)
-
-* * Set up header, content and footer components
-* * Sweet scaffolding tool: ng generate component header
-* * Add default to export classes (and remove onInit for now)
-* * Remove test files for now
-* * Show directory structure
-
-* * Set up header, npm install angular material toolbar, update angular-cli-build.js, update src/system-config.ts, import md-toolbar (after npm install you'll need to run ng build, why?)
-* * Set up contenr and footer components
-* * Explain how fast Application Shell renders
-* * Talk about how it will be nice to have a progress indicator before the routed page renders
-* * Explain shellRender and shellNoRender
-* * Set up loading indicator component
-* * Set up loading icon, npm install angular material progress bar, update src/system-config.ts, import progress bar
-* 
-* * Awesome, we have the app shell set up. Now looking at the JSON structure of Hacker News api (https://github.com/HackerNews/API), set up for one
-* * Briefly explain pipes, how they seem to break app shell (I opened a issue: https://github.com/angular/mobile-toolkit/issues/88). Domain name function, time UNIX from now method, comments length.
-
-* * Now let's get some the real data. Explain the HackerNews API
-* * Explain RxJS, reactive programming, oservables
-* * Set up a service to just populate ids
-* * splice from 0 to 30
-* * set method to change splice number when more link is clicked
-* * set observable and function in service for each id (explain object observable cannto use async pipe)
-* * Things are coming together, wrap up prev and more nav links
-
-* * Now mention how we need to add links to header
-* * Because it'll be a pain to implement routing ofr all story types because we can't share templateUrls and styleUrls, can we just use input component method to communicate and send information from header comp to main-content component?
-* * * Nope, because they're sibling components not parent-child (show component tree diagram)
-* * So how can we communicate between such components? Usng a shared service??
-** Or routing?
