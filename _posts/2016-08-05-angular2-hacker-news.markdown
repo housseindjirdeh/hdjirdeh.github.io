@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Building Hacker News with Angular 2 CLI, Webpack and RxJS Observables"
+title:  "Building a fast and responsive Hacker News client with Angular 2"
 date:   2016-08-05 9:30:00 -0400
 categories: angular2 rxjs webpack
 description: If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out Angular CLI, a command line interface that makes creating and scaffolding an application significantly easier...
@@ -24,16 +24,22 @@ In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/)
   <a class="blog-button" href="https://github.com/hdjirdeh/angular2-hn">Source Code</a>
 </div>
 
-![angular 2 hn preview](http://i.imgur.com/6QquRtl.gif "Angular 2 HN Preview"){: .article-image }
+![angular 2 hn preview](http://i.imgur.com/3gIhXqC.gif "Angular 2 HN Preview"){: .article-image }
+
+I'm going to explain how I built this app in detail. We're going to break down everything and tackle each problem orthogonally. Throughout this post, I'll try my best to explain my thought process as well as some of the mistakes I've made and what I did to fix them.
 
 Here's a rundown of what we'll be doing.
 
 1. We'll start by building our basic setup first, the front page of Hacker News. <br>
-2. We'll then wrap an Observable Data Service to load data asynchronously from the official [Hacker News API](https://github.com/HackerNews/API)<br>
+2. We'll then wrap an Observable Data Service to load data asynchronously. <br>
 3. To allow the user to see different story types, comments and user profiles, we'll add navigation using the [Angular Component Router](https://angular.io/docs/ts/latest/guide/router.html).
 4. Once we're done, we'll go over bundling and deployment to show you how to get the complete application in production using the [Firebase CLI](https://firebase.google.com/docs/cli/).
 
-This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from scratch all the way to production. As usual, I'll explain what and why we're doing each step as we go along.
+This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from scratch all the way to production. We'll also briefly go over some important topics and understand how they apply to an actual application. This includes:
+
+1. The `NgModule` decorator in RC5<br>
+2. View Encapsulation<br>
+3. RxJS
 
 Getting Started
 ==================
@@ -57,7 +63,7 @@ If you now open `http://localhost:4200/`, you'll see the application running.
 
 Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks, and this includes long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team are in the process of moving the build system from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
-Although this is not 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in its alpha stage. Once the team narrows everything down and makes an official release, installing Angular CLI will only use Webpack as its default module loader.
+Although this is not 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in an early stage. Once the team narrows everything down, installing Angular CLI will only use Webpack as its default module loader.
 
 First, you'll need to update globally.
 
@@ -638,6 +644,64 @@ Nice and straightforward. For each item, we're subscribing to their respective s
 Now if you run the application, you'll see the first page of Hacker News! Click [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page) for the full source code until this step.
 
 ![top stories](https://files.slack.com/files-pri/T0LA4NDHS-F2872D188/pasted_image_at_2016_09_05_02_15_am.png "Top Stories"){: .article-image }
+
+Things are kinda slow though
+==================
+Let's take a look at the requests sent loading the front page of our application (after the app is loaded).
+
+![comparison](https://files.slack.com/files-pri/T0LA4NDHS-F2AAN0BH7/pasted_image_at_2016_09_10_02_01_pm.png "Comparison"){: .article-image }
+
+31 requests and 20.8KB transferred in 546ms! This takes almost five times as long loading the front page of Hacker News and more then twice as much data to just load the posts. This is pretty darn slow, but it's kind of tolerable when you're loading the list of posts on the front page. This becomes a serious problem when you're trying to load a large number of comments for a single post.
+
+I built the entire application with each of the component's using this method, including each post and their comments. You can take a look at what happens when you try to load a post with almost 2000 comments.
+
+![700 comments](http://i.imgur.com/pwT2QwD.gif "700 comments"){: .article-image }
+
+Just to save you time from watching that entire gif, it takes **741 requests, 1.5MB and 90s** to load roughly 700 of the comments (I wasn't patient enough to wait for every comment to load).
+
+*Just for reference's sake, I still have this version up on my GitHub pages. At your own caution, you can take a look at how long it takes to load a large number of comments [here](http://houssein.me/angular2-hn/item/12445994)*.
+
+Let's switch things up
+==================
+Okay, now we can see why having multiple network connection to fetch a parent item and it's content isn't the nicest experience. After a little bit of searching, I found this awesome [unofficial API](https://github.com/cheeaun/node-hnapi) which returns an item and it's details through a single request. 
+
+For example, the response for the list of top stories looks like this.
+
+Now if we want to obtain information like front page ranking, we'll need to use another endpoint specific to the type of stories. For example, top stories can be retrieved like this.
+
+{% highlight javascript %}
+// http://node-hnapi.herokuapp.com/news?page=1
+
+[
+  {
+    "id": 12469856,
+    "title": "Owl Lisp – A purely functional Scheme that compiles to C",
+    "points": 57,
+    "user": "rcarmo",
+    "time": 1473524669,
+    "time_ago": "2 hours ago",
+    "comments_count": 9,
+    "type": "link",
+    "url": "https://github.com/aoh/owl-lisp",
+    "domain": "github.com"
+  },
+  {
+    "id": 12469823,
+    "title": "How to Write Articles and Essays Quickly and Expertly",
+    "points": 52,
+    "user": "bemmu",
+    "time": 1473524142,
+    "time_ago": "2 hours ago",
+    "comments_count": 6,
+    "type": "link",
+    "url": "http://www.downes.ca/post/38526",
+    "domain": "downes.ca"
+  },
+  ...
+]
+{% endhighlight %}
+
+Notice the `domain` and `time_ago` attributes which is pretty cool. This means we can ditch the `domain.pipe.ts` file I created earlier as well as uninstall the `angular2-moment` library. Let's take a look at what we need to change in our data service.
 
 Routing
 ==================
