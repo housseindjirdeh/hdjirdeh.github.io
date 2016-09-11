@@ -125,8 +125,8 @@ ng set defaults.styleExt scss
 
 Now that we have everything set up, we can create our first few components. To start things off, we'll create a `HeaderComponent`.
 
-{% highlight javascript %}
-ng g component Header
+{% highlight bash %}
+ng generate component Header
 {% endhighlight %}
 
 You'll notice that a `header` folder is immediately created and scaffolded with the following files created.
@@ -854,7 +854,34 @@ Now let's map out the components that show when we click on an item's comments.
 
 ![item comments components](https://files.slack.com/files-pri/T0LA4NDHS-F2ABUUH6J/pasted_image_at_2016_09_10_11_43_pm.png "Item Comment Components"){: .article-image }
 
-Now to allow the user to navigate between these pages, we're going to have to include routing in our application. We can begin by creating a 
+Now to allow the user to navigate between these pages, we're going to have to include some basic routing in our application. Before we begin, let's create the item comments component.
+
+{% highlight bash %}
+ng g component ItemComments
+{% endhighlight %}
+
+Next, let's create `app.routes.ts` in our `app` folder.
+
+{% highlight javascript %}
+// app.routes.ts
+
+import { Routes, RouterModule } from '@angular/router';
+
+import { StoriesComponent } from './stories/stories.component';
+import { ItemCommentsComponent } from './item-comments/item-comments.component';
+
+const routes: Routes = [
+  { path: '', component: StoriesComponent},
+  { path: 'news/:page', component: StoriesComponent },
+  { path: 'newest/:page', component: StoriesComponent },
+  { path: 'show/:page', component: StoriesComponent },
+  { path: 'ask/:page', component: StoriesComponent },
+  { path: 'jobs/:page', component: StoriesComponent },
+  { path: 'item/:id', component: ItemCommentsComponent },
+];
+
+export const routing = RouterModule.forRoot(routes);
+{% endhighlight %}
 
 We're almost done now! All that's left now is just to bundle and deploy this bad boy to a production environment.
 
