@@ -28,6 +28,10 @@ p {
     line-height: 38px;
     font-size: 1.8rem;
 
+    @include media-query($on-palm) {
+        font-size: 1.6rem;
+    }
+
     a {
         &:hover {
             color: $brand-alternate-color;
@@ -101,6 +105,10 @@ li {
     letter-spacing: 0.02rem;
     line-height: 38px;
     font-size: 1.8rem;
+
+    @include media-query($on-palm) {
+        font-size: 1.6rem;
+    }
 
     > ul,
     > ol {

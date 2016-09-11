@@ -420,11 +420,11 @@
     line-height: 86px;
     letter-spacing: 0.5px;
     @include media-query($on-laptop) {
-        font-size: 46px;
+        font-size: 42px;
         line-height: 76px;
     }
     @include media-query($on-palm) {
-        font-size: 42px;
+        font-size: 36px;
         line-height: 66px;
     }
 }
@@ -448,11 +448,11 @@
     line-height: 86px;
     letter-spacing: 0.5px;
     @include media-query($on-laptop) {
-        font-size: 46px;
+        font-size: 42px;
         line-height: 76px;
     }
     @include media-query($on-palm) {
-        font-size: 42px;
+        font-size: 36px;
         line-height: 66px;
     }
 }

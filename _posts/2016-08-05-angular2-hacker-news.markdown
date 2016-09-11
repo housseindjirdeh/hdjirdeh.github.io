@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Building a fast and responsive Hacker News client with Angular 2"
+title:  "Building Hacker News with Angular 2 CLI, RxJS and Webpack"
 date:   2016-08-05 9:30:00 -0400
 categories: angular2 rxjs webpack
 description: If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out Angular CLI, a command line interface that makes creating and scaffolding an application significantly easier...
@@ -17,7 +17,7 @@ permalink: /:title
 
 If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team have rolled out [Angular CLI](https://cli.angular.io/), a command line interface that makes creating and scaffolding an application significantly easier.
 
-In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI and RxJS Observables using Webpack as our module loader.
+In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI, RxJS Observables and Webpack as our module loader.
 
 <div class="button-center">
   <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
@@ -26,7 +26,7 @@ In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/)
 
 ![angular 2 hn preview](http://i.imgur.com/3gIhXqC.gif "Angular 2 HN Preview"){: .article-image }
 
-I'm going to explain how I built this app in detail. We're going to break down everything and tackle each problem orthogonally. Throughout this post, I'll try my best to explain my thought process as well as some of the mistakes I've made and what I did to fix them.
+This is a visual tutorial where I show you how to build the entire application step by step. We're going to break down everything and tackle each problem as we progress. Throughout this post, I'll try my best to explain my thought process as well as some of the mistakes I've made and what I did to fix them.
 
 Here's a rundown of what we'll be doing.
 
@@ -63,7 +63,7 @@ If you now open `http://localhost:4200/`, you'll see the application running.
 
 Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks, and this includes long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team are in the process of moving the build system from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
-Although this is not 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in an early stage. Once the team narrows everything down, installing Angular CLI will only use Webpack as its default module loader.
+Although this is not 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in it's early stage. Once the team narrows everything down, installing Angular CLI will only use Webpack as its default module loader.
 
 First, you'll need to update globally.
 
@@ -117,7 +117,7 @@ You can probably already see how much more organized it is to not need to specif
 
 Let's get ready to rumble
 ==================
-Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. For a project that has already been set up, you can do this with the following command.
+Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. The CLI makes it simple for a project that's already been started.
 
 {% highlight bash %}
 ng set defaults.styleExt scss
@@ -129,7 +129,18 @@ Now that we have everything set up, we can create our first few components. To s
 ng g component Header
 {% endhighlight %}
 
-You'll notice that a `header` folder is immediately created and scaffolded. Take a look at `app.module.ts` once again and you'll notice that it is now declared there as well.
+You'll notice that a `header` folder is immediately created and scaffolded with the following files created.
+
+- `header.component.scss`<br>
+- `header.component.html`<br>
+- `header.component.ts`<br>
+- `header.component.spec.ts`
+
+![Unit Tests](http://i.imgur.com/ET1JQLg.jpg "Unit Tests"){: .article-image }
+
+I'm only joking, unit testing is always important for apps that go to production. We won't be doing them for this tutorial however so feel free to delete/comment out the `spec` files for now.
+
+Take a look at `app.module.ts` once again and you'll notice that our component is now declared there as well.
 
 {% highlight javascript %}
 // ...
@@ -144,7 +155,7 @@ import { HeaderComponent } from './header/header.component';
 //...
 {% endhighlight %}
 
-If you take a look at `header.component.ts` inside the `header` folder, you can see that its component selector is `app-header`. Let's add this in our root component.
+If you take a look at `header.component.ts`, you can see that its component selector is `app-header`. Let's add this in our root component, `app.component.ts`.
 
 {% highlight html %}
 <!-- app.component.html -->
@@ -211,7 +222,7 @@ And similarly, you can find the styling for this component [here](https://github
 
 View Encapsulation
 ==================
-Since we're trying to make this application as responsive as possible to give it a native feel, it's important to check how it looks with different screen sizes regularly. Let's adjust our viewport to see how it would look on a mobile device.
+Since we're trying to make this application as responsive as possible, it's important to check how it looks with different screen sizes regularly. Let's adjust our viewport to see how it would look on a mobile device.
 
 ![header mobile](https://files.slack.com/files-pri/T0LA4NDHS-F282PJG06/pasted_image_at_2016_09_03_10_26_pm.png "Header Mobile"){: .article-image }
 
@@ -264,6 +275,10 @@ export class AppComponent {
 Take a look at our application once more and you'll notice that the styles have now been applied to `body`. This is because all of the styles in this component now affect the entire document. (warning)*
 
 ![header fixed](https://files.slack.com/files-pri/T0LA4NDHS-F283AD90A/pasted_image_at_2016_09_03_11_33_pm.png "Header Fixed"){: .article-image }
+
+But wait a minute, was all of this really necessary? I see a `styles.scss` file in our root folder. Isn't this for global styles? Can't we just add a class here to style `body`?
+
+![face palm](http://i.imgur.com/WtE1S58.jpg "Face Palm"){: .article-image }
 
 Multiple Components
 ==================
@@ -548,7 +563,7 @@ In the `ngOnInit` hook, which fires when the component is initialized, we `subsc
 <div class="main-content">
   <ol>
     <li *ngFor="let item of items | slice:0:30" class="post">
-      <item class="item-block" itemID="{{ item }}"></item>
+      <item class="item-block" itemID="{% raw %}{{ item }}{% endraw %}"></item>
     </li>
   </ol>
   <!-- ... -->
@@ -651,23 +666,21 @@ Let's take a look at the requests sent loading the front page of our application
 
 ![comparison](https://files.slack.com/files-pri/T0LA4NDHS-F2AAN0BH7/pasted_image_at_2016_09_10_02_01_pm.png "Comparison"){: .article-image }
 
-31 requests and 20.8KB transferred in 546ms! This takes almost five times as long loading the front page of Hacker News and more then twice as much data to just load the posts. This is pretty darn slow, but it's kind of tolerable when you're loading the list of posts on the front page. This becomes a serious problem when you're trying to load a large number of comments for a single post.
+Woah, 31 requests and 20.8KB transferred in 546ms. This takes almost five times as long loading the front page of Hacker News and more then twice as much data to just load the posts. This is pretty darn slow, and maybe it's kind of tolerable when you're loading the list of posts on the front page but this is a serious problem if we try loading a large number of comments for a single post.
 
-I built the entire application with each of the component's using this method, including each post and their comments. You can take a look at what happens when you try to load a post with almost 2000 comments.
+I built the entire application with each of the component's using this method, including each post and their comments. You can take a look at what happens when I tried to load a post with almost 2000 comments.
 
 ![700 comments](http://i.imgur.com/pwT2QwD.gif "700 comments"){: .article-image }
 
 Just to save you time from watching that entire gif, it takes **741 requests, 1.5MB and 90s** to load roughly 700 of the comments (I wasn't patient enough to wait for every comment to load).
 
-*Just for reference's sake, I still have this version up on my GitHub pages. At your own caution, you can take a look at how long it takes to load a large number of comments [here](http://houssein.me/angular2-hn/item/12445994)*.
+*Just for reference's sake, I still have this version of the app up on my GitHub pages. At your own caution, you can take a look at how long it takes to load this many comments [here](http://houssein.me/angular2-hn/item/12445994)*.
 
 Let's switch things up
 ==================
-Okay, now we can see why having multiple network connection to fetch a parent item and it's content isn't the nicest experience. After a little bit of searching, I found this awesome [unofficial API](https://github.com/cheeaun/node-hnapi) which returns an item and it's details through a single request. 
+Okay, now we can see why having multiple network connections to fetch a parent item and it's content isn't the nicest experience. After a little bit of searching, I found this awesome [unofficial API](https://github.com/cheeaun/node-hnapi) which returns an item and it's details through a single request. 
 
 For example, the response for the list of top stories looks like this.
-
-Now if we want to obtain information like front page ranking, we'll need to use another endpoint specific to the type of stories. For example, top stories can be retrieved like this.
 
 {% highlight javascript %}
 // http://node-hnapi.herokuapp.com/news?page=1
@@ -701,14 +714,147 @@ Now if we want to obtain information like front page ranking, we'll need to use 
 ]
 {% endhighlight %}
 
-Notice the `domain` and `time_ago` attributes which is pretty cool. This means we can ditch the `domain.pipe.ts` file I created earlier as well as uninstall the `angular2-moment` library. Let's take a look at what we need to change in our data service.
+Notice that there is `domain` as well as a `time_ago` attribute which is pretty cool. This means we can ditch the `domain.pipe.ts` file I created earlier as well as uninstall the `angular2-moment` library. Let's take a look at what we need to change in our data service.
+
+{% highlight javascript %}
+export class HackerNewsAPIService {
+  baseUrl: string;
+
+  constructor(private http: Http) {
+    this.baseUrl = 'https://node-hnapi.herokuapp.com';
+  }
+
+  fetchStories(storyType: string, page: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${storyType}?page=${page}`)
+                    .map(response => response.json());
+  }
+}
+{% endhighlight %}
+
+Now because this API doesn't load all 500 top stories and loads them per page, we added page number as an argument. Notice how we also have `storyType` as an argument as well. This will set things up for showing different kinds of stories depending on where the user navigates to.
+
+Let's take a look at how we can change the stories component.
+
+{% highlight javascript %}
+// stories.component.ts
+
+export class StoriesComponent implements OnInit {
+  items;
+
+  constructor(private _hackerNewsAPIService: HackerNewsAPIService) {}
+
+  ngOnInit() {
+    this._hackerNewsAPIService.fetchStories('news', 1)
+                              .subscribe(
+                                items => this.items = items,
+                                error => console.log('Error fetching stories'));
+  }
+}
+{% endhighlight %}
+
+For now, we're specifically passing `'news'` and page number `1` into our service. And now let's look at the markup.
+
+{% highlight html %}
+<!-- stories.component.html -->
+
+<div class="loading-section" *ngIf="!items">
+  <!-- Loading bars that show when request is pending -->
+</div>
+<div *ngIf="items">
+  <ol>
+    <li *ngFor="let item of items" class="post">
+      <item class="item-block" [item]="item"></item>
+    </li>
+  </ol>
+  <div class="nav">
+    <a class="prev">
+      ‹ Prev
+    </a>
+    <a class="more">
+      More ›
+    </a>
+  <div>
+</div>
+{% endhighlight %}
+
+Since all our item components are not loading individually async anymore, we set up a loading indicator here. Moreover, we can now just pass in the item object of each list item to the child item component. This means we should be able to clean things up there nicely.
+
+In `item.component.ts`, we don't need to inject HackerNewsService anymore and our component is now simply a conduit to take in the item object from it's parent.
+
+{% highlight javascript %}
+// item.component.ts
+
+export class ItemComponent implements OnInit {
+  @Input() item;
+
+  constructor() {}
+
+  ngOnInit() {
+  
+  }
+}
+{% endhighlight %}
+
+The markup (`item.component.html`) is pretty much the same, but the loading indicator is now removed and each paramter now refers to the object attributes of our newly used API.
+
+{% highlight html %}
+<!-- item.component.html -->
+
+<div class="item-laptop">
+  <p>
+    <a class="title" href="">
+      {% raw %}{{item.title}}{% endraw %}
+    </a>
+    <span *ngIf="item.domain" class="domain">({% raw %}{{item.domain}}{% endraw %})</span>
+  </p>
+  <div class="subtext-laptop">
+    <span>
+      {% raw %}{{item.points}}{% endraw %} points by 
+      <a href="">{% raw %}{{item.user}}{% endraw %}</a>
+    </span> 
+    <span>
+      {% raw %}{{item.time_ago}}{% endraw %}
+      <span> |
+        <a href="">
+          <span *ngIf="item.comments_count !== 0">
+            {% raw %}{{item.comments_count}}{% endraw %}
+            <span *ngIf="item.comments_count === 1">comment</span>
+            <span *ngIf="item.comments_count > 1">comments</span>
+          </span>
+          <span *ngIf="item.comments_count === 0">discuss</span>
+        </a>
+      </span>
+    </span>
+  </div>
+</div>
+<div class="item-mobile">
+  <!-- Markup that shows only on mobile (to give the app a
+    responsive mobile feel). Same attributes as above 
+    nothing really new here (but refer to the source 
+    file if you're interested) -->
+</div>
+{% endhighlight %}
+
+Now let's see what happens when we run this bad boy.
+
+![front page](https://files.slack.com/files-pri/T0LA4NDHS-F2ABXS1SB/pasted_image_at_2016_09_10_10_01_pm.png "Front Page"){: .article-image }
+
+And now everything loads much faster :). The source code for this step can be found [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page-final).
 
 Routing
 ==================
 
-We've come quite a long way, but before we continue let's map out everything we have left to include in our application.
+We've come quite a long way, but before we continue let's map out the entire component structure of the application. Please excuse my funky Powerpoint skills.
 
-To allow the user to navigate between all these components, we're going to have to add Routing.
+Let's start with what we've built so far.
+
+![front page components](https://files.slack.com/files-pri/T0LA4NDHS-F2AC059R7/pasted_image_at_2016_09_10_10_21_pm.png "Front Page Components"){: .article-image }
+
+Now let's map out the components that show when we click on an item's comments.
+
+![item comments components](https://files.slack.com/files-pri/T0LA4NDHS-F2ABUUH6J/pasted_image_at_2016_09_10_11_43_pm.png "Item Comment Components"){: .article-image }
+
+Now to allow the user to navigate between these pages, we're going to have to include routing in our application. We can begin by creating a 
 
 We're almost done now! All that's left now is just to bundle and deploy this bad boy to a production environment.
 
