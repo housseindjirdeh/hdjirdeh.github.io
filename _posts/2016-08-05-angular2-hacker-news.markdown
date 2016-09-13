@@ -617,7 +617,7 @@ export class ItemComponent implements OnInit {
 
 {% highlight html %}
 <div *ngIf="!item" class="loading-section">
-  <!-- Loading bars that show when item hasn't rendered yet -->
+  <!-- You can add a loading indicator here if you want to :) -->
 </div>
 <div *ngIf="item">
   <div class="item-laptop">
@@ -758,7 +758,7 @@ For now, we're specifically passing `'news'` and page number `1` into our servic
 <!-- stories.component.html -->
 
 <div class="loading-section" *ngIf="!items">
-  <!-- Loading bars that show when request is pending -->
+  <!-- You can add a loading indicator here if you want to :) -->
 </div>
 <div *ngIf="items">
   <ol>
@@ -854,13 +854,13 @@ Now let's map out the components that show when we click on an item's comments.
 
 ![item comments components](https://files.slack.com/files-pri/T0LA4NDHS-F2ABUUH6J/pasted_image_at_2016_09_10_11_43_pm.png "Item Comment Components"){: .article-image }
 
-Now to allow the user to navigate between these pages, we're going to have to include some basic routing in our application. Before we begin, let's create the item comments component.
+To allow the user to navigate between these pages, we're going to have to include some basic routing in our application. Before we begin, let's create the item comments component.
 
 {% highlight bash %}
 ng g component ItemComments
 {% endhighlight %}
 
-Next, let's create `app.routes.ts` in our `app` folder.
+Next, create a `app.routes.ts` file in your `app` folder.
 
 {% highlight javascript %}
 // app.routes.ts
@@ -871,17 +871,239 @@ import { StoriesComponent } from './stories/stories.component';
 import { ItemCommentsComponent } from './item-comments/item-comments.component';
 
 const routes: Routes = [
-  { path: '', component: StoriesComponent},
-  { path: 'news/:page', component: StoriesComponent },
-  { path: 'newest/:page', component: StoriesComponent },
-  { path: 'show/:page', component: StoriesComponent },
-  { path: 'ask/:page', component: StoriesComponent },
-  { path: 'jobs/:page', component: StoriesComponent },
-  { path: 'item/:id', component: ItemCommentsComponent },
+  {path: '', redirectTo: 'news/1', pathMatch : 'full'},
+  {path: 'news/:page', component: StoriesComponent, data: {storiesType: 'news'}},
+  {path: 'newest/:page', component: StoriesComponent, data: {storiesType: 'newest'}},
+  {path: 'show/:page', component: StoriesComponent, data: {storiesType: 'show'}},
+  {path: 'ask/:page', component: StoriesComponent, data: {storiesType: 'ask'}},
+  {path: 'jobs/:page', component: StoriesComponent, data: {storiesType: 'jobs'}},
+  {path: 'item/:id', component: ItemCommentsComponent},
+  {path: 'user/:id', component: UserComponent}
 ];
 
 export const routing = RouterModule.forRoot(routes);
 {% endhighlight %}
+
+Let's quickly go through what this file does.
+
+1. We just created an array of routes, each with a relative **path** that maps to a specific **component**<br>
+2. Our header navigation links will route to a number of different paths; `news`, `newest`, `show`, `ask` and `jobs`. All these paths, including the root path, will map to our `StoriesComponent`<br>
+3. We've set up our root path to redirect to `news` which should return the list of top stories<br>
+3. We're passing down `storyType` as a parameter through the `data` property. This lets us have a story type associated for each route (we'll need this when we use our data service to fetch the list of stories)<br>
+4. `:page` is used as a token so that `StoriesComponent` can fetch the list of stories for a specific page<br>
+5. `:id` is similarly used so that `ItemCommentsComponent` can obtain all the comments for the specific item
+
+There's a lot more you can do with routing, but this basic setup should be everything we need. Now let's open `app.module.ts` to register our routing.
+
+{% highlight javascript %}
+// app.module.ts
+
+// ...
+import { routing } from './app.routes';
+
+@NgModule({
+  declarations: [
+    //...
+  ],
+  imports: [
+    //...
+    routing
+  ],
+  providers: [HackerNewsAPIService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+{% endhighlight %}
+
+To tell Angular where to load the component to route to, we need to use `RouterOutlet`.
+
+{% highlight html %}
+<!-- app.component.html -->
+
+<div id="wrapper">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</div>
+{% endhighlight %}
+
+Story Navigation
+==================
+
+Let's bind our navigation links in `HeaderComponent` to their respective routes.
+
+{% highlight html %}
+<!-- header.component.html -->
+
+<header>
+  <div id="header">
+    <a class="home-link" routerLink="/news/1" routerLinkActive="active">
+      <img class="logo" src="http://i.imgur.com/J303pQ4.png">
+    </a>
+    <div class="header-text">
+      <div class="left">
+        <h1 class="name">
+          <a routerLink="/news/1" routerLinkActive="active" class="app-title">Angular 2 HN</a>
+        </h1>
+        <span class="header-nav">
+          <a routerLink="/newest/1" routerLinkActive="active">new</a>
+          <span class="divider">
+            |
+          </span>
+          <a routerLink="/show/1" routerLinkActive="active">show</a>
+          <span class="divider">
+            |
+          </span>
+          <a routerLink="/ask/1" routerLinkActive="active">ask</a>
+          <span class="divider">
+            |
+          </span>
+          <a routerLink="/jobs/1" routerLinkActive="active">jobs</a>
+        </span>
+      </div>
+      <div class="info">
+        Built with <a href="https://cli.angular.io/" target="_blank">Angular CLI</a>
+      </div>
+    </div>
+  </div>
+</header>
+{% endhighlight %}
+
+`RouterLink` is responsible for binding a specific element to a route and `RouterLinkActive` allows you to add/remove classes if the route is active/inactive. Here we're mapping it to an `active` CSS class that will bold the navigation link.
+
+And now let's update `StoriesComponent`.
+
+{% highlight javascript %}
+// stories.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute } from '@angular/router';
+
+import { HackerNewsAPIService } from '../hackernews-api.service';
+
+@Component({
+  selector: 'app-stories',
+  templateUrl: './stories.component.html',
+  styleUrls: ['./stories.component.scss']
+})
+
+export class StoriesComponent implements OnInit {
+  typeSub: any;
+  pageSub: any;
+  items;
+  storiesType;
+  pageNum: number;
+  listStart: number;
+
+  constructor(
+    private _hackerNewsAPIService: HackerNewsAPIService, 
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    this.typeSub = this.route
+      .data
+      .subscribe(data => this.storiesType = data.storiesType);
+
+    this.pageSub = this.route.params.subscribe(params => {
+      this.pageNum = +params['page'] ? +params['page'] : 1;
+      this._hackerNewsAPIService.fetchStories(this.storiesType, this.pageNum)
+                              .subscribe(
+                                items => this.items = items,
+                                error => console.log('Error fetching' + this.storiesType + 'stories'),
+                                () => this.listStart = ((this.pageNum - 1) * 30) + 1);
+    });
+  }
+}
+{% endhighlight %}
+
+Might look like we added quite a bit, but not really. Let's parse it out.
+
+{% highlight javascript %}
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  //...
+})
+
+export class StoriesComponent implements OnInit {
+//..
+
+constructor(
+  private route: ActivatedRoute
+) {}
+//...
+}
+{% endhighlight %}
+
+We imported `ActivatedRoute`, a service that contains the route information we need, `storiesType` and `page`.
+
+{% highlight javascript %}
+ngOnInit() {
+  this.typeSub = this.route
+    .data
+    .subscribe(data => this.storiesType = data.storiesType);
+
+// ...
+}
+{% endhighlight %}
+
+In the `ngOnInit` hook, we subscribe to the route data property and store `storiesType` into a component variable.
+
+{% highlight javascript %}
+ngOnInit() {
+// ...
+
+this.pageSub = this.route.params.subscribe(params => {
+    this.pageNum = +params['page'] ? +params['page'] : 1;
+    this._hackerNewsAPIService.fetchStories(this.storiesType, this.pageNum)
+                            .subscribe(
+                              items => this.items = items,
+                              error => console.log('Error fetching' + this.storiesType + 'stories'),
+                              () => {
+                                this.listStart = ((this.pageNum - 1) * 30) + 1;
+                                window.scrollTo(0, 0);
+                              });
+  });
+}
+{% endhighlight %}
+
+We also subscribe to the route parameters and obtain the page number. With this information, we can fetch the list of stories using our data service. To signal completion, we use `onCompleted()` to update a `listStart` variable which is used as the starting value of our ordered list (which you can see below). We also scroll to the top of the window so the user is not stuck at the bottom of the page when he/she tries to switch pages.
+
+{% highlight html %}
+<div class="main-content">
+  <div class="loading-section" *ngIf="!items">
+    <!-- You can add a loading indicator here if you want to :) -->
+  </div>
+  <div *ngIf="items">
+    <ol start="{% raw %}{{ listStart }}{% endraw %}">
+      <li *ngFor="let item of items" class="post">
+        <item class="item-block" [item]="item"></item>
+      </li>
+    </ol>
+    <div class="nav">
+      <a *ngIf="listStart !== 1" [routerLink]="['/' + storiesType, pageNum - 1]" class="prev">
+        ‹ Prev
+      </a>
+      <a *ngIf="items.length === 30" [routerLink]="['/' + storiesType, pageNum + 1]" class="more">
+        More ›
+      </a>
+    <div>
+  </div>
+</div>
+{% endhighlight %}
+
+We now have the front page completed with navigation and pagination. Run the application to see the good stuff.
+
+![that's a wrap]({{ site.url }}/public/thatsawrap.jpg "That's a wrap"){: .article-image }
+
+Item Comments
+==================
+We're almost done! Now let's add comments
+
+User Profiles
+==================
 
 We're almost done now! All that's left now is just to bundle and deploy this bad boy to a production environment.
 
