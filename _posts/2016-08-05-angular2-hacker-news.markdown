@@ -1100,7 +1100,244 @@ We now have the front page completed with navigation and pagination. Run the app
 
 Item Comments
 ==================
-We're almost done! Now let's add comments
+We're almost done! Before we start adding our comments components, let's set up routing when you click on an item.
+
+{% highlight html %}
+<!-- item.component.html -->
+
+<div class="item-laptop">
+  <p>
+    <a class="title" href="{% raw %}{{item.url}}{% endraw %}">
+      {% raw %}{{item.title}}{% endraw %}
+    </a>
+    <span *ngIf="item.domain" class="domain">({% raw %}{{item.domain}}{% endraw %})</span>
+  </p>
+  <div class="subtext-laptop">
+    <span>
+      {% raw %}{{item.points}}{% endraw %} points by 
+      <a href="">{% raw %}{{item.user}}{% endraw %}</a>
+    </span> 
+    <span>
+      {% raw %}{{item.time_ago}}{% endraw %}
+      <span> |
+         <a [routerLink]="['/item', item.id]">
+          <span *ngIf="item.comments_count !== 0">
+            {% raw %}{{item.comments_count}}{% endraw %}
+            <span *ngIf="item.comments_count === 1">comment</span>
+            <span *ngIf="item.comments_count > 1">comments</span>
+          </span>
+          <span *ngIf="item.comments_count === 0">discuss</span>
+        </a>
+      </span>
+    </span>
+  </div>
+</div>
+<div class="item-mobile">
+  <!-- Markup that shows only on mobile (to give the app a
+    responsive mobile feel). Same attributes as above,  
+    nothing really new here (but refer to the source 
+    file if you're interested) -->
+</div>
+{% endhighlight %}
+
+Run the application and click on an item's comments.
+
+![item comments route](https://files.slack.com/files-pri/T0LA4NDHS-F2AUJNDLN/pasted_image_at_2016_09_12_10_28_pm.png "Item Comments Route"){: .article-image }
+
+Beauty. We can see that it's routing to `ItemCommentsComponent`. Let's create our additional components.
+
+{% highlight bash %}
+ng g component CommentTree
+{% endhighlight %}
+
+{% highlight bash %}
+ng g component Comment
+{% endhighlight %}
+
+We should add a new `GET` request to our data service to fetch comments, so let's do that before we start filling our components up.
+
+{% highlight javascript %}
+// hackernews.api.service.ts
+
+//...
+
+fetchComments(id: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/item/${id}`)
+                  .map(response => response.json());
+}
+{% endhighlight %}
+
+And now we can fill out our components.
+
+{% highlight javascript %}
+// item-comments.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { HackerNewsAPIService } from '../hackernews-api.service';
+
+@Component({
+  selector: 'app-item-comments',
+  templateUrl: './item-comments.component.html',
+  styleUrls: ['./item-comments.component.scss']
+})
+export class ItemCommentsComponent implements OnInit {
+  sub: any;
+  item;
+
+  constructor(
+    private _hackerNewsAPIService: HackerNewsAPIService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {    
+    this.sub = this.route.params.subscribe(params => {
+      let itemID = +params['id'];
+      this._hackerNewsAPIService.fetchComments(itemID).subscribe(data => {
+        this.item = data;
+      }, error => console.log('Could not load item' + itemID));
+    });
+  }
+}
+{% endhighlight %}
+
+Similar to what we did in `StoriesComponent`, we subscribe to our route parameters, obtain the item id and use that to fetch our comments.
+
+{% highlight html %}
+<!-- item-comments.component.html -->
+
+<div class="main-content">
+  <div class="loading-section" *ngIf="!item">
+    <!-- You can add a loading indicator here if you want to :) -->
+  </div>
+  <div *ngIf="item" class="item">
+    <div class="mobile item-header">
+     <!-- Markup that shows only on mobile (to give the app a
+    responsive mobile feel). Same attributes as above 
+    nothing really new here (but refer to the source 
+    file if you're interested) -->
+    </div>
+    <div class="laptop" [class.item-header]="item.comments_count > 0 || item.type === 'job'" [class.head-margin]="item.text">
+      <p>
+        <a class="title" href="{% raw %}{{item.url}}{% endraw %}">
+        {% raw %}{{item.title}}{% endraw %}
+        </a>
+        <span *ngIf="item.domain" class="domain">({% raw %}{{item.domain}}{% endraw %})</span>
+      </p>
+      <div class="subtext">
+        <span>
+        {% raw %}{{item.points}}{% endraw %} points by 
+          <a href="">{% raw %}{{item.user}}{% endraw %}</a>
+        </span> 
+        <span>
+          {% raw %}{{item.time_ago}}{% endraw %}
+          <span> |
+            <a [routerLink]="['/item', item.id]">
+              <span *ngIf="item.comments_count !== 0">
+                {% raw %}{{item.comments_count}}{% endraw %}
+                <span *ngIf="item.comments_count === 1">comment</span>
+                <span *ngIf="item.comments_count > 1">comments</span>
+              </span>
+              <span *ngIf="item.comments_count === 0">discuss</span>
+            </a>
+          </span>
+        </span> 
+      </div>
+    </div>
+    <p class="subject" [innerHTML]="item.content"></p>
+    <app-comment-tree [commentTree]="item.comments"></app-comment-tree>
+  </div>
+</div>
+{% endhighlight %}
+
+So at the top of the component, we're going to display the item details, followed by it's description, `item.content`. We then input the entire comments object (`item.comments`) to `app-comment-tree`, the selector for `CommentTreeComponent`.
+
+*Note: The styling for this component can be found [here]().
+
+{% highlight javascript %}
+// comment-tree.component.ts
+
+import { Component, Input, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-comment-tree',
+  templateUrl: './comment-tree.component.html',
+  styleUrls: ['./comment-tree.component.scss']
+})
+export class CommentTreeComponent implements OnInit {
+  @Input() commentTree;
+
+  constructor() {}
+
+  ngOnInit() {
+  
+  }
+}
+{% endhighlight %}
+
+{% highlight html %}
+<!-- comment-tree.component.html -->
+
+<ul class="comment-list">
+   <li *ngFor="let comment of commentTree" > 
+      <app-comment [comment]="comment"></app-comment>
+   </li>
+</ul>
+{% endhighlight %}
+
+Nice and simple, the CommentTree component lists all the comments using the `ngFor` directive. Click [here]() to see it's SCSS file.
+
+{% highlight javascript %}
+// comment.component.ts
+
+import { Component, Input, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-comment',
+  templateUrl: './comment.component.html',
+  styleUrls: ['./comment.component.scss']
+})
+export class CommentComponent implements OnInit {
+  @Input() comment;
+  collapse: boolean;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.collapse = false;
+  }
+}
+{% endhighlight %}
+
+{% highlight html %}
+<!-- comment.component.html -->
+
+<div *ngIf="!comment.deleted">
+  <div class="meta" [class.meta-collapse]="collapse">
+    <span class="collapse" (click)="collapse = !collapse">[{{collapse ? '+' : '-'}}]</span> 
+    <a [routerLink]="['/user', comment.user]" routerLinkActive="active">{{comment.user}}</a>
+    <span class="time">{{comment.time_ago}}</span>
+  </div>
+  <div class="comment-tree">
+    <div [hidden]="collapse">
+      <p class="comment-text" [innerHTML]="comment.content"></p>
+      <ul class="subtree">
+        <li *ngFor="let subComment of comment.comments"> 
+          <app-comment [comment]="subComment"></app-comment>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div *ngIf="comment.deleted">
+  <div class="deleted-meta">
+    <span class="collapse">[deleted]</span> | Comment Deleted
+  </div>
+</div>
+{% endhighlight %}
+
+Notice how we're calling `app-comment` inside it's own component. This is because each comment object will have it's own object array of comments if it has replies and we're using *recursion* to show all the comments. 
 
 User Profiles
 ==================
