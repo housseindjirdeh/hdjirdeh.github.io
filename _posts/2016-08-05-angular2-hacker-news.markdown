@@ -13,7 +13,7 @@ type: post
 image: angular2hn.png
 permalink: /:title
 ---
-![angular 2 hn banner](https://files.slack.com/files-pri/T0LA4NDHS-F27HW9N0P/angularhn.jpg "Angular 2 HN Banner"){: .article-image }
+![angular 2 hn banner](https://i.imgur.com/V0tNgEr.jpg "Angular 2 HN Banner"){: .article-image }
 
 If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team have rolled out [Angular CLI](https://cli.angular.io/), a command line interface that makes creating and scaffolding an application significantly easier.
 
@@ -24,20 +24,20 @@ In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/)
   <a class="blog-button" href="https://github.com/hdjirdeh/angular2-hn">Source Code</a>
 </div>
 
-![angular 2 hn preview](http://i.imgur.com/3gIhXqC.gif "Angular 2 HN Preview"){: .article-image }
+![angular 2 hn preview](https://media.giphy.com/media/l2SpSjFvOu7NQeuNW/giphy.gif "Angular 2 HN Preview"){: .article-image }
 
-This is a visual tutorial where I show you how to build the entire application step by step. We're going to break down everything and tackle each problem as we progress. Throughout this post, I'll try my best to explain my thought process as well as some of the mistakes I've made and what I did to fix them.
+We'll go through building the entire application step by step. Throughout this post, I'll try my best to explain my thought process as well as some of the mistakes I've made and what I did to fix them.
 
 Here's a rundown of what we'll be doing.
 
-1. We'll start by building our basic setup first, the front page of Hacker News. <br>
-2. We'll then wrap an Observable Data Service to load data asynchronously. <br>
-3. To allow the user to see different story types, comments and user profiles, we'll add navigation using the [Angular Component Router](https://angular.io/docs/ts/latest/guide/router.html).
-4. Once we're done, we'll go over bundling and deployment to show you how to get the complete application in production using the [Firebase CLI](https://firebase.google.com/docs/cli/).
+1. We'll start by building our basic setup first, the front page of Hacker News
+2. We'll then wrap an Observable Data Service to load data asynchronously
+3. To allow the user to navigate between different pages and story types, we'll add routing using the [Angular Component Router](https://angular.io/docs/ts/latest/guide/router.html)
+4. Finally, we'll add routes to allow the user to navigate to item comments and user profiles.
 
-This visual tutorial should make you feel more comfortable building an Angular 2 application from small modular parts as well as building an app from scratch all the way to production. We'll also briefly go over some important topics and understand how they apply to an actual application. This includes:
+This visual tutorial should make you feel a little more comfortable building an Angular 2 application from small modular parts as well as creating an app from scratch all the way to completion. We'll also briefly go over some important topics and understand how they apply to an actual application, which includes:
 
-1. The `NgModule` decorator in RC5<br>
+1. The `NgModule` decorator<br>
 2. View Encapsulation<br>
 3. RxJS
 
@@ -49,7 +49,7 @@ Once you have the required [Node and NPM versions](https://github.com/angular/an
 npm install -g angular-cli
 {% endhighlight %}
 
-You can then start your application.
+You can then create and start your application.
 
 {% highlight bash %}
 ng new angular2-hn
@@ -57,13 +57,13 @@ cd angular2-hn
 ng serve
 {% endhighlight %}
 
-If you now open `http://localhost:4200/`, you'll see the application running. 
+If you now open `https://localhost:4200/`, you'll see the application running. 
 
-![app setup](https://files.slack.com/files-pri/T0LA4NDHS-F27V871NZ/pasted_image_at_2016_09_03_01_51_am.png "App Setup"){: .article-image }
+![app setup](https://i.imgur.com/4ME0JaW.png "App Setup"){: .article-image }
 
-Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks, and this includes long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team are in the process of moving the build system from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
+Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks, and this includes long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team have moved from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
-Although this is not 100% complete, we can still begin using Webpack by upgrading to it's preview build. This will only be necessary since the Webpack migration is still in it's early stage. Once the team narrows everything down, installing Angular CLI will only use Webpack as its default module loader.
+Although this is not 100% complete, we can still begin using Webpack by updating the CLI to it's webpack preview. This will only be necessary since the Webpack migration is still in it's early stage. Once the team narrows everything down, installing Angular CLI will only use Webpack as its default module loader.
 
 First, you'll need to update globally.
 
@@ -84,7 +84,7 @@ Now if you run `ng serve`, you should see the app launch once again, but this ti
 
 NgModule
 ==================
-For this application, we'll be using [Angular's RC5 release](http://angularjs.blogspot.se/2016/08/angular-2-rc5-ngmodules-lazy-loading.html). Quite a few changes have been made for the update to RC5, but the biggest one would most probably be the introduction of `@NgModule`. Let's take a quick look at our `app.module.ts` file.
+For this application, we'll be using [Angular's RC5 release](https://angularjs.blogspot.se/2016/08/angular-2-rc5-ngmodules-lazy-loading.html). Quite a few changes have been made for the update to RC5, but the biggest one would most probably be the introduction of `@NgModule`. Let's take a quick look at our `app.module.ts` file.
 
 {% highlight javascript %}
 // app.module.ts
@@ -136,9 +136,9 @@ You'll notice that a `header` folder is immediately created and scaffolded with 
 - `header.component.ts`<br>
 - `header.component.spec.ts`
 
-![Unit Tests](http://i.imgur.com/ET1JQLg.jpg "Unit Tests"){: .article-image }
+![Unit Tests](https://i.imgur.com/ET1JQLg.jpg "Unit Tests"){: .article-image }
 
-I'm only joking, unit testing is always important for apps that go to production. We won't be doing them for this tutorial however so feel free to delete/comment out the `spec` files for now.
+I'm only joking, unit testing is always important for apps that go to production. We won't be doing them for this tutorial however so feel free to delete/comment out the `spec` files.
 
 Take a look at `app.module.ts` once again and you'll notice that our component is now declared there as well.
 
@@ -165,11 +165,9 @@ If you take a look at `header.component.ts`, you can see that its component sele
 
 Running the application will show you that the header component loads successfully.
 
-![header loads](https://files.slack.com/files-pri/T0LA4NDHS-F2804R2V9/pasted_image_at_2016_09_03_02_20_pm.png "Header Loads"){: .article-image }
+![header loads](https://i.imgur.com/8upqeWW.png "Header Loads"){: .article-image }
 
-Sweet, now let's add some markup and styling to both the root and header components.
-
-Our app component.
+Sweet, now let's add some markup and styling. We can begin by referencing the header in our app component.
 
 {% highlight html %}
 <!-- app.component.html -->
@@ -179,14 +177,14 @@ Our app component.
 </div>
 {% endhighlight %}
 
-The styling for `app.component.scss` can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/app.component.scss). Now let's work on the header. 
+The styling in `app.component.scss` can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/app.component.scss). Now let's work on the header. 
 
 {% highlight html %}
 <!-- header.component.html -->
 
 <header id="header">
   <a class="home-link" href="/">
-    <img class="logo" src="/assets/images/angular2-hn.png">
+    <img class="logo" src="https://i.imgur.com/J303pQ4.png">
   </a>
   <div class="header-text">
     <div class="left">
@@ -218,23 +216,21 @@ The styling for `app.component.scss` can be found [here](https://github.com/hdji
 
 And similarly, you can find the styling for this component [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/header/header.component.scss). Running the application gives us the following result.
 
-![header](https://files.slack.com/files-tmb/T0LA4NDHS-F28351WRG-36a0aaf209/pasted_image_at_2016_09_03_10_04_pm_1024.png "Header"){: .article-image }
+![header](https://i.imgur.com/oLAH0EJ.png "Header"){: .article-image }
 
 View Encapsulation
 ==================
 Since we're trying to make this application as responsive as possible, it's important to check how it looks with different screen sizes regularly. Let's adjust our viewport to see how it would look on a mobile device.
 
-![header mobile](https://files.slack.com/files-pri/T0LA4NDHS-F282PJG06/pasted_image_at_2016_09_03_10_26_pm.png "Header Mobile"){: .article-image }
+![header mobile](https://i.imgur.com/UGyVSEi.png "Header Mobile"){: .article-image }
 
-As you can see, there seems to be an offset from the edge of the page. This is because the **body** element has a bult-in offset (through `margin`) that shows in almost all modern browsers. 
+As you can see, there seems to be an offset from the edge of the page. This is because the `body` element has a bult-in offset (through `margin`) that shows in almost all modern browsers. 
 
-![body margin](https://files.slack.com/files-pri/T0LA4NDHS-F28377QGJ/pasted_image_at_2016_09_03_10_39_pm.png "body margin"){: .article-image }
+![body margin](https://i.imgur.com/gpogcbO.png "body margin"){: .article-image }
 
 But if you take a look at `app.component.scss`, we explicity set `margin: 0` for screen sizes less then 768px.
 
 {% highlight css %}
-// app.component.scss
-
 $mobile-only: "only screen and (max-width : 768px)";
 
 body {
@@ -244,15 +240,13 @@ body {
     margin: 0;
   }
 }
-
-// ...
 {% endhighlight %}
 
-So why isn't this rendering the way it should? This is because of the way Angular *encapsulates* CSS styles onto a component. I won't be going into too much detail here, but there are three different ways Angular does this.
+So why isn't this rendering the way it should? This is because of the way Angular encapsulates CSS styles onto a component. I won't be going into too much detail here, but there are three different ways Angular does this.
 
 - `None`: Angular doesn't do anything. No encapsulation and no Shadow DOM, this is just like adding styles regularly. Adding a style will apply to the entire document.
-- `Emulated`: Angular *emulates* Shadow DOM behaviour. This is defaulted.
-- `Native`: Angular uses the browser's native Shadow DOM completely.
+- `Emulated`: Angular *emulates* Shadow DOM behaviour. This is the default.
+- `Native`: Angular uses the browser's native Shadow DOM completely (make sure you're using a [browser that supports this](http://caniuse.com/#feat=shadowdom).
 
 In our root component, we're trying to add styles to the `body` element which really doesn't make sense if you think about it. Our root component is within `body`, not the other way around, hence why it's styles will not be affected. We can work around this by telling Angular to not do any view encapsulation in this component whatsoever.
 
@@ -272,13 +266,15 @@ export class AppComponent {
 }
 {% endhighlight %}
 
-Take a look at our application once more and you'll notice that the styles have now been applied to `body`. This is because all of the styles in this component now affect the entire document. (warning)*
+Take a look at our application once more and you'll notice that the styles have now been applied to `body`. This is because all of the styles in this component now affect the entire document.
 
-![header fixed](https://files.slack.com/files-pri/T0LA4NDHS-F283AD90A/pasted_image_at_2016_09_03_11_33_pm.png "Header Fixed"){: .article-image }
+![header fixed](https://i.imgur.com/SK0RhAr.png "Header Fixed"){: .article-image }
 
-But wait a minute, was all of this really necessary? I see a `styles.scss` file in our root folder. Isn't this for global styles? Can't we just add a class here to style `body`?
+But wait a minute, was all of this really necessary? I see a `styles.css` file in our `src` folder. Isn't this for global styles? Can't we just add a class here to style `body`?
 
-![face palm](http://i.imgur.com/WtE1S58.jpg "Face Palm"){: .article-image }
+Yes you can, but hey at least we learned something here. <i class="fa fa-smile-o" aria-hidden="true"></i>
+
+![face palm](https://i.imgur.com/WtE1S58.jpg "Face Palm"){: .article-image }
 
 Multiple Components
 ==================
@@ -331,7 +327,7 @@ export class StoriesComponent implements OnInit {
 </div>
 {% endhighlight %}
 
-Click [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/stories/stories.component.scss) to take a look at the CSS for `Stories`. Our footer is straightfoward (and it's Sass file can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/footer/footer.component.scss)).
+Click [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/stories/stories.component.scss) to take a look at the styles for `Stories`. Our footer is straightfoward (and it's styling can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/footer/footer.component.scss)).
 
 {% highlight bash %}
 ng g component Footer
@@ -363,7 +359,7 @@ We'll also need to update our root component to show these components.
 
 Let's see what our page is looking like.
 
-![numbered list](https://files.slack.com/files-tmb/T0LA4NDHS-F284M1XLM-c9603362e5/pasted_image_at_2016_09_04_12_20_pm_1024.png "Numbered List"){: .article-image }
+![numbered list](http://i.imgur.com/r5cQTZ9.png "Numbered List"){: .article-image }
 
 Since each story post, or item, will have its own styles and characteristics, it makes sense to create a component for this as well.
 
@@ -379,7 +375,7 @@ Once we start getting real data, we'll need to pass down the item identifier fro
 <div class="main-content">
   <ol>
     <li *ngFor="let item of items; let i = index" class="post">
-      <item class="item-block" itemID=" {% raw %}{{ i + 1 }}{% endraw %}"></item>
+      <item class="item-block" itemID="{% raw %}{{ i + 1 }}{% endraw %}"></item>
     </li>
   </ol>
   <div class="nav">
@@ -432,13 +428,13 @@ Angular's [HTTP client](https://angular.io/docs/ts/latest/guide/server-communica
 
 In Angular 2, we use the [RxJS](https://github.com/Reactive-Extensions/RxJS) library to return an `Observable` of data, or an *asynchronous stream of data*. You may already be familiar with the concept of Promises and how you can use them to retrieve data asynchronously. Observables obtain data just like promises do, but they allow us to subscribe to the stream of data and respond to specific data changes that it emits.
 
-![clicks event stream](https://camo.githubusercontent.com/36c0a9ffd8ed22236bd6237d44a1d3eecbaec336/687474703a2f2f692e696d6775722e636f6d2f634c344d4f73532e706e67 "Clicks Event Stream"){: .article-image-with-source }
+![clicks event stream](https://i.imgur.com/w3cwr9j.png "Clicks Event Stream"){: .article-image-with-source }
 
 {:clicks event stream: .image-source}
 [Source: The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 {: clicks event stream}
 
-The diagram above depicts the events that occur when a user clicks on a button. Notice how this stream can emit values (which represent the click events), an error and also a 'completed' event.
+The diagram above depicts the events that occur when a user clicks on a button. Notice how this stream emits values (which represent the click events), an error as well as a completed event.
 
 The entire concept of using Observables in your application is known as [Reactive Programming.](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 
@@ -450,7 +446,7 @@ Okay, now it’s time to start retrieving some real data. To do this, we’re go
 ng g service hackernews-api
 {% endhighlight %}
 
-That nicely creates and scaffolds a service file for us. Now before we dive in, let's try to understand how the [Hacker News API](https://github.com/HackerNews/API) works. If you take a look at the documentation, you'll notice that everything (polls, comments, stories, jobs) is just an item distinguishable though an `id` parameter. This means any item's information can be obtained from their specific URL.
+This creates and scaffolds a service file for us. Now before we dive in, let's try to understand how the [Hacker News API](https://github.com/HackerNews/API) works. If you take a look at the documentation, you'll notice that everything (polls, comments, stories, jobs) is just an item distinguishable though an `id` parameter. This means any item's information can be obtained from their specific URL.
 
 {% highlight javascript %}
 // https://hacker-news.firebaseio.com/v0/item/2.json?print=pretty
@@ -464,7 +460,7 @@ That nicely creates and scaffolds a service file for us. Now before we dive in, 
   "time" : 1160418628,
   "title" : "A Student's Guide to Startups",
   "type" : "story",
-  "url" : "http://www.paulgraham.com/mit.html"
+  "url" : "https://www.paulgraham.com/mit.html"
 }
 {% endhighlight %}
 
@@ -500,7 +496,7 @@ export class AppModule { }
 
 {% endhighlight %}
 
-Now let's add some good stuff to our service.
+Now let's add some of the good stuff to our service.
 
 {% highlight javascript %}
 // hackernews-api.service.ts
@@ -572,7 +568,7 @@ In the `ngOnInit` hook, which fires when the component is initialized, we `subsc
 
 Now if you run the application, you'll see a list of item ids populated.
 
-![item id list](https://files.slack.com/files-tmb/T0LA4NDHS-F286ZFEJ3-138525aa2c/pasted_image_at_2016_09_05_12_40_am_1024.png "Item ID List"){: .article-image }
+![item id list](https://i.imgur.com/Bj2MSeX.png "Item ID List"){: .article-image }
 
 Since we have the item id's being passed down successfully to each of the `item` components, let's set up another Observable subscription for each item to show their details. To do this, let's start by adding a new method to our service.
 
@@ -617,7 +613,7 @@ export class ItemComponent implements OnInit {
 
 {% highlight html %}
 <div *ngIf="!item" class="loading-section">
-  <!-- You can add a loading indicator here if you want to :) -->
+  <!-- You can add a loading indicator here if you want to <i class="fa fa-smile-o" aria-hidden="true"></i> -->
 </div>
 <div *ngIf="item">
   <div class="item-laptop">
@@ -650,31 +646,31 @@ export class ItemComponent implements OnInit {
 </div>
 {% endhighlight %}
 
-Nice and straightforward. For each item, we're subscribing to their respective stream. In the markup, we can see that when the response hasn't been received yet (`*ngIf="!item"`), we show a loading icon. Once the item loads from the Observable (`*ngIf="!item"`), it's details will show. Click [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page/src/app/item) to see all the files for this component.
+Nice and straightforward. For each item, we're subscribing to their respective stream. In the markup, we can see that when the response hasn't been received yet, we have a loading section where we can show a loading indicator of some sort. Once the item loads from the Observable, it's details will show. Click [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page/src/app/item) to see all the files for this component.
 
-*Note: You may be wondering where the `amFromUnix` and `amTimeAgo` pipes came from. The time parameter for each item is in [Unix](https://en.wikipedia.org/wiki/Unix_time) format. To convert this into something we can understand, I use [moment.js](http://momentjs.com/) pipes by importing the [angular2-moment](https://github.com/urish/angular2-moment) library.*
+*Note: You may be wondering where the `amFromUnix` and `amTimeAgo` pipes came from. The time parameter for each item is in [Unix](https://en.wikipedia.org/wiki/Unix_time) format. To convert this into something we can understand, I use [moment.js](https://momentjs.com/) pipes by importing the [angular2-moment](https://github.com/urish/angular2-moment) library.*
 
-*Note 2: For each item with a link, the entire URL is passed through it's `url` attribute. To only show a concatenated version of the URL, I created a pipe called `domain`. Take a [look](https://github.com/hdjirdeh/angular2-hn/blob/first-page/src/app/domain.pipe.ts) here for the code.*
+*Note 2: For each item with a link, the entire URL is passed through it's `url` attribute. To only show the link domain, I created a pipe called `domain`. Take a [look](https://github.com/hdjirdeh/angular2-hn/blob/first-page/src/app/domain.pipe.ts) here for the code.*
 
 Now if you run the application, you'll see the first page of Hacker News! Click [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page) for the full source code until this step.
 
-![top stories](https://files.slack.com/files-pri/T0LA4NDHS-F2872D188/pasted_image_at_2016_09_05_02_15_am.png "Top Stories"){: .article-image }
+![top stories](https://i.imgur.com/VLKj7xr.png "Top Stories"){: .article-image }
 
 Things are kinda slow though
 ==================
 Let's take a look at the requests sent loading the front page of our application (after the app is loaded).
 
-![comparison](https://files.slack.com/files-pri/T0LA4NDHS-F2AAN0BH7/pasted_image_at_2016_09_10_02_01_pm.png "Comparison"){: .article-image }
+![front page requests](https://i.imgur.com/j99CNyz.png "Front Page Requests"){: .article-image }
 
 Woah, 31 requests and 20.8KB transferred in 546ms. This takes almost five times as long loading the front page of Hacker News and more then twice as much data to just load the posts. This is pretty darn slow, and maybe it's kind of tolerable when you're loading the list of posts on the front page but this is a serious problem if we try loading a large number of comments for a single post.
 
 I built the entire application with each of the component's using this method, including each post and their comments. You can take a look at what happens when I tried to load a post with almost 2000 comments.
 
-![700 comments](http://i.imgur.com/pwT2QwD.gif "700 comments"){: .article-image }
+![700 comments](https://media.giphy.com/media/3o6Zt9ZBEDjwiPDjz2/giphy.gif "700 comments"){: .article-image }
 
 Just to save you time from watching that entire gif, it takes **741 requests, 1.5MB and 90s** to load roughly 700 of the comments (I wasn't patient enough to wait for every comment to load).
 
-*Just for reference's sake, I still have this version of the app up on my GitHub pages. At your own caution, you can take a look at how long it takes to load this many comments [here](http://houssein.me/angular2-hn/item/12445994)*.
+*Just for reference's sake, I still have this version of the app up on my GitHub pages. At your own caution, you can take a look at how long it takes to load this many comments [here](https://houssein.me/angular2-hn/item/12445994)*.
 
 Let's switch things up
 ==================
@@ -683,7 +679,7 @@ Okay, now we can see why having multiple network connections to fetch a parent i
 For example, the response for the list of top stories looks like this.
 
 {% highlight javascript %}
-// http://node-hnapi.herokuapp.com/news?page=1
+// https://node-hnapi.herokuapp.com/news?page=1
 
 [
   {
@@ -707,14 +703,14 @@ For example, the response for the list of top stories looks like this.
     "time_ago": "2 hours ago",
     "comments_count": 6,
     "type": "link",
-    "url": "http://www.downes.ca/post/38526",
+    "url": "https://www.downes.ca/post/38526",
     "domain": "downes.ca"
   },
   ...
 ]
 {% endhighlight %}
 
-Notice that there is `domain` as well as a `time_ago` attribute which is pretty cool. This means we can ditch the `domain.pipe.ts` file I created earlier as well as uninstall the `angular2-moment` library. Let's take a look at what we need to change in our data service.
+Notice that there is a `domain` as well as a `time_ago` attribute which is pretty cool. This means we can ditch the `domain.pipe.ts` file I created earlier as well as uninstall the `angular2-moment` library. Let's take a look at what we need to change in our data service.
 
 {% highlight javascript %}
 export class HackerNewsAPIService {
@@ -731,7 +727,7 @@ export class HackerNewsAPIService {
 }
 {% endhighlight %}
 
-Now because this API doesn't load all 500 top stories and loads them per page, we added page number as an argument. Notice how we also have `storyType` as an argument as well. This will set things up for showing different kinds of stories depending on where the user navigates to.
+Now because this API doesn't load all 500 top stories, we need to add page number as an argument. Notice how we're also passing `storyType` as well. This will allow us to show different kinds of stories depending on where the user navigates to.
 
 Let's take a look at how we can change the stories component.
 
@@ -752,13 +748,13 @@ export class StoriesComponent implements OnInit {
 }
 {% endhighlight %}
 
-For now, we're specifically passing `'news'` and page number `1` into our service. And now let's look at the markup.
+For now, we're specifically passing `'news'` and page number `1` into our service.
 
 {% highlight html %}
 <!-- stories.component.html -->
 
 <div class="loading-section" *ngIf="!items">
-  <!-- You can add a loading indicator here if you want to :) -->
+  <!-- You can add a loading indicator here if you want to <i class="fa fa-smile-o" aria-hidden="true"></i> -->
 </div>
 <div *ngIf="items">
   <ol>
@@ -777,9 +773,9 @@ For now, we're specifically passing `'news'` and page number `1` into our servic
 </div>
 {% endhighlight %}
 
-Since all our item components are not loading individually async anymore, we set up a loading indicator here. Moreover, we can now just pass in the item object of each list item to the child item component. This means we should be able to clean things up there nicely.
+Since all our item components are not loading individually async anymore, we set up the loading section (where we can have a loading indicator) here. Moreover, we can now just pass in the item object of each list item to the child item component. This means we should be able to clean things up there nicely.
 
-In `item.component.ts`, we don't need to inject HackerNewsService anymore and our component is now simply a conduit to take in the item object from it's parent.
+In `item.component.ts`, we don't need to inject `HackerNewsService` anymore and our component is now simply a conduit to take in the item object from it's parent.
 
 {% highlight javascript %}
 // item.component.ts
@@ -795,7 +791,7 @@ export class ItemComponent implements OnInit {
 }
 {% endhighlight %}
 
-The markup (`item.component.html`) is pretty much the same, but the loading indicator is now removed and each paramter now refers to the object attributes of our newly used API.
+The markup (`item.component.html`) is pretty much the same, but the loading indicator is now removed and each parameter now refers to the properties of our new API.
 
 {% highlight html %}
 <!-- item.component.html -->
@@ -837,9 +833,9 @@ The markup (`item.component.html`) is pretty much the same, but the loading indi
 
 Now let's see what happens when we run this bad boy.
 
-![front page](https://files.slack.com/files-pri/T0LA4NDHS-F2ABXS1SB/pasted_image_at_2016_09_10_10_01_pm.png "Front Page"){: .article-image }
+![front page](https://i.imgur.com/VLKj7xr.png "Front Page"){: .article-image }
 
-And now everything loads much faster :). The source code for this step can be found [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page-final).
+And now everything loads much faster. The source code for this step can be found [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page-final).
 
 Routing
 ==================
@@ -938,7 +934,7 @@ Let's bind our navigation links in `HeaderComponent` to their respective routes.
 <header>
   <div id="header">
     <a class="home-link" routerLink="/news/1" routerLinkActive="active">
-      <img class="logo" src="http://i.imgur.com/J303pQ4.png">
+      <img class="logo" src="https://i.imgur.com/J303pQ4.png">
     </a>
     <div class="header-text">
       <div class="left">
@@ -1074,7 +1070,7 @@ We also subscribe to the route parameters and obtain the page number. With this 
 {% highlight html %}
 <div class="main-content">
   <div class="loading-section" *ngIf="!items">
-    <!-- You can add a loading indicator here if you want to :) -->
+    <!-- You can add a loading indicator here if you want to <i class="fa fa-smile-o" aria-hidden="true"></i> -->
   </div>
   <div *ngIf="items">
     <ol start="{% raw %}{{ listStart }}{% endraw %}">
@@ -1096,7 +1092,7 @@ We also subscribe to the route parameters and obtain the page number. With this 
 
 We now have the front page completed with navigation and pagination. Run the application to see the good stuff.
 
-![that's a wrap]({{ site.url }}/public/thatsawrap.jpg "That's a wrap"){: .article-image }
+![pagination](https://media.giphy.com/media/l3vR4zR3rCMX76Pm0/giphy.gif "Pagination"){: .article-image }
 
 Item Comments
 ==================
@@ -1209,7 +1205,7 @@ Similar to what we did in `StoriesComponent`, we subscribe to our route paramete
 
 <div class="main-content">
   <div class="loading-section" *ngIf="!item">
-    <!-- You can add a loading indicator here if you want to :) -->
+    <!-- You can add a loading indicator here if you want to <i class="fa fa-smile-o" aria-hidden="true"></i> -->
   </div>
   <div *ngIf="item" class="item">
     <div class="mobile item-header">
@@ -1251,7 +1247,7 @@ Similar to what we did in `StoriesComponent`, we subscribe to our route paramete
 </div>
 {% endhighlight %}
 
-So at the top of the component, we're going to display the item details, followed by it's description, `item.content`. We then input the entire comments object (`item.comments`) to `app-comment-tree`, the selector for `CommentTreeComponent`.
+At the top of the component, we're going to display the item details, followed by it's description, `item.content`. We then input the entire comments object (`item.comments`) to `app-comment-tree`, the selector for `CommentTreeComponent`.
 
 *Note: The styling for this component can be found [here]().
 
@@ -1286,7 +1282,7 @@ export class CommentTreeComponent implements OnInit {
 </ul>
 {% endhighlight %}
 
-Nice and simple, the CommentTree component lists all the comments using the `ngFor` directive. Click [here]() to see it's SCSS file.
+Nice and simple, the CommentTree component lists all the comments using the `ngFor` directive. Click [here]() to see it's SCSS file. Let's fill out `CommentComponent`, the component responsible for each specific comment.
 
 {% highlight javascript %}
 // comment.component.ts
@@ -1315,9 +1311,9 @@ export class CommentComponent implements OnInit {
 
 <div *ngIf="!comment.deleted">
   <div class="meta" [class.meta-collapse]="collapse">
-    <span class="collapse" (click)="collapse = !collapse">[{{collapse ? '+' : '-'}}]</span> 
-    <a [routerLink]="['/user', comment.user]" routerLinkActive="active">{{comment.user}}</a>
-    <span class="time">{{comment.time_ago}}</span>
+    <span class="collapse" (click)="collapse = !collapse">[{% raw %}{{collapse ? '+' : '-'}}{% endraw %}]</span> 
+    <a [routerLink]="['/user', comment.user]" routerLinkActive="active">{% raw %}{{comment.user}}{% endraw %}</a>
+    <span class="time">{% raw %}{{comment.time_ago}}{% endraw %}</span>
   </div>
   <div class="comment-tree">
     <div [hidden]="collapse">
@@ -1337,23 +1333,33 @@ export class CommentComponent implements OnInit {
 </div>
 {% endhighlight %}
 
-Notice how we're calling `app-comment` inside it's own component. This is because each comment object will have it's own object array of comments if it has replies and we're using *recursion* to show all the comments. 
+Notice how we're recursively referencing `app-comment` inside of it's own component. This is because each comment object in the array has it's own array of comments, and we're using recursion to show all of the comments. 
+
+![inception](https://i.imgur.com/VdJX2u4.jpg "Inception"){: .article-image }
+
+Click [here]() to see the styling for this component. If you now run the application, you can see all the comments for each item!
+
+![item comments](https://files.slack.com/files-tmb/T0LA4NDHS-F2BBR173K-e7aaab43a2/pasted_image_at_2016_09_13_07_10_pm_1024.png "Item Comments"){: .article-image }
+
+The entire source code for this step can be found [here]().
 
 User Profiles
 ==================
 
-We're almost done now! All that's left now is just to bundle and deploy this bad boy to a production environment.
-
-Bundling and deployment
-==================
-
-Using the Firebase CLI.
-
-![that's a wrap]({{ site.url }}/public/thatsawrap.jpg "That's a wrap"){: .article-image }
+All that's left is user profiles. I'm not going to through this since it's pretty much the same as what we just did. Create a user component, set up another request in the data service to point to the user endpoint and then add another field to your route. Take a look [here](https://github.com/hdjirdeh/angular2-hn/tree/master/src/app/user) if you want to see the whole user component setup.
 
 Wrapping things up
 ==================
 
+We're done! To kick off a production build, you can run `ng build --prod` or `ng serve --prod` which will make use of uglifying and tree-shaking.
+ 
+If you happen to be interested enough to work on this app further, take a look at the issue list and feel free to contribute! Future plans include providing real-time support as well as service worker/app shell functionality to make this a full blown Progressive Web App, so there's still lots to do <i class="fa fa-smile-o" aria-hidden="true"></i>. 
+
+*If you found this tutorial useful, please **share it forward** and/or **star the repo!***
+
 Useful resources
 ==================
+
 An excellent resource comparing Observables and Promises. [link](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises)
+
+An outstanding post on native and emulated view encapsulation in Angular 2 https://toddmotto.com/emulated-native-shadow-dom-angular-2-view-encapsulation
