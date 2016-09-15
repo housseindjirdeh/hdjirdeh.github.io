@@ -852,7 +852,7 @@ To allow the user to navigate between these pages, we're going to have to includ
 ng g component ItemComments
 {% endhighlight %}
 
-Next, create a `app.routes.ts` file in your `app` folder.
+Let's also create an `app.routes.ts` file in our `app` folder.
 
 {% highlight javascript %}
 // app.routes.ts
@@ -875,12 +875,12 @@ const routes: Routes = [
 export const routing = RouterModule.forRoot(routes);
 {% endhighlight %}
 
-Let's quickly go through what this file does.
+A brief overview of this file.
 
 1. We just created an array of routes, each with a relative *path* that maps to a specific *component*<br>
 2. Our header navigation links will route to a number of different paths; `news`, `newest`, `show`, `ask` and `jobs`. All these paths will map to our `StoriesComponent`
 3. We've set up our root path to redirect to `news` which should return the list of top stories
-3. Where we're mapping to `StoriesComponent`, we pass down `storiesType` as a parameter through the `data` property. This lets us have a story type associated for each route (we'll need this when we use our data service to fetch the list of stories)
+3. When we map to `StoriesComponent`, we pass down `storiesType` as a parameter through the `data` property. This lets us have a story type associated for each route (we'll need this when we use our data service to fetch the list of stories)
 4. `:page` is used as a token so that `StoriesComponent` can fetch the list of stories for a specific page
 5. `:id` is similarly used so that `ItemCommentsComponent` can obtain all the comments for a specific item
 
@@ -1040,12 +1040,11 @@ ngOnInit() {
 }
 {% endhighlight %}
 
+And finally, we subscribe to the route parameters and obtain the page number. We then fetch the list of stories using our data service.
 
 {% highlight javascript %}
 ngOnInit() {
 // ...
-
-And finally, we subscribe to the route parameters and obtain the page number. We then fetch the list of stories using our data service.
 
 this.pageSub = this.route.params.subscribe(params => {
     this.pageNum = +params['page'] ? +params['page'] : 1;
@@ -1064,6 +1063,8 @@ this.pageSub = this.route.params.subscribe(params => {
 To signal completion, we use `onCompleted()` to update a `listStart` variable which is used as the starting value of our ordered list (which you can see in the markup below). We also scroll to the top of the window so the user is not stuck at the bottom of the page when he/she tries to switch pages.
 
 {% highlight html %}
+<!-- stories.component.html -->
+
 <div class="main-content">
   <div class="loading-section" *ngIf="!items">
     <!-- You can add a loading indicator here if you want to <i class="fa fa-smile-o" aria-hidden="true"></i> -->
@@ -1090,7 +1091,7 @@ We now have the front page complete with [navigation and pagination](https://med
 
 Item Comments
 ==================
-We're almost done! Before we start adding our comments components, let's set up routing when you click on an item.
+We're almost done! Before we start adding our other comment page components, let's update the links in `ItemComponent` to include routing.
 
 {% highlight html %}
 <!-- item.component.html -->
@@ -1134,7 +1135,7 @@ Run the application and click on an item's comments.
 
 ![item comments route](https://files.slack.com/files-pri/T0LA4NDHS-F2AUJNDLN/pasted_image_at_2016_09_12_10_28_pm.png "Item Comments Route"){: .article-image }
 
-Beauty. We can see that it's routing to `ItemCommentsComponent`. Let's create our additional components.
+Beauty. We can see that it's routing to `ItemCommentsComponent`. Now let's create our additional components.
 
 {% highlight bash %}
 ng g component CommentTree
@@ -1144,7 +1145,7 @@ ng g component CommentTree
 ng g component Comment
 {% endhighlight %}
 
-We should add a new `GET` request to our data service to fetch comments, so let's do that before we start filling our components up.
+We should add a new `GET` request to our data service to fetch comments, so let's do that before we start filling our components in.
 
 {% highlight javascript %}
 // hackernews.api.service.ts
@@ -1241,9 +1242,9 @@ Similar to what we did in `StoriesComponent`, we subscribe to our route paramete
 </div>
 {% endhighlight %}
 
-At the top of the component, we're going to display the item details, followed by it's description, `item.content`. We then input the entire comments object (`item.comments`) to `app-comment-tree`, the selector for `CommentTreeComponent`.
+At the top of the component, we're going to display the item details, followed by it's description (`item.content`). We then input the entire comments object (`item.comments`) to `app-comment-tree`, the selector for `CommentTreeComponent`. The styling for this component can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/item-comments/src/app/item-comments/item-comments.component.scss).
 
-*Note: The styling for this component can be found [here]().
+Next, set up the `CommentTreeComponent`.
 
 {% highlight javascript %}
 // comment-tree.component.ts
@@ -1276,7 +1277,9 @@ export class CommentTreeComponent implements OnInit {
 </ul>
 {% endhighlight %}
 
-Nice and simple, the CommentTree component lists all the comments using the `ngFor` directive. Click [here]() to see it's SCSS file. Let's fill out `CommentComponent`, the component responsible for each specific comment.
+Nice and simple, we list all the comments using the `ngFor` directive. Click [here](https://github.com/hdjirdeh/angular2-hn/blob/item-comments/src/app/comment-tree/comment-tree.component.scss) to see it's SCSS file. 
+
+Let's fill out `CommentComponent`, the component responsible for each specific comment.
 
 {% highlight javascript %}
 // comment.component.ts
@@ -1327,33 +1330,33 @@ export class CommentComponent implements OnInit {
 </div>
 {% endhighlight %}
 
-Notice how we're recursively referencing `app-comment` inside of it's own component. This is because each comment object in the array has it's own array of comments, and we're using recursion to show all of the comments. 
+Notice how we're recursively referencing `app-comment` inside of it's own component. This is because each comment object in the array has it's own array of comments, and we're using recursion to show all them. 
 
-![inception](https://i.imgur.com/VdJX2u4.jpg "Inception"){: .article-image }
+![inception](https://i.imgur.com/diPZ0hN.jpg "Inception"){: .article-image }
 
-Click [here]() to see the styling for this component. If you now run the application, you can see all the comments for each item!
+Click [here](https://github.com/hdjirdeh/angular2-hn/blob/item-comments/src/app/comment/comment.component.scss) to see the styling for this component. If you now run the application, you can see all the comments for each item!
 
-![item comments](https://files.slack.com/files-tmb/T0LA4NDHS-F2BBR173K-e7aaab43a2/pasted_image_at_2016_09_13_07_10_pm_1024.png "Item Comments"){: .article-image }
+![item comments](https://i.imgur.com/lLcdxd0.png "Item Comments"){: .article-image }
 
-The entire source code for this step can be found [here]().
+The entire source code for this step can be found [here](https://github.com/hdjirdeh/angular2-hn/tree/item-comments).
 
 User Profiles
 ==================
 
-All that's left is user profiles. I'm not going to through this since it's pretty much the same as what we just did. Create a user component, set up another request in the data service to point to the user endpoint and then add another field to your route. Take a look [here](https://github.com/hdjirdeh/angular2-hn/tree/master/src/app/user) if you want to see the whole user component setup.
+All we have left is user profiles. Since the concept is pretty much the same, I won't go through this in detail. All you need to do is: 
+
+1. Set up another request in the data service to point to the user endpoint
+2. Create a user component
+3. Add another field to your routes file
+4. Update the user links in the other components to route to the user 
+
+And that's it! Take a look [here](https://github.com/hdjirdeh/angular2-hn/tree/master/src/app/user) if you want to see the whole user component setup.
 
 Wrapping things up
 ==================
 
 We're done! To kick off a production build, you can run `ng build --prod` or `ng serve --prod` which will make use of uglifying and tree-shaking.
+
+I hope you found this tutorial useful. If you did, please [tweet it forward](href="https://twitter.com/intent/tweet?original_referer={{page.url}}&amp;ref_src=twsrc%5Etfw&amp;text={{page.title}}&amp;tw_p=tweetbutton&amp;url={{site.url}}{{page.url}}&amp;via=hdjirdeh") and/or [star the repo!](https://github.com/hdjirdeh/angular2-hn) I would also love to hear any type of feedback whatsoever.
  
-If you happen to be interested enough to work on this app further, take a look at the issue list and feel free to contribute! Future plans include providing real-time support as well as service worker/app shell functionality to make this a full blown Progressive Web App, so there's still lots to do <i class="fa fa-smile-o" aria-hidden="true"></i>. 
-
-*If you found this tutorial useful, please **share it forward** and/or **star the repo!***
-
-Useful resources
-==================
-
-An excellent resource comparing Observables and Promises. [link](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises)
-
-An outstanding post on native and emulated view encapsulation in Angular 2 https://toddmotto.com/emulated-native-shadow-dom-angular-2-view-encapsulation
+If you happen to be interested enough to work on this app further, take a look at the [issue list](https://github.com/hdjirdeh/angular2-hn/issues) and feel free to put up a feature request or a PR! My next steps are to include real-time support as well as service worker/app shell functionality to make this a full blown Progressive Web App, so there's still lots to do <i class="fa fa-smile-o" aria-hidden="true"></i>.
