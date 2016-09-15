@@ -650,7 +650,7 @@ Nice and straightforward. For each item, we're subscribing to their respective s
 
 *Note: You may be wondering where the `amFromUnix` and `amTimeAgo` pipes came from. The time parameter for each item is in [Unix](https://en.wikipedia.org/wiki/Unix_time) format. To convert this into something we can understand, I use [moment.js](https://momentjs.com/) pipes by importing the [angular2-moment](https://github.com/urish/angular2-moment) library.*
 
-*Note 2: For each item with a link, the entire URL is passed through it's `url` attribute. To only show the link domain, I created a pipe called `domain`. Take a [look](https://github.com/hdjirdeh/angular2-hn/blob/first-page/src/app/domain.pipe.ts) here for the code.*
+*Note 2: For each item with a link, the entire URL is passed through it's `url` attribute. To only show the link domain, I created a pipe called `domain`. Take a look [here]((https://github.com/hdjirdeh/angular2-hn/blob/first-page/src/app/domain.pipe.ts)) for the code.*
 
 Now if you run the application, you'll see the first page of Hacker News! Click [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page) for the full source code until this step.
 
@@ -658,17 +658,13 @@ Now if you run the application, you'll see the first page of Hacker News! Click 
 
 Things are kinda slow though
 ==================
-Let's take a look at the requests sent loading the front page of our application (after the app is loaded).
+Let's take a look at the requests transferred when we load the front page of our application.
 
 ![front page requests](https://i.imgur.com/j99CNyz.png "Front Page Requests"){: .article-image }
 
 Woah, 31 requests and 20.8KB transferred in 546ms. This takes almost five times as long loading the front page of Hacker News and more then twice as much data to just load the posts. This is pretty darn slow, and maybe it's kind of tolerable when you're loading the list of posts on the front page but this is a serious problem if we try loading a large number of comments for a single post.
 
-I built the entire application with each of the component's using this method, including each post and their comments. You can take a look at what happens when I tried to load a post with almost 2000 comments.
-
-![700 comments](https://media.giphy.com/media/3o6Zt9ZBEDjwiPDjz2/giphy.gif "700 comments"){: .article-image }
-
-Just to save you time from watching that entire gif, it takes **741 requests, 1.5MB and 90s** to load roughly 700 of the comments (I wasn't patient enough to wait for every comment to load).
+I built the entire application with each component using this method, including each post and their comments. You can take a look at what happens when I try to load a post with almost 2000 comments [here](https://media.giphy.com/media/3o6Zt9ZBEDjwiPDjz2/giphy.gif). But to save you time from watching that entire gif, it takes **741 requests, 1.5MB and 90s** to load roughly 700 of the comments (I wasn't patient enough to wait for every comment to load).
 
 *Just for reference's sake, I still have this version of the app up on my GitHub pages. At your own caution, you can take a look at how long it takes to load this many comments [here](https://houssein.me/angular2-hn/item/12445994)*.
 
@@ -727,9 +723,9 @@ export class HackerNewsAPIService {
 }
 {% endhighlight %}
 
-Now because this API doesn't load all 500 top stories, we need to add page number as an argument. Notice how we're also passing `storyType` as well. This will allow us to show different kinds of stories depending on where the user navigates to.
+Since the API doesn't load all 500 top stories, we need to add page number as an argument. Notice how we're also passing `storyType` as well. This will allow us to show different kinds of stories depending on where the user navigates to.
 
-Let's take a look at how we can change the stories component.
+Let's take a look at how we can change the stories component. We can start with just passing in `'news'` and page number `1` into our service call to get our top stories.
 
 {% highlight javascript %}
 // stories.component.ts
@@ -748,7 +744,7 @@ export class StoriesComponent implements OnInit {
 }
 {% endhighlight %}
 
-For now, we're specifically passing `'news'` and page number `1` into our service.
+The correpsonding markup is as follows.
 
 {% highlight html %}
 <!-- stories.component.html -->
@@ -773,9 +769,9 @@ For now, we're specifically passing `'news'` and page number `1` into our servic
 </div>
 {% endhighlight %}
 
-Since all our item components are not loading individually async anymore, we set up the loading section (where we can have a loading indicator) here. Moreover, we can now just pass in the item object of each list item to the child item component. This means we should be able to clean things up there nicely.
+Since all our item components are not loading individually async anymore, we set up the loading section (where we can have a loading indicator) here. Moreover, we just pass in the item object of each post to the child item component.
 
-In `item.component.ts`, we don't need to inject `HackerNewsService` anymore and our component is now simply a conduit to take in the item object from it's parent.
+This means we should be able to clean things up in `ItemComponent`. In `item.component.ts`, we don't need to inject `HackerNewsService` anymore and our component is now simply a conduit to take in the item object from it's parent.
 
 {% highlight javascript %}
 // item.component.ts
@@ -791,7 +787,7 @@ export class ItemComponent implements OnInit {
 }
 {% endhighlight %}
 
-The markup (`item.component.html`) is pretty much the same, but the loading indicator is now removed and each parameter now refers to the properties of our new API.
+The markup (`item.component.html`) is very similar, but we now don't need to conditionally check if the item object is present anymore (we do that in the parent component). Moreover, each parameter now refers to the properties of our new API.
 
 {% highlight html %}
 <!-- item.component.html -->
@@ -844,13 +840,13 @@ We've come quite a long way, but before we continue let's map out the entire com
 
 Let's start with what we've built so far.
 
-![front page components](https://files.slack.com/files-pri/T0LA4NDHS-F2AC059R7/pasted_image_at_2016_09_10_10_21_pm.png "Front Page Components"){: .article-image }
+![front page components](https://i.imgur.com/zUH1SPy.png "Front Page Components"){: .article-image }
 
-Now let's map out the components that show when we click on an item's comments.
+Let's also map out the components that show when we navigate to the comments page.
 
-![item comments components](https://files.slack.com/files-pri/T0LA4NDHS-F2ABUUH6J/pasted_image_at_2016_09_10_11_43_pm.png "Item Comment Components"){: .article-image }
+![item comments components](http://i.imgur.com/XttxmfM.png "Item Comment Components"){: .article-image }
 
-To allow the user to navigate between these pages, we're going to have to include some basic routing in our application. Before we begin, let's create the item comments component.
+To allow the user to navigate between these pages, we're going to have to include some basic routing in our application. Before we begin, let's create our next component.
 
 {% highlight bash %}
 ng g component ItemComments
@@ -873,8 +869,7 @@ const routes: Routes = [
   {path: 'show/:page', component: StoriesComponent, data: {storiesType: 'show'}},
   {path: 'ask/:page', component: StoriesComponent, data: {storiesType: 'ask'}},
   {path: 'jobs/:page', component: StoriesComponent, data: {storiesType: 'jobs'}},
-  {path: 'item/:id', component: ItemCommentsComponent},
-  {path: 'user/:id', component: UserComponent}
+  {path: 'item/:id', component: ItemCommentsComponent}
 ];
 
 export const routing = RouterModule.forRoot(routes);
@@ -882,12 +877,12 @@ export const routing = RouterModule.forRoot(routes);
 
 Let's quickly go through what this file does.
 
-1. We just created an array of routes, each with a relative **path** that maps to a specific **component**<br>
-2. Our header navigation links will route to a number of different paths; `news`, `newest`, `show`, `ask` and `jobs`. All these paths, including the root path, will map to our `StoriesComponent`<br>
-3. We've set up our root path to redirect to `news` which should return the list of top stories<br>
-3. We're passing down `storyType` as a parameter through the `data` property. This lets us have a story type associated for each route (we'll need this when we use our data service to fetch the list of stories)<br>
-4. `:page` is used as a token so that `StoriesComponent` can fetch the list of stories for a specific page<br>
-5. `:id` is similarly used so that `ItemCommentsComponent` can obtain all the comments for the specific item
+1. We just created an array of routes, each with a relative *path* that maps to a specific *component*<br>
+2. Our header navigation links will route to a number of different paths; `news`, `newest`, `show`, `ask` and `jobs`. All these paths will map to our `StoriesComponent`
+3. We've set up our root path to redirect to `news` which should return the list of top stories
+3. Where we're mapping to `StoriesComponent`, we pass down `storiesType` as a parameter through the `data` property. This lets us have a story type associated for each route (we'll need this when we use our data service to fetch the list of stories)
+4. `:page` is used as a token so that `StoriesComponent` can fetch the list of stories for a specific page
+5. `:id` is similarly used so that `ItemCommentsComponent` can obtain all the comments for a specific item
 
 There's a lot more you can do with routing, but this basic setup should be everything we need. Now let's open `app.module.ts` to register our routing.
 
@@ -1014,7 +1009,7 @@ export class StoriesComponent implements OnInit {
 }
 {% endhighlight %}
 
-Might look like we added quite a bit, but not really. Let's parse it out.
+Let's parse out what we've added. First of all, we imported `ActivatedRoute` which is a service that allows us to access information present in the route.
 
 {% highlight javascript %}
 import { ActivatedRoute } from '@angular/router';
@@ -1033,7 +1028,7 @@ constructor(
 }
 {% endhighlight %}
 
-We imported `ActivatedRoute`, a service that contains the route information we need, `storiesType` and `page`.
+We then subscribe to the route data property and store `storiesType` into a component variable in the `ngOnInit` hook. 
 
 {% highlight javascript %}
 ngOnInit() {
@@ -1045,11 +1040,12 @@ ngOnInit() {
 }
 {% endhighlight %}
 
-In the `ngOnInit` hook, we subscribe to the route data property and store `storiesType` into a component variable.
 
 {% highlight javascript %}
 ngOnInit() {
 // ...
+
+And finally, we subscribe to the route parameters and obtain the page number. We then fetch the list of stories using our data service.
 
 this.pageSub = this.route.params.subscribe(params => {
     this.pageNum = +params['page'] ? +params['page'] : 1;
@@ -1065,7 +1061,7 @@ this.pageSub = this.route.params.subscribe(params => {
 }
 {% endhighlight %}
 
-We also subscribe to the route parameters and obtain the page number. With this information, we can fetch the list of stories using our data service. To signal completion, we use `onCompleted()` to update a `listStart` variable which is used as the starting value of our ordered list (which you can see below). We also scroll to the top of the window so the user is not stuck at the bottom of the page when he/she tries to switch pages.
+To signal completion, we use `onCompleted()` to update a `listStart` variable which is used as the starting value of our ordered list (which you can see in the markup below). We also scroll to the top of the window so the user is not stuck at the bottom of the page when he/she tries to switch pages.
 
 {% highlight html %}
 <div class="main-content">
@@ -1090,9 +1086,7 @@ We also subscribe to the route parameters and obtain the page number. With this 
 </div>
 {% endhighlight %}
 
-We now have the front page completed with navigation and pagination. Run the application to see the good stuff.
-
-![pagination](https://media.giphy.com/media/l3vR4zR3rCMX76Pm0/giphy.gif "Pagination"){: .article-image }
+We now have the front page complete with [navigation and pagination](https://media.giphy.com/media/l3vR4zR3rCMX76Pm0/giphy.gif). Run the application to see the good stuff.
 
 Item Comments
 ==================
