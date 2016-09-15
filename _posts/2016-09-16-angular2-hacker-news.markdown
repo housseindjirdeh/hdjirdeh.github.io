@@ -340,7 +340,7 @@ We'll also need to update our root component to show these components.
 
 Let's see what our page is looking like.
 
-![numbered list](http://i.imgur.com/r5cQTZ9.png "Numbered List"){: .article-image }
+![numbered list](https://i.imgur.com/r5cQTZ9.png "Numbered List"){: .article-image }
 
 Since each story post, or item, will have its own styles and characteristics, it makes sense to create a component for this as well.
 
@@ -825,7 +825,7 @@ Let's start with what we've built so far.
 
 Let's also map out the components that show when we navigate to the comments page.
 
-![item comments components](http://i.imgur.com/XttxmfM.png "Item Comment Components"){: .article-image }
+![item comments components](https://i.imgur.com/XttxmfM.png "Item Comment Components"){: .article-image }
 
 To allow the user to navigate between these pages, we're going to have to include some basic routing in our application. Before we begin, let's create our next component.
 
