@@ -28,6 +28,10 @@ p {
     line-height: 38px;
     font-size: 1.8rem;
 
+    @include media-query($on-palm) {
+        font-size: 1.6rem;
+    }
+
     a {
         &:hover {
             color: $brand-alternate-color;
@@ -96,6 +100,16 @@ ul, ol {
 }
 
 li {
+
+    margin-bottom: 0;
+    letter-spacing: 0.02rem;
+    line-height: 38px;
+    font-size: 1.8rem;
+
+    @include media-query($on-palm) {
+        font-size: 1.6rem;
+    }
+
     > ul,
     > ol {
          margin-bottom: 0;
@@ -187,7 +201,6 @@ code {
     font-size: 16px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
-    background-color: #272822;
 }
 
 p {
