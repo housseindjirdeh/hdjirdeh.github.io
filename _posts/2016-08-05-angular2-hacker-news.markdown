@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Building Hacker News with Angular 2 CLI, RxJS and Webpack"
-date:   2016-08-05 9:30:00 -0400
+date:   2016-09-16 9:30:00 -0400
 categories: angular2 rxjs webpack
 description: If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out Angular CLI, a command line interface that makes creating and scaffolding an application significantly easier...
 tags:
@@ -61,30 +61,11 @@ If you now open `https://localhost:4200/`, you'll see the application running.
 
 ![app setup](https://i.imgur.com/4ME0JaW.png "App Setup"){: .article-image }
 
-Pretty cool huh? Angular CLI uses [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Now using SystemJS has its quirks, and this includes long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). To make things simpler and faster, the Angular CLI team have moved from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
-
-Although this is not 100% complete, we can still begin using Webpack by updating the CLI to it's webpack preview. This will only be necessary since the Webpack migration is still in it's early stage. Once the team narrows everything down, installing Angular CLI will only use Webpack as its default module loader.
-
-First, you'll need to update globally.
-
-{% highlight bash %}
-npm uninstall -g angular-cli
-npm cache clean
-npm install -g angular-cli@webpack
-{% endhighlight %}
-
-Then you'll need to update locally.
-
-{% highlight bash %}
-rm -rf node_modules dist tmp typings
-npm install --save-dev angular-cli@webpack
-{% endhighlight %}
-
-Now if you run `ng serve`, you should see the app launch once again, but this time with Webpack running behind the scenes.
+Pretty cool huh? Angular CLI used to use [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Using SystemJS had a few quirks including long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). So to make things simpler and faster, the Angular CLI team have moved from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
 NgModule
 ==================
-For this application, we'll be using [Angular's RC5 release](https://angularjs.blogspot.se/2016/08/angular-2-rc5-ngmodules-lazy-loading.html). Quite a few changes have been made for the update to RC5, but the biggest one would most probably be the introduction of `@NgModule`. Let's take a quick look at our `app.module.ts` file.
+Bootstrapping an application with CLI uses Angular's latest release version, but let's go over one of the biggest changes that happened with the release of [RC5](https://angularjs.blogspot.se/2016/08/angular-2-rc5-ngmodules-lazy-loading.html), `@NgModule`. We can see this decorator being used in the `app.module.ts` file.
 
 {% highlight javascript %}
 // app.module.ts
