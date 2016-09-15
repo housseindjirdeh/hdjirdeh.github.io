@@ -100,7 +100,6 @@ ul, ol {
 }
 
 li {
-
     margin-bottom: 0;
     letter-spacing: 0.02rem;
     line-height: 38px;
@@ -108,11 +107,6 @@ li {
 
     @include media-query($on-palm) {
         font-size: 1.6rem;
-    }
-
-    > ul,
-    > ol {
-         margin-bottom: 0;
     }
 }
 
