@@ -85,7 +85,7 @@
     font-family: $fancy-font-family;
     letter-spacing: 4px;
     float: left;
-    font-size: 56px;
+    font-size: 46px;
     display: block;
     width: 100%;
     text-align: center;
@@ -107,7 +107,7 @@
     p {
         font-family: $base-font-family;
         letter-spacing: 3px;
-        font-size: 22px;
+        font-size: 18px;
         padding: 0 20px;
 
         @include media-query($on-laptop) {
@@ -162,6 +162,7 @@
         li {
             display: inline;
             padding: 20px;
+            font-size: 0.8em;
 
             @include media-query($on-palm) {
                 padding: 0;
