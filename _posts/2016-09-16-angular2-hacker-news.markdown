@@ -43,7 +43,7 @@ This visual tutorial should make you feel a little more comfortable building an 
 
 Getting Started
 ==================
-Once you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install the CLI. 
+Once you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install the CLI through your terminal. 
 
 {% highlight bash %}
 npm install -g angular-cli
@@ -61,11 +61,11 @@ If you now open `https://localhost:4200/`, you'll see the application running.
 
 ![app setup](https://i.imgur.com/4ME0JaW.png "App Setup"){: .article-image }
 
-Pretty cool huh? Angular CLI used to use [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Using SystemJS had a few quirks including long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). So to make things simpler and faster, the Angular CLI team have moved from [SystemJS to Webpack](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
+Pretty cool huh? Angular CLI used to use [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Using SystemJS had a few quirks including long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). So to make things simpler and faster, the Angular CLI team have moved from [SystemJS to Webpack!](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
 NgModule
 ==================
-Bootstrapping an application with CLI uses Angular's latest release version, but let's go over one of the biggest changes that happened with the release of [RC5](https://angularjs.blogspot.se/2016/08/angular-2-rc5-ngmodules-lazy-loading.html), `@NgModule`. We can see this decorator being used in the `app.module.ts` file.
+Bootstrapping an application with CLI uses Angular's latest release version, but let's go over one of the biggest changes that happened with the release of [RC5](https://angularjs.blogspot.se/2016/08/angular-2-rc5-ngmodules-lazy-loading.html), the `@NgModule` decorator. We can see it being used in the `app.module.ts` file.
 
 {% highlight javascript %}
 // app.module.ts
@@ -124,6 +124,8 @@ I'm only joking, unit testing is always important for apps that go to production
 Take a look at `app.module.ts` once again and you'll notice that our component is now declared there as well.
 
 {% highlight javascript %}
+// app.module.ts
+
 // ...
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -148,7 +150,7 @@ Running the application will show you that the header component loads successful
 
 ![header loads](https://i.imgur.com/8upqeWW.png "Header Loads"){: .article-image }
 
-Sweet, now let's add some markup and styling. We can begin by referencing the header in our app component.
+Sweet, now let's add some markup and styling.
 
 {% highlight html %}
 <!-- app.component.html -->
@@ -201,7 +203,7 @@ And similarly, you can find the styling for this component [here](https://github
 
 View Encapsulation
 ==================
-Since we're trying to make this application as responsive as possible, it's important to check how it looks with different screen sizes regularly. Let's adjust our viewport to see how it would look on a mobile device.
+Since we want this application to be as responsive as possible, it's important to check how it looks with different screen sizes regularly. Let's adjust our viewport to see how it would look on a mobile device.
 
 ![header mobile](https://i.imgur.com/UGyVSEi.png "Header Mobile"){: .article-image }
 
@@ -317,13 +319,13 @@ ng g component Footer
 {% highlight html %}
 <!-- footer.component.html -->
 
-<footer id="footer">
+<div id="footer">
     <p>Show this project some ❤ on 
       <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank">
         GitHub
       </a>
     </p>
-</footer>
+</div>
 {% endhighlight %}
 
 We'll also need to update our root component to show these components.
@@ -342,7 +344,7 @@ Let's see what our page is looking like.
 
 ![numbered list](https://i.imgur.com/r5cQTZ9.png "Numbered List"){: .article-image }
 
-Since each story post, or item, will have its own styles and characteristics, it makes sense to create a component for this as well.
+Since each post, or item, will have its own attributes, it makes sense to create a component for this as well.
 
 {% highlight bash %}
 ng g component Item
@@ -405,7 +407,7 @@ RxJS and Observables
 ==================
 Before we start fetching real data, let's briefly go over the concept of RxJS and observables.
 
-Angular's [HTTP client](https://angular.io/docs/ts/latest/guide/server-communication.html) allows you to communicate with a server, and you need it to pretty much fetch data from anywhere. To fetch data from a server, the first thing you would most likely do is pass the resource URL through an `http.get` call. But what gets returned exactly?
+Angular's [HTTP client](https://angular.io/docs/ts/latest/guide/server-communication.html) allows you to communicate with a server, and you need it to fetch data from anywhere. To fetch data from a server, the first thing you would most likely do is pass the resource URL through an `http.get` call. But what gets returned exactly?
 
 In Angular 2, we use the [RxJS](https://github.com/Reactive-Extensions/RxJS) library to return an `Observable` of data, or an *asynchronous stream of data*. You may already be familiar with the concept of Promises and how you can use them to retrieve data asynchronously. Observables obtain data just like promises do, but they allow us to subscribe to the stream of data and respond to specific data changes that it emits.
 
@@ -427,7 +429,7 @@ Okay, now it’s time to start retrieving some real data. To do this, we’re go
 ng g service hackernews-api
 {% endhighlight %}
 
-This creates and scaffolds a service file for us. Now before we dive in, let's try to understand how the [Hacker News API](https://github.com/HackerNews/API) works. If you take a look at the documentation, you'll notice that everything (polls, comments, stories, jobs) is just an item distinguishable though an `id` parameter. This means any item's information can be obtained from their specific URL.
+This creates and sets up a service file for us. Now before we dive in, let's try to understand how the official Hacker News API works. If you take a look at the [documentation](https://github.com/HackerNews/API), you'll notice that everything (polls, comments, stories, jobs) is just an item distinguishable though an `id` parameter. This means any item's information can be obtained from their specific URL.
 
 {% highlight javascript %}
 // https://hacker-news.firebaseio.com/v0/item/2.json?print=pretty
@@ -477,7 +479,7 @@ export class AppModule { }
 
 {% endhighlight %}
 
-Now let's add some of the good stuff to our service.
+Now let's add the request method to our service.
 
 {% highlight javascript %}
 // hackernews-api.service.ts
@@ -532,7 +534,7 @@ export class StoriesComponent implements OnInit {
 }
 {% endhighlight %}
 
-In the `ngOnInit` hook, which fires when the component is initialized, we `subscribe` to the data stream. In our view, the only thing we're going to add is a `SlicePipe` to only show 30 list items.
+In the `ngOnInit` hook, which fires when the component is initialized, we `subscribe` to the data stream and set the `items` attribute to what gets returned. In our view, the only thing we're going to add is a `SlicePipe` to show 30 list items instead of all 500 which gets returned.
 
 {% highlight html %}
 <!-- stories.component.html -->
@@ -593,8 +595,10 @@ export class ItemComponent implements OnInit {
 {% endhighlight %}
 
 {% highlight html %}
+<!-- item.component.html -->
+
 <div *ngIf="!item" class="loading-section">
-  <!-- You can add a loading indicator here if you want to <i class="fa fa-smile-o" aria-hidden="true"></i> -->
+  <!-- You can add a loading indicator here if you want to :) </i> -->
 </div>
 <div *ngIf="item">
   <div class="item-laptop">
@@ -604,9 +608,9 @@ export class ItemComponent implements OnInit {
       </a>
       <span class="domain">{% raw %}{{item.url | domain}}{% endraw %}</span>
     </p>
-    <div class="subtext">
+    <div class="subtext-laptop">
       {% raw %}{{item.score}}{% endraw %} points by 
-      <a href="">{{item.by}}</a>
+      <a href="">{% raw %}{{item.by}}{% endraw %}</a>
       {% raw %}{{ (item.time | amFromUnix) | amTimeAgo }}{% endraw %}
       <a href="">
         <span *ngIf="item.descendants !== 0">
@@ -627,7 +631,7 @@ export class ItemComponent implements OnInit {
 </div>
 {% endhighlight %}
 
-Nice and straightforward. For each item, we're subscribing to their respective stream. In the markup, we can see that when the response hasn't been received yet, we have a loading section where we can show a loading indicator of some sort. Once the item loads from the Observable, it's details will show. Click [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page/src/app/item) to see all the files for this component.
+Nice and straightforward. For each item, we're subscribing to their respective stream. In the markup, we can see that when the response hasn't been received yet, we have a loading section where we can show a loading indicator of some sort. Once the item loads from the Observable, it's details will show. Click [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page/src/app/item) to see all the files for this component including styling.
 
 *Note: You may be wondering where the `amFromUnix` and `amTimeAgo` pipes came from. The time parameter for each item is in [Unix](https://en.wikipedia.org/wiki/Unix_time) format. To convert this into something we can understand, I use [moment.js](https://momentjs.com/) pipes by importing the [angular2-moment](https://github.com/urish/angular2-moment) library.*
 
@@ -690,6 +694,8 @@ For example, the response for the list of top stories looks like this.
 Notice that there is a `domain` as well as a `time_ago` attribute which is pretty cool. This means we can ditch the `domain.pipe.ts` file I created earlier as well as uninstall the `angular2-moment` library. Let's take a look at what we need to change in our data service.
 
 {% highlight javascript %}
+// hackernews-api.service.ts
+
 export class HackerNewsAPIService {
   baseUrl: string;
 
@@ -704,7 +710,7 @@ export class HackerNewsAPIService {
 }
 {% endhighlight %}
 
-Since the API doesn't load all 500 top stories, we need to add page number as an argument. Notice how we're also passing `storyType` as well. This will allow us to show different kinds of stories depending on where the user navigates to.
+Since the API doesn't load all 500 top stories, we need to add page number as an argument. Notice how we're also passing `storyType` as well. This will allow us to show different types of stories depending on where the user navigates to.
 
 Let's take a look at how we can change the stories component. We can start with just passing in `'news'` and page number `1` into our service call to get our top stories.
 
@@ -731,7 +737,7 @@ The correpsonding markup is as follows.
 <!-- stories.component.html -->
 
 <div class="loading-section" *ngIf="!items">
-  <!-- You can add a loading indicator here if you want to <i class="fa fa-smile-o" aria-hidden="true"></i> -->
+  <!-- You can add a loading indicator here if you want to :) -->
 </div>
 <div *ngIf="items">
   <ol>
@@ -833,7 +839,7 @@ To allow the user to navigate between these pages, we're going to have to includ
 ng g component ItemComments
 {% endhighlight %}
 
-Let's also create an `app.routes.ts` file in our `app` folder.
+Now let's create an `app.routes.ts` file in our `app` folder.
 
 {% highlight javascript %}
 // app.routes.ts
@@ -856,7 +862,7 @@ const routes: Routes = [
 export const routing = RouterModule.forRoot(routes);
 {% endhighlight %}
 
-A brief overview of this file.
+An overview of what we're doing here:
 
 1. We just created an array of routes, each with a relative *path* that maps to a specific *component*<br>
 2. Our header navigation links will route to a number of different paths; `news`, `newest`, `show`, `ask` and `jobs`. All these paths will map to our `StoriesComponent`
@@ -909,28 +915,28 @@ Let's bind our navigation links in `HeaderComponent` to their respective routes.
 
 <header>
   <div id="header">
-    <a class="home-link" routerLink="/news/1" routerLinkActive="active">
+    <a class="home-link" routerLink="/news/1">
       <img class="logo" src="https://i.imgur.com/J303pQ4.png">
     </a>
     <div class="header-text">
       <div class="left">
         <h1 class="name">
-          <a routerLink="/news/1" routerLinkActive="active" class="app-title">Angular 2 HN</a>
+          <a routerLink="/news/1" class="app-title">Angular 2 HN</a>
         </h1>
         <span class="header-nav">
-          <a routerLink="/newest/1" routerLinkActive="active">new</a>
+          <a routerLink="/newest/1">new</a>
           <span class="divider">
             |
           </span>
-          <a routerLink="/show/1" routerLinkActive="active">show</a>
+          <a routerLink="/show/1">show</a>
           <span class="divider">
             |
           </span>
-          <a routerLink="/ask/1" routerLinkActive="active">ask</a>
+          <a routerLink="/ask/1">ask</a>
           <span class="divider">
             |
           </span>
-          <a routerLink="/jobs/1" routerLinkActive="active">jobs</a>
+          <a routerLink="/jobs/1">jobs</a>
         </span>
       </div>
       <div class="info">
@@ -941,9 +947,7 @@ Let's bind our navigation links in `HeaderComponent` to their respective routes.
 </header>
 {% endhighlight %}
 
-`RouterLink` is responsible for binding a specific element to a route and `RouterLinkActive` allows you to add/remove classes if the route is active/inactive. Here we're mapping it to an `active` CSS class that will bold the navigation link.
-
-And now let's update `StoriesComponent`.
+The `RouterLink` directive is responsible for binding a specific element to a route. Let's update the `StoriesComponent` now.
 
 {% highlight javascript %}
 // stories.component.ts
@@ -1048,7 +1052,7 @@ To signal completion, we use `onCompleted()` to update a `listStart` variable wh
 
 <div class="main-content">
   <div class="loading-section" *ngIf="!items">
-    <!-- You can add a loading indicator here if you want to <i class="fa fa-smile-o" aria-hidden="true"></i> -->
+    <!-- You can add a loading indicator here if you want to :) -->
   </div>
   <div *ngIf="items">
     <ol start="{% raw %}{{ listStart }}{% endraw %}">
@@ -1181,12 +1185,12 @@ Similar to what we did in `StoriesComponent`, we subscribe to our route paramete
 
 <div class="main-content">
   <div class="loading-section" *ngIf="!item">
-    <!-- You can add a loading indicator here if you want to <i class="fa fa-smile-o" aria-hidden="true"></i> -->
+    <!-- You can add a loading indicator here if you want to :) -->
   </div>
   <div *ngIf="item" class="item">
     <div class="mobile item-header">
      <!-- Markup that shows only on mobile (to give the app a
-    responsive mobile feel). Same attributes as above 
+    responsive mobile feel). Same attributes as below, 
     nothing really new here (but refer to the source 
     file if you're interested) -->
     </div>
@@ -1311,9 +1315,7 @@ export class CommentComponent implements OnInit {
 </div>
 {% endhighlight %}
 
-Notice how we're recursively referencing `app-comment` inside of it's own component. This is because each comment object in the array has it's own array of comments, and we're using recursion to show all them. 
-
-![inception](https://i.imgur.com/diPZ0hN.jpg "Inception"){: .article-image }
+Notice how we're recursively referencing `app-comment` inside of it's own component. This is because each comment object in the array has it's own array of comments, and we're using recursion to show all of them.
 
 Click [here](https://github.com/hdjirdeh/angular2-hn/blob/item-comments/src/app/comment/comment.component.scss) to see the styling for this component. If you now run the application, you can see all the comments for each item!
 
@@ -1338,6 +1340,6 @@ Wrapping things up
 
 We're done! To kick off a production build, you can run `ng build --prod` or `ng serve --prod` which will make use of uglifying and tree-shaking.
 
-I hope you found this tutorial useful. If you did, please [tweet it forward](href="https://twitter.com/intent/tweet?original_referer={{page.url}}&amp;ref_src=twsrc%5Etfw&amp;text={{page.title}}&amp;tw_p=tweetbutton&amp;url={{site.url}}{{page.url}}&amp;via=hdjirdeh") and/or [star the repo!](https://github.com/hdjirdeh/angular2-hn) I would also love to hear any type of feedback whatsoever.
+I hope you found this tutorial useful. If you did, please [tweet it forward](https://twitter.com/intent/tweet?original_referer={{page.url}}&amp;ref_src=twsrc%5Etfw&amp;text={{page.title}}&amp;tw_p=tweetbutton&amp;url={{site.url}}{{page.url}}&amp;via=hdjirdeh) and/or [star the repo!](https://github.com/hdjirdeh/angular2-hn) I would also love to hear any type of feedback whatsoever.
  
 If you happen to be interested enough to work on this app further, take a look at the [issue list](https://github.com/hdjirdeh/angular2-hn/issues) and feel free to put up a feature request or a PR! My next steps are to include real-time support as well as service worker/app shell functionality to make this a full blown Progressive Web App, so there's still lots to do <i class="fa fa-smile-o" aria-hidden="true"></i>.
