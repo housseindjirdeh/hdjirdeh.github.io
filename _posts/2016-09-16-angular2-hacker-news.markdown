@@ -1118,7 +1118,7 @@ We're almost done! Before we start adding our other comment page components, let
 
 Run the application and click on an item's comments.
 
-![item comments route](https://files.slack.com/files-pri/T0LA4NDHS-F2AUJNDLN/pasted_image_at_2016_09_12_10_28_pm.png "Item Comments Route"){: .article-image }
+![item comments route](https://i.imgur.com/tvCNyWz.png "Item Comments Route"){: .article-image }
 
 Beauty. We can see that it's routing to `ItemCommentsComponent`. Now let's create our additional components.
 
