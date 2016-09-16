@@ -24,7 +24,7 @@ In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/)
   <a class="blog-button" href="https://github.com/hdjirdeh/angular2-hn">Source Code</a>
 </div>
 
-![angular 2 hn preview](https://media.giphy.com/media/l2SpSjFvOu7NQeuNW/giphy.gif "Angular 2 HN Preview"){: .article-image }
+![angular 2 hn preview](https://i.imgur.com/3gIhXqC.gif "Angular 2 HN Preview"){: .article-image }
 
 We'll go through building the entire application step by step. Throughout this post, I'll try my best to explain my thought process as well as some of the mistakes I've made and what I did to fix them.
 
