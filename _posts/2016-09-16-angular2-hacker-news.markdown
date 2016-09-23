@@ -104,6 +104,8 @@ Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. The CLI make
 ng set defaults.styleExt scss
 {% endhighlight %}
 
+*Note: If you're seeing a weird error here, you can just set the default style extension to `scss` in `angular-cli.json` instead and restart the server. Take a look at this [issue](https://github.com/angular/angular-cli/issues/1900).*
+
 Now that we have everything set up, we can create our first few components. To start things off, we'll create a `HeaderComponent`.
 
 {% highlight bash %}
@@ -296,7 +298,7 @@ export class StoriesComponent implements OnInit {
 <div class="main-content">
   <ol>
     <li *ngFor="let item of items; let i = index" class="post">
-      Story #{{i}}
+      Story #{% raw %}{{i}}{% endraw %}
     </li>
   </ol>
   <div class="nav">
@@ -603,7 +605,7 @@ export class ItemComponent implements OnInit {
 <div *ngIf="item">
   <div class="item-laptop">
     <p> 
-      <a class="title" href="{{item.url}}">
+      <a class="title" href="{% raw %}{{item.url}}{% endraw %}">
         {% raw %}{{item.title}}{% endraw %}
       </a>
       <span class="domain">{% raw %}{{item.url | domain}}{% endraw %}</span>
