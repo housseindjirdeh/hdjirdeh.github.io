@@ -308,7 +308,7 @@ export class StoriesComponent implements OnInit {
     <a href="" class="more">
       More ›
     </a>
-  <div>
+  </div>
 </div>
 {% endhighlight %}
 
@@ -370,7 +370,7 @@ Once we start getting real data, we'll need to pass down the item identifier fro
     <a href="" class="more">
       More ›
     </a>
-  <div>
+  </div>
 </div>
 {% endhighlight %}
 
@@ -754,7 +754,7 @@ The correpsonding markup is as follows.
     <a class="more">
       More ›
     </a>
-  <div>
+  </div>
 </div>
 {% endhighlight %}
 
@@ -1069,7 +1069,7 @@ To signal completion, we use `onCompleted()` to update a `listStart` variable wh
       <a *ngIf="items.length === 30" [routerLink]="['/' + storiesType, pageNum + 1]" class="more">
         More ›
       </a>
-    <div>
+    </div>
   </div>
 </div>
 {% endhighlight %}
