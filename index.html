@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div class="title">
+<!-- <div class="title">
   <div><strong>Houssein</strong> Djirdeh</div>
   <p>JavaScript, Angular and all things web</p>
   <span class="divider-icon">
@@ -14,4 +14,70 @@ layout: default
     <li><a href="https://github.com/hdjirdeh" target="_blank">Github</a></li>
     <li><a href="https://twitter.com/hdjirdeh">Twitter</a></li>
   <ul>
-</div>
+</div> -->
+
+<div class="index-main">
+  <div>
+    <header>
+      <div>
+          <h1>
+            <strong>Houssein</strong> Djirdeh
+          </h1>
+      </div>
+    </header>
+  </div>
+  <section class="about">
+        <p class="about-me">Front-end engineer based in Toronto</p>
+  </section>
+  <nav>
+      <a href="https://twitter.com/hdjirdeh">Twitter</a>
+      <a href="https://github.com/hdjirdeh" class="nav-padding">Github</a>
+      <a href="/blog" class="nav-padding">Blog</a>
+  </nav>
+  <main>
+    <section class="sub-section">
+      <h2 class="header">Recent Posts</h2>
+      <hr>
+        {% for post in site.posts %}
+          {% if post.type == "post" %}
+            <h3 class="heading">
+              <a href="{{ post.url | prepend: site.baseurl }}">
+                {{ post.title | downcase }}
+              </a>
+          </h3>
+          {% endif %}
+        {% endfor %}
+    </section>
+    <section class="sub-section">
+      <h2 class="header">Résumé</h2>
+      <hr>
+        <div class="item">
+          <h3 class="heading">
+            <a href="http://www.deloittedigital.ca/">
+              deloitte digital
+            </a>
+          </h3>
+          <p>2015–Present</p>
+        </div>
+        <div class="item">
+          <h3 class="heading">
+            <a href="http://tandemedu.ca/">
+              tandem
+            </a>
+          </h3>
+          <p>2015</p>
+        </div>
+        <div class="item">
+          <h3 class="heading">
+            <a href="http://www.onramp-solutions.com/">
+              onramp
+            </a>
+          </h3>
+          <p>2013–2014</p>
+        </div>
+    </section>
+  </main>
+  <footer>
+      <p>&copy; MMXVI Houssein Djirdeh</p>
+  </footer>
+</id>
