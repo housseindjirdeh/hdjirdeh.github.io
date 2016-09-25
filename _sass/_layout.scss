@@ -880,3 +880,43 @@
         }
     }
 }
+
+#index-main {
+    padding-top: 50px;
+
+    header {
+        overflow: hidden;
+        box-sizing: border-box;
+        padding: 100px 0 50px;
+
+        h1 {
+            font-family: $fancy-font-family;
+            letter-spacing: 4px;
+            box-sizing: border-box;
+            font-size: 96px;
+            line-height: 1.25;
+            margin: 0;
+        }
+    }
+
+    .about {
+        box-sizing: border-box;
+        padding: 0;
+        box-sizing: border-box;
+        font-size:16px;
+        font-weight:600;
+        margin:0;
+
+        .about-me {
+            float: left;
+        }
+
+        .location {
+            float: right;
+        }
+    }
+
+    nav {
+        padding-top: 100px;
+    }
+}
