@@ -881,19 +881,27 @@
     }
 }
 
-#index-main {
+.index-main {
     padding-top: 50px;
+
+    a {
+        &:hover {
+            color: #026ed2;
+            border-bottom: 3px solid #f1ece9;
+            text-decoration: none;
+        }
+    }
 
     header {
         overflow: hidden;
         box-sizing: border-box;
-        padding: 100px 0 50px;
+        padding: 150px 0 20px;
 
         h1 {
             font-family: $fancy-font-family;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             box-sizing: border-box;
-            font-size: 96px;
+            font-size: 55px;
             line-height: 1.25;
             margin: 0;
         }
@@ -910,13 +918,59 @@
         .about-me {
             float: left;
         }
-
-        .location {
-            float: right;
-        }
     }
 
     nav {
-        padding-top: 100px;
+        padding: 120px 0 170px;
+
+        .nav-padding {
+            margin-left: 50px;
+        }
+    }
+
+    .sub-section {
+        box-sizing: border-box;
+        padding-bottom: 100px;
+
+        .header {
+            box-sizing: border-box;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.25;
+            margin: 0;
+        }
+
+        hr {
+            box-sizing: border-box;
+            margin: 16px 0;
+            border-bottom: $border-grey-color 2px solid;
+        }
+
+        .heading {
+            box-sizing: border-box;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.25;
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .item {
+            padding-bottom: 30px;
+
+            .heading {
+                padding: 10px 0;
+            }
+        }
+    }
+
+    footer {
+        box-sizing: border-box;
+        padding-top: 96px;
+        padding-bottom: 96px;
     }
 }
