@@ -982,7 +982,7 @@ export class StoriesComponent implements OnInit {
   ngOnInit() {
     this.typeSub = this.route
       .data
-      .subscribe(data => this.storiesType = data.storiesType);
+      .subscribe(data => this.storiesType = (data as any).storiesType);
 
     this.pageSub = this.route.params.subscribe(params => {
       this.pageNum = +params['page'] ? +params['page'] : 1;
@@ -1015,13 +1015,13 @@ constructor(
 }
 {% endhighlight %}
 
-We then subscribe to the route data property and store `storiesType` into a component variable in the `ngOnInit` hook. 
+We then subscribe to the route data property and store `storiesType` into a component variable in the `ngOnInit` hook. Notice how we assign any type to the response object. This is just a quick and simple way to opt-out of type checking. Otherwise you may see an error that states property `storiesType` does not exist.
 
 {% highlight javascript %}
 ngOnInit() {
   this.typeSub = this.route
     .data
-    .subscribe(data => this.storiesType = data.storiesType);
+    .subscribe(data => this.storiesType = (data as any).storiesType);
 
 // ...
 }
