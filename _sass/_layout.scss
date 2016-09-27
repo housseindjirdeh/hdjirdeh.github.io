@@ -737,7 +737,7 @@
 
     &:hover {
         background: #72b9f2;
-        color:#fff;
+        color:#fff !important;
         text-decoration: none;
     }
 
@@ -777,7 +777,7 @@
 
     &:hover {
         border-color: #bfc8cd;
-        color: #9EABB3;
+        color: #9EABB3 !important;
         text-decoration: none;
     }
 
@@ -882,7 +882,31 @@
 }
 
 .index-main {
-    padding-top: 50px;
+    text-align: center;
+
+    .full-screen {
+        height: 100vh;
+        margin-bottom: 100px;
+
+        .full-screen-section {
+            height: 230px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+
+            @include media-query($on-palm) {
+                height: 330px;
+            }
+        }
+
+        .chevron {
+            position: absolute;
+            bottom: 20px;
+        }
+    }
 
     a {
         &:hover {
@@ -893,15 +917,11 @@
     }
 
     header {
-        overflow: hidden;
-        box-sizing: border-box;
-        padding: 150px 0 20px;
-
         h1 {
             font-family: $fancy-font-family;
             letter-spacing: 5px;
             box-sizing: border-box;
-            font-size: 55px;
+            font-size: 50px;
             line-height: 1.25;
             margin: 0;
         }
@@ -916,12 +936,17 @@
         margin:0;
 
         .about-me {
-            float: left;
+            
         }
     }
 
     nav {
-        padding: 120px 0 170px;
+        padding-top: 5vh;
+
+        .menu {
+            float: none;
+            border: none;
+        }
 
         .nav-padding {
             margin-left: 50px;
