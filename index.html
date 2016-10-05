@@ -2,72 +2,74 @@
 layout: default
 ---
 <div class="index-main">
-  <div class="full-screen">
-    <div class="full-screen-section">
-      <header>
-        <div>
-            <h1>
-              <strong>Houssein</strong> Djirdeh
-            </h1>
-        </div>
-      </header>
-      <section class="about">
-            <p class="about-me">Front-end engineer based in Toronto</p>
-      </section>
-      <nav>
-        <div class="menu">
-          <a class="subscribe-button" href="https://github.com/hdjirdeh" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a>
-          <a class="subscribe-button" href="https://twitter.com/hdjirdeh"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
-          <a class="blog-button" href="/blog"><i class="fa fa-pencil" aria-hidden="true"></i> Blog</a>
-        </div>
-      </nav>
+  <div class="home">
+    <div class="full-screen">
+      <div class="full-screen-section">
+        <header>
+          <div>
+              <h1>
+                <strong>Houssein</strong> Djirdeh
+              </h1>
+          </div>
+        </header>
+        <section class="about">
+              <p class="about-me">Front-end engineer based in Toronto</p>
+        </section>
+        <nav>
+          <div class="menu">
+            <a class="subscribe-button" href="https://github.com/hdjirdeh" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a>
+            <a class="subscribe-button" href="https://twitter.com/hdjirdeh"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            <a class="blog-button" href="/blog"><i class="fa fa-pencil" aria-hidden="true"></i> Blog</a>
+          </div>
+        </nav>
+      </div>
+      <span class="chevron"><i class="fa fa-chevron-down"></i></span>
     </div>
-    <span class="chevron"><i class="fa fa-chevron-down"></i></span>
-  </div>
-  <main>
-    <section class="sub-section">
-      <h2 class="header">Recent Posts</h2>
-      <hr>
-        {% for post in site.posts %}
-          {% if post.type == "post" %}
+    <main>
+      <section class="sub-section">
+        <h2 class="header">Recent Posts</h2>
+        <hr>
+          {% for post in site.posts %}
+            {% if post.type == "post" %}
+              <h3 class="heading">
+                <a href="{{ post.url | prepend: site.baseurl }}">
+                  {{ post.title | downcase }}
+                </a>
+            </h3>
+            {% endif %}
+          {% endfor %}
+      </section>
+      <section class="sub-section">
+        <h2 class="header">Résumé</h2>
+        <hr>
+          <div class="item">
             <h3 class="heading">
-              <a href="{{ post.url | prepend: site.baseurl }}">
-                {{ post.title | downcase }}
+              <a href="http://www.deloittedigital.ca/">
+                deloitte digital
               </a>
-          </h3>
-          {% endif %}
-        {% endfor %}
-    </section>
-    <section class="sub-section">
-      <h2 class="header">Résumé</h2>
-      <hr>
-        <div class="item">
-          <h3 class="heading">
-            <a href="http://www.deloittedigital.ca/">
-              deloitte digital
-            </a>
-          </h3>
-          <p>2015–Present</p>
-        </div>
-        <div class="item">
-          <h3 class="heading">
-            <a href="http://tandemedu.ca/">
-              tandem
-            </a>
-          </h3>
-          <p>2015</p>
-        </div>
-        <div class="item">
-          <h3 class="heading">
-            <a href="http://www.onramp-solutions.com/">
-              onramp
-            </a>
-          </h3>
-          <p>2013–2014</p>
-        </div>
-    </section>
-  </main>
-  <footer>
-      <p>&copy; MMXVI Houssein Djirdeh</p>
-  </footer>
+            </h3>
+            <p>2015–Present</p>
+          </div>
+          <div class="item">
+            <h3 class="heading">
+              <a href="http://tandemedu.ca/">
+                tandem
+              </a>
+            </h3>
+            <p>2015</p>
+          </div>
+          <div class="item">
+            <h3 class="heading">
+              <a href="http://www.onramp-solutions.com/">
+                onramp
+              </a>
+            </h3>
+            <p>2013–2014</p>
+          </div>
+      </section>
+    </main>
+    <footer>
+        <p>&copy; MMXVI Houssein Djirdeh</p>
+    </footer>
+  </div>
 </div>

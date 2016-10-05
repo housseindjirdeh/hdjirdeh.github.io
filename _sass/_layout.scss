@@ -882,7 +882,37 @@
 }
 
 .index-main {
-    text-align: center;
+
+    .home {
+        text-align: center;
+    }
+
+    .resume {
+        padding-top: 100px;
+        font-size: 16px;
+
+        .sub-section {
+            padding-bottom: 50px;
+        }
+
+        .about-me {
+            .boom {
+                display: block;
+                font-size: 56px;
+                line-height: 86px;
+                letter-spacing: 0.5px;
+            }
+
+            h2 {
+                margin: 40px 0;
+                font-size: 20px;
+            }
+
+            p {
+                margin-bottom: 40px;
+            }
+        }
+    }
 
     .full-screen {
         height: 100vh;
