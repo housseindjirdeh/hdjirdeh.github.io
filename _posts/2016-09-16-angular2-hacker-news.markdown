@@ -43,7 +43,7 @@ This visual tutorial should make you feel a little more comfortable building an 
 
 Getting Started
 ==================
-Once you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install the CLI through your terminal. 
+Once you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install the CLI through your terminal.
 
 {% highlight bash %}
 npm install -g angular-cli
@@ -57,11 +57,11 @@ cd angular2-hn
 ng serve
 {% endhighlight %}
 
-If you now open `https://localhost:4200/`, you'll see the application running. 
+If you now open `https://localhost:4200/`, you'll see the application running.
 
 ![app setup](https://i.imgur.com/4ME0JaW.png "App Setup"){: .article-image }
 
-Pretty cool huh? Angular CLI used to use [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Using SystemJS had a few quirks including long loading times and [a lengthy process just to add third party libraries](https://github.com/angular/angular-cli/wiki/3rd-party-libs). So to make things simpler and faster, the Angular CLI team have moved from [SystemJS to Webpack!](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
+Pretty cool huh? Angular CLI used to use [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Using SystemJS had a few quirks including long loading times and a lengthy process just to add third party libraries. So to make things simpler and faster, the Angular CLI team have moved from [SystemJS to Webpack!](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
 NgModule
 ==================
@@ -92,7 +92,7 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 {% endhighlight %}
 
-So what exactly is happening here? The `@NgModule` decorator specifies all declarations (components, directives and pipes), library imports (such as `FormsModule` and `HttpModule`) and providers (a single-instance service for example) that we'll be using in our application. 
+So what exactly is happening here? The `@NgModule` decorator specifies all declarations (components, directives and pipes), library imports (such as `FormsModule` and `HttpModule`) and providers (a single-instance service for example) that we'll be using in our application.
 
 You can probably already see how much more organized it is to not need to specify all our module-level components, directives, pipes and so forth in each of our components.
 
@@ -162,7 +162,7 @@ Sweet, now let's add some markup and styling.
 </div>
 {% endhighlight %}
 
-The styling in `app.component.scss` can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/app.component.scss). Now let's work on the header. 
+The styling in `app.component.scss` can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/app.component.scss). Now let's work on the header.
 
 {% highlight html %}
 <!-- header.component.html -->
@@ -209,7 +209,7 @@ Since we want this application to be as responsive as possible, it's important t
 
 ![header mobile](https://i.imgur.com/UGyVSEi.png "Header Mobile"){: .article-image }
 
-As you can see, there seems to be an offset from the edge of the page. This is because the `body` element has a bult-in offset (through `margin`) that shows in almost all modern browsers. 
+As you can see, there seems to be an offset from the edge of the page. This is because the `body` element has a bult-in offset (through `margin`) that shows in almost all modern browsers.
 
 ![body margin](https://i.imgur.com/gpogcbO.png "body margin"){: .article-image }
 
@@ -283,7 +283,7 @@ import { Component, OnInit } from '@angular/core';
 export class StoriesComponent implements OnInit {
   items: number[];
 
-  constructor() { 
+  constructor() {
     this.items = Array(30);
   }
 
@@ -322,7 +322,7 @@ ng g component Footer
 <!-- footer.component.html -->
 
 <div id="footer">
-    <p>Show this project some ❤ on 
+    <p>Show this project some ❤ on
       <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank">
         GitHub
       </a>
@@ -565,7 +565,7 @@ Since we have the item id's being passed down successfully to each of the `item`
 fetchItem(id: number): Observable<any> {
   return this.http.get(`${this.baseUrl}/item/${id}.json`)
                   .map(response => response.json());
-} 
+}
 {% endhighlight %}
 
 And now we need to modify our `item` component a bit.
@@ -604,14 +604,14 @@ export class ItemComponent implements OnInit {
 </div>
 <div *ngIf="item">
   <div class="item-laptop">
-    <p> 
+    <p>
       <a class="title" href="{% raw %}{{item.url}}{% endraw %}">
         {% raw %}{{item.title}}{% endraw %}
       </a>
       <span class="domain">{% raw %}{{item.url | domain}}{% endraw %}</span>
     </p>
     <div class="subtext-laptop">
-      {% raw %}{{item.score}}{% endraw %} points by 
+      {% raw %}{{item.score}}{% endraw %} points by
       <a href="">{% raw %}{{item.by}}{% endraw %}</a>
       {% raw %}{{ (item.time | amFromUnix) | amTimeAgo }}{% endraw %}
       <a href="">
@@ -626,8 +626,8 @@ export class ItemComponent implements OnInit {
   </div>
   <div class="item-mobile">
     <!-- Markup that shows only on mobile (to give the app a
-    responsive mobile feel). Same attributes as above 
-    nothing really new here (but refer to the source 
+    responsive mobile feel). Same attributes as above
+    nothing really new here (but refer to the source
     file if you're interested) -->
   </div>
 </div>
@@ -657,7 +657,7 @@ I built the entire application with each component using this method, including 
 
 Let's switch things up
 ==================
-Okay, now we can see why having multiple network connections to fetch a parent item and it's content isn't the nicest experience. After a little bit of searching, I found this awesome [unofficial API](https://github.com/cheeaun/node-hnapi) which returns an item and it's details through a single request. 
+Okay, now we can see why having multiple network connections to fetch a parent item and it's content isn't the nicest experience. After a little bit of searching, I found this awesome [unofficial API](https://github.com/cheeaun/node-hnapi) which returns an item and it's details through a single request.
 
 For example, the response for the list of top stories looks like this.
 
@@ -771,7 +771,7 @@ export class ItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-  
+
   }
 }
 {% endhighlight %}
@@ -790,9 +790,9 @@ The markup (`item.component.html`) is very similar, but we now don't need to con
   </p>
   <div class="subtext-laptop">
     <span>
-      {% raw %}{{item.points}}{% endraw %} points by 
+      {% raw %}{{item.points}}{% endraw %} points by
       <a href="">{% raw %}{{item.user}}{% endraw %}</a>
-    </span> 
+    </span>
     <span>
       {% raw %}{{item.time_ago}}{% endraw %}
       <span> |
@@ -810,8 +810,8 @@ The markup (`item.component.html`) is very similar, but we now don't need to con
 </div>
 <div class="item-mobile">
   <!-- Markup that shows only on mobile (to give the app a
-    responsive mobile feel). Same attributes as above 
-    nothing really new here (but refer to the source 
+    responsive mobile feel). Same attributes as above
+    nothing really new here (but refer to the source
     file if you're interested) -->
 </div>
 {% endhighlight %}
@@ -975,7 +975,7 @@ export class StoriesComponent implements OnInit {
   listStart: number;
 
   constructor(
-    private _hackerNewsAPIService: HackerNewsAPIService, 
+    private _hackerNewsAPIService: HackerNewsAPIService,
     private route: ActivatedRoute
   ) {}
 
@@ -1092,9 +1092,9 @@ We're almost done! Before we start adding our other comment page components, let
   </p>
   <div class="subtext-laptop">
     <span>
-      {% raw %}{{item.points}}{% endraw %} points by 
+      {% raw %}{{item.points}}{% endraw %} points by
       <a href="">{% raw %}{{item.user}}{% endraw %}</a>
-    </span> 
+    </span>
     <span>
       {% raw %}{{item.time_ago}}{% endraw %}
       <span> |
@@ -1113,7 +1113,7 @@ We're almost done! Before we start adding our other comment page components, let
 <div class="item-mobile">
   <!-- Markup that shows only on mobile (to give the app a
     responsive mobile feel). Same attributes as above,  
-    nothing really new here (but refer to the source 
+    nothing really new here (but refer to the source
     file if you're interested) -->
 </div>
 {% endhighlight %}
@@ -1192,8 +1192,8 @@ Similar to what we did in `StoriesComponent`, we subscribe to our route paramete
   <div *ngIf="item" class="item">
     <div class="mobile item-header">
      <!-- Markup that shows only on mobile (to give the app a
-    responsive mobile feel). Same attributes as below, 
-    nothing really new here (but refer to the source 
+    responsive mobile feel). Same attributes as below,
+    nothing really new here (but refer to the source
     file if you're interested) -->
     </div>
     <div class="laptop" [class.item-header]="item.comments_count > 0 || item.type === 'job'" [class.head-margin]="item.text">
@@ -1205,9 +1205,9 @@ Similar to what we did in `StoriesComponent`, we subscribe to our route paramete
       </p>
       <div class="subtext">
         <span>
-        {% raw %}{{item.points}}{% endraw %} points by 
+        {% raw %}{{item.points}}{% endraw %} points by
           <a href="">{% raw %}{{item.user}}{% endraw %}</a>
-        </span> 
+        </span>
         <span>
           {% raw %}{{item.time_ago}}{% endraw %}
           <span> |
@@ -1220,7 +1220,7 @@ Similar to what we did in `StoriesComponent`, we subscribe to our route paramete
               <span *ngIf="item.comments_count === 0">discuss</span>
             </a>
           </span>
-        </span> 
+        </span>
       </div>
     </div>
     <p class="subject" [innerHTML]="item.content"></p>
@@ -1249,7 +1249,7 @@ export class CommentTreeComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-  
+
   }
 }
 {% endhighlight %}
@@ -1258,13 +1258,13 @@ export class CommentTreeComponent implements OnInit {
 <!-- comment-tree.component.html -->
 
 <ul class="comment-list">
-   <li *ngFor="let comment of commentTree" > 
+   <li *ngFor="let comment of commentTree" >
       <app-comment [comment]="comment"></app-comment>
    </li>
 </ul>
 {% endhighlight %}
 
-Nice and simple, we list all the comments using the `ngFor` directive. Click [here](https://github.com/hdjirdeh/angular2-hn/blob/item-comments/src/app/comment-tree/comment-tree.component.scss) to see it's SCSS file. 
+Nice and simple, we list all the comments using the `ngFor` directive. Click [here](https://github.com/hdjirdeh/angular2-hn/blob/item-comments/src/app/comment-tree/comment-tree.component.scss) to see it's SCSS file.
 
 Let's fill out `CommentComponent`, the component responsible for each specific comment.
 
@@ -1295,7 +1295,7 @@ export class CommentComponent implements OnInit {
 
 <div *ngIf="!comment.deleted">
   <div class="meta" [class.meta-collapse]="collapse">
-    <span class="collapse" (click)="collapse = !collapse">[{% raw %}{{collapse ? '+' : '-'}}{% endraw %}]</span> 
+    <span class="collapse" (click)="collapse = !collapse">[{% raw %}{{collapse ? '+' : '-'}}{% endraw %}]</span>
     <a [routerLink]="['/user', comment.user]" routerLinkActive="active">{% raw %}{{comment.user}}{% endraw %}</a>
     <span class="time">{% raw %}{{comment.time_ago}}{% endraw %}</span>
   </div>
@@ -1303,7 +1303,7 @@ export class CommentComponent implements OnInit {
     <div [hidden]="collapse">
       <p class="comment-text" [innerHTML]="comment.content"></p>
       <ul class="subtree">
-        <li *ngFor="let subComment of comment.comments"> 
+        <li *ngFor="let subComment of comment.comments">
           <app-comment [comment]="subComment"></app-comment>
         </li>
       </ul>
@@ -1328,14 +1328,14 @@ The entire source code for this step can be found [here](https://github.com/hdji
 User Profiles
 ==================
 
-All we have left is user profiles. Since the concept is pretty much the same, I won't go through this in detail. All you need to do is: 
+All we have left is user profiles. Since the concept is pretty much the same, I won't go through this in detail. All you need to do is:
 
 1. Set up another request in the data service to point to the user endpoint
 2. Create a user component
 3. Add another field to your routes file
-4. Update the user links in the other components to route to the user 
+4. Update the user links in the other components to route to the user
 
-And that's it! Take a look [here](https://github.com/hdjirdeh/angular2-hn/tree/master/src/app/user) if you want to see the whole user component setup.
+And that's it! Take a look [here](https://github.com/hdjirdeh/angular2-hn/tree/version-1/src/app/user) if you want to see the whole user component setup.
 
 Wrapping things up
 ==================
@@ -1343,5 +1343,5 @@ Wrapping things up
 We're done! To kick off a production build, you can run `ng build --prod` or `ng serve --prod` which will make use of uglifying and tree-shaking.
 
 I hope you found this tutorial useful. If you did, please [tweet it forward](https://twitter.com/intent/tweet?original_referer={{page.url}}&amp;ref_src=twsrc%5Etfw&amp;text={{page.title}}&amp;tw_p=tweetbutton&amp;url={{site.url}}{{page.url}}&amp;via=hdjirdeh) and/or [star the repo!](https://github.com/hdjirdeh/angular2-hn) I would also love to hear any type of feedback whatsoever.
- 
+
 If you happen to be interested enough to work on this app further, take a look at the [issue list](https://github.com/hdjirdeh/angular2-hn/issues) and feel free to put up a feature request or a PR! My next steps are to include real-time support as well as service worker/app shell functionality to make this a full blown Progressive Web App, so there's still lots to do <i class="fa fa-smile-o" aria-hidden="true"></i>.
