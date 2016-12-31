@@ -12,6 +12,7 @@ comments: true
 type: post
 image: angular-progressive.png
 permalink: /:title
+published: false
 ---
 ![angular 2 hn banner](https://i.imgur.com/6huokkl.png "Angular 2 HN Banner"){: .article-image }
 
