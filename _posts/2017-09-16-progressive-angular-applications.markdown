@@ -1,26 +1,23 @@
 ---
 layout: post
-title:  "Progressive Web Apps with Angular"
-date:   2017-09-16 9:20:00 -0400
-categories: angular2 progressive web app javascript
+title:  "Progressive Web Apps with Angular CLI"
+date:   2016-09-16 9:20:00 -0400
+categories: angular progressive web app javascript
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
 tags:
-- angular2
+- angular
 - progressive web app
 - javascript
 comments: true
 type: post
 image: angular-progressive.png
 permalink: /:title
-published: false
 ---
 ![angular 2 hn banner](https://i.imgur.com/6huokkl.png "Angular 2 HN Banner"){: .article-image }
 
-Progressive Web Applications have been the talk of the town in the past few months. In short, they  are applications that use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers. In other words, they are built with [progressive enhancement](http://alistapart.com/article/understandingprogressiveenhancement#section3) in mind.
+Progressive Web Apps have been the talk of the town in 2016. In short, they are applications that use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some. In other words, they are built with [progressive enhancement](http://alistapart.com/article/understandingprogressiveenhancement#section3) in mind.
 
-The breakdown
-==================
-If you've ever built an Angular 2 application before, you'll know that setting up and bootstrapping the application can take a significant amount of time.
+My last blog post (see [here](http://houssein.me/angular2-hacker-news)) revolved around building a Hacker News client from scratch using Angular CLI. In this post, we're going to look into how we can make it faster and more reliable.
 
 <div class="button-center">
   <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
@@ -29,7 +26,18 @@ If you've ever built an Angular 2 application before, you'll know that setting u
 
 ![angular 2 hn preview](https://i.imgur.com/tAKYveK.jpg "Angular 2 HN Preview"){: .article-image }
 
-By going through the entire application from the ground up, you should hopefully get a decent understanding of how a Progressive Web Application works and how to build one with Angular 2. As usual, I'll explain why we're doing each and every step as we go along.
+Here's a rundown of what we'll be covering.
+
+1. Isomorphic Fetch
+2. Ahead-of-Time compilation
+3. Lighthouse
+4. Finally, we'll add routes to allow the user to navigate to item comments and user profiles.
+
+This visual tutorial should make you feel a little more comfortable building an Angular 2 application from small modular parts as well as creating an app from scratch all the way to completion. We'll also briefly go over some important topics and understand how they apply to an actual application, which includes:
+
+1. The `NgModule` decorator<br>
+2. View Encapsulation<br>
+3. RxJS
 
 Progressive Web Applications
 ==================
