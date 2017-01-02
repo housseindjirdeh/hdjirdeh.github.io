@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Progressive Web Apps with Angular CLI"
-date:   2016-09-16 9:20:00 -0400
+date:   2017-09-16 9:20:00 -0400
 categories: angular progressive web app javascript
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
 tags:
@@ -12,6 +12,7 @@ comments: true
 type: post
 image: angular-progressive.png
 permalink: /:title
+published: false
 ---
 ![angular 2 hn banner](https://i.imgur.com/6huokkl.png "Angular 2 HN Banner"){: .article-image }
 
