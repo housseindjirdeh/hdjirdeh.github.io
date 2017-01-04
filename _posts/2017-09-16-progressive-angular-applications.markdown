@@ -124,12 +124,14 @@ This piece of code checks to see if the browser supports service workers and if 
 
 ![App Shell](assets/progressive-angular-applications/service-worker-fail.png){: .article-image }
 
-We can see that it can't retrieve the service worker file, `service-worker.js`, since it doesn't exist. There's a few ways we can set up this file, with one being writing out the logic to open a cache, cache all the static files (HTML, CSS and JS) and return the cached resources when the user returns to the page. Here's an [excellent introduction](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers) to setting up a service worker.
+We can see that it can't retrieve the service worker file, `service-worker.js`, since it doesn't exist. There's a few ways we can set up this file, with one being writing out the logic to open a cache, cache all the static files (HTML, CSS, JS, images, etc..) and return the cached resources when the user returns to the page. Here's an [excellent introduction](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers) to setting up a service worker.
 
-But there's a simpler way we can set up our service worker: using the `sw-precache` library.
+But there's a simpler way we can set up our service worker: using  **Service Worker Precache**.
 
-sw-precache
+Service Worker Precache
 -
+
+[Service Worker Precache (`sw-precache`)](https://github.com/GoogleChrome/sw-precache#service-worker-precache) is a module that generates a service worker responsible for caching all the static resources in your application. It integrates right into the build system you're using and with some simple configurations, it creates the service worker on the fly.
 
 App can load on offline/flaky connections
 ==================
