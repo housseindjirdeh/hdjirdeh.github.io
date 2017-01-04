@@ -10,7 +10,7 @@ tags:
 - angular2
 comments: true
 type: post
-image: angular2-redux.jpg
+image: public/angular2-redux.jpg
 ---
 ![angular2 redux]({{ site.url }}/public/angular2-redux.jpg "Angular 2 and Redux"){: .article-image-with-source }
 
@@ -41,7 +41,7 @@ Flux is simply an architectural pattern to build user interfaces. It's not a fra
 [Source: Flux Documentation - Structure and Data Flow](https://facebook.github.io/flux/docs/overview.html#structure-and-data-flow)
 {: flux architecture}
 
-Redux is an implementation of Flux created by [Dan Abramov](https://medium.com/@dan_abramov). Although Flux is not a library on its own, Facebook has created a [Dispatcher library](https://github.com/facebook/flux) in which a Flux-centered application can leverage. Redux follows the same architecture, but aims to make certain abstractions simpler. 
+Redux is an implementation of Flux created by [Dan Abramov](https://medium.com/@dan_abramov). Although Flux is not a library on its own, Facebook has created a [Dispatcher library](https://github.com/facebook/flux) in which a Flux-centered application can leverage. Redux follows the same architecture, but aims to make certain abstractions simpler.
 
 <blockquote>
   <p>Redux preserves all the benefits of Flux (recording and replaying of actions, unidirectional data flow, dependent mutations) and adds new benefits (easy undo-redo, hot reloading) without introducing Dispatcher and store registration.</p>
@@ -161,14 +161,14 @@ export class ContactList {
 {% highlight html %}
 <!-- Contact List HTML -->
 
-<input #newContact placeholder="Add Contact" 
+<input #newContact placeholder="Add Contact"
   (keyup.enter)="addContact(newContact.value); newContact.value='' ">
 <ul>
   <li *ngFor="let contact of store.contacts">
     {% raw %}{{ contact.name }}{% endraw %}
     <button (click)="starContact(contact)">
-      <i class="fa fa-2x" 
-        [class.fa-star]="contact.star" 
+      <i class="fa fa-2x"
+        [class.fa-star]="contact.star"
         [class.fa-star-o]="!contact.star"></i>
     </button>
     <button (click)="removeContact(contact)">
@@ -211,7 +211,7 @@ export class ContactList {
 
 {% highlight html %}
 <!-- Contact List HTML -->
-<input #newContact placeholder="Add Contact" 
+<input #newContact placeholder="Add Contact"
   (keyup.enter)="addContact(newContact.value); newContact.value='' ">
 <ul>
   <li *ngFor="let contact of store.contacts">
@@ -255,8 +255,8 @@ export default class Contact {
 <div class="contact-container">
   {% raw %}{{ contact.name }}{% endraw %}
   <button (click)="starContact(contact)">
-    <i class="fa fa-2x" 
-      [class.fa-star]="contact.star" 
+    <i class="fa fa-2x"
+      [class.fa-star]="contact.star"
       [class.fa-star-o]="!contact.star"></i>
   </button>
   <button (click)="removeContact(contact)">
@@ -359,7 +359,7 @@ export class ContactStore {
 }
 {% endhighlight %}
 
-As you can see, we changed the instantiation of `contacts` and instead of an array, we're using `List` instead. `List` is similar to the JavaScript array, but is immutable and completely persistent. 
+As you can see, we changed the instantiation of `contacts` and instead of an array, we're using `List` instead. `List` is similar to the JavaScript array, but is immutable and completely persistent.
 
 To persist changes to the list, we're using the `push`, `delete` and `update` methods. Similar to an array, `indexOf` is also used to find the selected contact in the list. It's important to remember that for all these methods, the current collection is not mutated but a new immutable collection is generated.
 
@@ -427,7 +427,7 @@ As you can see, all the actions are just simple JavaScript objects. For example:
 
 With Redux, actions must have a `type` property which describes the type of the action being executed. It's also recommended that they be defined as string constants. Other than this, you can set up the structure of an action any way you like. I've set it up to include only what's needed for each action, `id` and `name` to add a contact and just `id` to remove or favourite.
 
-You can see that each of the actions are enclosed in functions that create them. 
+You can see that each of the actions are enclosed in functions that create them.
 
 {% highlight javascript %}
 export function addContact(name: string, id: number): IContactAction {
@@ -509,7 +509,7 @@ export class ContactStore {
 }
 {% endhighlight %}
 
-Looks nice and straightforward. The `createStore` method creates a Redux store that holds the complete state of the application. For its second argument, the preloaded state of the application, we're injecting the immutable contacts list. The current state is accessed with `getState` and actions are dispatched with the `dispatch` method. 
+Looks nice and straightforward. The `createStore` method creates a Redux store that holds the complete state of the application. For its second argument, the preloaded state of the application, we're injecting the immutable contacts list. The current state is accessed with `getState` and actions are dispatched with the `dispatch` method.
 
 We also added an `id` field to the `Contact` class. Now let's update our component contact methods.
 

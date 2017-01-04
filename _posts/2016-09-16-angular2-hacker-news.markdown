@@ -10,7 +10,7 @@ tags:
 - webpack
 comments: true
 type: post
-image: angular2-hn.jpg
+image: public/angular2-hn.jpg
 permalink: /:title
 ---
 ![angular 2 hn banner](https://i.imgur.com/V0tNgEr.jpg "Angular 2 HN Banner"){: .article-image }
