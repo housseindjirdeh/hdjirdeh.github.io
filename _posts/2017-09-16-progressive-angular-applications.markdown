@@ -59,6 +59,10 @@ Here's a snippet of the report before I added a number of progressive elements t
 
 The report consists of a number of audits that validate the aspects of a PWA. Let's go over each of these audits and how we can improve each of these areas in our Hacker News client.
 
+Network connection is secure
+==================
+A number of progressive web technologies, such as service workers (which we'll go over in a bit) require a secure HTTPS connection.
+
 Page load performance is fast
 ==================
 To kick things off, let's take a look at how our app loads without any configuration. To represent the mobile experience, this is simulated under conditions of **3G (Network)** and **CPU Throttle of 2X slower** thanks to Chrome's Developer Tools.
