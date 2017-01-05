@@ -61,7 +61,9 @@ The report consists of a number of audits that validate the aspects of a PWA. Le
 
 Network connection is secure
 ==================
-A number of progressive web technologies, such as service workers (which we'll go over in a bit) require a secure HTTPS connection.
+A number of progressive web technologies, such as service workers (which we'll go over in a bit) require a **HTTPS** connection in order to work. The '**S**' at the end, which stands for secure, ensures that the content that you retrieve is secure and cannot be tampered with.
+
+Firebase, like many hosting platforms, is protected with HTTPS by default. This makes it simple to have your website or application protected. Our Hacker News client is hosted on Firebase and this website is hosted on Github Pages (which also allows **HTTPS** encryption).
 
 Page load performance is fast
 ==================
@@ -135,7 +137,59 @@ But there's a simpler way we can set up our service worker: using  **Service Wor
 Service Worker Precache
 -
 
-[Service Worker Precache (`sw-precache`)](https://github.com/GoogleChrome/sw-precache#service-worker-precache) is a module that generates a service worker responsible for caching all the static resources in your application. It integrates right into the build system you're using and with some simple configurations, it creates the service worker on the fly.
+[Service Worker Precache (`sw-precache`)](https://github.com/GoogleChrome/sw-precache#service-worker-precache) is a module that generates a service worker responsible for caching all the static resources in your application. It integrates right into the build system you're using and with some simple configurations, it creates the service worker on the fly. We can begin by installing it.
+
+{% highlight bash %}
+npm install --save-dev sw-precache
+{% endhighlight %}
+
+Now in your `package.json` file, let's add a `precache` script.
+
+{% highlight javascript %}
+"scripts": {
+  "ng": "ng",
+  "start": "ng serve",
+  "lint": "tslint \"src/**/*.ts\"",
+  "test": "ng test",
+  "pree2e": "webdriver-manager update --standalone false --gecko false",
+  "e2e": "protractor",
+  "precache": "sw-precache"
+}
+{% endhighlight %}
+
+Now just run the following script.
+
+{% highlight bash %}
+npm run precache
+{% endhighlight %}
+
+After a few minutes you should see the following output.
+
+![Service worker output](assets/progressive-angular-applications/service-worker-output.png){: .article-image }
+
+It generated a `service-worker.js` file right in your root folder! If you take a look at the file, you'll see logic that `installs` and `activates` your service worker. You can also find where it caches and returns requests (`fetch` event).
+
+Now this is all pretty cool and everything, but having the service worker in the root of our application isn't going to help us. This is because when you run a production build with the CLI (`ng build --prod`), it generates the compiled, bundled and minifed code in a `dist/` subdirectory which we deploy and host. We can update our `precache` script to make this happen.
+
+{% highlight javascript %}
+"scripts": {
+  "ng": "ng",
+  "start": "ng serve",
+  "lint": "tslint \"src/**/*.ts\"",
+  "test": "ng test",
+  "pree2e": "webdriver-manager update --standalone false --gecko false",
+  "e2e": "protractor",
+  "precache": "sw-precache --root=dist --verbose"
+}
+{% endhighlight %}
+
+Now running the script should generate the service worker right inside the `dist/` directory. We've added `verbose` so we can see a logged output in the terminal for each and every resource that's precached. Running `npm run precache` will give us the following.
+
+![Service worker dist output](assets/progressive-angular-applications/service-worker-dist-output.png){: .article-image }
+
+We can see that our service worker file was generated in the `dist/` folder which is perfect. We can also see that each and every static resource in out dist folder is precached by default. This is a bit of an overkill, and that's because not every one of those files are requested when you run the application....
+
+We can *configure*
 
 App can load on offline/flaky connections
 ==================
