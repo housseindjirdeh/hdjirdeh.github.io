@@ -126,13 +126,14 @@ We can now register the service worker to our application by adding the followin
 </script>
 {% endhighlight %}
 
-This piece of code checks to see if the browser supports service workers and if so, specify where it lives in order to register it. In our case, it's `service-worker.js`. Let's run our application now and check the console.
+This piece of code checks to see if the browser supports service workers and if so, specify where it lives in order to register it. In our case, it's `service-worker.js`. Let's run our application locally with `ng serve` or `ng serve --prod`, open it in a Chromium browser (Google Chrome, Firefox or Opera) and check the console.
 
-![App Shell](assets/progressive-angular-applications/service-worker-fail.png){: .article-image }
+![App Shell](assets/progressive-angular-applications/service-worker-fail-local.png){: .article-image }
 
-We can see that it can't retrieve the service worker file, `service-worker.js`, since it doesn't exist. There's a few ways we can set up this file, with one being writing out the logic to open a cache, cache all the static files (HTML, CSS, JS, images, etc..) and return the cached resources when the user returns to the page. Here's an [excellent introduction](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers) to setting up a service worker.
+We can see that it can't retrieve the service worker file, `service-worker.js`, since it doesn't exist. So we'll need to actually create it before we except anything to open in our browser. There's a few ways we can set up this file:
 
-But there's a simpler way we can set up our service worker: using  **Service Worker Precache**.
+1. Create the file and write out the logic to open a cache, cache all the static files (HTML, CSS, JS, images, etc..) and return the cached resources when the user returns to the page. Here's an [excellent introduction](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers) to setting up a service worker.
+2. Use  **Service Worker Precache**.
 
 Service Worker Precache
 -
@@ -173,23 +174,88 @@ Now this is all pretty cool and everything, but having the service worker in the
 
 {% highlight javascript %}
 "scripts": {
-  "ng": "ng",
-  "start": "ng serve",
-  "lint": "tslint \"src/**/*.ts\"",
-  "test": "ng test",
-  "pree2e": "webdriver-manager update --standalone false --gecko false",
-  "e2e": "protractor",
+  // ...
   "precache": "sw-precache --root=dist --verbose"
 }
 {% endhighlight %}
 
-Now running the script should generate the service worker right inside the `dist/` directory. We've added `verbose` so we can see a logged output in the terminal for each and every resource that's precached. Running `npm run precache` will give us the following.
+Now running the script should generate the service worker right inside the `dist/` directory. We've added `verbose` so we can see a logged output in the terminal for each and every resource that's precached. Let's run `ng build --prod --aot` to set up a production build followed by `npm run precache` will give us the following.
 
 ![Service worker dist output](assets/progressive-angular-applications/service-worker-dist-output.png){: .article-image }
 
-We can see that our service worker file was generated in the `dist/` folder which is perfect. We can also see that each and every static resource in out dist folder is precached by default. This is a bit of an overkill, and that's because not every one of those files are requested when you run the application....
+We can see that our service worker file was generated in the `dist/` folder which is perfect. We can also see that each and every static resource in our dist folder is precached by default. This is a bit of an overkill, and that's because not every one of those files are requested when you run the application.... For example, if we wanted to just precache just our HTML files, we can set the following command instead.
 
-We can *configure*
+{% highlight javascript %}
+"scripts": {
+  // ...
+  "precache": "sw-precache --root=dist --verbose --static-file-globs='dist/**.html'"
+}
+{% endhighlight %}
+
+Now we can see we're adding quite a bit of configurations for this and that single command is getting bloated. To make things simpler, we can set up a config file to specify what configurations we would like for our service worker.  Let's create a `sw-precache-config.js` file right at the root of our application and move our current configurations there.
+
+{% highlight javascript %}
+module.exports = {
+  staticFileGlobs: [
+    'dist/**.html',
+  ],
+  root: 'dist'
+};
+{% endhighlight %}
+
+Now we can simplify our script nicely.
+
+{% highlight javascript %}
+"scripts": {
+  // ...
+  "precache": "sw-precache --verbose --config=sw-precache-config.js"
+}
+{% endhighlight %}
+
+Now let's run `npm run precache` once more.
+
+![Service worker dist HTML](assets/progressive-angular-applications/service-worker-only-html.png){: .article-image }
+
+Just like you would except, the only HTML file in our production folder, `index.html`, is cached. Remember that Angular is a Single Page Application, where the final output consists of a single HTML file that dynamically changes based on the JavaScript we have. Now that we have a decent understanding of how `sw-precache` allows us to set up a service worker, let's add some more configurations to `sw-precache-config.js`.
+
+{% highlight javascript %}
+module.exports = {
+  staticFileGlobs: [
+    'dist/**.html',
+    'dist/**.js',
+    'dist/**.css',
+    'dist/assets/images/*',
+    'dist/assets/icons/*'
+  ],
+  root: 'dist',
+  stripPrefix: 'dist/',
+  navigateFallback: '/index.html'
+};
+{% endhighlight %}
+
+[Explain]
+
+Now that we have all our static resources set up for precaching, we can set up the service worker right before we deploy the app to our hosting platform (why not locally?). Let's take a look at the network requests when we load the application **on a repeat visit**.
+
+![Requests with sw-precache](assets/progressive-angular-applications/requests-sw-precache.png){: .article-image }
+
+You can see that every precached resource was retrieved from the service worker! The only data transferred was our third party call to get the list of stories from the Hacker News API. Let's take a look at the captured sequences on reload.
+
+![Network with sw-precache](assets/progressive-angular-applications/network-sw-precache.png){: .article-image }
+
+Not bad at all. You can see that the static resources load a lot faster since they're now being retrieved from the service worker which shaves off a significant Time to Interactive.
+
+Continuous Integration  
+-
+
+It's important to remember that because we're doing this by hand, we need to make sure we generate our service worker every time we create a new build. For example, this app is hosted on Firebase and I use a simple command line, `firebase deploy` to host `dist/`. So that means I need to always run the following in order when I make updates to my app.
+
+1. `ng buid --prod --aot`
+2. `npm run precache`
+3. `firebase deploy`
+
+There's been quite a few times I forgot to run the command, so I set up a simple continuous integration script that allows me to just push to my GitHub repo which will automatically run a build, generate a new service worker and deploy. I wrote a post explaining this in detail so please take a look if you're interested.
+
 
 App can load on offline/flaky connections
 ==================
