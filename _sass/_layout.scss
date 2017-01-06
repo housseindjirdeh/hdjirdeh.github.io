@@ -624,8 +624,12 @@
     position: relative;
     transform: translate(-50%, 0%);
     top: 50%;
-    padding: 10px;
     border: 1px solid #E7EEF2;
+    box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.14), 0 4px 8px -1px rgba(0, 0, 0, 0.12);
+
+    &.fix {
+      width: 500px;
+    }
 }
 
 .image-source {
@@ -834,9 +838,9 @@
     }
 
     .menu {
-        float: none;
-        padding: 40px 0;
-        border-bottom: $border-grey-color 1px solid;
+      float: none;
+      padding: 40px 0;
+      border-bottom: #f1ece9 1px solid;
     }
 
     .hover-feature span {
@@ -914,7 +918,7 @@
             margin: auto;
 
             @include media-query($on-palm) {
-                height: 330px;
+                height: 240px;
             }
         }
 
@@ -935,11 +939,15 @@
     header {
         h1 {
             font-family: $fancy-font-family;
-            letter-spacing: 5px;
+            letter-spacing: 2px;
             box-sizing: border-box;
             font-size: 50px;
             line-height: 1.25;
             margin: 0;
+
+            @include media-query($on-palm) {
+                font-size: 40px;
+            }
         }
     }
 
@@ -947,12 +955,13 @@
         box-sizing: border-box;
         padding: 0;
         box-sizing: border-box;
-        font-size:16px;
-        font-weight:600;
         margin:0;
 
         .about-me {
-
+          @include media-query($on-palm) {
+              font-size: 14px;
+              margin: 10px 0;
+          }
         }
     }
 
