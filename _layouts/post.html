@@ -16,11 +16,15 @@ layout: post-default
 
   <section class="share">
     <h3>Share this post</h3>
-    <a href="https://twitter.com/intent/tweet?original_referer={{page.url}}&amp;ref_src=twsrc%5Etfw&amp;text={{page.title}}&amp;tw_p=tweetbutton&amp;url={{site.url}}{{page.url}}&amp;via=hdjirdeh"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F{{site.url}}{{page.url}}" target="_blank"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
-    <a href="https://plus.google.com/share?url=http%3A/{{site.url}}{{page.url}}"><i class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
-</section>
-
+    {% if page.share_title %}
+      {% assign share_title = page.share_title %}
+    {% else %}
+      {% assign share_title = page.title %}
+    {% endif %}
+    <a href="https://twitter.com/intent/tweet?text={{ share_title }}&url={{ site.url }}{{ page.url }}&via={{ site.twitter_username }}&related={{ site.twitter_username }}" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+    <a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+    <a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
+  </section>
 </article>
 
 <!-- Comment count -->
