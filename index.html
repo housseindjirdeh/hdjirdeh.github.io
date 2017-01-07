@@ -28,7 +28,7 @@ layout: default
     <section class="sub-section">
       <h2 class="header">Recent Posts</h2>
       <hr>
-        {% for post in site.posts %}
+        {% for post in site.posts limit:3 %}
           {% if post.type == "post" %}
             <h3 class="heading">
               <a href="{{ post.url | prepend: site.baseurl }}">
