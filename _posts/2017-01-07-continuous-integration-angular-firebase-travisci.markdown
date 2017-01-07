@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Continuous Integration for Angular CLI with Firebase and Travis CI"
-date:   2017-01-07 12:30:00
+date:   2017-01-08 04:30:00
 categories: angular firebase travis ci
 description: After completing the first step of building your application, the next thing most of us do is pick a hosting platform (like Github Pages) and deploy it. This is awesome, but we always need to make sure to deploy a newer build every time we update our app. We also need to run any unit tests we may have and make sure they pass beforehand.
 tags:
