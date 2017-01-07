@@ -1,22 +1,22 @@
 ---
 layout: tag-default
-title: Tagged - Immutable.js
-permalink: /tags/immutablejs
+title: Tagged - Firebase
+permalink: /tags/firebase
 ---
 {% assign counter = 0 %}
 
 {% for post in site.posts %}
-  {% if post.tags contains 'immutablejs' and post.type == 'post' %}
+  {% if post.tags contains 'firebase' and post.type == 'post' %}
    {% assign counter = counter | plus: 1 %}
   {% endif %}
 {% endfor %}
 
 <div class="home">
-  <h1 class="tag-title"><span class="name">immutablejs</span><span class="alternate-tag-title">A <strong>{{ counter }}</strong>-post collection</span></h1>
+  <h1 class="tag-title"><span class="name">firebase</span><span class="alternate-tag-title">A <strong>{{ counter }}</strong>-post collection</span></h1>
 
   <ul class="post-list">
     {% for post in site.posts %}
-      {% if post.tags contains 'immutablejs' and post.type == 'post' %}
+      {% if post.tags contains 'firebase' and post.type == 'post' %}
       <li>
         <h1>
           {% include post-tags.html %}

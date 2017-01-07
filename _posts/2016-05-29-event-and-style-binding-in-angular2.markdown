@@ -2,11 +2,11 @@
 layout: post
 title:  "Event and Style binding in Angular 2"
 date:   2016-05-29 7:13:00 -0400
-categories: javascript angular2
+categories: javascript angular
 description: Angular 2 introduces new template syntax and directives that allow us to manipulate data in our applications. In this post, I begin with a brief introduction on data and event binding then dive right in to using style and class binding as well as directives to dynamically apply CSS and CSS classes...
 tags:
 - javascript
-- angular2
+- angular
 comments: true
 type: post
 ---
@@ -48,7 +48,7 @@ export class MyApp {
 
 <iframe class="code-embed" src="https://embed.plnkr.co/HpQHJ6ljGFrHy8abCPuh/"></iframe>
 
-We can see that the HTML is similar to what you would see in Angular 1.x. However, the two way binding syntax, `[(ngModel)]`, is slightly different. 
+We can see that the HTML is similar to what you would see in Angular 1.x. However, the two way binding syntax, `[(ngModel)]`, is slightly different.
 
 Just as you would expect, changing the input value changes the interpolation `{% raw %}{{firstname}}{% endraw %}` which is evidence that the value is flowing to the model and vice-versa.
 
@@ -65,7 +65,7 @@ Name: <input type="text" [(ngModel)]="firstname">
 {% highlight javascript %}
 export class MyApp {
   firstname: string = 'Jimmy';
-  
+
   changeName() {
     this.firstname = 'Houssein';
   }
@@ -89,11 +89,11 @@ Name: <input type="text" [(ngModel)]="firstname">
 {% highlight javascript %}
 export class MyApp {
   firstname: string = 'Jimmy';
-  
+
   changeName() {
     this.firstname = 'Houssein';
   }
-  
+
   isHoussein() {
     return this.firstname === 'Houssein';
   }
@@ -115,20 +115,20 @@ Name: <input type="text" [(ngModel)]="firstname">
 {% highlight javascript %}
 export class App {
   firstname: string = 'Jimmy';
-  
+
   changeName () {
     this.firstname = this.alternate ? 'Daniel' : 'Houssein';
     this.alternate = !this.alternate;
   }
-  
+
   isHoussein() {
     return this.firstname === 'Houssein';
   }
-  
+
   isDaniel() {
     return this.firstname === 'Daniel';
   }
-  
+
   setStyles() {
     let styles = {
       'color':  this.isHoussein() ? 'red' : 'black',
@@ -163,11 +163,11 @@ Name: <input type="text" [(ngModel)]="firstname">
 {% highlight javascript %}
 export class MyApp {
   firstname: string = 'Jimmy';
-  
+
   changeName() {
     this.firstname = 'Houssein';
   }
-  
+
   isHoussein() {
     return this.firstname === 'Houssein';
   }
@@ -195,9 +195,9 @@ Name: <input type="text" [(ngModel)]="firstname">
   color: red;
 }
 
-.move { 
+.move {
   position: relative;
-  animation:move 1s infinite; 
+  animation:move 1s infinite;
   animation-duration: 3s;
 }
 
@@ -217,11 +217,11 @@ export class App {
     this.firstname = this.alternate ? 'Daniel' : 'Houssein';
     this.alternate = !this.alternate;
   }
-  
+
   isHoussein() {
     return this.firstname === 'Houssein';
   }
-  
+
   isDaniel() {
     return this.firstname === 'Daniel';
   }

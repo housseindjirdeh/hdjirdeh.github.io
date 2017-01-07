@@ -3,9 +3,16 @@ layout: tag-default
 title: Tagged - Redux
 permalink: /tags/redux
 ---
+{% assign counter = 0 %}
+
+{% for post in site.posts %}
+  {% if post.tags contains 'redux' and post.type == 'post' %}
+   {% assign counter = counter | plus: 1 %}
+  {% endif %}
+{% endfor %}
 
 <div class="home">
-  <h1 class="tag-title"><span class="name">redux</span><span class="alternate-tag-title">A <strong>1</strong>-post collection</span></h1>
+  <h1 class="tag-title"><span class="name">redux</span><span class="alternate-tag-title">A <strong>{{ counter }}</strong>-post collection</span></h1>
 
   <ul class="post-list">
     {% for post in site.posts %}

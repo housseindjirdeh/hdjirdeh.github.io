@@ -2,10 +2,10 @@
 layout: post
 title:  "Building Hacker News with Angular 2 CLI, RxJS and Webpack"
 date:   2016-09-16 9:20:00 -0400
-categories: angular2 rxjs webpack
+categories: angular rxjs webpack
 description: If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team has rolled out Angular CLI, a command line interface that makes creating and scaffolding an application significantly easier...
 tags:
-- angular2
+- angular
 - rxjs
 - webpack
 comments: true

@@ -1,15 +1,22 @@
 ---
 layout: tag-default
-title: Tagged - Angular 2
-permalink: /tags/angular2
+title: Tagged - Firebase
+permalink: /tags/travis%20ci
 ---
+{% assign counter = 0 %}
+
+{% for post in site.posts %}
+  {% if post.tags contains 'travis ci' and post.type == 'post' %}
+   {% assign counter = counter | plus: 1 %}
+  {% endif %}
+{% endfor %}
 
 <div class="home">
-  <h1 class="tag-title"><span class="name">angular 2</span><span class="alternate-tag-title">A <strong>2</strong>-post collection</span></h1>
+  <h1 class="tag-title"><span class="name">travis ci</span><span class="alternate-tag-title">A <strong>{{ counter }}</strong>-post collection</span></h1>
 
   <ul class="post-list">
     {% for post in site.posts %}
-      {% if post.tags contains 'angular2' and post.type == 'post' %}
+      {% if post.tags contains 'travis ci' and post.type == 'post' %}
       <li>
         <h1>
           {% include post-tags.html %}
