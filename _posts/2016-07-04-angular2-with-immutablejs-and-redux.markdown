@@ -24,7 +24,7 @@ In this post, we'll go over the basic concepts of the Flux architecture and Redu
 
 <div class="button-center">
   <a class="blog-button" href="https://embed.plnkr.co/ns1tfi/">View Demo</a>
-  <a class="blog-button" href="https://github.com/hdjirdeh/angular2-redux-contact-list">Source Code</a>
+  <a class="blog-button" href="https://github.com/housseindjirdeh/angular2-redux-contact-list">Source Code</a>
 </div>
 
 ![contact list]({{ site.url }}/public/contact-list.gif "Contact Link Example"){: .article-image }
@@ -180,7 +180,7 @@ export class ContactList {
 
 In here, we have a constructor that defines a private `store` property and identifies it as a `ContactStore` injection site. The input property methods, `addContact`, `removeContact` and `starContact`, all link to their respective methods in the `ContactStore`.
 
-So far we've built something simple which works, so that's a good start. The source code for this can be found [here.](https://github.com/hdjirdeh/angular2-redux-contact-list/tree/basic-setup)
+So far we've built something simple which works, so that's a good start. The source code for this can be found [here.](https://github.com/housseindjirdeh/angular2-redux-contact-list/tree/basic-setup)
 
 Multiple Components
 ==================
@@ -265,7 +265,7 @@ export default class Contact {
 </div>
 {% endhighlight %}
 
-As you can see, the store instance was injected to both the parent and child components. Things are looking a little cleaner now. The source code for this can be found [here.](https://github.com/hdjirdeh/angular2-redux-contact-list/tree/child-contact-component)
+As you can see, the store instance was injected to both the parent and child components. Things are looking a little cleaner now. The source code for this can be found [here.](https://github.com/housseindjirdeh/angular2-redux-contact-list/tree/child-contact-component)
 
 Change Detection Strategy
 ==================
@@ -363,7 +363,7 @@ As you can see, we changed the instantiation of `contacts` and instead of an arr
 
 To persist changes to the list, we're using the `push`, `delete` and `update` methods. Similar to an array, `indexOf` is also used to find the selected contact in the list. It's important to remember that for all these methods, the current collection is not mutated but a new immutable collection is generated.
 
-Here's the [link](https://github.com/hdjirdeh/angular2-redux-contact-list/tree/immutable-store) to the source code for this step.
+Here's the [link](https://github.com/housseindjirdeh/angular2-redux-contact-list/tree/immutable-store) to the source code for this step.
 
 *Note: You may be wondering why `<any>` was used in the `starContact` method. This is just TypeScript type assertion to prevent compiler errors when returning an updated contact object. This is just a workaround due to an issue with type definitions when running methods against a list (discussed [here](https://github.com/facebook/immutable-js/issues/684#issuecomment-153812280)).*
 
@@ -560,7 +560,7 @@ export default class Contact {
 }
 {% endhighlight %}
 
-And that's it! That covers up the basics of using Redux in your application. The final source code is [here.](https://github.com/hdjirdeh/angular2-redux-contact-list/tree/master/app)
+And that's it! That covers up the basics of using Redux in your application. The final source code is [here.](https://github.com/housseindjirdeh/angular2-redux-contact-list/tree/master/app)
 
 ![that's a wrap]({{ site.url }}/public/thatsawrap.jpg "That's a wrap"){: .article-image }
 

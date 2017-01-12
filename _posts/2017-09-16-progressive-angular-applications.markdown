@@ -22,7 +22,7 @@ My last blog post (see [here](http://houssein.me/angular2-hacker-news)) revolved
 
 <div class="button-center">
   <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
-  <a class="blog-button" href="https://github.com/hdjirdeh/angular2-hn">Source Code</a>
+  <a class="blog-button" href="https://github.com/housseindjirdeh/angular2-hn">Source Code</a>
 </div>
 
 ![angular 2 hn preview](assets/progressive-angular-applications/angular2-hn-mobile.png "Angular 2 HN Preview"){: .article-image }

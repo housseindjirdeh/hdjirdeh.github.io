@@ -21,7 +21,7 @@ In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/)
 
 <div class="button-center">
   <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
-  <a class="blog-button" href="https://github.com/hdjirdeh/angular2-hn">Source Code</a>
+  <a class="blog-button" href="https://github.com/housseindjirdeh/angular2-hn">Source Code</a>
 </div>
 
 ![angular 2 hn preview](https://i.imgur.com/3gIhXqC.gif "Angular 2 HN Preview"){: .article-image }
@@ -162,7 +162,7 @@ Sweet, now let's add some markup and styling.
 </div>
 {% endhighlight %}
 
-The styling in `app.component.scss` can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/app.component.scss). Now let's work on the header.
+The styling in `app.component.scss` can be found [here](https://github.com/housseindjirdeh/angular2-hn/blob/initial-setup/src/app/app.component.scss). Now let's work on the header.
 
 {% highlight html %}
 <!-- header.component.html -->
@@ -199,7 +199,7 @@ The styling in `app.component.scss` can be found [here](https://github.com/hdjir
 </header>
 {% endhighlight %}
 
-And similarly, you can find the styling for this component [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/header/header.component.scss). Running the application gives us the following result.
+And similarly, you can find the styling for this component [here](https://github.com/housseindjirdeh/angular2-hn/blob/initial-setup/src/app/header/header.component.scss). Running the application gives us the following result.
 
 ![header](https://i.imgur.com/oLAH0EJ.png "Header"){: .article-image }
 
@@ -312,7 +312,7 @@ export class StoriesComponent implements OnInit {
 </div>
 {% endhighlight %}
 
-Click [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/stories/stories.component.scss) to take a look at the styles for `Stories`. Our footer is straightfoward (and it's styling can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/initial-setup/src/app/footer/footer.component.scss)).
+Click [here](https://github.com/housseindjirdeh/angular2-hn/blob/initial-setup/src/app/stories/stories.component.scss) to take a look at the styles for `Stories`. Our footer is straightfoward (and it's styling can be found [here](https://github.com/housseindjirdeh/angular2-hn/blob/initial-setup/src/app/footer/footer.component.scss)).
 
 {% highlight bash %}
 ng g component Footer
@@ -323,7 +323,7 @@ ng g component Footer
 
 <div id="footer">
     <p>Show this project some ❤ on
-      <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank">
+      <a href="https://github.com/housseindjirdeh/angular2-hn" target="_blank">
         GitHub
       </a>
     </p>
@@ -403,7 +403,7 @@ export class ItemComponent implements OnInit {
 
 Refreshing the application will give you the same result, showing that the index parameter is successfully being passed down using the `@Input` decoration.
 
-We have a basic skeleton of the home page done and that's a good start. Here's the [link](https://github.com/hdjirdeh/angular2-hn/tree/initial-setup) for the source code for this step.
+We have a basic skeleton of the home page done and that's a good start. Here's the [link](https://github.com/housseindjirdeh/angular2-hn/tree/initial-setup) for the source code for this step.
 
 RxJS and Observables
 ==================
@@ -633,13 +633,13 @@ export class ItemComponent implements OnInit {
 </div>
 {% endhighlight %}
 
-Nice and straightforward. For each item, we're subscribing to their respective stream. In the markup, we can see that when the response hasn't been received yet, we have a loading section where we can show a loading indicator of some sort. Once the item loads from the Observable, it's details will show. Click [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page/src/app/item) to see all the files for this component including styling.
+Nice and straightforward. For each item, we're subscribing to their respective stream. In the markup, we can see that when the response hasn't been received yet, we have a loading section where we can show a loading indicator of some sort. Once the item loads from the Observable, it's details will show. Click [here](https://github.com/housseindjirdeh/angular2-hn/tree/first-page/src/app/item) to see all the files for this component including styling.
 
 *Note: You may be wondering where the `amFromUnix` and `amTimeAgo` pipes came from. The time parameter for each item is in [Unix](https://en.wikipedia.org/wiki/Unix_time) format. To convert this into something we can understand, I use [moment.js](https://momentjs.com/) pipes by importing the [angular2-moment](https://github.com/urish/angular2-moment) library.*
 
-*Note 2: For each item with a link, the entire URL is passed through it's `url` attribute. To only show the link domain, I created a pipe called `domain`. Take a look [here]((https://github.com/hdjirdeh/angular2-hn/blob/first-page/src/app/domain.pipe.ts)) for the code.*
+*Note 2: For each item with a link, the entire URL is passed through it's `url` attribute. To only show the link domain, I created a pipe called `domain`. Take a look [here]((https://github.com/housseindjirdeh/angular2-hn/blob/first-page/src/app/domain.pipe.ts)) for the code.*
 
-Now if you run the application, you'll see the first page of Hacker News! Click [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page) for the full source code until this step.
+Now if you run the application, you'll see the first page of Hacker News! Click [here](https://github.com/housseindjirdeh/angular2-hn/tree/first-page) for the full source code until this step.
 
 ![top stories](https://i.imgur.com/VLKj7xr.png "Top Stories"){: .article-image }
 
@@ -820,7 +820,7 @@ Now let's see what happens when we run this bad boy.
 
 ![front page](https://i.imgur.com/VLKj7xr.png "Front Page"){: .article-image }
 
-And now everything loads much faster. The source code for this step can be found [here](https://github.com/hdjirdeh/angular2-hn/tree/first-page-final).
+And now everything loads much faster. The source code for this step can be found [here](https://github.com/housseindjirdeh/angular2-hn/tree/first-page-final).
 
 Routing
 ==================
@@ -1229,7 +1229,7 @@ Similar to what we did in `StoriesComponent`, we subscribe to our route paramete
 </div>
 {% endhighlight %}
 
-At the top of the component, we're going to display the item details, followed by it's description (`item.content`). We then input the entire comments object (`item.comments`) to `app-comment-tree`, the selector for `CommentTreeComponent`. The styling for this component can be found [here](https://github.com/hdjirdeh/angular2-hn/blob/item-comments/src/app/item-comments/item-comments.component.scss).
+At the top of the component, we're going to display the item details, followed by it's description (`item.content`). We then input the entire comments object (`item.comments`) to `app-comment-tree`, the selector for `CommentTreeComponent`. The styling for this component can be found [here](https://github.com/housseindjirdeh/angular2-hn/blob/item-comments/src/app/item-comments/item-comments.component.scss).
 
 Next, set up the `CommentTreeComponent`.
 
@@ -1264,7 +1264,7 @@ export class CommentTreeComponent implements OnInit {
 </ul>
 {% endhighlight %}
 
-Nice and simple, we list all the comments using the `ngFor` directive. Click [here](https://github.com/hdjirdeh/angular2-hn/blob/item-comments/src/app/comment-tree/comment-tree.component.scss) to see it's SCSS file.
+Nice and simple, we list all the comments using the `ngFor` directive. Click [here](https://github.com/housseindjirdeh/angular2-hn/blob/item-comments/src/app/comment-tree/comment-tree.component.scss) to see it's SCSS file.
 
 Let's fill out `CommentComponent`, the component responsible for each specific comment.
 
@@ -1319,11 +1319,11 @@ export class CommentComponent implements OnInit {
 
 Notice how we're recursively referencing `app-comment` inside of it's own component. This is because each comment object in the array has it's own array of comments, and we're using recursion to show all of them.
 
-Click [here](https://github.com/hdjirdeh/angular2-hn/blob/item-comments/src/app/comment/comment.component.scss) to see the styling for this component. If you now run the application, you can see all the comments for each item!
+Click [here](https://github.com/housseindjirdeh/angular2-hn/blob/item-comments/src/app/comment/comment.component.scss) to see the styling for this component. If you now run the application, you can see all the comments for each item!
 
 ![item comments](https://i.imgur.com/lLcdxd0.png "Item Comments"){: .article-image }
 
-The entire source code for this step can be found [here](https://github.com/hdjirdeh/angular2-hn/tree/item-comments).
+The entire source code for this step can be found [here](https://github.com/housseindjirdeh/angular2-hn/tree/item-comments).
 
 User Profiles
 ==================
@@ -1335,13 +1335,13 @@ All we have left is user profiles. Since the concept is pretty much the same, I 
 3. Add another field to your routes file
 4. Update the user links in the other components to route to the user
 
-And that's it! Take a look [here](https://github.com/hdjirdeh/angular2-hn/tree/version-1/src/app/user) if you want to see the whole user component setup.
+And that's it! Take a look [here](https://github.com/housseindjirdeh/angular2-hn/tree/version-1/src/app/user) if you want to see the whole user component setup.
 
 Wrapping things up
 ==================
 
 We're done! To kick off a production build, you can run `ng build --prod` or `ng serve --prod` which will make use of uglifying and tree-shaking.
 
-I hope you found this tutorial useful. If you did, please [tweet it forward](https://twitter.com/intent/tweet?original_referer={{page.url}}&amp;ref_src=twsrc%5Etfw&amp;text={{page.title}}&amp;tw_p=tweetbutton&amp;url={{site.url}}{{page.url}}&amp;via=hdjirdeh) and/or [star the repo!](https://github.com/hdjirdeh/angular2-hn) I would also love to hear any type of feedback whatsoever.
+I hope you found this tutorial useful. If you did, please [tweet it forward](https://twitter.com/intent/tweet?original_referer={{page.url}}&amp;ref_src=twsrc%5Etfw&amp;text={{page.title}}&amp;tw_p=tweetbutton&amp;url={{site.url}}{{page.url}}&amp;via=hdjirdeh) and/or [star the repo!](https://github.com/housseindjirdeh/angular2-hn) I would also love to hear any type of feedback whatsoever.
 
-If you happen to be interested enough to work on this app further, take a look at the [issue list](https://github.com/hdjirdeh/angular2-hn/issues) and feel free to put up a feature request or a PR! My next steps are to include real-time support as well as service worker/app shell functionality to make this a full blown Progressive Web App, so there's still lots to do <i class="fa fa-smile-o" aria-hidden="true"></i>.
+If you happen to be interested enough to work on this app further, take a look at the [issue list](https://github.com/housseindjirdeh/angular2-hn/issues) and feel free to put up a feature request or a PR! My next steps are to include real-time support as well as service worker/app shell functionality to make this a full blown Progressive Web App, so there's still lots to do <i class="fa fa-smile-o" aria-hidden="true"></i>.
