@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Progressive Web Apps with Angular"
+title:  "Progressive Web Apps with Angular 2"
 date:   2017-09-16 9:20:00 -0400
 categories: angular progressive web app javascript
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
@@ -16,7 +16,11 @@ published: false
 ---
 ![angular 2 hn banner](assets/progressive-angular-applications/angular-progressive-banner.png "Progressive Angular"){: .article-image }
 
-Progressive Web Apps (PWA) have been the talk of the town in 2016. In short, they are applications that use modern web capabilities to provide a user experience similar to that of mobile and native apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some.
+Progressive Web Apps (PWA) have been the talk of the town in 2016. In short, they're applications that use modern web capabilities to provide a user experience similar to that of mobile and native apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some.
+
+Breakdown
+==================
+***As of writing this, the `--mobile` flag with Angular CLI, which allows for support of progressive techniques such as offline support, is temporarily disabled. This post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries instead.***
 
 My last blog post (see [here](http://houssein.me/angular2-hacker-news)) revolved around building a Hacker News client from scratch using Angular CLI. In this post, we're going to look into how we can make it faster and more reliable by making it a PWA.
 
@@ -138,7 +142,7 @@ We can see that it can't retrieve the service worker file, `service-worker.js`, 
 Service Worker Precache
 -
 
-[Service Worker Precache (`sw-precache`)](https://github.com/GoogleChrome/sw-precache#service-worker-precache) is a module that generates a service worker responsible for caching all the static resources in your application. It integrates right into the build system you're using and with some simple configurations, it creates the service worker on the fly. We can begin by installing it.
+[Service Worker Precache](https://github.com/GoogleChrome/sw-precache#service-worker-precache) (`sw-precache`) is a module that generates a service worker responsible for caching all the static resources in your application. It integrates right into the build system you're using and with some simple configurations, it creates the service worker on the fly. We can begin by installing it.
 
 {% highlight bash %}
 npm install --save-dev sw-precache
@@ -243,19 +247,43 @@ You can see that every precached resource was retrieved from the service worker!
 
 ![Network with sw-precache](assets/progressive-angular-applications/network-sw-precache.png){: .article-image }
 
-Not bad at all. You can see that the static resources load a lot faster since they're now being retrieved from the service worker which shaves off a significant Time to Interactive.
+Not bad at all. You can see that the static resources load a lot faster since they're now being retrieved from the service worker. This significantly reduces our [Time to Interactive]().
 
 Continuous Integration  
 -
 
 It's important to remember that because we're doing this by hand, we need to make sure we generate our service worker every time we create a new build. For example, this app is hosted on Firebase and I use a simple command line, `firebase deploy` to host `dist/`. So that means I need to always run the following in order when I make updates to my app.
 
-1. `ng buid --prod --aot`
+1. `ng build --prod --aot`
 2. `npm run precache`
 3. `firebase deploy`
 
-There's been quite a few times I forgot to run the command, so I set up a simple continuous integration script that allows me to just push to my GitHub repo which will automatically run a build, generate a new service worker and deploy. I wrote a post explaining this in detail so please take a look if you're interested.
-
+There's been quite a few times I forgot to run that command, so I set up a simple continuous integration script that automatically runs a build, generates a new service worker and deploys to Firebase every time I just `push` to my repository. I wrote a [post]({{ site.url }}/continuous-integration-angular-firebase-travisci) explaining this in detail so please take a look if you're interested.
 
 App can load on offline/flaky connections
 ==================
+Now that we understand how we can set up an App Shell using `sw-precache`, let's look at another important factor of progressive web applications, **working with unavailable or poor network connections**. We'll be using another library for this, [Service Worker Toolbox](https://github.com/GoogleChrome/sw-toolbox) (`sw-toolbox`).
+
+Although this is a different tool, `sw-precache` is capable of including this just by adding a new configuration to our config file, `runtimeCaching`. Although this may [change in the future](https://github.com/GoogleChrome/sw-precache/issues/147), this lets us easily integrate dynamic network caching into our service worker.
+
+<blockquote>
+  <p>We wanted to make it easier for developers to use the two libraries together. Because sw-precache has to be directly integrated with your build environment and must be responsible for outputting your top-level service worker file, it made the most sense as an integration point to give sw-precache the ability to include the sw-toolbox code and configuration alongside its own configuration.</p>
+  <footer><a href="https://github.com/GoogleChrome/sw-precache/blob/master/sw-precache-and-sw-toolbox.md">sw-precache? sw-toolbox? What's the difference?</a></footer>
+</blockquote>
+
+runtimeCaching
+==================
+Let's look at how we can add this configuration to `sw-precache-config`.
+
+{% highlight javascript %}
+runtimeCaching: [{
+  urlPattern: /node-hnapi\.herokuapp\.com/,
+  handler: 'networkFirst'
+}]
+{% endhighlight %}
+
+And that's pretty much all I needed to do for my application. The configuration consists of an array with each object within referencing a separate `urlPattern`. You can see that I have a RegExp here, but you can also use a string (the [tutorial](https://googlechrome.github.io/sw-toolbox/docs/master/tutorial-usage.html) gives an excellent overview of the different route styles you can use).
+
+`handler` is also required and you can see that I'm using `networkFirst`. There are a total of five built-in handlers that allow you to modify your network strategy. `networkFirst`, for example, means that the toolbox will try to handle the request first by retrieving from the network and if that succeeds, it will **cache the response**. When this fails (flaky/unavailable network), it will fetch directly from the cache.
+
+The [documentation](https://googlechrome.github.io/sw-toolbox/docs/master/tutorial-api.html) explains the different handler types clearly. To get a better understanding of the network strategies, [The Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) is an excellent read.
