@@ -14,13 +14,11 @@ image: assets/progressive-angular-applications/angular-progressive-banner.png
 permalink: /:title
 published: false
 ---
-![angular 2 hn banner](assets/progressive-angular-applications/angular-progressive-banner.png "Progressive Angular"){: .article-image }
+![angular 2 hn banner](assets/progressive-angular-applications/angular-progressive-banner.png "Progressive Angular"){: .article-image-with-border }
+
+***As of writing this, the `--mobile` flag with Angular CLI, which integrates progressive technologies such as offline support into your application, is temporarily disabled. Among other things, this post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries instead.***
 
 Progressive Web Apps (PWA) have been the talk of the town in 2016. In short, they're applications that use modern web capabilities to provide a user experience similar to that of mobile and native apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some.
-
-Breakdown
-==================
-***As of writing this, the `--mobile` flag with Angular CLI, which allows for support of progressive techniques such as offline support, is temporarily disabled. This post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries instead.***
 
 My last blog post (see [here](http://houssein.me/angular2-hacker-news)) revolved around building a Hacker News client from scratch using Angular CLI. In this post, we're going to look into how we can make it faster and more reliable by making it a PWA.
 
@@ -29,7 +27,7 @@ My last blog post (see [here](http://houssein.me/angular2-hacker-news)) revolved
   <a class="blog-button" href="https://github.com/housseindjirdeh/angular2-hn">Source Code</a>
 </div>
 
-![angular 2 hn preview](assets/progressive-angular-applications/angular2-hn-mobile.png "Angular 2 HN Preview"){: .article-image }
+![angular 2 hn preview](assets/progressive-angular-applications/angular2-hn-mobile.png "Angular 2 HN Preview"){: .article-image-with-border }
 
 Let's go through some of the main concepts or progressive applications.
 
@@ -38,8 +36,6 @@ Let's go through some of the main concepts or progressive applications.
 * Push notifications, background syncing and offline capability are all features that can be included
 * They can be **installed** to the home screen of your device
 * They can be accessed directly with just a URL
-
-As you can see, the line between web and app is becoming less distinct.
 
 The case for Progressive Web
 ==================
@@ -59,41 +55,45 @@ Lighthouse
 
 Here's a snippet of the report before I added a number of progressive elements to the app.
 
-![Lighthouse Report](assets/progressive-angular-applications/lighthouse-before.png){: .article-image }
+![Lighthouse Report](assets/progressive-angular-applications/lighthouse-before.png){: .article-image-with-border }
 
-The report consists of a number of audits that validate the aspects of a PWA. Let's go over each of these audits and how we can improve each of these areas in our Hacker News client.
+The report consists of a number of audits that validate the aspects of a PWA. Let's go over each of these audits and how we can improve each of these areas in our application.
+
+**This tutorial will reference my Hacker News client as we add a number of different tools to improve it. However, you can easily follow along and include each tool in your app if you already have an application built with Angular CLI.**
 
 Network connection is secure
 ==================
 A number of progressive web technologies, such as service workers (which we'll go over in a bit) require a **HTTPS** connection in order to work. The '**S**' at the end, which stands for secure, ensures that the content that you retrieve is secure and cannot be tampered with.
 
-Firebase, like many hosting platforms, is protected with HTTPS by default. This makes it simple to have your website or application protected. Our Hacker News client is hosted on Firebase and this website is hosted on Github Pages (which also allows **HTTPS** encryption).
+There are a number of hosting platforms that are protected with HTTPS by default. This makes it easy to have your website or application protected. Our Hacker News client is hosted on Firebase and this website is hosted on Github Pages. Fortunately, both services allow **HTTPS** encryption.
+
+I wrote a [post]({{ site.url }}/continuous-integration-angular-firebase-travisci) that explains how you can deploy your Angular CLI app with Firebase so please take a look if you're interested.
 
 Page load performance is fast
 ==================
-To kick things off, let's take a look at how our app loads without any configuration. To represent the mobile experience, this is simulated under conditions of **3G (Network)** and **CPU Throttle of 2X slower** thanks to Chrome's Developer Tools.
+To kick things off, let's take a look at how our app loads without any configuration. To represent mobile users more fairly, we'll use simulated conditions of **a 3G Network** and **a CPU Throttle of 2X slower** thanks to Chrome's Developer Tools.
 
 ![Network - No Configuration](assets/progressive-angular-applications/network-first.png){: .article-image }
 
-Humans are impatient creatures, and [53% of us will give up if a site takes longer than 3 seconds to load](https://developers.google.com/web/progressive-web-apps/#fast). Even under these emulated conditions, no webpage should take this long to load if we can prevent it.
+Humans are impatient creatures, and [53% of us will give up if a site takes longer than 3 seconds to load](https://developers.google.com/web/progressive-web-apps/#fast). Even under these simulated conditions, no webpage should take this long to load if we can prevent it.
 
 Ahead-of-Time compilation
 -
 One way we can make an Angular app load faster is to take advantage of running it's compiler under Ahead-of-Time conditions...
 
-We used Angular CLI to build our application and creating a production build was as simple as a terminal command.
+With Angular CLI, creating a production build is as simple as a terminal command.
 
 {% highlight bash %}
 ng build --prod
 {% endhighlight %}
 
-To trigger a production build with AOT compilation is just as simple (this really goes to show the amazing work the CLI team has done to make our lives easier).
+To trigger a production build with AOT compilation is also just as simple. This really goes to show the amazing work the CLI team has done to make our lives easier.
 
 {% highlight bash %}
 ng build --prod --aot
 {% endhighlight %}
 
-And that's it. Now let's see how fast our app loads under the same emulated conditions.
+And that's it. Now let's see how fast our app loads under the same conditions.
 
 ![Network - Ahead-of-Time](assets/progressive-angular-applications/network-aot.png){: .article-image }
 
@@ -105,7 +105,7 @@ An application shell (or App Shell) is the minimal HTML, CSS and JS responsible 
 
 Let's take a look at how this can translate this in our application.
 
-![App Shell](assets/progressive-angular-applications/app-shell-content.png){: .article-image }
+![App Shell](assets/progressive-angular-applications/app-shell-content.png){: .article-image-with-border }
 
 We can see that our App Shell just consists of our header, navigation and loading icon that shows while the content is being fetched over the network. To cache our shell in order to load faster on repeat visits, we'll need to add a **Service Worker** to our application.
 
@@ -132,7 +132,7 @@ We can now register the service worker to our application by adding the followin
 
 This piece of code checks to see if the browser supports service workers and if so, specify where it lives in order to register it. In our case, it's `service-worker.js`. Let's run our application locally with `ng serve` or `ng serve --prod`, open it in a Chromium browser (Google Chrome, Firefox or Opera) and check the console.
 
-![App Shell](assets/progressive-angular-applications/service-worker-fail-local.png){: .article-image }
+![App Shell](assets/progressive-angular-applications/service-worker-fail-local.png){: .article-image-with-border }
 
 We can see that it can't retrieve the service worker file, `service-worker.js`, since it doesn't exist. So we'll need to actually create it before we except anything to open in our browser. There's a few ways we can set up this file:
 
@@ -170,7 +170,7 @@ npm run precache
 
 After a few minutes you should see the following output.
 
-![Service worker output](assets/progressive-angular-applications/service-worker-output.png){: .article-image }
+![Service worker output](assets/progressive-angular-applications/service-worker-output.png){: .article-image-with-border }
 
 It generated a `service-worker.js` file right in your root folder! If you take a look at the file, you'll see logic that `installs` and `activates` your service worker. You can also find where it caches and returns requests (`fetch` event).
 
@@ -185,7 +185,7 @@ Now this is all pretty cool and everything, but having the service worker in the
 
 Now running the script should generate the service worker right inside the `dist/` directory. We've added `verbose` so we can see a logged output in the terminal for each and every resource that's precached. Let's run `ng build --prod --aot` to set up a production build followed by `npm run precache` will give us the following.
 
-![Service worker dist output](assets/progressive-angular-applications/service-worker-dist-output.png){: .article-image }
+![Service worker dist output](assets/progressive-angular-applications/service-worker-dist-output.png){: .article-image-with-border }
 
 We can see that our service worker file was generated in the `dist/` folder which is perfect. We can also see that each and every static resource in our dist folder is precached by default. This is a bit of an overkill, and that's because not every one of those files are requested when you run the application.... For example, if we wanted to just precache just our HTML files, we can set the following command instead.
 
@@ -218,7 +218,7 @@ Now we can simplify our script nicely.
 
 Now let's run `npm run precache` once more.
 
-![Service worker dist HTML](assets/progressive-angular-applications/service-worker-only-html.png){: .article-image }
+![Service worker dist HTML](assets/progressive-angular-applications/service-worker-only-html.png){: .article-image-with-border }
 
 Just like you would except, the only HTML file in our production folder, `index.html`, is cached. Remember that Angular is a Single Page Application, where the final output consists of a single HTML file that dynamically changes based on the JavaScript we have. Now that we have a decent understanding of how `sw-precache` allows us to set up a service worker, let's add some more configurations to `sw-precache-config.js`.
 
@@ -241,7 +241,7 @@ module.exports = {
 
 Now that we have all our static resources set up for precaching, we can set up the service worker right before we deploy the app to our hosting platform (why not locally?). Let's take a look at the network requests when we load the application **on a repeat visit**.
 
-![Requests with sw-precache](assets/progressive-angular-applications/requests-sw-precache.png){: .article-image }
+![Requests with sw-precache](assets/progressive-angular-applications/requests-sw-precache.png){: .article-image-with-border }
 
 You can see that every precached resource was retrieved from the service worker! The only data transferred was our third party call to get the list of stories from the Hacker News API. Let's take a look at the captured sequences on reload.
 
@@ -272,7 +272,7 @@ Although this is a different tool, `sw-precache` is capable of including this ju
 </blockquote>
 
 runtimeCaching
-==================
+------------------
 Let's look at how we can add this configuration to `sw-precache-config`.
 
 {% highlight javascript %}
@@ -282,8 +282,30 @@ runtimeCaching: [{
 }]
 {% endhighlight %}
 
-And that's pretty much all I needed to do for my application. The configuration consists of an array with each object within referencing a separate `urlPattern`. You can see that I have a RegExp here, but you can also use a string (the [tutorial](https://googlechrome.github.io/sw-toolbox/docs/master/tutorial-usage.html) gives an excellent overview of the different route styles you can use).
+And that's pretty much all I needed to do for my application. The configuration consists of an array with each object within referencing a separate `urlPattern`. You can see that I have a **RegExp** here referencing the unofficial API I'm using to power my application. You can also use a string among other route types and the [docs](https://googlechrome.github.io/sw-toolbox/docs/master/tutorial-usage.html) give a clear overview of the different route styles you can use.
 
 `handler` is also required and you can see that I'm using `networkFirst`. There are a total of five built-in handlers that allow you to modify your network strategy. `networkFirst`, for example, means that the toolbox will try to handle the request first by retrieving from the network and if that succeeds, it will **cache the response**. When this fails (flaky/unavailable network), it will fetch directly from the cache.
 
 The [documentation](https://googlechrome.github.io/sw-toolbox/docs/master/tutorial-api.html) explains the different handler types clearly. To get a better understanding of the network strategies, [The Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) is an excellent read.
+
+Now when we run the application an offline, requests previously fetched are now retrieved from the cache. This means that the user can now use the app with pages they have previously visited.
+
+![Network with sw-toolbox](assets/progressive-angular-applications/network-sw-toolbox.png){: .article-image-with-border }
+
+Someone was nice enough to open an [issue](https://github.com/{{site.github_username}}/angular2-hn/issues/21) and mention that for failing requests (both cache and network), it makes more sense to show an error message instead of the loading indicator. Consider the following two scenarios:
+
+1. The API fails through the network and it's not cached (first-time viewing that page)
+2. The API works, however the user is offline but navigates to a page that they have not yet visited
+
+In either of these scenarios, it would make more sense to showcase to the user that there has been an error in fetching the required resources.
+
+![Request error message](assets/progressive-angular-applications/request-error-message.png){: .article-image-with-border .fix-small }
+
+Web App Manifest
+==================
+
+Best Practices
+==================
+
+Conclusion
+==================
