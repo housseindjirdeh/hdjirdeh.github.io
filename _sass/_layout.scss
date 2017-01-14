@@ -627,6 +627,10 @@
     &.fix-small {
       width: 300px;
     }
+
+    &.no-padding {
+      padding: 0;
+    }
 }
 
 .article-image-with-source {
@@ -653,6 +657,10 @@
 
     &.fix-small {
       width: 300px;
+    }
+
+    &.no-padding {
+      padding: 0;
     }
 }
 

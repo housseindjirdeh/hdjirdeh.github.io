@@ -16,11 +16,11 @@ published: false
 ---
 ![angular 2 hn banner](assets/progressive-angular-applications/angular-progressive-banner.png "Progressive Angular"){: .article-image-with-border }
 
-***As of writing this, the `--mobile` flag with Angular CLI, which integrates progressive technologies such as offline support into your application, is temporarily disabled. Among other things, this post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries instead.***
+***As of writing this, the `--mobile` flag with Angular CLI, which integrates progressive technologies such as offline support into your application, is temporarily disabled. Among other things, this post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries on their own.***
 
 Progressive Web Apps (PWA) have been the talk of the town in 2016. In short, they're applications that use modern web capabilities to provide a user experience similar to that of mobile and native apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some.
 
-My last blog post (see [here](http://houssein.me/angular2-hacker-news)) revolved around building a Hacker News client from scratch using Angular CLI. In this post, we're going to look into how we can make it faster and more reliable by making it a PWA.
+An earlier post of mine (see [here](http://houssein.me/angular2-hacker-news)) revolved around building a Hacker News client from scratch using Angular CLI. In this post, we're going to look into how we can make it faster and more reliable by making it a PWA.
 
 <div class="button-center">
   <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
@@ -301,8 +301,82 @@ In either of these scenarios, it would make more sense to showcase to the user t
 
 ![Request error message](assets/progressive-angular-applications/request-error-message.png){: .article-image-with-border .fix-small }
 
-Web App Manifest
+Site is progressively enhanced
 ==================
+One of the primary principles behind progressively enhanced web pages is that anyone and everyone should be able to access it's basic content at the very least. So far we've overlooked those who browse the web with *JavaScript disabled*.
+
+Working without JavaScript
+------------------
+Some think that always developing an application for users with JavaScript disabled [doesn't make much sense](http://tomdale.net/2013/09/progressive-enhancement-is-dead/). If you think about it, SPA's *rely* on client JS in order to work. That's how we end up with a single **index.html** file that dynamically changes based on user events.
+
+But how would we go about having a SPA to work without client side JS? We can do this by **server-side rendering** some (or all) of our content. We can do this in Angular applications using [Angular Universal](https://universal.angular.io/), which can give your application a better perceived performance and make it more SEO friendly.
+
+I haven't had the chance to try this (and hopefully I will soon), but in the meantime we can at least insert a `<noscript>` tag in `index.html` to warn the user that JavaScript is required.
+
+![JS disabled message](assets/progressive-angular-applications/js-disabled.png){: .article-image-with-border }
+
+Design is mobile-friendly
+==================
+
+
+User can be prompted to Add to Homescreen
+==================
+We can give users the ability to install the application to their homescreen in order to feel more like a native application.
+
+![Installed to homescreen](assets/progressive-angular-applications/app-installed-phone.png){: .article-image .no-padding }
+
+This is done by adding a [Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest), a JSON file that contains specific information about your app. Let's create `manifest.json` in our `src` folder.
+
+{% highlight json %}
+{
+  "name": "Angular 2 HN",
+  "short_name": "Angular 2 HN",
+  "icons": [
+    {
+      "src": "assets/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image\/png"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "./?utm_source=web_app_manifest"
+}
+{% endhighlight %}
+
+Many of these configurations are self explanatory, but this [resource](https://developer.mozilla.org/en-US/docs/Web/Manifest) from MDN does a great job explaining all the possible configurations you can choose to have.
+
+Since our manifest has a `short_name`, a `start_url` and an icon larger than **144x144**, our application will show an install banner to prompt the user to install the app to their home page. This banner shows if the user visits your site at least twice with five minutes between each visit.
+
+![App install banner](assets/progressive-angular-applications/install-to-home-screen.png){: .article-image .no-padding }
+
+Installed web app will launch with custom splash screen
+==================
+Another thing that a manifest file allows for is a custom splash screen when you attempt to open the app through your home screen. This is useful because it can reduce the *perceived* load time of your application, even if it loads with the same amount of time. To do this, we'll need to flush out our manifest file a little more.
+
+{% highlight json %}
+{
+  "name": "Angular 2 HN",
+  "short_name": "Angular 2 HN",
+  "icons": [
+    {
+      "src": "assets/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image\/png"
+    },
+    {
+      "src": "assets/icons/android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image\/png"
+    }
+  ],
+  "theme_color": "#b92b27",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "./?utm_source=web_app_manifest"
+}
+
+{% endhighlight %}
 
 Best Practices
 ==================
