@@ -16,11 +16,11 @@ published: false
 ---
 ![angular 2 hn banner](assets/progressive-angular-applications/angular-progressive-banner.png "Progressive Angular"){: .article-image-with-border }
 
-***As of writing this, the `--mobile` flag with Angular CLI, which integrates progressive technologies such as offline support into your application, is temporarily disabled. Among other things, this post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries on their own.***
+***At the time of writing, the `--mobile` flag with Angular CLI, which integrates progressive technologies such as offline support into your application, is temporarily disabled. Among other things, this post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries on their own.***
 
-Progressive Web Apps (PWA) have been the talk of the town in 2016. In short, they're applications that use modern web capabilities to provide a user experience similar to that of mobile and native apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some.
+Progressive Web Apps (PWA) have been the talk of the town in 2016. In short, they are applications that use modern web capabilities to provide a user experience similar to that of mobile and native apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some.
 
-An earlier post of mine (see [here](http://houssein.me/angular2-hacker-news)) revolved around building a Hacker News client from scratch using Angular CLI. In this post, we're going to look into how we can make it faster and more reliable by making it a PWA.
+An earlier post of mine (see [here](http://houssein.me/angular2-hacker-news)) revolved around building a Hacker News client from scratch using [Angular CLI](https://cli.angular.io/). In this post, we're going to look into how we can make it faster and more reliable by making it a PWA.
 
 <div class="button-center">
   <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
@@ -29,10 +29,10 @@ An earlier post of mine (see [here](http://houssein.me/angular2-hacker-news)) re
 
 ![angular 2 hn preview](assets/progressive-angular-applications/angular2-hn-mobile.png "Angular 2 HN Preview"){: .article-image-with-border }
 
-Let's go through some of the main concepts or progressive applications.
+Let's go through some of the main concepts of progressive applications.
 
 * They are **progressive**, meaning that they work for every user in every browser
-* Although they may provide a mobile-like experience, they are **responsive** and work on every device and every screen size
+* Although they may provide a mobile-like experience, they are **responsive** and work on every device and screen size
 * Push notifications, background syncing and offline capability are all features that can be included
 * They can be **installed** to the home screen of your device
 * They can be accessed directly with just a URL
@@ -47,11 +47,11 @@ The case for Progressive Web
 
 Although installing an app is usually a fast and simple process, when was the last time you were about to install something but decided not to? Maybe you felt like you didn't want to go through the hassle of installing it, or maybe you just didn't want use to up any more memory. Whatever the reason, almost every single mobile user has experienced this at some point.
 
-However, most people feel a lot less *restricted* to open up a browser and just type in to the address bar. The convenience, security and simplicity of just typing a URL into an address bar is a powerful advantage of the web, and PWAs combine this with the best of native applications.
+However, most people feel a lot less *restricted* to open up a browser and just type in to the address bar. The convenience, security and simplicity of just typing a URL into an address bar is a powerful advantage of the web, and PWAs combine this with the feel of native applications.
 
 Lighthouse
 ==================
-[Lighthouse](https://github.com/GoogleChrome/lighthouse) is an open-source auditing tool that you can use to test and improve your webpage. It runs a number of tests and generates a report on how well the page did. You can install Lighthouse as a [Chrome extension](https://github.com/GoogleChrome/lighthouse#install-chrome-extension) or use its [Node CLI tool](https://github.com/GoogleChrome/lighthouse#install-cli-), whichever you prefer.
+[Lighthouse](https://github.com/GoogleChrome/lighthouse) is an open-source auditing tool that you can use to test and improve your webpage. It runs a number of tests and generates a report on how well the page did. You can install Lighthouse as a [Chrome extension](https://github.com/GoogleChrome/lighthouse#install-chrome-extension) or use its [Node CLI tool](https://github.com/GoogleChrome/lighthouse#install-cli-).
 
 Here's a snippet of the report before I added a number of progressive elements to the app.
 
@@ -59,19 +59,19 @@ Here's a snippet of the report before I added a number of progressive elements t
 
 The report consists of a number of audits that validate the aspects of a PWA. Let's go over each of these audits and how we can improve each of these areas in our application.
 
-**This tutorial will reference my Hacker News client as we add a number of different tools to improve it. However, you can easily follow along and include each tool in your app if you already have an application built with Angular CLI.**
+**Note: This tutorial will reference my Hacker News client as we add a number of different tools to improve it. However, you can easily follow along and include each tool in your app if you already have an application built with Angular CLI.**
 
 Network connection is secure
 ==================
-A number of progressive web technologies, such as service workers (which we'll go over in a bit) require a **HTTPS** connection in order to work. The '**S**' at the end, which stands for secure, ensures that the content that you retrieve is secure and cannot be tampered with.
+A number of progressive web technologies, such as service workers (which we'll go over in a bit), require a **HTTPS** connection in order to work. The '**S**' at the end, which stands for secure, ensures that the content that you retrieve is secure and cannot be tampered with.
 
-There are a number of hosting platforms that are protected with HTTPS by default. This makes it easy to have your website or application protected. Our Hacker News client is hosted on Firebase and this website is hosted on Github Pages. Fortunately, both services allow **HTTPS** encryption.
+There are a number of hosting platforms that are protected with HTTPS by default which makes it easy to have your website or application protected. Our Hacker News client is hosted on Firebase and this website is hosted on Github Pages. Both allow **HTTPS** encryption.
 
 I wrote a [post]({{ site.url }}/continuous-integration-angular-firebase-travisci) that explains how you can deploy your Angular CLI app with Firebase so please take a look if you're interested.
 
 Page load performance is fast
 ==================
-To kick things off, let's take a look at how our app loads without any configuration. To represent mobile users more fairly, we'll use simulated conditions of **a 3G Network** and **a CPU Throttle of 2X slower** thanks to Chrome's Developer Tools.
+Let's take a look at how our app loads without any configuration. To represent mobile users more fairly, we'll use simulated conditions of **a 3G Network** and **a CPU Throttle of 2X slower** thanks to Chrome's Developer Tools.
 
 ![Network - No Configuration](assets/progressive-angular-applications/network-first.png){: .article-image }
 
@@ -79,7 +79,9 @@ Humans are impatient creatures, and [53% of us will give up if a site takes long
 
 Ahead-of-Time compilation
 -
-One way we can make an Angular app load faster is to take advantage of running it's compiler under Ahead-of-Time conditions...
+Components along with HTML templates are the foundation of any Angular application. By default, this is all converted into viable JavaScript when you run the application in the browser. In other words, compilation happens ***Just-in-Time***.
+
+One way we can make an Angular app load faster is to run its compiler under ***Ahead-of-Time*** conditions. This means that instead of running every time we load the application, the compiler runs once during the build step. The app does not have to compile when you try to load it in the browser.
 
 With Angular CLI, creating a production build is as simple as a terminal command.
 
@@ -87,7 +89,7 @@ With Angular CLI, creating a production build is as simple as a terminal command
 ng build --prod
 {% endhighlight %}
 
-To trigger a production build with AOT compilation is also just as simple. This really goes to show the amazing work the CLI team has done to make our lives easier.
+Creating a production build with AOT compilation is also just as simple, and this really goes to show the amazing work the CLI team has done to make our lives easier.
 
 {% highlight bash %}
 ng build --prod --aot
@@ -168,11 +170,13 @@ Now just run the following script.
 npm run precache
 {% endhighlight %}
 
-After a few minutes you should see the following output.
+After a few minutes you should a similar output.
 
 ![Service worker output](assets/progressive-angular-applications/service-worker-output.png){: .article-image-with-border }
 
-It generated a `service-worker.js` file right in your root folder! If you take a look at the file, you'll see logic that `installs` and `activates` your service worker. You can also find where it caches and returns requests (`fetch` event).
+It generated a `service-worker.js` file right in your root folder! You can see the output also includes the total size and number of assets that are cached. This corresponds to the total number of resources that your application shell contains.
+
+Furthermore, if you take a look at the actual file, you'll see logic that `installs` and `activates` your service worker. You can also find where it caches and returns requests (`fetch` event).
 
 Now this is all pretty cool and everything, but having the service worker in the root of our application isn't going to help us. This is because when you run a production build with the CLI (`ng build --prod`), it generates the compiled, bundled and minifed code in a `dist/` subdirectory which we deploy and host. We can update our `precache` script to make this happen.
 
@@ -237,7 +241,8 @@ module.exports = {
 };
 {% endhighlight %}
 
-[Explain]
+1. Since our built app lives solely in the `dist` folder, we use `stripPrefix` to remove it from the beginning of any file paths that may be referenced
+2. When the app attempts to fetch a request not found in the cache, we use `navigateFallback` to set `index.html` as our fallback (couldn't think of another word :P)
 
 Now that we have all our static resources set up for precaching, we can set up the service worker right before we deploy the app to our hosting platform (why not locally?). Let's take a look at the network requests when we load the application **on a repeat visit**.
 
