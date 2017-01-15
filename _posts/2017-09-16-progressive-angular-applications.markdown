@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Progressive Web Apps with Angular 2"
+title:  "Progressive Web Apps with Angular 2+"
 date:   2017-09-16 9:20:00 -0400
 categories: angular progressive web app javascript
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
@@ -150,7 +150,7 @@ npm install --save-dev sw-precache
 
 Now in your `package.json` file, let's add a `precache` script.
 
-{% highlight javascript %}
+{% highlight json %}
 "scripts": {
   "ng": "ng",
   "start": "ng serve",
@@ -176,7 +176,7 @@ It generated a `service-worker.js` file right in your root folder! If you take a
 
 Now this is all pretty cool and everything, but having the service worker in the root of our application isn't going to help us. This is because when you run a production build with the CLI (`ng build --prod`), it generates the compiled, bundled and minifed code in a `dist/` subdirectory which we deploy and host. We can update our `precache` script to make this happen.
 
-{% highlight javascript %}
+{% highlight json %}
 "scripts": {
   // ...
   "precache": "sw-precache --root=dist --verbose"
@@ -189,7 +189,7 @@ Now running the script should generate the service worker right inside the `dist
 
 We can see that our service worker file was generated in the `dist/` folder which is perfect. We can also see that each and every static resource in our dist folder is precached by default. This is a bit of an overkill, and that's because not every one of those files are requested when you run the application.... For example, if we wanted to just precache just our HTML files, we can set the following command instead.
 
-{% highlight javascript %}
+{% highlight json %}
 "scripts": {
   // ...
   "precache": "sw-precache --root=dist --verbose --static-file-globs='dist/**.html'"
@@ -209,7 +209,7 @@ module.exports = {
 
 Now we can simplify our script nicely.
 
-{% highlight javascript %}
+{% highlight json %}
 "scripts": {
   // ...
   "precache": "sw-precache --verbose --config=sw-precache-config.js"
@@ -301,6 +301,10 @@ In either of these scenarios, it would make more sense to showcase to the user t
 
 ![Request error message](assets/progressive-angular-applications/request-error-message.png){: .article-image-with-border .fix-small }
 
+{:CSS Skull: .image-source}
+[Awesome minimalist skull CSS](http://xkcd.com/1367/) by [Max](https://codepen.io/MyXoToD/) on Codepen
+{: CSS Skull}
+
 Site is progressively enhanced
 ==================
 One of the primary principles behind progressively enhanced web pages is that anyone and everyone should be able to access it's basic content at the very least. So far we've overlooked those who browse the web with *JavaScript disabled*.
@@ -317,7 +321,13 @@ I haven't had the chance to try this (and hopefully I will soon), but in the mea
 
 Design is mobile-friendly
 ==================
+If you plan on building a web application and not expect any users to access it through their mobile device, than you may not be concerned with how it looks with smaller screens whatsoever. However, more and more users access the web through their phones and if you intend on building an app with progressive enhancement in mind, you most likely want to make sure it sizes correctly to all screen sizes.
 
+In this area, Lighthouse will check to see if your HTML has a `<meta name="viewport">` in order to optimize your app for mobile devices. Fortunately, Angular CLI includes this by default.
+
+{% highlight html %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% endhighlight %}
 
 User can be prompted to Add to Homescreen
 ==================
@@ -325,7 +335,23 @@ We can give users the ability to install the application to their homescreen in 
 
 ![Installed to homescreen](assets/progressive-angular-applications/app-installed-phone.png){: .article-image .no-padding }
 
-This is done by adding a [Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest), a JSON file that contains specific information about your app. Let's create `manifest.json` in our `src` folder.
+This is done by adding a [Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest), a JSON file that contains specific information about your app. We can begin by adding a `link` to the head of our `index.html`.
+
+{% highlight html %}
+<link rel="manifest" href="/manifest.json">
+{% endhighlight %}
+
+Since we need this file as we build our app into the `dist` directory, we'll need to add it as an asset in `angular-cli.json`.
+
+{% highlight json %}
+"assets": [
+  "assets",
+  "favicon.ico",
+  "manifest.json"
+]
+{% endhighlight %}
+
+Now let's create `manifest.json` in our `src` folder.
 
 {% highlight json %}
 {
@@ -351,7 +377,7 @@ Since our manifest has a `short_name`, a `start_url` and an icon larger than **1
 
 Installed web app will launch with custom splash screen
 ==================
-Another thing that a manifest file allows for is a custom splash screen when you attempt to open the app through your home screen. This is useful because it can reduce the *perceived* load time of your application, even if it loads with the same amount of time. To do this, we'll need to flush out our manifest file a little more.
+Another thing that a manifest file allows for is a custom splash screen when you attempt to open the app through your home screen. This is useful because it can reduce the *perceived* load time of your application (even if it loads in the same amount of time). To do this, we'll need to flush out our manifest file a little more.
 
 {% highlight json %}
 {
@@ -375,11 +401,41 @@ Another thing that a manifest file allows for is a custom splash screen when you
   "orientation": "portrait",
   "start_url": "./?utm_source=web_app_manifest"
 }
-
 {% endhighlight %}
+
+You can see that we've added two new attributes, `theme_color` and `background_color`. The manifest needs to contain this along with `name` and an icon of at least 192px (we added a new one of 256px) in order to serve a splash screen when the application is opened from the home page.
+
+![Mobile splash screen](assets/progressive-angular-applications/mobile-whitebg-combined.png){: .article-image }
+
+Icons
+------------------
+To simple generate a number of icons needed not just for Android, but for Windows and iOS devices as well, I used [RealFaviconGenerator](http://realfavicongenerator.net/). It shows you how your icons will look in each device as well previews of the splash screen in Android devices. It then provides the markup you can include in your `index.html` along with all the icons (which I put in `assets/icons`).
+
+![Assets icons folder](assets/progressive-angular-applications/assets-icons-folder.png){: .article-image-with-border .fix }
+
+Installing with iOS
+------------------
+Like Chromium browsers (Chrome, Firefox, Opera) on Android, Safari on iOS allows you to install to homescreen and provide an icon. However, splash screens are not supported.
+
+Moreover, with the presence of a web manifest, the URL bar is automatically removed giving the user a full-screen experience on Android devices. This is not the case on iOS, but there are [supported meta tags](https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html) that we can add to fix this (credits to [Bram Borggreve](https://github.com/beeman), I didn't know this was possible until he put up a PR for this <i class="fa fa-smile-o" aria-hidden="true"></i>). With this, we can have a rich full-screen experience on iOS as well.
+
+![iPhone Demo](assets/progressive-angular-applications/iphone-demo.gif){: .article-image-with-border }
+
+{:full-screen iOS: .image-source}
+Recording by Bram Borggreve
+{: full-screen iOS}
 
 Best Practices
 ==================
+Along with audits that measure the aspects of a PWA, Lighthouse provides a list of recommendations to improve your webpage in terms of best practices. Although these don't affect your score, it's still fun/handy to tick them off the list as you work on your application. Some examples:
+
+1. Site opens external links using `rel="noopener"`
+2. Every image element has an alt attribute
 
 Conclusion
 ==================
+![Conclusion](assets/progressive-angular-applications/conclusion.png){: .article-image-with-border }
+
+Although Angular Mobile Toolkit may eventually make creating a PWA app a smooth and simple process, it's still very possible to integrate a number of progressive elements to your application without adding much overhead at all. Libraries like `sw-precache` make things simple as they integrate right into your build system.
+
+I hope this tutorial helped you and if it did, please [tweet it forward](https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}&via={{ site.twitter_username }}&related={{ site.twitter_username }}") and [star the repo](https://github.com/housseindjirdeh/angular2-hn)! You can also [follow me](https://twitter.com/intent/user?screen_name=hdjirdeh) on Twitter if you haven't had enough of me rambling <i class="fa fa-smile-o" aria-hidden="true"></i>.
