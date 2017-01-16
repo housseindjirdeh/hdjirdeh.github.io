@@ -101,6 +101,8 @@ And that's it. Now let's see how our app loads under the same conditions.
 
 The app now loads 55% faster. That's a pretty big difference for such a quick adjustment. The bundled file sizes were also reduced by [roughly 40%](https://twitter.com/beeman_nl/status/808180209719582720).
 
+**Note: If you would like to understand how AOT works in more detail, Juri does an awesome job explaining it in this [screencast](https://juristr.com/blog/2016/12/configure-aot-with-angular-cli/).**
+
 Application Shell
 -
 An application shell (or App Shell) is the minimal HTML, CSS and JS responsible for providing the user with the *shell* of the user interface. A toolbar is a good example of something that would be encapsulated in this shell. In a PWA, the App Shell can be cached so it loads as quickly as possible when a user decides to return to the webpage. With this, we can provide the user with something meaningful **immediately** even if the actual content has not rendered yet.
