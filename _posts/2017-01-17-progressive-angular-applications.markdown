@@ -12,7 +12,6 @@ comments: true
 type: post
 image: assets/progressive-angular-applications/angular-progressive-banner.png
 permalink: /:title
-published: false
 ---
 ![angular 2 hn banner](assets/progressive-angular-applications/angular-progressive-banner.png "Progressive Angular"){: .article-image-with-border }
 
