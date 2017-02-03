@@ -637,7 +637,7 @@ Nice and straightforward. For each item, we're subscribing to their respective s
 
 *Note: You may be wondering where the `amFromUnix` and `amTimeAgo` pipes came from. The time parameter for each item is in [Unix](https://en.wikipedia.org/wiki/Unix_time) format. To convert this into something we can understand, I use [moment.js](https://momentjs.com/) pipes by importing the [angular2-moment](https://github.com/urish/angular2-moment) library.*
 
-*Note 2: For each item with a link, the entire URL is passed through it's `url` attribute. To only show the link domain, I created a pipe called `domain`. Take a look [here]((https://github.com/housseindjirdeh/angular2-hn/blob/first-page/src/app/domain.pipe.ts)) for the code.*
+*Note 2: For each item with a link, the entire URL is passed through it's `url` attribute. To only show the link domain, I created a pipe called `domain`. Take a look [here](https://github.com/housseindjirdeh/angular2-hn/blob/first-page/src/app/domain.pipe.ts) for the code.*
 
 Now if you run the application, you'll see the first page of Hacker News! Click [here](https://github.com/housseindjirdeh/angular2-hn/tree/first-page) for the full source code until this step.
 
