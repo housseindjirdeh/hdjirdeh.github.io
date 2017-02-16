@@ -46,7 +46,7 @@ Getting Started
 Once you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install the CLI through your terminal.
 
 {% highlight bash %}
-npm install -g angular-cli
+npm install -g @angular/cli
 {% endhighlight %}
 
 You can then create and start your application.
