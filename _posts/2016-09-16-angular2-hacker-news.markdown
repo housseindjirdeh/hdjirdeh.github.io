@@ -21,7 +21,7 @@ In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/)
 
 <div class="button-center">
   <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
-  <a class="blog-button" href="https://github.com/housseindjirdeh/angular2-hn">Source Code</a>
+  <a class="blog-button" href="https://github.com/housseindjirdeh/angular2-hn/tree/version-1">Source Code</a>
 </div>
 
 ![angular 2 hn preview](https://i.imgur.com/3gIhXqC.gif "Angular 2 HN Preview"){: .article-image }
@@ -1344,4 +1344,6 @@ We're done! To kick off a production build, you can run `ng build --prod` or `ng
 
 I hope you found this tutorial useful. If you did, please [tweet it forward](https://twitter.com/intent/tweet?original_referer={{page.url}}&amp;ref_src=twsrc%5Etfw&amp;text={{page.title}}&amp;tw_p=tweetbutton&amp;url={{site.url}}{{page.url}}&amp;via=hdjirdeh) and/or [star the repo!](https://github.com/housseindjirdeh/angular2-hn) I would also love to hear any type of feedback whatsoever.
 
-If you happen to be interested enough to work on this app further, take a look at the [issue list](https://github.com/housseindjirdeh/angular2-hn/issues) and feel free to put up a feature request or a PR! My next steps are to include real-time support as well as service worker/app shell functionality to make this a full blown Progressive Web App, so there's still lots to do <i class="fa fa-smile-o" aria-hidden="true"></i>.
+If you happen to be interested enough to work on this app further, take a look at the [issue list](https://github.com/housseindjirdeh/angular2-hn/issues) and feel free to put up a feature request or a PR! As I mentioned, there have been some structural and feature changes since I've written this post. This version of the app lives in a [separate branch](https://github.com/housseindjirdeh/angular2-hn/tree/version-1) from [master](https://github.com/housseindjirdeh/angular2-hn) so you'll need to go there to see the latest version.
+
+If you're interested, please take a look at [my post](https://houssein.me/progressive-angular-applications) on how I made this a Progressive Web App that works offline <i class="fa fa-smile-o" aria-hidden="true"></i>.
