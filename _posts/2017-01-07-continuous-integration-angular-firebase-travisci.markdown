@@ -54,7 +54,7 @@ This post will not explain how you can use the CLI in detail nor show you how to
 Let's start by installing Angular CLI.
 
 {% highlight bash %}
-npm install -g angular-cli
+npm install -g @angular/cli
 {% endhighlight %}
 
 And now we can create and run a new project. I'm going to call it `Boom Shakalaka`.
@@ -155,7 +155,7 @@ Now the final thing we need to do is set up our configurations, which we can do 
 
 language: node_js
 node_js:
-  - "5.11"
+  - "6.9"
 
 branches:
   only:
@@ -163,7 +163,7 @@ branches:
 
 before_script:
   - npm install -g firebase-tools
-  - npm install -g angular-cli
+  - npm install -g @angular/cli
 
 script:
   - ng build --prod
