@@ -260,7 +260,7 @@ Not bad at all. You can see that the static resources load a lot faster since th
 
 Service Worker Webpack Plugin
 -------------------
-To make this entire procedure a lot simple, there's a Webpack plugin for service workers, [`SWPrecacheWebpackPlugin`](https://www.npmjs.com/package/sw-precache-webpack-plugin), that you can include in your Webpack configuration. However, Angular CLI [does not support](https://github.com/angular/angular-cli/issues/1656) overriding Webpack configurations so we can't include this in our CLI applications. In the future, there may be an addon system and if that's the case, this plugin will most probably make things a little smoother.
+To make this entire procedure a lot simple, there's a Webpack plugin for service workers, [`SWPrecacheWebpackPlugin`](https://www.npmjs.com/package/sw-precache-webpack-plugin), that you can include in your Webpack configuration. When I built this application, Angular CLI [did not support](https://github.com/angular/angular-cli/issues/1656) overriding Webpack configurations. However, the team has recently included the ability to [eject](https://github.com/angular/angular-cli/blob/3ad2856b27889a50a742c9dca9554a190c8509bf/CHANGELOG.md#100-beta32-2017-02-17) and modify your configurations so using this plugin may probably make things even smoother (and I look forward to trying this soon).
 
 Continuous Integration  
 -------------------
