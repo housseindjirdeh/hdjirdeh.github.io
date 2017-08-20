@@ -216,8 +216,20 @@
     }
 }
 
-.aboutme {
+.about-me-page {
     margin-bottom: 100px;
+
+    h1 {
+      margin-top: 50px;
+      padding-bottom: 10px;
+      font-size: 34px;
+      border-bottom: 3px solid $grey-color-light;
+      @include media-query($on-laptop) {
+          font-size: 26px;
+          line-height: 1.5;
+          font-weight: bold;
+      }
+    }
 }
 /**
 
