@@ -640,6 +640,10 @@
       width: 300px;
     }
 
+    &.fix-very-small {
+      width: 150px;
+    }
+
     &.no-padding {
       padding: 0;
     }
@@ -681,10 +685,9 @@
     letter-spacing: -1px;
     margin: 0px;
     text-align: center;
-
-    a {
-        letter-spacing: 0.02rem;
-    }
+    letter-spacing: 0.02rem;
+    color: #757575;
+    font-weight: bold;
 }
 
 .author-image {
