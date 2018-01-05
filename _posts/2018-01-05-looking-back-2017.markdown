@@ -1,0 +1,64 @@
+---
+layout: post
+title:  "Looking back at 2017"
+date:   2018-01-05 07:30:00
+categories: review
+description: I'm late, I know.
+tags:
+- review
+comments: true
+type: post
+image: assets/looking-back-2017/banner.jpg
+permalink: /:title
+---
+![Banner](assets/looking-back-2017/banner.jpg "Me smiling"){: .article-image-with-border }
+
+I'm late, I know.
+
+Let's take a look at what I accomplished this past year:
+
+* Joined [Rangle.io](https://www.instagram.com/p/BdYR9ySh7JA/?taken-by=houssein_dj)
+* Published [two](https://www.ng-book.com/modern-ng1/) [books](https://www.fullstackreact.com/react-native/) (one still in progress) with the amazing folks at Fullstack.io.
+* [Spoke](https://www.youtube.com/watch?v=CTTL5_G2U9U) at 5 conferences around the world plus a dozen more meet-ups and events.
+* Travelled to more cities in a single year than the previous ten years combined (I visited [Europe](https://www.instagram.com/p/BYk-3nNhcWE/?taken-by=houssein_dj) for the first time!).
+* My blog garnered over 100,000 page views (even though I haven't published a new post in almost a year :O).
+* Built [GitPoint](https://gitpoint.co/), which currently has over 8000 users.
+* Built Angular HN which was briefly featured at [Google I/O](https://www.youtube.com/watch?v=aCMbSyngXB4&feature=youtu.be&t=2230) (a million thanks to [Addy](https://twitter.com/addyosmani) for all the help and advice I needed to build this app).
+* Worked with some [amazing](https://github.com/tastejs/hacker-news-pwas/graphs/contributors) [developers](https://github.com/gitpoint/git-point/graphs/contributors) on open source that have taught me more than I ever thought possible.
+
+Now let’s talk about the other side of things:
+
+* Imposter syndrome is my good friend for seven days of the week.
+* Haven't learned any other languages besides JavaScript.
+* Get nervous every single time I give a talk. Don't think that'll change anytime soon.
+* With kind of a non-traditional path to web development, I‘m (still) not confident with basic computer science fundamentals.
+* I’ve only scratched the surface with things in the JavaScript ecosystem.
+* I’ve focused on front-end and my back-end experience is severely lacking.
+* I have over a dozen half baked side projects and there are literally only two side projects I've ever built to completion (not including other people's projects I've helped). That's still two more than last year, so there's that!
+* Still a complete noob at almost everything I do.
+* I'm still trying to find the right balance of things. I've been stressed more than a few times, and I don't want to burn out.
+* Still haven't learned how to swim or skateboard (properly). ***THESE ARE THE MOST IMPORTANT THINGS I NEED TO LEARN NEXT YEAR WITHOUT A DOUBT***.
+
+## Looking further back
+
+Since this is my first time writing a "year in review", let's look further back a bit:
+
+* This time last year, I was just getting into the groove of building a web app. I've never given a talk before and have always thought a noob like me couldn't come close to speaking on stage.
+* This time two years ago, I had never written a line of JavaScript. 
+* This time three years ago, I was (wrongly) confident that coding just wasn’t for me and avoided it like the plague.
+
+I submitted my [first pull request](https://github.com/javascriptair/site/pull/128) to open source a year and a half ago. If it wasn't for the amazing welcoming attitude of those reviewers (thanks [Kent](https://twitter.com/kentcdodds) :)), I probably wouldn't be nearly as excited to contribute to open source as much as I am now.
+
+## Goals for 2018
+
+![2017 to 2018](assets/looking-back-2017/2017-was-tough.png "2017 to 2018"){: .article-image-with-border .fix }
+
+New Years resolutions never made sense to me. Why not just begin something in December if it's weighing on your mind? Why wait for the new year?
+
+With that being said, I think we all have things we want to improve on. If somebody likes to plan goals on a yearly basis, who am I to say that's not the right of way of doing things. There really isn't a "correct" way to have goals.
+
+So what about myself? Sure, I can say I want to work on more open source projects, give more talks, write more technical content and so on. Will I get disappointed if I don’t do anymore of these in 2018? Maybe. But there's more important things to think about.
+
+One thing I regret about spending quite a bit of time on stuff like this outside of my full-time job is that I’ve not nearly helped as many people get into web development that I would have liked to. Every week, I meet individuals who were pretty much in the exact same shoes I was two years ago - unsure about what web/mobile development really is but *curious* enough to start trying to get involved. And I'm not talking about JavaScript enthusiasts in particular, this includes folks interested in design, DevOps, user experience, marketing and so on.
+
+So for 2018, if I focus too much on myself and not help as many newcomers that I can get into the intimidating world of web development - **hold me accountable**.
