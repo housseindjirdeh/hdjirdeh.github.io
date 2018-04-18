@@ -95,3 +95,22 @@ JavaScript files are not the only type of resource we can pre-emptively fetch us
 
 ## Link Prefetch
 
+Instead of preload, we can also make use of a `<link>` [prefetch](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) tag for some of our resources. The difference here is that link prefetch is suited for resources needed for a different navigation route and not for the current page. This means that the browser will know to fetch and cache this resource once it's completed loading the current page. 
+
+<aside>
+  <p>For a deeper dive into how Chrome prioritizes preloaded and prefetched resources as well as some real-world preload statistics, you can refer to Addy Osmani's write-up: <a href="https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf">Preload, Prefetch And Priorities in Chrome</a>.</p>
+</aside>
+
+Although it may seem straightforward to add `<link rel="preload">` and `<link rel="prefetch">` tags to the head of your HTML document for static sites, it can be a little tricker if you happen to be using a module bundler for a single-page application. Fortunately, there are a number of potential tools that can make this easier:
+
+* webpack 4.6.0 [provides support]((https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c)) for prefetching and preloading resources using 'magic' comments:
+
+{% highlight javascript %}
+import(/* webpackPreload: true */ "PreloadedLibrary")
+
+import(/* webpackPrefetch: true */ "PrefetchedLibrary")
+{% endhighlight %}
+
+* If you happen to be using an older version of webpack:
+    * [preload-webpack-plugin](https://github.com/GoogleChromeLabs/preload-webpack-plugin) is a webpack plugin built by the Chrome team that allows you to define dynamically generated chunks (as a result of code-splitting) as preloaded or prefetched resources. This plugin is supposed to be used alongside [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin).
+    * [script-ext-html-webpack-plugin](https://github.com/numical/script-ext-html-webpack-plugin) is an extension of [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin) and can be used to attach custom attributes and resource hints to generated chunks, including `preload` and `prefetch`.
