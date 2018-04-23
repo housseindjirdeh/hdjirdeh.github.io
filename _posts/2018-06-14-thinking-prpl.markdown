@@ -217,3 +217,18 @@ Although this creates a service worker file where we've asked it to, we still ne
 </script>
 {% endhighlight %}
 
+In here, we check to see if service workers are supported in the browser. If they are, we then register our service worker using `navigator.serviceWorker.register()`. To prevent the possibility of the service worker being registered at the same time other resources are still being loaded in the DOM, we make sure to only register it after `window.onload` is complete with the use of an event listener. At the end, we simply have logs outputted to our console in the case of a successful registration or a failed one.
+
+## Application Shell
+
+![Service Worker](assets/thinking-prpl/service-worker.png "Service Worker"){: .article-image-with-border }
+
+We've just covered how to install a service worker using Workbox and how to register it, but we still haven't discussed exactly what they do. One of the primary benefits of using a service worker is that they allow you to precache the resources that make up the Application Shell. Like the name suggests, it's essentially the _shell_ of the user interface.
+
+![App Shell - Twitter Lite](assets/thinking-prpl/twitter-lite-app-shell.png "App Shell - Twitter Lite"){: .article-image-with-source-border }
+
+{:app shell: .image-source}
+[Application Shell - Twitter Lite](https://mobile.twitter.com)
+{: app shell}
+
+The App Shell consists of all the HTML, CSS and JS assets that make up the parts of your application that don't convey actual data (or dynamic data retreived from a third-party location). The reason why this can be useful is that service workers act like a middleman between your browser and the network. Once your app is loaded for the very first time, those assets can be retrieved over the network. We can however store these assets in the service worker cache. This means that when a user loads your application for a second time, the browser doesn't need to retreive these assets from the network. The service worker will be able to provide the assets quicker meaning we can get **faster page loads on repeat visits**. (REVISE)
