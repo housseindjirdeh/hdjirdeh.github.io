@@ -191,7 +191,17 @@ Workbox asks you a series of questions in order to set up a service worker with 
 1. _What is the root of your web app?_ If you're using a module bundler or have a build step in your application, you most likely have a final folder that you deploy (for example: `dist/` or `build/`).
 2. _Which file types would you like to precache?_ You can decide which file types you would like your service worker to precache.
 3. _Where would you like your service worker file to be saved?_ You most likely would need to have your service worker saved in the folder you deploy. However, you have the option to decide where exactly.
-4. _Where would you like to save these configuration settings?_ Workbox saves these settings into a separate configurations file (and you can decide where to save it). The default answer is `workbox-config.js` at the root of your application.
+4. _Where would you like to save these configuration settings?_ Workbox saves these settings into a separate configurations file (and you can decide where to save it). The default answer is `workbox-config.js` at the root of your application. The following file that is generated looks like the following:
+
+<div class="highlight-in-list">
+{% highlight javascript %}
+module.exports = {
+  globDirectory: 'dist/',
+  globPatterns: ['**/*.{js,png,svg,html,json}'],
+  swDest: 'dist/service-worker.js',
+};
+{% endhighlight %}
+</div>
 
 Once we have our configurations file saved, simply running the following command creates a new service worker file:
 
@@ -221,8 +231,6 @@ In here, we check to see if service workers are supported in the browser. If the
 
 ## Application Shell
 
-![Service Worker](assets/thinking-prpl/service-worker.png "Service Worker"){: .article-image-with-border }
-
 We've just covered how to install a service worker using Workbox and how to register it, but we still haven't discussed exactly what they do. One of the primary benefits of using a service worker is that they allow you to precache the resources that make up the Application Shell. Like the name suggests, it's essentially the _shell_ of the user interface.
 
 ![App Shell - Twitter Lite](assets/thinking-prpl/twitter-lite-app-shell.png "App Shell - Twitter Lite"){: .article-image-with-source-border }
@@ -231,4 +239,60 @@ We've just covered how to install a service worker using Workbox and how to regi
 [Application Shell - Twitter Lite](https://mobile.twitter.com)
 {: app shell}
 
-The App Shell consists of all the HTML, CSS and JS assets that make up the parts of your application that don't convey actual data (or dynamic data retreived from a third-party location). The reason why this can be useful is that service workers act like a middleman between your browser and the network. Once your app is loaded for the very first time, those assets can be retrieved over the network. We can however store these assets in the service worker cache. This means that when a user loads your application for a second time, the browser doesn't need to retreive these assets from the network. The service worker will be able to provide the assets quicker meaning we can get **faster page loads on repeat visits**. (REVISE)
+The App Shell consists of all the HTML, CSS and JS assets that make up the parts of your application that don't convey actual data (or dynamic data retreived from a third-party location). Service workers act like a middleman between your browser and the network, and once your app is loaded for the first time, the assets that make up the App Shell can be retrieved over the network. We can however store these resources in the service worker cache so that when the user loads your application for a second time, the browser doesn't need to retreive these assets from the network. The service worker will be able to provide the assets instead meaning we can get **faster page loads on repeat visits**.
+
+![Service Worker](assets/thinking-prpl/service-worker.png "Service Worker"){: .article-image-with-border }
+
+Although using the CLI can simplify creating a service worker, we'll still need to generate a new one every time we make a change to our application. In this case, it might make more sense to integrate Workbox into your build system. For example, instead of installing the library globally - you can install its dependency:
+
+{% highlight bash %}
+npm install workbox-cli --save-dev
+{% endhighlight %}
+
+We can then add it as part of our build step:
+
+{% highlight bash %}
+// package.json
+
+"scripts": { 
+  //...
+  "build": "{build} && workbox generateSW workbox-config.js" 
+}
+{% endhighlight %}
+
+<aside>
+  <p>Instead of using the CLI, we also have the option of using an <code class="highlighter-rouge">npm</code> module or webpack plugin provided by Workbox. You can find out more in the <a href="https://developers.google.com/web/tools/workbox/modules/#node-modules">documentation</a></p>
+</aside>
+
+## Dynamic Content
+
+The next thing service workers allow us to do is pre-cache dynamic content. Just like the resources that make up the App Shell, this is data that can be retrieved from a third-party network. However, the difference here is that this can be information that changes with subsequent page loads.
+
+Let's modify our configurations file, `workbox-config.js`, and add a `runtimeCaching` attribute:
+
+{% highlight javascript %}
+module.exports = {
+  globDirectory: 'dist/',
+  globPatterns: ['**/*.{js,png,svg,html,json}'],
+  swDest: 'dist/service-worker.js',
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/your.api.com\/.*/,
+      handler: 'networkFirst'
+    }
+  ]
+};
+{% endhighlight %}
+
+With `runtimeCaching`, we can add a URL pattern and define a specific strategy for how our service worker can handle results fetching from it. In this example, we use the `networkFirst` strategy. With this, the service worker will always know to retreive the contents from the network and serve it to the browser. However, it will also always update its pre-cached results with the latest results. If the network happens to fail, the service worker will serve its cached information and the user can see older data instead of _no data at all_.
+
+`networkFirst` isn't the only caching strategy we can use. Let's quickly go over the others:
+
+* `cacheFirst`:
+* `staleWhileRevalidate`:
+* `cacheOnly`:
+* `networkOnly`:
+
+<aside>
+  <p>The Workbox <a href="https://developers.google.com/web/tools/workbox/modules/workbox-strategies">documentation</a> goes into a little more detail about the different strategies you can use.</p>
+</aside>
