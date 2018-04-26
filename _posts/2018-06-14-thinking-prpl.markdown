@@ -284,15 +284,31 @@ module.exports = {
 };
 {% endhighlight %}
 
-With `runtimeCaching`, we can add a URL pattern and define a specific strategy for how our service worker can handle results fetching from it. In this example, we use the `networkFirst` strategy. With this, the service worker will always know to retreive the contents from the network and serve it to the browser. However, it will also always update its pre-cached results with the latest results. If the network happens to fail, the service worker will serve its cached information and the user can see older data instead of _no data at all_.
+With `runtimeCaching`, we can add a URL pattern and define a specific strategy for how our service worker can handle results fetching from it. In this example, we use the `networkFirst` strategy. With this, the service worker will always know to retreive the contents from the network and serve it to the browser. However, it will also always update its pre-cached results with the latest data. If the network happens to fail, the service worker will serve its cached information and the user can see older data instead of _no data at all_.
 
-`networkFirst` isn't the only caching strategy we can use. Let's quickly go over the others:
+Although extremely useful for applications where data is changing frequently, `networkFirst` isn't the only caching strategy we can use. Let's quickly go over the others:
 
-* `cacheFirst`:
-* `staleWhileRevalidate`:
-* `cacheOnly`:
-* `networkOnly`:
+* `cacheFirst`: If there is no cached data, a network request is made and the results are cached. After that, the cache will only serve it's data and no network requests will be made. This can be useful for handling things in an offline-first manner.
+* `staleWhileRevalidate`: Mostly suited for serving non-critical data to the user as fast as possible, this approach is used to serve cached data to the user quickly at first. A network request is also made in parallel with the request made to the cache. When the network request is complete, the cache is updated.
+* `cacheOnly`: Only retrieve resources from the cache and do not rely on the network at all. However, `cacheFirst` is more commonly used for offline-first patterns.
+* `networkOnly`: Only retrieve resources from the network and do not have any data cached. This may not be commonly used but may be suited for data that cannot be cached.
 
 <aside>
-  <p>The Workbox <a href="https://developers.google.com/web/tools/workbox/modules/workbox-strategies">documentation</a> goes into a little more detail about the different strategies you can use.</p>
+  <p>The Workbox <a href="https://developers.google.com/web/tools/workbox/modules/workbox-strategies">documentation</a> and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">Offline Cookbook</a> go into more detail about each of the different strategies.</p>
 </aside>
+
+## Customize Service Worker
+
+Although using the Workbox CLI can make getting a service worker up and running an extremely simple and straightforward process, there may be scenarios where we would need a little more control on how our service worker is created. This can be for a number of reasons:
+
+* We have more complex pre-caching requirements than what Workbox provides out of the box.
+* We want to take advantage of other service worker features (such as [Background Sync](https://developers.google.com/web/updates/2015/12/background-sync), [Web Push](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) or [Service Worker Notifications](https://notifications.spec.whatwg.org/#dom-serviceworkerregistration-getnotificationsfilter))
+* We already have a service worker file and only need to incorporate some Workbox features in addition to it.
+
+If this is the case, we can use the `injectManifest` mode provided by Workbox:
+
+{% highlight javascript %}
+workbox injectManifest workbox-config.js
+{% endhighlight %}
+
+By using this, we not only need to provide a destination service worker location but the location of an existing service worker (as the source) as well.
