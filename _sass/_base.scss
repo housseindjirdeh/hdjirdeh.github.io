@@ -185,6 +185,33 @@ blockquote {
     }
 }
 
+aside {
+    margin: 30px 0;
+    background: $border-grey-color;
+    padding: 23px 28px;
+    border-radius: 10px;
+
+    h2 {
+        margin-top: 15px;
+        border-bottom: 1px solid #333332;
+    }
+    
+    img {
+        max-width: 500px;
+        margin: 20px 0;
+    }
+
+    p {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .highlight {
+        margin-top: 20px;
+    }
+}
+
+
 
 
 /**

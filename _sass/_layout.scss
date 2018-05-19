@@ -651,8 +651,19 @@
     position: relative;
     transform: translate(-50%, 0%);
     top: 50%;
-    padding-top: 20px;
+    margin-top: 20px;
 }
+
+.article-image-with-source-border {
+    left: 50%;
+    margin-right: -50%;
+    position: relative;
+    transform: translate(-50%, 0%);
+    top: 50%;
+    margin-top: 10px;
+    box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.14), 0 4px 8px -1px rgba(0, 0, 0, 0.12);
+}
+
 
 .article-image-with-border {
     left: 50%;
@@ -1098,4 +1109,8 @@
       padding-bottom: 50px;
     }
   }
+}
+
+.highlight-in-list {
+    margin: 30px 0 30px 30px;
 }
