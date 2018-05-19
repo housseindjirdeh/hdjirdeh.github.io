@@ -128,7 +128,7 @@ import(/* webpackPrefetch: true */ "PrefetchedLibrary")
 At the time of writing this article, the browser support for preload is as follows:
 
 * Shipped:
-  * [Chrome](https://www.chromestatus.com/features/5757468554559488)
+  * [Chrome](https://www.chromestatus.com/feature/5757468554559488)
   * [Safari](https://webkit.org/status/#specification-preload)
   * [Firefox](https://platform-status.mozilla.org/#link-rel-preload)
 
@@ -261,7 +261,7 @@ We can then add it as part of our build step:
 {% endhighlight %}
 
 <aside>
-  <p>Instead of using the CLI, we also have the option of using an <code class="highlighter-rouge">npm</code> module or webpack plugin provided by Workbox. You can find out more in the <a href="https://developers.google.com/web/tools/workbox/modules/#node-modules">documentation</a></p>
+  <p>Instead of using the CLI, we also have the option of using an <code class="highlighter-rouge">npm</code> module or webpack plugin provided by Workbox. You can find out more in the <a href="https://developers.google.com/web/tools/workbox/modules/#node-modules">documentation.</a></p>
 </aside>
 
 ## Dynamic Content
@@ -312,3 +312,81 @@ workbox injectManifest workbox-config.js
 {% endhighlight %}
 
 By using this, we not only need to provide a destination service worker location but the location of an existing service worker (as the source) as well.
+
+<aside>
+  <p>A common conception of whether using service workers may not be necessary in some cases is that most users who would open a specific webpage will have a working network connection anyway. Even though those that are fortunate enough to have reliable network connections all the time may <i>feel</i> like there's no need for offline support, flaky network connections will eventually affect them for varying reasons.</p>
+  <img src="assets/thinking-prpl/reliability-tweet.png" alt="Reliability" title="Reliability" class="article-image-with-source-border">
+  <p>This <a href="https://twitter.com/HenrikJoreteg/status/909632750453321734">tweet</a> summarizes it nicely.</p>
+</aside>
+
+## Browser Support
+
+At the time of writing this article, the browser support for service workers is as follows:
+
+* Shipped:
+  * [Chrome](https://www.chromestatus.com/feature/6561526227927040)
+  * [Safari](https://webkit.org/status/#specification-service-workers)
+  * [Firefox](https://platform-status.mozilla.org/#service-worker)
+  * [Edge](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/serviceworker)
+
+# Bundles
+
+We're going to switch gears once more to talk about _bundle sizes_. 
+
+Front-end development has changed a lot in the past few years. A large number of JavaScript libraries and frameworks have allowed us to add more logic and functionality client-side than ever before. Unfortunately, this can come at a cost of [large bundle sizes](https://twitter.com/slightlylate/status/834507657209733121_) if we're not too careful.
+
+Although adding more and more JavaScript code to a large application may inevitably make our bundle sizes grow and grow, we can incorporate _code splitting_ into our application to help. The idea behind code splitting is instead of providing users all the code of the entire application as soon as they navigate to the first page, we can try to give them _pieces_ of the entire bundle that are relevant to their current route as they make their way through the application. The concept of loading different pieces of our bundle on demand is called _lazy loading_.
+
+Code splitting and lazy loading allow us to send smaller chunks to our users as well as be able to prioritize specific chunks if needed (example: `<link rel="preload">`). This can improve loading times significantly. Angular's routing framework has lazy loading [built-in](https://angular.io/guide/lazy-loading-ngmodules) where we can use a `loadChildren` attribute to load a feature module on demand:
+
+{% highlight javascript %}
+export const routes: Routes = [
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: 'main', component: MainComponent },
+  { path: 'details', loadChildren: 'details/details.module#DetailsModule' }
+];
+{% endhighlight %}
+
+[React Loadable](https://github.com/jamiebuilds/react-loadable) is an excellent library that allows you to create higher order components to load them asynchronously. Code splitting at the component level can allow for more fine-grained control over code splitting at the route level.
+
+{% highlight javascript %}
+// snippet from React Loadable README.md
+
+import Loadable from 'react-loadable';
+import Loading from './my-loading-component';
+
+const LoadableComponent = Loadable({
+  loader: () => import('./my-component'),
+  loading: Loading,
+});
+
+export default class App extends React.Component {
+  render() {
+    return <LoadableComponent/>;
+  }
+}
+{% endhighlight %}
+
+<blockquote>
+  <p>There are many more places than just routes where you can pretty easily split apart your app. Modals, tabs, and many more UI components hide content until the user has done something to reveal it.</p>
+  <footer><a href="https://github.com/jamiebuilds/react-loadable">React Loadable README.md</a></footer>
+</blockquote>
+
+## Tracking bundle size changes
+
+If you're considering adding code splitting/lazy loading to your application, it's probably a good idea to keep an eye on your bundle size. There are a number of different community-built tools that can make this easier, such [Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) which shows a visualization of how different parts of your bundle are larger/smaller than others with a treemap.
+
+![Webpack Bundle Analyzer](assets/thinking-prpl/webpack-bundle-analyzer.png "Webpack Bundle Analyzer"){: .article-image-with-border }
+
+# Metrics
+
+With regards to load times, using metrics can be important to set a baseline on how well different webpages load for different users. Some important metrics to consider are:
+
+* **First Meaningful Paint**: The time it takes the user to see _meaningful_ content on their device.
+* **Time to Interactive (TTI)**: The time it takes for the JavaScript thread to settle and the user can interact with the application.
+
+<aside>
+  <p>For an excellent (and deeper) dive into perfomance metrics, take a look at Philip Walton's article: <a href="https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#first_meaningful_paint_and_hero_element_timing">User-centric Performance Metrics</a>.</p>
+</aside>
+
+As developers, many of us have become accustomed to building web applications with healthy network connections and powerful machines. As a result, we sometimes don't realize how users would experience our application with lower-end devices and weaker connections. There have been a lot of different statistics for the average Time To Interactive for a webpage on lower end devices with slower connections (such as 2G or 3G), but it is important to remember that if your application takes longer than 5 seconds to load - **many of our users will give up.**
