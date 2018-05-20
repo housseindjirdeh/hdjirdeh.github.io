@@ -22,15 +22,15 @@ Let's take a look at what I accomplished this past year:
 * [Spoke](https://www.youtube.com/watch?v=CTTL5_G2U9U) at 5 conferences around the world plus a dozen more meet-ups and events.
 * Travelled to more cities in a single year than the previous ten years combined (I visited [Europe](https://www.instagram.com/p/BYk-3nNhcWE/?taken-by=houssein_dj) for the first time!).
 * My blog garnered over 100,000 page views (even though I haven't published a new post in almost a year :O).
-* Built [GitPoint](https://gitpoint.co/), which currently has over 8000 users.
+* Built [GitPoint](https://gitpoint.co/), which currently has over 11,000 users.
 * Built Angular HN which was briefly featured at [Google I/O](https://www.youtube.com/watch?v=aCMbSyngXB4&feature=youtu.be&t=2230) (a million thanks to [Addy](https://twitter.com/addyosmani) for all the help and advice I needed to build this app).
 * Helped build [HNPWA](https://hnpwa.com/) and [Essential Image Optimization](https://images.guide/)
-* Started investing in different cryptocurrencies along with a squad. We're all either making stupid decisions or smart choices, but we're doing it together :D.
+* Started investing in different cryptocurrencies along with a squad. We're all either making stupid decisions or smart choices, but we're doing it together.
 * Worked with some [amazing](https://github.com/tastejs/hacker-news-pwas/graphs/contributors) [developers](https://github.com/gitpoint/git-point/graphs/contributors) on open source that have taught me more than I ever thought possible.
 
 Now let’s talk about the other side of things:
 
-* Imposter syndrome is my good friend for seven days of the week.
+* Imposter syndrome is my good friend seven days of the week.
 * Haven't learned any other languages besides JavaScript.
 * Get nervous every single time I give a talk. Don't think that'll change anytime soon.
 * With kind of a non-traditional path to web development, I‘m (still) not confident with basic computer science fundamentals.
@@ -63,4 +63,4 @@ So what about myself? Sure, I can say I want to work on more open source project
 
 One thing I regret about spending quite a bit of time on stuff like this outside of my full-time job is that I’ve not nearly helped as many people get into web development that I would have liked to. Every week, I meet individuals who were pretty much in the exact same shoes I was two years ago - unsure about what web/mobile development really is but *curious* enough to start trying to get involved. And I'm not talking about JavaScript enthusiasts in particular, this includes folks interested in design, DevOps, user experience, marketing and so on.
 
-So for 2018, if I focus too much on myself and not help as many newcomers that I can get into the intimidating world of web development - **hold me accountable**.
+So for 2018, if I focus too much on myself and not help as many newcomers that I can get into the intimidating world of web development — **hold me accountable**.
