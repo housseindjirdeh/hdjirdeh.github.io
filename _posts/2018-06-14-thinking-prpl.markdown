@@ -12,6 +12,7 @@ comments: true
 type: post
 image: assets/thinking-prpl/banner.png
 permalink: /:title
+published: false
 ---
 ![PRPL Pattern](assets/thinking-prpl/banner.png "PRPL Pattern"){: .article-image-with-border }
 
