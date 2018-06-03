@@ -32,10 +32,9 @@ In this post, we'll explore how to build a relatively small application called *
 The app will use [An API of Ice and Fire](https://anapioficeandfire.com/) (an unofficial, community-built API for Game of Thrones) to list houses from the book series and provide information about them. While building the application, we'll explore a number of topics including:
 
 * Bootstrapping an application with Angular CLI
-* Workbox
-* Angular Service Worker
-* Auxillary routes
 * Lazy loading
+* Auxillary routes
+* Angular Service Worker
 
 <aside>
   <p>If you happen to be a fan of the book series and/or show, there are no spoilers in this application or article if you happen to be concerned :).</p>
@@ -81,7 +80,7 @@ Our application will consist of two parts:
 
 ![House Route](assets/progressive-angular-applications-2/house-route.png 'House Route'){: .article-image-with-border }
 
-## Base Route
+## First Component
 
 Let's begin by building the first few components in our application, starting with the `HeaderComponent` which responsible for showing the name of the app in our `home` route. We'll create a separate `components/` directory to contain this component among others:
 
@@ -196,4 +195,432 @@ The last thing we'll do here before taking a quick look at our progress so far i
   <p>If you want to use the same Game of Thrones font (created by <a href="https://charliesamways.carbonmade.com/">Charlie Samways</a>), make sure to download it <a href="https://charliesamways.carbonmade.com/projects/4420181#7">here</a> (it is free for personal use). Otherwise, feel free to remove the <code>@font-face</code> in the styles file.</p>
 </aside>
 
-If you want to use the same Game of Thrones font (created by ), make sure to download it 
+### Try it out
+
+If we run the application now, we'll see our header component take up a little more than half our screen.
+
+![Header](assets/progressive-angular-applications-2/header.png 'Header'){: .article-image-with-border }
+
+# Base Route
+
+Now that we've got our feet wet building our first component. Let's move on to building everything necessary for the base route of our application, the `/home` route. We'll need:
+
+* A card component to showcase the information of each house
+* A routing system in place to define a `/home` route
+* A service to interface with our external API
+
+Let's begin with our `CardComponent`:
+
+{% highlight html %}
+<!-- src/app/component/card/card.component.html -->
+
+<div (click)="onClick()" class="card grow" [ngStyle]="setBackgroundStyle()">
+  <h3>{% raw %}{{name}}{% endraw %}</h3>
+</div>
+{% endhighlight %}
+
+{% highlight javascript %}
+// src/app/component/card/card.component.ts
+
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss'],
+})
+export class CardComponent {
+  @Input() id: Number;
+  @Input() name: string;
+  @Input() color: string;
+  @Output() click = new EventEmitter<any>();
+
+  onClick() {
+    this.click.emit({
+      id: this.id,
+    });
+  }
+
+  setBackgroundStyle() {
+    return {
+      background: `radial-gradient(${this.color}, #39393f)`,
+      'box-shadow': `0 0 60px ${this.color}`,
+    };
+  }
+}
+{% endhighlight %}
+
+{% highlight javascript %}
+// src/app/component/card/index.ts
+
+export { CardComponent } from './card.component';
+{% endhighlight %}
+
+{% highlight javascript %}
+// src/app/component/index.ts
+
+export { CardComponent } from './card';
+export { HeaderComponent } from './header';
+{% endhighlight %}
+
+We're using input binding in order to pass an `id` parameter (the house ID) as well the house name and color. The color here isn't retrieved from the API, but will just be randomly generated to add a little spice to the UI of the card component. We use `ngStyle` to add `box-shadow` and `background` CSS properties using the color.
+
+In this component, we also make use of an `EventEmitter` in order to fire an event handled by a parent component when the user clicks on a card. We pass the house `id` into this event as well. Although we could to try to handle the logic within this component, it might make more sense to keep this component as _dummy_ as possible and let the parent handle what happens on user actions.
+
+The styles for the card component can be found [here](https://github.com/housseindjirdeh/tour-of-thrones/blob/master/src/app/component/card/card.component.scss). Now we'll need to declare this component in our `AppModule` if we plan on referencing it:
+
+{% highlight javascript %}
+// src/app/app.module.ts
+
+// ...
+
+import { HeaderComponent, CardComponent } from 'app/component';
+
+@NgModule({
+  declarations: [AppComponent, HeaderComponent],
+  // ...
+})
+// ...
+{% endhighlight %}
+
+#### Try it out
+
+Let's add a couple of dummy card components to `AppComponent` to see if they're rendering correctly.
+
+{% highlight html %}
+<!-- src/app/app.component.html -->
+
+<div id="app">
+  <app-header></app-header>
+  <app-card id="1" name="House Freshness" color="green"></app-card>
+  <app-card id="2" name="House Homes" color="red"></app-card>
+  <app-card id="3" name="House Juice" color="orange"></app-card>
+  <app-card id="4" name="House Replay" color="blue"></app-card>
+</div>
+{% endhighlight %}
+
+![Card Components](assets/progressive-angular-applications-2/cards.png 'Card Components'){: .article-image-with-border }
+
+We can see our cards rendered! They don't have any specific widths/heights assigned to them and they take the shape of their parent container. Once we finish adding our home route next, we'll use CSS grid to add a 2 X 2 grid structure for our cards.
+
+## Routing
+
+It's time to begin adding navigation to our application. Instead of placing components that make up our routes in the `component/` directory, we'll put them in a separate directory named `scene/`. Let's begin building out our `HomeComponent` responsible for our initial route:
+
+{% highlight html %}
+<!-- src/app/scene/home/home.component.html -->
+
+<div class="grid">
+  <app-card 
+    *ngFor="let house of houses" 
+    [id]="house.id" 
+    [name]="house.name" 
+    [color]="house.color">
+  </app-card>
+</div>
+{% endhighlight %}
+
+{% highlight javascript %}
+<!-- src/app/scene/home/home.component.ts -->
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+})
+export class HomeComponent implements OnInit {
+  houses = [];
+
+  constructor() {}
+
+  ngOnInit() {
+    this.getHouses();
+  }
+
+  getHouses() {
+    this.houses = [
+      {id: 1, name: 'House Freshness', color: 'green'},
+      {id: 2, name: 'House Homes', color: 'red'},
+      {id: 3, name: 'House Juice', color: 'orange'},
+      {id: 4, name: 'House Replay', color: 'blue'},
+    ];
+  }
+}
+{% endhighlight %}
+
+{% highlight javascript %}
+// src/app/scene/home/index.ts
+
+export { HomeComponent } from './home.component';
+{% endhighlight %}
+
+{% highlight javascript %}
+// src/app/scene/index.ts
+
+export { HomeComponent } from './home';
+{% endhighlight %}
+
+The styles for this component can be found [here](https://github.com/housseindjirdeh/tour-of-thrones/blob/master/src/app/scene/home/home.component.scss). If you take a look at the styles, we wrap our list of cards in a grid structure.
+
+<aside>
+  <p>We're not going to dive in to describing CSS grid in this article, but refer to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout">this</a> if you're interested in learning more!</p>
+</aside>
+
+Now let's define our routes:
+
+{% highlight javascript %}
+// src/app/app.module.ts
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { HeaderComponent, CardComponent } from 'app/component';
+import { HomeComponent } from 'app/scene';
+import { AppComponent } from './app.component';
+
+const routePaths: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+];
+
+@NgModule({
+  declarations: [AppComponent, HeaderComponent, CardComponent, HomeComponent],
+  imports: [BrowserModule, RouterModule.forRoot(routePaths)],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+{% endhighlight %}
+
+We’ve defined a single route path (`home`) that maps to a component (`HomeComponent`) and we've set up the root path to redirect to this. Now we need to let our application know where to dynamically load the correct component based on the current route, and we can do that by using `router-outlet`:
+
+{% highlight html %}
+<!-- src/app/app.component.html -->
+
+<div id="app">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+</div>
+{% endhighlight %}
+
+#### Try it out
+
+If we take a look at our application now, we'll see our `HomeComponent` showing our list of houses in a grid structure. We can also see that opening our app immediately redirects to `/home`.
+
+![Home Component](assets/progressive-angular-applications-2/home-component.png 'Home Component'){: .article-image-with-border }
+
+# Lazy Loading
+
+To improve loading times on a web page, we can **lazy load** non-critical resources where possible. In other words, we can try to defer the loading of certain resources _until_ the user actually needs them.
+
+In this application, we're going to try and lazy load two different resources:
+
+* Since we intend to show a list of houses that the user can scroll, we want to be careful with how many houses we fetch over the network as soon as the page loads. Like many APIs, the one we'll be using also [paginates](https://anapioficeandfire.com/Documentation#pagination) responses which means we can pass a `?page` parameter to iterate over responses. We'll add infinite scrolling here to defer loading of future paginated results until the user has scrolled past that mark.
+* When we add the capability to navigate to `/house` when clicking on a house card component, we'll lazy load the code needed for that route until the user has actually reached there. This concept is also referred to as code-splitting.
+
+## Infinite Scrolling
+
+Let's begin by adding a service responsible for interfacing with our API. We'll put our this in a `/service` directory:
+
+{% highlight javascript %}
+// src/app/service/iceandfire.service.ts
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, filter, scan } from 'rxjs/operators';
+
+import { House } from 'app/type';
+
+@Injectable()
+export class IceAndFireService {
+  baseUrl: string;
+
+  constructor(private http: HttpClient) {
+    this.baseUrl = 'https://anapioficeandfire.com/api';
+  }
+
+  fetchHouses(page = 1) {
+    return this.http.get<House[]>(`${this.baseUrl}/houses?page=${page}`);
+  }
+
+  fetchHouse(id: number) {
+    return this.http.get<House>(`${this.baseUrl}/houses/${id}`);
+  }
+}
+{% endhighlight %}
+
+We're using Angular's `HttpClient` to interface with our API and we've defined two separate methods:
+
+* `fetchHouses`: Get a list of houses given a page number
+* `fetchHouse`: Gets information about a particular house
+
+We'll also wrap our service in it's own module:
+
+{% highlight javascript %}
+// src/app/service/service.module.ts
+
+import { NgModule } from '@angular/core';
+import { IceAndFireService } from './iceandfire.service';
+
+@NgModule({
+  imports: [],
+  exports: [],
+  declarations: [],
+  providers: [],
+})
+export class ServicesModule {
+  static forRoot() {
+    return {
+      ngModule: ServicesModule,
+      providers: [IceAndFireService],
+    };
+  }
+}
+
+export { IceAndFireService };
+{% endhighlight %}
+
+{% highlight javascript %}
+// src/app/service/index.ts
+
+export { IceAndFireService } from './iceandfire.service';
+export { ServicesModule } from './service.module';
+{% endhighlight %}
+
+In our service, we also type-check with a `House` type. Let's add our types and interfaces to a `type/` directory:
+
+{% highlight javascript %}
+// src/app/type/house.ts
+type Url = string;
+
+export interface House {
+  id: number;
+  url: Url;
+  name: string;
+  region: string;
+  coatOfArms: string;
+  words: string;
+  titles: string[];
+  seats: string[];
+  currentLord: string;
+  heir: string;
+  overlord: Url;
+  founded: string;
+  founder: string;
+  diedOut: string;
+  ancestralWeapons: string[];
+  cadetBranches: Url[];
+  swornMembers: Url[];
+  color: string;
+}
+{% endhighlight %}
+
+{% highlight javascript %}
+// src/app/type/index.ts
+
+export { House } from './house';
+{% endhighlight %}
+
+Now let's import our services module in `AppModule`:
+
+{% highlight javascript %}
+// src/app/app.module.ts
+
+//...
+import { HttpClientModule } from '@angular/common/http';
+import { ServicesModule } from 'app/service';
+//...
+
+@NgModule({
+  //...
+  imports: [
+    //...
+    HttpClientModule,
+    ServicesModule.forRoot(),
+  ],
+  //...
+})
+export class AppModule {}
+{% endhighlight %}
+
+Now let's update `HomeComponent` to use our appropriate service method:
+
+{% highlight javascript %}
+// src/app/scene/home/home.component.ts
+
+import { Component, OnInit } from '@angular/core';
+
+import { IceAndFireService } from 'app/service';
+import { House } from 'app/type';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+})
+export class HomeComponent implements OnInit {
+  pageNum = 1;
+  houses: House[] = [];
+
+  constructor(private service: IceAndFireService) {}
+
+  ngOnInit() {
+    this.getHouses();
+  }
+
+  getHouses(pageNum = 1) {
+    this.service.fetchHouses(pageNum).subscribe(
+      data => {
+        this.houses = this.houses.concat(
+          data.map(datum => {
+            const urlSplit = datum.url.split('/');
+
+            return {
+              ...datum,
+              id: Number(urlSplit[urlSplit.length - 1]),
+              color: getColor(),
+            };
+          }),
+        );
+      },
+      err => console.error(err),
+    );
+  }
+}
+
+// utils
+const getColor = () =>
+  `#${Math.random()
+    .toString(16)
+    .slice(-6)}66`;
+{% endhighlight %}
+
+Let's quickly go over how the changes we added:
+
+* We're importing `IceAndFireService` and injecting it into our component constructor
+* We're using the `OnInit` lifecycle hook to fire the `getHouses` class method as soon as our component finished initializing
+* In our service, `this.http.get` returns an observable. In here, the `getHouses` method calls our service method and subscribes to the observable returned. Since the API doesn't have a specific ID attribute for each object, we're mapping through the response and obtaining the ID from the URL attribute as well as assigning a color to each house.
+* We finally added `getColor`, a tiny utility method that just returns a random color that we assign for each house.
+
+<aside>Little note about how its json now by default</aside>
+<aside>Little note about how the getColor isn't exactly random, and what it's doing with the 66 in the end</aside>
+
+#### Try it out
+
+If we take a look at our application now, we'll see our first page of houses rendered as soon as we load the application:
+
+![Service](assets/progressive-angular-applications-2/service.png 'Service'){: .article-image-with-border }
+
+Now there's countless ways to render a list of results in an application like this, and to be fair an infinitely long list might not be the best way. We could allow a user to filter by region, or name or something else entirely. Or we can let them search for a particular house. Regardless, for the purpose of this application we'll go ahead with generating a ininitely long list :). If you want to find information on house 100, this definitely isn't the best way (reword).
+
