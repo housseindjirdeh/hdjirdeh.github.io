@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Progressive Web Apps with Angular (Part II)"
-date:   2017-01-17 07:30:00
+title:  "Progressive Web Apps with Angular: Part 2 - Lazy Loading"
+date:   2017-07-02 07:30:00
 categories: angular progressive web app javascript
-description: In Part I of this article, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That article was written a year ago and a lot has changed since then. This post will dive into building a PWA using Angular version 6.0 in order to understand how to use newer technologies provided by the platform....
+description: In Part 1 of this article, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That article was written a year ago and a lot has changed since then. This post will dive into building a PWA using Angular version 6.0 in order to understand how to use newer technologies provided by the platform....
 tags:
 - angular
 - progressive web app
@@ -16,7 +16,7 @@ permalink: /:title
 
 ![Progressive Angular Banner](assets/progressive-angular-applications-2/banner.jpg 'Progressive Angular Banner'){: .article-image-with-border }
 
-In [Part I]({{ site.url }}/progressive-angular-applications) of this article, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That article was written a year ago and a lot has changed since then. This post will dive into building a PWA using Angular version 6.0 in order to understand how to use newer technologies provided by the platform.
+In [Part 1]({{ site.url }}/progressive-angular-applications) of this article, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That article was written a year ago and a lot has changed since then. This post will dive into building a PWA using Angular version 6.0 in order to understand how to use newer technologies provided by the platform.
 
 # The breakdown
 
@@ -419,16 +419,7 @@ If we take a look at our application now, we'll see our `HomeComponent` showing 
 
 ![Home Component](assets/progressive-angular-applications-2/home-component.png 'Home Component'){: .article-image-with-border }
 
-# Lazy Loading
-
-To improve loading times on a web page, we can **lazy load** non-critical resources where possible. In other words, we can try to defer the loading of certain resources _until_ the user actually needs them.
-
-In this application, we're going to try and lazy load two different resources:
-
-* Since we intend to show a list of houses that the user can scroll, we want to be careful with how many houses we fetch over the network as soon as the page loads. Like many APIs, the one we'll be using also [paginates](https://anapioficeandfire.com/Documentation#pagination) responses which means we can pass a `?page` parameter to iterate over responses. We'll add infinite scrolling here to defer loading of future paginated results until the user has scrolled past that mark.
-* When we add the capability to navigate to `/house` when clicking on a house card component, we'll lazy load the code needed for that route until the user has actually reached there. This concept is also referred to as code-splitting.
-
-## Infinite Scrolling
+## Service
 
 Let's begin by adding a service responsible for interfacing with our API. We'll put our this in a `/service` directory:
 
@@ -622,5 +613,199 @@ If we take a look at our application now, we'll see our first page of houses ren
 
 ![Service](assets/progressive-angular-applications-2/service.png 'Service'){: .article-image-with-border }
 
-Now there's countless ways to render a list of results in an application like this, and to be fair an infinitely long list might not be the best way. We could allow a user to filter by region, or name or something else entirely. Or we can let them search for a particular house. Regardless, for the purpose of this application we'll go ahead with generating a ininitely long list :). If you want to find information on house 100, this definitely isn't the best way (reword).
+# Lazy Loading
+
+To improve loading times on a web page, we can **lazy load** non-critical resources where possible. In other words, we can try to defer the loading of certain resources _until_ the user actually needs them.
+
+In this application, we're going to try and lazy load on two user actions:
+
+* On scroll
+* On route change
+
+## Infinite scrolling
+
+**Infinite scrolling** is a lazy loading technique to defer loading of future resources until the user has almost scrolled to the end of their currently visible content. 
+
+In this application, we want to be careful with how many houses we fetch over the network as soon as the page loads. Like many APIs, the one we'll be using also [paginates](https://anapioficeandfire.com/Documentation#pagination) responses. This means we can pass a `?page` parameter to iterate over responses. We can add infinite scrolling here to defer loading of future paginated results until the user has almost scrolled to the bottom of the application.
+
+There are multiple ways to apply lazy loading to DOM elements:
+
+* Listening to [`scroll`](https://developer.mozilla.org/en-US/docs/Web/Events/scroll) events
+* Using newer browser APIs like [Intersection Observer](https://developers.google.com/web/updates/2016/04/intersectionobserver)
+
+For this application, we'll use [ngx-infinite-scroll](https://github.com/orizens/ngx-infinite-scroll), a community-built Angular directive that provides an abstraction to listening to the window scroll event allow us to fire callback events. Let's install the package:
+
+{% highlight javascript %}
+npm install ngx-infinite-scroll --save
+{% endhighlight %}
+
+With the library installed, we can import it's module into our application:
+
+{% highlight javascript %}
+// src/app/app.module.ts
+
+//...
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+//...
+
+@NgModule({
+  imports: [
+    //...
+    InfiniteScrollModule,
+  ],
+  //...
+})
+export class AppModule {}
+{% endhighlight %}
+
+We can now add this to `HomeComponent`:
+
+{% highlight html %}
+<!-- src/app/scene/home/home.component.html -->
+
+<div class="grid" infinite-scroll (scrolled)="onScrollDown()">
+  <app-card 
+    *ngFor="let house of houses" 
+    [id]="house.id" 
+    [name]="house.name" 
+    [color]="house.color" 
+    (click)="routeToHouse($event)">
+  </app-card>
+</div>
+{% endhighlight %}
+
+{% highlight javascript %}
+// src/app/scene/home/home.component.ts
+
+import { Component, OnInit } from '@angular/core';
+
+import { IceAndFireService } from 'app/service';
+import { House } from 'app/type';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+})
+export class HomeComponent implements OnInit {
+  //...
+
+  onScrollDown() {
+    this.pageNum++;
+    this.getHouses(this.pageNum);
+  }
+}
+{% endhighlight %}
+
+We just added a `onScrollDown` as a callback for the directive `scrolled` method. In here, we increase the page number and call the `getHouses` method once again.
+
+Now if we try running the application, we'll see houses load as we scroll down the page.
+
+![Infinite Scroll](assets/progressive-angular-applications-2/infinite-scroll.gif 'Infinite Scroll'){: .article-image-with-border }
+
+The library allows users to customize a number of attributes such as modifying the distance of the current scroll location with respect to the end of the container that determines when to fire an event. You can refer to the [README](https://github.com/orizens/ngx-infinite-scroll) for more information.
+
+<aside>
+  <p>If you're interested in learning how to build your own infinite scroll directive without the use of additional libraries, Ashwin Sureshkumar has a write-up you can refer to <a href="https://codeburst.io/angular-2-simple-infinite-scroller-directive-with-rxjs-observables-a989b12d4fb1">here</a>.</p>
+</aside>
+
+### When should we lazy load on scroll?
+
+There are countless ways to render a paginated list of results in an application like this, and an infinitely long list is probably not the best way. Popular social media applications (such as [Twitter](https://twitter.com/)) use this model to keep users engaged, but is probably not very suitable for applications where the user might need to find information on something specific quickly. In this application for example, it would take a user an unnecessarily long time to find information about a particular house. Adding normal pagination, allowing the user to filter by region or name, and/or allowing them to search for a particular house are methods that would definitely make more sense.
+
+Instead of trying to lazy load all the content that shows to user as they scroll (i.e. infinite scroll), it might be more worthwhile trying to defer loading of certain elements on web pages such as images and video that aren't immediately visible to users on page load. Both can be very data-consuming and lazy loading them particularly doesn't necessarily change the entire paginated flow of the application.
+
+<aside>
+  <p>Addy Osmani has an excellent section on lazy loading images in his <a href="https://images.guide/#lazy-load-non-critical-images">guide to image optimizations</a> and Jeremy Wagner has a great <a href="https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/">article</a> on the topic as well.</p>
+</aside>
+
+## Code splitting
+
+**Code splitting** refers to the practice of splitting the application bundle into separate chunks with which they can then be lazy loaded on demand. In other words, instead of providing users with all the code that make up the application as soon as they load the very first page, we can give them different parts of the code as they need them while navigating throughout the application.
+
+We can apply code splitting in different ways, but it commonly happens on the route level. Webpack, the module bundler used by Angular CLI, has code splitting [built-in](https://webpack.js.org/guides/code-splitting/). Without needing to dive in to the Webpack internals in order to make this happen, Angular Router allows us to lazy-load any feature module that we build. 
+
+Let's see this in action by building our next route, `/home`, which shows information on each house:
+
+{% highlight html %}
+// src/app/scene/house/house.component.html
+
+<app-modal (modalClose)="modalClose()">
+  <div modal-loader *ngIf="!house; else houseContent" class="loader-container">
+    <app-loader></app-loader>
+  </div>
+  <ng-template #houseContent modal-content>
+    <div class="container">
+      <h1>{% raw %}{{house.name}}{% endraw %}</h1>
+      <div *ngIf="house.words !== ''" class="subheading">{% raw %}{{house.words}}{% endraw %}</div>
+      <div class="info" [ngClass]="(house.words === '') ? 'info-large-margin' : 'info-small-margin'">
+        <div class="detail">
+          <p class="caption">Coat of Arms</p>
+          <p class="body">{% raw %}{{house.coatOfArms === '' ? '?' : house.coatOfArms}}{% endraw %}</p>
+        </div>
+        <div class="detail">
+          <p class="caption">Region</p>
+          <p class="body">{% raw %}{{house.region === '' ? '?' : house.region}}{% endraw %}</p>
+        </div>
+        <div class="detail">
+          <p class="caption">Founded</p>
+          <p class="body">{% raw %}{{house.founded === '' ? '?' : house.founded}}{% endraw %}</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</app-modal>
+{% endhighlight %}
+
+Our `HouseComponent` is rendered within a modal, hence we we've wrapped it's content within `<app-modal>`. We're not going to into too much detail on how this modal component files are written, but you can find them [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/modal). 
+
+One important thing to mention however is that we're using projection (`ng-content`) to project content into our modal. We either project a loading state (`modal-loader`) if we don't have house information yet or modal content (`modal-content`) if we do. You can find the code that makes up our loader [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/loader).
+
+<aside>
+  <p>Although we're only using our modal wrapper for a single component in this application, we're using projection in order to make it more reusable. This can be useful if we happen to need a modal in any other part of the application.</p>
+</aside>
+
+<aside>
+  <p>In case you're wondering how the <code>#houseContent</code> attribute works in our template - it's used here to render <code>modal-content</code> if our expression passed into <code>*ngIf</code> is falsy.</p>
+</aside>
+
+Now let's move on to the logic behind this component:
+
+{% highlight javascript %}
+// src/app/scene/house/house.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { IceAndFireService } from 'app/service';
+import { House } from 'app/type';
+
+@Component({
+  selector: 'app-house',
+  templateUrl: './house.component.html',
+  styleUrls: ['./house.component.scss'],
+})
+export class HouseComponent implements OnInit {
+  house: House;
+  error = false;
+
+  constructor(
+    private service: IceAndFireService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.service
+        .fetchHouse(+params['id'])
+        .subscribe(data => (this.house = data), err => console.error(err));
+    });
+  }
+
+  modalClose() {
+    this.router.navigate([{ outlets: { modal: null } }]);
+  }
+}
+{% endhighlight %}
 
