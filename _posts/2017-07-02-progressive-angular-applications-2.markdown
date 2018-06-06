@@ -16,11 +16,11 @@ permalink: /:title
 
 ![Progressive Angular Banner](assets/progressive-angular-applications-2/banner.jpg 'Progressive Angular Banner'){: .article-image-with-border }
 
-In [Part 1]({{ site.url }}/progressive-angular-applications) of this article, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That article was written a year ago and a lot has changed since then. This post will dive into building a PWA using Angular version 6.0 in order to understand how to use newer technologies provided by the platform.
+In [Part 1]({{ site.url }}/progressive-angular-applications) of this article, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That article was written a year ago and a lot has changed since then. This article (as well as the next in the series) will dive into a number of different topics relevant to building a PWA with Angular. This post will focus on **lazy-loading**.
 
 # The breakdown
 
-In this post, we'll explore how to build a relatively small application called **Tour of Thrones**.
+Before we begin exploring how lazy loading works in an Angular application, we'll begin by building a relatively small application called **Tour of Thrones**.
 
 ![Tour of Thrones](assets/progressive-angular-applications-2/tour-of-thrones.png 'Tour of Thrones'){: .article-image-with-border }
 
@@ -29,30 +29,21 @@ In this post, we'll explore how to build a relatively small application called *
   <a class="blog-button" href="https://github.com/housseindjirdeh/tour-of-thrones">Source Code</a>
 </div>
 
-The app will use [An API of Ice and Fire](https://anapioficeandfire.com/) (an unofficial, community-built API for Game of Thrones) to list houses from the book series and provide information about them. While building the application, we'll explore a number of topics including:
+The app will use [An API of Ice and Fire](https://anapioficeandfire.com/) (an unofficial, community-built API for Game of Thrones) to list houses from the book series and provide information about them. While building the application, we'll explore a number of topics in this article including:
 
 * Bootstrapping an application with Angular CLI
 * Lazy loading
-* Auxillary routes
-* Angular Service Worker
+* Secondary routes
+
+If you're not interested in spending some time reading about how I built this application from scratch, feel free to skip ahead to the [Lazy Loading]({{ site.url }}/progressive-angular-applications-2#lazy-loading) section of this article. If you happen to be interested in first reading a litte bit about what PWAs are, you can refer to the [first part](http://localhost:4000/progressive-angular-applications) of this series.
 
 <aside>
   <p>If you happen to be a fan of the book series and/or show, there are no spoilers in this application or article if you happen to be concerned :).</p>
 </aside>
 
-# The case for Progressive Angular
-
-A lot has changed in the Angular ecosystem in the past year and there have been significant improvements to the toolchain to simplify the process of building a PWA. Let's take a look at some of the things that have changed:
-
-* With the release of version 4.0, Angular introduced View Engine as an update to its rendering pipeline. This was done to improve how builds were created with Ahead-of-Time (AOT) compilation in order to generate smaller bundle sizes. In some cases, reductions greater than 50% were noticed.
-* Development on [Angular Mobile Toolkit](https://github.com/angular/mobile-toolkit), which was accessed using the `--mobile` flag when creating a new project with Angular CLI, was [discontinued](https://github.com/angular/mobile-toolkit/issues/138#issuecomment-302129378). This was done in favour of baking progressive technologies (such as `@angular/service-worker`) directly into the CLI.
-* [Ivy](https://github.com/angular/angular/issues/21706), the third rendering engine for the platform, is currently under development. Again, the idea here is to simplify the development of faster and smaller-sized applications without introducing _any_ breaking changes whatsoever.
-
-Aside from updates to Angular tooling, there have also been changes to other external libraries as well. When Part I of this article was released, Angular's service worker efforts were still in progress under the Mobile Toolkit project. For that reason, we went with caching static and dynamic assets using the [`sw-precache`](https://github.com/GoogleChromeLabs/sw-precache) and [`sw-toolbox`](https://github.com/GoogleChromeLabs/sw-toolbox) libraries respectively. Although both these libraries still exist, the Google Chrome team have worked on developing [Workbox](https://developers.google.com/web/tools/workbox/), a newer collection of tools aimed to simplify the process of adding offline support to web applications. We'll briefly cover this library later in this article.
-
 # Getting Started
 
-Before we continue talking about libraries and tooling in more detail, let's start building our application. If we already have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), we can proceed to installing the CLI if we haven't already:
+If we already have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), we can proceed to installing the CLI if we haven't already:
 
 {% highlight bash %}
 npm install -g @angular/cli
@@ -76,7 +67,7 @@ Our application will consist of two parts:
 
 ![Home Route](assets/progressive-angular-applications-2/home-route.png 'Home Route'){: .article-image-with-border }
 
-* A `house` auxillary route that shows information for a particular house in a modal:
+* A `house` secondary route that shows information for a particular house in a modal:
 
 ![House Route](assets/progressive-angular-applications-2/house-route.png 'House Route'){: .article-image-with-border }
 
@@ -723,12 +714,12 @@ Instead of trying to lazy load all the content that shows to user as they scroll
 
 **Code splitting** refers to the practice of splitting the application bundle into separate chunks with which they can then be lazy loaded on demand. In other words, instead of providing users with all the code that make up the application as soon as they load the very first page, we can give them different parts of the code as they need them while navigating throughout the application.
 
-We can apply code splitting in different ways, but it commonly happens on the route level. Webpack, the module bundler used by Angular CLI, has code splitting [built-in](https://webpack.js.org/guides/code-splitting/). Without needing to dive in to the Webpack internals in order to make this happen, Angular Router allows us to lazy-load any feature module that we build. 
+We can apply code splitting in different ways, but it commonly happens on the route level. Webpack, the module bundler used by Angular CLI, has code splitting [built-in](https://webpack.js.org/guides/code-splitting/). Without needing to dive in to the Webpack internals in order to make this happen, Angular router allows us to [lazy-load](https://angular.io/guide/lazy-loading-ngmodules) any feature module that we build. 
 
 Let's see this in action by building our next route, `/home`, which shows information on each house:
 
 {% highlight html %}
-// src/app/scene/house/house.component.html
+<!-- src/app/scene/house/house.component.html -->
 
 <app-modal (modalClose)="modalClose()">
   <div modal-loader *ngIf="!house; else houseContent" class="loader-container">
@@ -757,7 +748,7 @@ Let's see this in action by building our next route, `/home`, which shows inform
 </app-modal>
 {% endhighlight %}
 
-Our `HouseComponent` is rendered within a modal, hence we we've wrapped it's content within `<app-modal>`. We're not going to into too much detail on how this modal component files are written, but you can find them [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/modal). 
+Our `HouseComponent` shows a number of details for the house selected. It is rendered within a modal and for that reason, we've wrapped its contents within an `<app-modal>` component. We're not going to into too much detail on how this modal component files are written, but you can find them [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/modal). 
 
 One important thing to mention however is that we're using projection (`ng-content`) to project content into our modal. We either project a loading state (`modal-loader`) if we don't have house information yet or modal content (`modal-content`) if we do. You can find the code that makes up our loader [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/loader).
 
@@ -768,6 +759,34 @@ One important thing to mention however is that we're using projection (`ng-conte
 <aside>
   <p>In case you're wondering how the <code>#houseContent</code> attribute works in our template - it's used here to render <code>modal-content</code> if our expression passed into <code>*ngIf</code> is falsy.</p>
 </aside>
+
+Unlike our `HomeComponent` which we're bundling directly with the root `AppModule`. We're going to create a separate module for `HouseComponent` in order to lazy load it:
+
+{% highlight javascript %}
+// src/app/scene/house/house.module.ts
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+
+import { ModalComponent, LoaderComponent } from 'app/component';
+
+import { HouseComponent } from './house.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HouseComponent,
+  },
+];
+
+@NgModule({
+  imports: [CommonModule, RouterModule, RouterModule.forChild(routes)],
+  declarations: [HouseComponent, ModalComponent, LoaderComponent],
+  exports: [HouseComponent, RouterModule],
+})
+export class HouseModule {}
+{% endhighlight %}
 
 Now let's move on to the logic behind this component:
 
@@ -787,7 +806,6 @@ import { House } from 'app/type';
 })
 export class HouseComponent implements OnInit {
   house: House;
-  error = false;
 
   constructor(
     private service: IceAndFireService,
@@ -809,3 +827,161 @@ export class HouseComponent implements OnInit {
 }
 {% endhighlight %}
 
+In here, we subscribe to our route parameters after our component finishes initializing in order to obtain the house ID. We then fire an API call to fetch its information. 
+
+We also have a `modalClose` method that navigates to a modal outlet with a value of `null`. We do this to clear our modal's **secondary route**.
+
+#### Secondary routes
+
+In Angular, we can create any number of _named_ router outlets in order to create [secondary routes](https://angular.io/guide/router#displaying-multiple-routes-in-named-outlets). This can be useful to separate different parts of the application in terms of router configurations that don't need to fit into the primary router outlet. A good example of using this is for a modal or popup.
+
+Let's begin by defining our second router outlet:
+
+{% highlight html %}
+<!-- src/app/app.component.html -->
+
+<div id="app">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  <router-outlet name="modal"></router-outlet>
+</div>
+{% endhighlight %}
+
+Unlike the primary router outlet, secondary outlets must be named. Here, we've just named it `modal`.
+
+Now let's add `HomeModule` into our top-level route configurations while lazy loading it. We can do this by using a `loadChildren` attribute:
+
+{% highlight javascript %}
+// src/app/app.module.ts
+
+//....
+
+const routePaths: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'house/:id',
+    outlet: 'modal',
+    loadChildren: 'app/scene/house/house.module#HouseModule',
+  },
+];
+
+@NgModule({
+  //...
+})
+export class AppModule {}
+{% endhighlight %}
+
+To lazy load a feature module, we need to add a `loadChildren` attribute followed by the path to the module. Although this would normally work, there's an [open issue](https://github.com/angular/angular/issues/12842) about a bug that occurs while lazy loading a module tied to a named outlet. In the same issue thread, somebody suggested a [workaround](https://github.com/angular/angular/issues/12842#issuecomment-270836368) that involves adding a route proxy component in between:
+
+{% highlight javascript %}
+// src/app/app.module.ts
+
+import {
+  //...
+  RouteProxyComponent,
+} from 'app/component';
+
+//...
+
+const routePaths: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'house/:id',
+    outlet: 'modal',
+    component: RouteProxyComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: 'app/scene/house/house.module#HouseModule',
+      },
+    ],
+  },
+];
+
+@NgModule({
+  //...
+  declarations: [
+    RouteProxyComponent,
+  ],
+  //...
+})
+export class AppModule {}
+{% endhighlight %}
+
+Until the issue is resolved, this workaround works for now.
+
+The last thing we'll need to do here is allow the user to navigate to `HouseModule` when a house is clicked:
+
+{% highlight javascript %}
+// src/scene/home/home.component.ts
+
+import { Router } from '@angular/router';
+
+//...
+
+export class HomeComponent implements OnInit {
+  //...
+
+  constructor(private service: IceAndFireService, private router: Router) {}
+
+  //...
+
+  routeToHouse(event: { id: number }) {
+    if (event.id) {
+      this.router.navigate([{ outlets: { modal: ['house', event.id] } }]);
+    }
+  }
+  
+  //...
+}
+{% endhighlight %}
+
+We added a `routeToHouse` method that navigates to a modal outlet with an array that represents our link parameters. Since our `HouseComponent` looks up the ID of the house in the route parameters, we've included it here in the array. Now let's a click handler to bind to this event:
+
+{% highlight html %}
+<!-- src/scene/home/home.component.html -->
+
+<div class="grid" infinite-scroll (scrolled)="onScrollDown()">
+  <app-card 
+    *ngFor="let house of houses" 
+    [id]="house.id" 
+    [name]="house.name" 
+    [color]="house.color"
+    (click)="routeToHouse($event)">
+  </app-card>
+</div>
+{% endhighlight %}
+
+#### Try it out
+
+Now try loading the application and clicking on any house.
+
+![House Module](assets/progressive-angular-applications-2/house-module.png 'House Module'){: .article-image-with-border }
+
+If you have the _Network_ tab of your browser's developer tools open, you'll notice that the code that makes up our house module is only loaded when we click on a house.
+
+<aside>
+  <p>Notice that the URL for our secondary route tied to our named modal outlet is <code>.../home(modal:house/1)</code>. In here, <code>home</code> is still our primary route. For more information on how secondary routes work, take a look at the detailed <a href="https://angular.io/guide/router#secondary-routes">documentation</a>.</p>
+</aside>
+
+# Conclusion
+
+In this article, we built an Angular 6.0 application from the ground up using the CLI as well as explored how lazy loading can be useful to optimize performance. I was also planning to cover `@angular/service-worker` and how it ties into the CLI in this post but I got a little carried away :). We'll dive in to that topic in the next part of this article series.
+
+As always, please don't hesitate to reach out to me if you have any comments, questions, or suggestions!
