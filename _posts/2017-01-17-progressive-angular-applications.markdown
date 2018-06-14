@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "Progressive Web Apps with Angular 2+"
+title:  "Progressive Web Apps with Angular"
 date:   2017-01-17 07:30:00
-categories: angular progressive web app javascript
+categories: angular pwa javascript
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
 tags:
 - angular
-- progressive web app
+- pwa
 - javascript
 comments: true
 type: post
@@ -15,7 +15,7 @@ permalink: /:title
 ---
 ![angular 2 hn banner](assets/progressive-angular-applications/angular-progressive-banner.png "Progressive Angular"){: .article-image-with-border }
 
-***At the time of writing, the `--mobile` flag with Angular CLI, which integrates progressive technologies such as offline support into your application, is temporarily disabled. Among other things, this post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries on their own.***
+***Among other things, this post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries. Many updates and changes have been made to Angular tooling with regard to PWA support since this article was written, so please refer to my [newer post](assets/progressive-angular-applications/angular-progressive-banner.png) for more up to date information.***
 
 Progressive Web Apps (PWA) have been the talk of the town in 2016. In short, they are applications that use modern web capabilities to provide a user experience similar to that of mobile and native apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some.
 
