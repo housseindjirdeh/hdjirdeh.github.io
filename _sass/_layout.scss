@@ -496,6 +496,7 @@
             font-weight: bold;
         }
     }
+
     h2 {
         margin-top: 40px;
         padding-bottom: 10px;
@@ -507,11 +508,26 @@
             font-weight: bold;
         }
     }
+
     h3 {
         margin-top: 1.1*$spacing-unit;
-        font-size: 20px;
+        font-size: 23px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $grey-color-light;
         @include media-query($on-laptop) {
             font-size: 18px;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+    }
+
+    h4 {
+        margin-top: 1.1*$spacing-unit;
+        font-size: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $grey-color-light;
+        @include media-query($on-laptop) {
+            font-size: 16px;
             line-height: 1.5;
             font-weight: bold;
         }

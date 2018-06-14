@@ -45,7 +45,7 @@ When we open a web browser on a mobile device (or tablet or desktop) and type so
 
 ![Request to remote server](assets/thinking-prpl/request.png "Request to remote server"){: .article-image-with-border }
 
-After a certain period of time, the server responds with content that the browser needs. This usually takes shape of an HTML document. The underlying application protocol used by the web (HTTP) works using this _request-response_ pattern.
+After a certain period of time, the server responds with content that the browser needs. This usually takes shape of an HTML document. The underlying application protocol used by the web (HTTP)  uses this _request-response_ pattern.
 
 Once the browser retrieves the initial HTML document, the next thing it needs to do is parse through the contents of the file in order to determine what other resources it needs. For each external resource it finds, it has to make a separate request. These resources can include CSS files for styling, JavaScript for dynamic content or even static images.
 
@@ -114,9 +114,9 @@ Although it may seem straightforward to add `<link rel="preload">` and `<link re
 
 <div class="highlight-in-list">
 {% highlight javascript %}
-import(/* webpackPreload: true */ "PreloadedLibrary")
+import(/* webpackPreload: true */ "PreloadedPage")
 
-import(/* webpackPrefetch: true */ "PrefetchedLibrary")
+import(/* webpackPrefetch: true */ "PrefetchedPage")
 {% endhighlight %}
 </div>
 

@@ -1,17 +1,18 @@
 ---
 layout: post
 title:  "Progressive Web Apps with Angular: Part 3 - Angular Service Worker"
-date:   2017-07-02 07:30:00
-categories: angular progressive web app javascript
+date:   2018-07-16 07:30:00
+categories: angular pwa javascript
 description: In Part 1 of this article, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That article was written a year ago and a lot has changed since then. This post will dive into building a PWA using Angular version 6.0 in order to understand how to use newer technologies provided by the platform....
 tags:
 - angular
-- progressive web app
+- pwa
 - javascript
 comments: true
 type: post
 image: assets/progressive-angular-applications-2/banner.jpg
 permalink: /:title
+published: false
 ---
 
 ![Progressive Angular Banner](assets/progressive-angular-applications-2/banner.jpg 'Progressive Angular Banner'){: .article-image-with-border }
