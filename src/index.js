@@ -4,9 +4,10 @@ import './style/tachyons';
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
-import { Nav, Header } from 'src/components';
+import { Nav } from 'src/components';
 import Home from 'src/routes/home';
 import Profile from 'src/routes/profile';
+import Blog from 'src/routes/blog';
 // import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
 
@@ -24,9 +25,9 @@ export default class App extends Component {
 		return (
 			<div id="app">
 				<Nav />
-				<Header />
 				<Router onChange={this.handleRoute}>
 					<Home path="/" />
+					<Blog path="/blog/" />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>

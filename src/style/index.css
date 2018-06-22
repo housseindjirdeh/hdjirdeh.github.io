@@ -36,8 +36,22 @@ html, body {
 	background-color: #b74746
 }
 
+.b-primary-color {
+	border-color: #b74746
+}
+
 .bg-twitter-blue {
 	background: #00aced
+}
+
+.hover-primary-color:hover {
+	color: #b74746
+}
+
+.animate, 
+.animate:hover,
+.animate:focus {
+	transition:all .15s ease-in-out
 }
 
 .hover-bg-twitter-blue:hover {
@@ -54,4 +68,16 @@ html, body {
 
 #home-icon-container:hover #home-icon {
  fill: #b74746;
+}
+
+.custom-arrow {
+  border: solid #000000;
+  border-width: 0 4px 4px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.custom-down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
