@@ -18,9 +18,17 @@ const Home = () => (
 			<div class="bb bw1 b-near-black w-40 flex justify-center mb4">
 				<h3 class="f3 near-black">Recent</h3>
 			</div>
-			<Link class="f3 fw5 near-black mv4 animate hover-primary-color grow">thinking prpl - a progressive web pattern</Link>
-			<Link class="f3 fw5 near-black mv4 animate hover-primary-color grow">looking back at 2017</Link>
-			<Link class="f3 fw5 near-black mt4 animate hover-primary-color grow">progressive web apps with angular</Link>
+			<h5 class="f3 grow">
+				<Link class="near-black mv4 link hover-primary-color" href="/blog/thinking-prpl">thinking prpl - a progressive web pattern</Link>
+			</h5>
+
+			<h5 class="f3 grow">
+				<Link class="near-black mv4 link hover-primary-color" href="/blog/looking-back">looking back at 2017</Link>
+			</h5>
+
+			<h5 class="f3 grow">
+				<Link class="near-black mv4 link hover-primary-color" href="/blog/progressive-angular-applications">progressive web apps with angular</Link>
+			</h5>
 		</div>
 
 		<div class="flex flex-column items-center mt5">

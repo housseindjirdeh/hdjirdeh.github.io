@@ -11,10 +11,12 @@ const Blog = () => (
     </div>
   </div>
 
-    <div class="flex flex-column justify-between mw7 pv4 center bb">
-      <h2>thinking prpl - a progressive web pattern</h2>
-      <p class="f4">The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably...</p>
-    </div>
+  <div class="flex flex-column justify-between mw7 pv4 center bb">
+    <h5 class="f3 mb3 grow">
+      <Link href="/blog/thinking-prpl" class="near-black link hover-primary-color grow">thinking prpl - a progressive web pattern</Link>
+    </h5>
+    <p class="f4">The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably...</p>
+  </div>
 
     <div class="flex flex-column justify-between mw7 pv4 center bb">
       <h2>looking back at 2017</h2>

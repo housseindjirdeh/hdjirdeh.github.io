@@ -48,12 +48,6 @@ html, body {
 	color: #b74746
 }
 
-.animate, 
-.animate:hover,
-.animate:focus {
-	transition:all .15s ease-in-out
-}
-
 .hover-bg-twitter-blue:hover {
 	background: #00aced
 }
