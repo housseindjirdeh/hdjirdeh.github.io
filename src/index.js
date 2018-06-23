@@ -4,7 +4,6 @@ import './style/tachyons';
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
-import { Nav } from 'src/components';
 import Home from 'src/routes/home';
 import Post from 'src/routes/post';
 import Blog from 'src/routes/blog';
@@ -12,25 +11,24 @@ import Blog from 'src/routes/blog';
 // import Profile from 'async!../routes/profile';
 
 export default class App extends Component {
-	
-	/** Gets fired when the route changes.
+
+  /** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
 	 *	@param {string} event.url	The newly routed URL
 	 */
-	handleRoute = e => {
-		this.currentUrl = e.url;
-	};
+  handleRoute = e => {
+  	this.currentUrl = e.url;
+  };
 
-	render() {
-		return (
-			<div id="app">
-				<Nav />
-				<Router onChange={this.handleRoute}>
-					<Home path="/" />
-					<Blog path="/blog/" />
-					<Post path="/blog/:title" />
-				</Router>
-			</div>
-		);
-	}
+  render() {
+  	return (
+  		<div id="app">
+  			<Router onChange={this.handleRoute}>
+  				<Home path="/" />
+  				<Blog path="/blog/" />
+  				<Post path="/blog/:title" />
+  			</Router>
+  		</div>
+  	);
+  }
 }

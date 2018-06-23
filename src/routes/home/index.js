@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 
+import { Nav } from 'src/components';
 import { HomeIcon } from 'src/icons';
 import { posts } from 'src/static.config';
 
@@ -12,10 +13,9 @@ export default class Home extends Component {
   render() {
   	return (
   		<div>
+  			<Nav />
   			<div class="flex flex-column items-center justify-between vh-100">
-  				<div class="h4 flex items-center">
-  					<Link id="home-icon-container" href="/"><HomeIcon /></Link>
-  				</div>
+  				<div class="h4 flex items-center" />
   				<h1 class="primary-color f1">houssein.</h1>
   				<div class="h4 flex items-center">
   					<i class="custom-arrow custom-down" />
@@ -29,7 +29,7 @@ export default class Home extends Component {
   				{posts.ids.slice(0, 3).map(id => (
   					<h5 class="f3 grow">
   						<Link
-  							class="near-black mv4 link hover-primary-color ttl"
+	class="near-black mv4 link hover-primary-color ttl"
   							href={`/blog/${id}`}
   						>
   							{posts[id].title}
@@ -44,7 +44,7 @@ export default class Home extends Component {
   				</div>
   				<h5 class="f3 grow">
   					<a
-  						class="near-black mt4 mb5 link hover-primary-color ttl"
+	class="near-black mt4 mb5 link hover-primary-color ttl"
   						href="https://rangle.io/"
   					>
               Rangle.io
@@ -52,7 +52,7 @@ export default class Home extends Component {
   				</h5>
   				<h5 class="f3 grow">
   					<a
-	class="near-black mb5 link hover-primary-color ttl"
+  						class="near-black mb5 link hover-primary-color ttl"
 	href="https://www2.deloitte.com/global/en/pages/technology/solutions/deloitte-digital.html"
   					>
               Deloitte Digital

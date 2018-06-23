@@ -5,18 +5,18 @@ import { GithubIcon, TwitterIcon, PencilIcon } from 'src/icons';
 
 export const Nav = () => (
 	<nav class="absolute flex flex-column items-center right-0 mt6">
-		<Link
+		<a
 			class="bg-animate bg-primary-color hover-bg-near-black no-underline pv3 pl3 pr4 near-white bb b--near-white"
-			href="/"
+			href="https://github.com/housseindjirdeh"
 		>
 			<GithubIcon />
-		</Link>
-		<Link
+		</a>
+		<a
 			class="bg-animate bg-primary-color hover-bg-twitter-blue no-underline pv3 pl3 pr4 near-white bb b--near-white"
-			href="/profile"
+			href="https://twitter.com/hdjirdeh"
 		>
 			<TwitterIcon />
-		</Link>
+		</a>
 		<Link
 			class="bg-animate bg-primary-color hover-bg-purple no-underline pv3 pl3 pr4 near-white"
 			href="/blog"
