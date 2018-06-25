@@ -37,9 +37,9 @@ export default function(config, env, helpers) {
 					from: 'posts',
 					to: 'posts'
 				},
-				exists(src('lib')) && {
-					from: 'lib',
-					to: 'lib'
+				exists(src('config')) && {
+					from: 'config',
+					to: 'config'
 				}
 			].filter(Boolean),
 		),

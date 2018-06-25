@@ -1,8 +1,9 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 
-import { Nav, Footer } from 'src/components';
-import { posts } from 'src/static.config';
+import { Footer } from 'src/components';
+import { HomeIcon } from 'src/icons';
+import { posts } from 'src/config';
 
 export default class Home extends Component {
   state = {
@@ -12,60 +13,28 @@ export default class Home extends Component {
   render() {
   	return (
   		<div>
-  			<Nav />
-  			<div class="flex flex-column items-center justify-between vh-100">
-  				<div class="h4 flex items-center" />
-  				<h1 class="primary-color f1">houssein.</h1>
+  			<div class="flex flex-column items-center justify-between">
   				<div class="h4 flex items-center">
-  					<i class="custom-arrow custom-down" />
+  					<Link id="home-icon-container" href="/"><HomeIcon /></Link>
   				</div>
   			</div>
-  			<div class="flex flex-column items-center mt5">
-  				<div class="bb bw1 b-near-black w-40 flex justify-center mb4">
-  					<h3 class="f3 near-black">Recent</h3>
-  				</div>
 
-  				{posts.ids.slice(0, 3).map(id => (
-  					<h5 class="f3 grow">
+  			{posts.ids.map(id => (
+  				<div class="flex flex-column justify-between mw7 pv5 center bb">
+  					<h5 class="f3 fw6 mb3 mt0 grow">
   						<Link
-	class="near-black mv4 link hover-primary-color ttl"
-  							href={`/blog/${id}`}
+	href={`/${id}`}
+	class="near-black link hover-primary-color grow ttl"
   						>
   							{posts[id].title}
   						</Link>
   					</h5>
-  				))}
-  			</div>
-
-  			<div class="flex flex-column items-center mt5">
-  				<div class="bb bw1 b-near-black w-40 flex justify-center mb4">
-  					<h3 class="f3 near-black">Work</h3>
+  					<p class="f4 lh-copy mb0 near-black">
+  						{posts[id].description}
+  					</p>
   				</div>
-  				<h5 class="f3 grow">
-  					<a
-  						class="near-black mt4 mb5 link hover-primary-color ttl"
-  						href="https://rangle.io/"
-  					>
-              Rangle.io
-  					</a>
-  				</h5>
-  				<h5 class="f3 grow">
-  					<a
-	class="near-black mb5 link hover-primary-color ttl"
-	href="https://www2.deloitte.com/global/en/pages/technology/solutions/deloitte-digital.html"
-  					>
-              Deloitte Digital
-  					</a>
-  				</h5>
-  				<h5 class="f3 grow">
-  					<a
-	class="near-black link hover-primary-color ttl"
-	href="https://www.onramp-solutions.com/"
-  					>
-              OnRamp
-  					</a>
-  				</h5>
-  			</div>
+  			))}
+
   			<Footer />
   		</div>
   	);

@@ -3,7 +3,7 @@ import { Link } from 'preact-router/match';
 
 import { Footer, PostContent } from 'src/components';
 import { HomeIcon } from 'src/icons';
-import { posts } from 'src/static.config';
+import { posts } from 'src/config';
 
 export default class Post extends Component {
   state = {
@@ -12,19 +12,19 @@ export default class Post extends Component {
 
   render() {
   	const { id } = this.props;
-  	const { title, date } = this.state.post;
+  	// const { title, date } = this.state.post;
   	return (
   		<div>
   			<div class="flex flex-column items-center justify-between">
   				<div class="h4 flex items-center">
-  					<Link id="home-icon-container" href="/blog"><HomeIcon /></Link>
+  					<Link id="home-icon-container" href="/"><HomeIcon /></Link>
   				</div>
 
   				<div class="mw7">
-  					<h1 class="f1 mv5 ttl">
-  						{title}
+  					<h1 class="f1 mv5 ttl near-black">
+  						{'test'}
   					</h1>
-  					<div class="f4 lh-copy">
+  					<div class="f4 lh-copy near-black">
   						<PostContent name={id} />
   					</div>
   				</div>

@@ -1,0 +1,61 @@
+[
+  {
+    "url": "/",
+    "title": "Houssein Djirdeh",
+    "description":
+      "Houssein Djirdeh is a Developer Advocate on the Google Chrome/Web team. Here are some of his writings on JavaScript and other random thoughts on the web."
+  },
+  {
+    "url": "/thinking-prpl",
+    "title": "Thinking PRPL - A Progressive Web Pattern",
+    "description":
+      "The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably...",
+    "image": "https://i.imgur.com/aoV9VcR.png"
+  },
+  {
+    "url": "/looking-back",
+    "title": "Looking back at 2017",
+    "description": "I'm late, I know.",
+    "image": "https://i.imgur.com/VABv5WN.jpg"
+  },
+  {
+    "url": "/progressive-angular-applications",
+    "title": "Progressive Web Apps with Angular",
+    "description":
+      "Progressive Web Applications use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...",
+    "image": "https://i.imgur.com/GhxV0S5.png"
+  },
+  {
+    "url": "/continuous-integration-angular-firebase-travisci",
+    "title": "Continuous Integration | Angular CLI + Firebase + Travis CI",
+    "description":
+      "The next step to building any application is picking a hosting platform and deploying it. This is awesome, but we always need to make sure to deploy a newer build every time we update our app. This article will show you how to set up a Firebase and Travis CI pipeline for your Angular applications.",
+    "image": "https://i.imgur.com/cbCuNT3.jpg"
+  },
+  {
+    "url": "/angular2-hacker-news",
+    "title": "Building Hacker News with Angular 2 CLI, RxJS and Webpack",
+    "description":
+      "If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping can take a significant amount of time. Thankfully, the Angular team has rolled out Angular CLI, a command line interface that makes creating and scaffolding an application significantly easier...",
+    "image": "https://i.imgur.com/3hAtaLs.jpg"
+  },
+  {
+    "url": "/angular2-with-immutablejs-and-redux",
+    "title": "Building Angular 2 applications with Immutable.js and Redux",
+    "description":
+      "If you have done any JavaScript development in the past year, then you may have already heard of Redux. Popularized with the use of React, some developers claim it's the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good...",
+    "image": "https://i.imgur.com/anLkoO5.jpg"
+  },
+  {
+    "url": "/event-and-style-binding-in-angular2",
+    "title": "Event and Style binding in Angular 2",
+    "description":
+      "Angular 2 introduces new template syntax and directives that allow us to manipulate data in our applications. In this post, I begin with a brief introduction on data and event binding then dive right in to using style and class binding as well as directives to dynamically apply CSS and CSS classes..."
+  },
+  {
+    "url": "/asynchronous-javascript-callbacks",
+    "title": "Asynchronous Javascript: Callbacks",
+    "description":
+      "Functions in Javascript are treated as first-class objects. This means that they have a type of Object and can be referenced like any other first-class object, such as Date, Number, and String. This may seem obvious to you, but it's important to remember that the nature of functions in Javascript are quite different then, for example, methods in Ruby..."
+  }
+]

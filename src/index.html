@@ -3,37 +3,58 @@
 
 <head>
   <meta charset="utf-8">
-  <title>
-    houssein.me
-  </title>
 
-  <meta name="description" content="A curated list of progressive tools to optimize the performance of your web project" />
+  <% if (htmlWebpackPlugin.options.title) { %>
+    <title>
+      <%= htmlWebpackPlugin.options.title %>
+    </title>
+    <meta itemprop="name" content="<%= htmlWebpackPlugin.options.title %>">
+    <meta name="twitter:title" content="<%= htmlWebpackPlugin.options.title %>">
+    <meta property="og:title" content="<%= htmlWebpackPlugin.options.title %>">
+  <% } else { %>
+    <title>
+      Houssein Djirdeh
+    </title>
+    <meta itemprop="name" content="Houssein Djirdeh">
+    <meta name="twitter:title" content="Houssein Djirdeh">
+    <meta property="og:title" content="Houssein Djirdeh">
+  <% } %>
+
+  <% if (htmlWebpackPlugin.options.description) { %>
+    <meta name="description" content="<%= htmlWebpackPlugin.options.description %>">
+    <meta itemprop="description" content="<%= htmlWebpackPlugin.options.description %>">
+    <meta name="twitter:description" content="<%= htmlWebpackPlugin.options.description %>">
+    <meta name="twitter:image:alt" content="<%= htmlWebpackPlugin.options.description %>">
+    <meta property="og:description" content="<%= htmlWebpackPlugin.options.description %>">
+  <% } else { %>
+    <meta name="description" content="JavaScript and random thoughts on the web">
+    <meta itemprop="description" content="JavaScript and random thoughts on the web">
+    <meta name="twitter:description" content="JavaScript and random thoughts on the web">
+    <meta name="twitter:image:alt" content="JavaScript and random thoughts on the web">
+    <meta property="og:description" content="JavaScript and random thoughts on the web">
+  <% } %>
+
+  <% if (htmlWebpackPlugin.options.image) { %>
+    <meta itemprop="image" content="<%= htmlWebpackPlugin.options.image %>">
+    <meta name="twitter:image" content="<%= htmlWebpackPlugin.options.image %>">
+    <meta property="og:image" content="<%= htmlWebpackPlugin.options.image %>">
+  <% } else { %>
+    <meta itemprop="image" content="https://i.imgur.com/k4u5WjJ.png">
+    <meta name="twitter:image" content="https://i.imgur.com/k4u5WjJ.png">
+    <meta property="og:image" content="https://i.imgur.com/k4u5WjJ.png">
+  <% } %>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
 
-  <!-- Schema.org markup for Google+ -->
-  <meta itemprop="name" content="houssein.me">
-  <meta itemprop="description" content="A curated list of progressive tools to optimize the performance of your web project">
-  <meta itemprop="image" content="https://i.imgur.com/k4u5WjJ.png">
-
-  <!-- Twitter Card data -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@hdjirdeh">
-  <meta name="twitter:title" content="houssein.me">
-  <meta name="twitter:description" content="A curated list of progressive tools to optimize the performance of your web project">
   <meta name="twitter:creator" content="@hdjirdeh">
-  <meta name="twitter:image" content="https://i.imgur.com/k4u5WjJ.png">
-  <meta name="twitter:image:alt" content="A curated list of progressive tools to optimize the performance of your web project">
 
-  <!-- Open Graph data -->
-  <meta property="og:title" content="houssein.me" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://progressivetooling.com/" />
-  <meta property="og:image" content="https://i.imgur.com/k4u5WjJ.png" />
-  <meta property="og:description" content="A curated list of progressive tools to optimize the performance of your web project"
-  />
-  <meta property="og:site_name" content="houssein.me" />
-  <meta property="fb:admins" content="10202985971279760" />
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://houssein.me/">
+  <meta property="og:site_name" content="Houssein Djirdeh">
+  <meta property="fb:admins" content="10202985971279760">
 
   <!-- Icons -->
   <meta name="msapplication-TileColor" content="#8e44ad">
@@ -52,9 +73,6 @@
   <link rel="apple-touch-icon" sizes="120x120" href="/assets/icons/apple-touch-icon-120x120.png">
   <link rel="apple-touch-icon" sizes="152x152" href="/assets/icons/apple-touch-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-180x180.png">
-
-  <!-- Prism -->
-  <link href="/lib/prism/prism.css" rel="stylesheet" />
 
   <style>
     html,
@@ -96,7 +114,6 @@
 		}) %>
     <script defer src="<%= htmlWebpackPlugin.files.chunks['bundle'].entry %>"></script>
     <script>window.fetch || document.write('<script src="<%= htmlWebpackPlugin.files.chunks["polyfills"].entry %>"><\/script>')</script>
-    <script src="/lib/prism/prism.js"></script>
 </body>
 
 </html>

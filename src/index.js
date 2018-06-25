@@ -6,7 +6,6 @@ import { Router } from 'preact-router';
 
 import Home from 'src/routes/home';
 import Post from 'src/routes/post';
-import Blog from 'src/routes/blog';
 // import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
 
@@ -25,8 +24,7 @@ export default class App extends Component {
   		<div id="app">
   			<Router onChange={this.handleRoute}>
   				<Home path="/" />
-  				<Blog path="/blog/" />
-  				<Post path="/blog/:id" />
+  				<Post path="/:id" />
   			</Router>
   		</div>
   	);
