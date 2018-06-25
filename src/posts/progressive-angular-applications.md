@@ -69,13 +69,13 @@ One way we can make an Angular app load faster is to run its compiler under **_A
 
 With Angular CLI, creating a production build is as simple as a terminal command.
 
-```console
+```bash
 ng build --prod
 ```
 
 Creating a production build with AOT compilation is also just as simple (this really goes to show the amazing work the CLI team has done to make our lives easier).
 
-```console
+```bash
 ng build --prod --aot
 ```
 
@@ -128,7 +128,7 @@ We can see that it can't retrieve the service worker file, `service-worker.js`, 
 
 [Service Worker Precache](https://github.com/GoogleChrome/sw-precache#service-worker-precache) (`sw-precache`) is a module that generates a service worker responsible for caching all the static resources in your application. It integrates right into the build system you're using and, with some simple configurations, creates the service worker on the fly. We can begin by installing its package.
 
-```console
+```bash
 npm install --save-dev sw-precache
 ```
 
@@ -148,7 +148,7 @@ Now in your `package.json` file, let's add a `precache` script that runs a simpl
 
 Now just run the following script.
 
-```console
+```bash
 npm run precache
 ```
 

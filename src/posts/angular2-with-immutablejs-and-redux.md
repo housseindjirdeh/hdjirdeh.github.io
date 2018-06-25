@@ -152,7 +152,7 @@ this.store.starContact(contact);
 
 <ul>
   <li *ngFor="let contact of store.contacts">
-    {% raw %}{{ contact.name }}{% endraw %}
+    {{ contact.name }}
     <button (click)="starContact(contact)">
       <i class="fa fa-2x"
         [class.fa-star]="contact.star"
@@ -242,7 +242,7 @@ this.store.starContact(contact);
 ```html
 <!-- Contact HTML -->
 <div class="contact-container">
-  {% raw %}{{ contact.name }}{% endraw %}
+  {{ contact.name }}
   <button (click)="starContact(contact)">
     <i class="fa fa-2x"
       [class.fa-star]="contact.star"
@@ -258,7 +258,7 @@ As you can see, the store instance was injected to both the parent and child com
 
 # Change Detection Strategy
 
-In Angular 2, each and every component has its own **change detector** responsible for bindings in their own template. For example, we have the `{% raw %}{{ contact.name }}{% endraw %}` binding for which the `Contact` component is responsible for. In other words, the change detection behind the `Contact` component projects the data for `contact.name` as well as **its change.**
+In Angular 2, each and every component has its own **change detector** responsible for bindings in their own template. For example, we have the `{{ contact.name }}` binding for which the `Contact` component is responsible for. In other words, the change detection behind the `Contact` component projects the data for `contact.name` as well as **its change.**
 
 So what really happens when an event is triggered? In Angular 1.x, when a digest cycle is fired, every binding is triggered in the entire application. Similarly in Angular 2, every single component is also checked. Now wouldn't it be cool to tell Angular to run change detection on a component only if one of its input properties changed instead of every time an event happens? We can by using Angular's `ChangeDetectionStrategy` in our component level.
 

@@ -1,5 +1,6 @@
-import './style';
+import 'highlight.js/styles/github.css';
 import './style/tachyons';
+import './style';
 
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';

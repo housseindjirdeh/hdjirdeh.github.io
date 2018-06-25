@@ -66,19 +66,19 @@ For the purpose of this tutorial however, we'll begin by using CRNA since it can
 
 Let's begin by installing CRNA:
 
-```console
+```bash
 yarn global add create-react-native-app
 ```
 
 Now we'll just need to run the following command to prepare our application:
 
-```console
+```bash
 create-react-native-app git-point
 ```
 
 We can then navigate to that directory and boot the app:
 
-```console
+```bash
 cd git-point
 yarn start
 ```
@@ -119,13 +119,13 @@ Running the application on an iOS simulator
 
 To run on an iOS simulator:
 
-```console
+```bash
 yarn run ios
 ```
 
 And to run on an Android emulator:
 
-```console
+```bash
 yarn run android
 ```
 
@@ -245,7 +245,7 @@ Like `View`, many other basic React Native components allow us to use a `style` 
 
 ## Styling
 
-Although we can add styles to a component by using inline styles (for example: `<View style={% raw %}{{backgroundColor: '#fff'}}{% endraw %}>`), it usually helps to create a separate `styles` object with which we can reference in our `render` method. You can see that our component already has one:
+Although we can add styles to a component by using inline styles (for example: `<View style={{backgroundColor: '#fff'}}>`), it usually helps to create a separate `styles` object with which we can reference in our `render` method. You can see that our component already has one:
 
 ```jsx
 // App.js

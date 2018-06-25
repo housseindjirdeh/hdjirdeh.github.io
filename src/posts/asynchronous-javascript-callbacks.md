@@ -28,13 +28,13 @@ Now let's add a timeout to the first function.
 
 ```javascript
 function functionFirst() {
-setTimeout(function() {
-console.log('Damn Daniel');
-}, 3000);
+  setTimeout(function() {
+    console.log('Damn Daniel');
+  }, 3000);
 }
 
-function functionSecond(){
-console.log( 'Back at it again!');
+function functionSecond() {
+  console.log('Back at it again!');
 }
 
 functionFirst();
@@ -46,7 +46,7 @@ After a three second delay, this gets outputted:
 `Back at it again!` <br>
 `Damn Daniel`
 
-Why? Javascript is of **a single threaded nature**. This means it executes one piece of code at a time (each piece of code, or operation, is queued along this single thread). Notice how `functionFirst()` triggers `setTimeout`, which queues an operation to run after a certain delay (in this case, after 3 seconds). The concept of _running after a certain time_ is exactly what **asynchronous** means.
+Why? Javascript is of a single threaded nature. This means it executes one piece of code at a time (each piece of code, or operation, is queued along this single thread). Notice how `functionFirst()` triggers `setTimeout`, which queues an operation to run after a certain delay (in this case, after 3 seconds). The concept of _running after a certain time_ is exactly what **asynchronous** means.
 
 # Callbacks
 
@@ -54,18 +54,18 @@ Now, for obvious reasons, we want the text `Back at it again!` to show after `Da
 
 ```javascript
 function functionFirst(callback) {
-setTimeout(function() {
-console.log('Back at it again');
-callback();
-}, 3000);
+  setTimeout(function() {
+    console.log('Back at it again');
+    callback();
+  }, 3000);
 }
 
 function functionSecond() {
-console.log('with the white Vans!');
+  console.log('with the white Vans!');
 }
 
-functionFirst(function(){
-functionSecond();
+functionFirst(function() {
+  functionSecond();
 });
 
 console.log('Damn Daniel');
@@ -84,11 +84,11 @@ So why is this useful? Say you send off an HTTP request and you need to do somet
 The only reason I used `setTimeout` was to simulate an operation that takes a certain time. Such operations could be reading from a text file, downloading things or performing an HTTP request. Node, for example, is built entirely on an asynchronous concept and uses callbacks extensively. The following is a simple example.
 
 ```javascript
-var fs = require("fs");
+var fs = require('fs');
 
 fs.readFile('input.txt', function(err, data) {
-if (err) return console.error(err);
-console.log(data);
+  if (err) return console.error(err);
+  console.log(data);
 });
 ```
 
@@ -97,4 +97,3 @@ Notice the first argument of the call back is reserved for an error object. This
 # Wrapping things up
 
 With that, we've covered the basics of callbacks and how they can be used. However, callbacks aren't the only way to handle asynchronous operations in JavaScript. **Promises** are another way, and I'll write about that in my next post about asynchronous JavaScript <i class="fa fa-smile-o" aria-hidden="true"></i>.
-```

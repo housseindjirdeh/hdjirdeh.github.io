@@ -20,40 +20,12 @@ body {
   width: 100%;
 }
 
-.h-100 {
-  height: 100%;
-}
-
-.w-100 {
-  width: 100%;
-}
-
-.primary-color {
+.red {
   color: #b74746;
 }
 
-.bg-primary-color {
-  background-color: #b74746;
-}
-
-.b-primary-color {
-  border-color: #b74746;
-}
-
-.bg-twitter-blue {
-  background: #00aced;
-}
-
-.hover-primary-color:hover {
+.hover-red:hover {
   color: #b74746;
-}
-
-.hover-bg-twitter-blue:hover {
-  background: #00aced;
-}
-
-.large {
-  font-size: 6rem;
 }
 
 #home-icon-container {
@@ -64,14 +36,32 @@ body {
   fill: #b74746;
 }
 
-.custom-arrow {
-  border: solid #000000;
-  border-width: 0 4px 4px 0;
-  display: inline-block;
-  padding: 3px;
+p code {
+  background: #f8f8f8;
+  font-size: 1.1rem;
 }
 
-.custom-down {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.lds-dual-ring:after {
+  content: ' ';
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #111;
+  border-color: #111 transparent #111 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

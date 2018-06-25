@@ -30,13 +30,13 @@ Since I got a little carried away writing this article, the first half consists 
 
 If we have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), we can install Angular CLI with the following command:
 
-```console
+```bash
 npm install -g @angular/cli
 
 ```
 We can then create a new application:
 
-```console
+```bash
 ng new tour-of-thrones --style=scss
 cd tour-of-thrones
 npm start
@@ -193,7 +193,7 @@ Let's begin with our `CardComponent`:
 <!-- src/app/component/card/card.component.html -->
 
 <div (click)="onClick()" class="card grow" [ngStyle]="setBackgroundStyle()">
-  <h3>{% raw %}{{name}}{% endraw %}</h3>
+  <h3>{{name}}</h3>
 </div>
 ```
 
@@ -725,20 +725,20 @@ Let's see this in action by building our next route, `/home`, which shows inform
   </div>
   <ng-template #houseContent modal-content>
     <div class="container">
-      <h1>{% raw %}{{house.name}}{% endraw %}</h1>
-      <div *ngIf="house.words !== ''" class="subheading">{% raw %}{{house.words}}{% endraw %}</div>
+      <h1>{{house.name}}</h1>
+      <div *ngIf="house.words !== ''" class="subheading">{{house.words}}</div>
       <div class="info" [ngClass]="(house.words === '') ? 'info-large-margin' : 'info-small-margin'">
         <div class="detail">
           <p class="caption">Coat of Arms</p>
-          <p class="body">{% raw %}{{house.coatOfArms === '' ? '?' : house.coatOfArms}}{% endraw %}</p>
+          <p class="body">{{house.coatOfArms === '' ? '?' : house.coatOfArms}}</p>
         </div>
         <div class="detail">
           <p class="caption">Region</p>
-          <p class="body">{% raw %}{{house.region === '' ? '?' : house.region}}{% endraw %}</p>
+          <p class="body">{{house.region === '' ? '?' : house.region}}</p>
         </div>
         <div class="detail">
           <p class="caption">Founded</p>
-          <p class="body">{% raw %}{{house.founded === '' ? '?' : house.founded}}{% endraw %}</p>
+          <p class="body">{{house.founded === '' ? '?' : house.founded}}</p>
         </div>
       </div>
     </div>

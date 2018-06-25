@@ -30,13 +30,13 @@ This visual tutorial should make you feel a little more comfortable building an 
 
 Once you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install the CLI through your terminal.
 
-```console
+```bash
 npm install -g @angular/cli
 
 ```
 You can then create and start your application.
 
-```console
+```bash
 ng new angular2-hn
 cd angular2-hn
 ng serve
@@ -85,7 +85,7 @@ You can probably already see how much more organized it is to not need to specif
 
 Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. The CLI makes it simple for a project that's already been started.
 
-```console
+```bash
 ng set defaults.styleExt scss
 ```
 
@@ -93,7 +93,7 @@ _Note: If you're seeing a weird error here, you can just set the default style e
 
 Now that we have everything set up, we can create our first few components. To start things off, we'll create a `HeaderComponent`.
 
-```console
+```bash
 ng generate component Header
 ```
 
@@ -253,7 +253,7 @@ Yes you can, but hey at least we learned something here. <i class="fa fa-smile-o
 
 Let's create two more components, `Stories` and `Footer`. Stories represent posts in Hacker News, and we'll start out with a skeleton just to get an ordered list in place.
 
-```console
+```bash
 ng g component Stories
 ```
 
@@ -287,7 +287,7 @@ ngOnInit() {
 <div class="main-content">
   <ol>
     <li *ngFor="let item of items; let i = index" class="post">
-      Story #{% raw %}{{i}}{% endraw %}
+      Story #{{i}}
     </li>
   </ol>
   <div class="nav">
@@ -303,7 +303,7 @@ ngOnInit() {
 
 Click [here](https://github.com/housseindjirdeh/angular2-hn/blob/initial-setup/src/app/stories/stories.component.scss) to take a look at the styles for `Stories`. Our footer is straightfoward (and it's styling can be found [here](https://github.com/housseindjirdeh/angular2-hn/blob/initial-setup/src/app/footer/footer.component.scss)).
 
-```console
+```bash
 ng g component Footer
 ```
 
@@ -339,7 +339,7 @@ Let's see what our page is looking like.
 
 Since each post, or item, will have its own attributes, it makes sense to create a component for this as well.
 
-```console
+```bash
 ng g component Item
 ```
 
@@ -352,7 +352,7 @@ Once we start getting real data, we'll need to pass down the item identifier fro
 <div class="main-content">
   <ol>
     <li *ngFor="let item of items; let i = index" class="post">
-      <item class="item-block" itemID="{% raw %}{{ i + 1 }}{% endraw %}"></item>
+      <item class="item-block" itemID="{{ i + 1 }}"></item>
     </li>
   </ol>
   <div class="nav">
@@ -391,7 +391,7 @@ ngOnInit() {
 
 <!-- item.component.html -->
 
-<p>Story #{% raw %}{{itemID}}{% endraw %}<p>
+<p>Story #{{itemID}}<p>
 ```
 
 Refreshing the application will give you the same result, showing that the index parameter is successfully being passed down using the `@Input` decoration.
@@ -420,7 +420,7 @@ The entire concept of using Observables in your application is known as [Reactiv
 
 Okay, now it’s time to start retrieving some real data. To do this, we’re going to be creating an Observable Data Service and injecting it into our components.
 
-```console
+```bash
 ng g service hackernews-api
 ```
 
@@ -538,7 +538,7 @@ In the `ngOnInit` hook, which fires when the component is initialized, we `subsc
 <div class="main-content">
   <ol>
     <li *ngFor="let item of items | slice:0:30" class="post">
-      <item class="item-block" itemID="{% raw %}{{ item }}{% endraw %}"></item>
+      <item class="item-block" itemID="{{ item }}"></item>
     </li>
   </ol>
   <!-- ... -->
@@ -600,18 +600,18 @@ this.item = data;
 <div *ngIf="item">
   <div class="item-laptop">
     <p>
-      <a class="title" href="{% raw %}{{item.url}}{% endraw %}">
-        {% raw %}{{item.title}}{% endraw %}
+      <a class="title" href="{{item.url}}">
+        {{item.title}}
       </a>
-      <span class="domain">{% raw %}{{item.url | domain}}{% endraw %}</span>
+      <span class="domain">{{item.url | domain}}</span>
     </p>
     <div class="subtext-laptop">
-      {% raw %}{{item.score}}{% endraw %} points by
-      <a href="">{% raw %}{{item.by}}{% endraw %}</a>
-      {% raw %}{{ (item.time | amFromUnix) | amTimeAgo }}{% endraw %}
+      {{item.score}} points by
+      <a href="">{{item.by}}</a>
+      {{ (item.time | amFromUnix) | amTimeAgo }}
       <a href="">
         <span *ngIf="item.descendants !== 0">
-          {% raw %}{{item.descendants}}{% endraw %}
+          {{item.descendants}}
           <span *ngIf="item.descendants === 1">comment</span>
           <span *ngIf="item.descendants > 1">comments</span>
         </span>
@@ -781,21 +781,21 @@ The markup (`item.component.html`) is very similar, but we now don't need to con
 <div class="item-laptop">
   <p>
     <a class="title" href="">
-      {% raw %}{{item.title}}{% endraw %}
+      {{item.title}}
     </a>
-    <span *ngIf="item.domain" class="domain">({% raw %}{{item.domain}}{% endraw %})</span>
+    <span *ngIf="item.domain" class="domain">({{item.domain}})</span>
   </p>
   <div class="subtext-laptop">
     <span>
-      {% raw %}{{item.points}}{% endraw %} points by
-      <a href="">{% raw %}{{item.user}}{% endraw %}</a>
+      {{item.points}} points by
+      <a href="">{{item.user}}</a>
     </span>
     <span>
-      {% raw %}{{item.time_ago}}{% endraw %}
+      {{item.time_ago}}
       <span> |
         <a href="">
           <span *ngIf="item.comments_count !== 0">
-            {% raw %}{{item.comments_count}}{% endraw %}
+            {{item.comments_count}}
             <span *ngIf="item.comments_count === 1">comment</span>
             <span *ngIf="item.comments_count > 1">comments</span>
           </span>
@@ -833,7 +833,7 @@ Let's also map out the components that show when we navigate to the comments pag
 
 To allow the user to navigate between these pages, we're going to have to include some basic routing in our application. Before we begin, let's create our next component.
 
-```console
+```bash
 ng g component ItemComments
 ```
 
@@ -1056,7 +1056,7 @@ To signal completion, we use `onCompleted()` to update a `listStart` variable wh
     <!-- You can add a loading indicator here if you want to :) -->
   </div>
   <div *ngIf="items">
-    <ol start="{% raw %}{{ listStart }}{% endraw %}">
+    <ol start="{{ listStart }}">
       <li *ngFor="let item of items" class="post">
         <item class="item-block" [item]="item"></item>
       </li>
@@ -1085,22 +1085,22 @@ We're almost done! Before we start adding our other comment page components, let
 
 <div class="item-laptop">
   <p>
-    <a class="title" href="{% raw %}{{item.url}}{% endraw %}">
-      {% raw %}{{item.title}}{% endraw %}
+    <a class="title" href="{{item.url}}">
+      {{item.title}}
     </a>
-    <span *ngIf="item.domain" class="domain">({% raw %}{{item.domain}}{% endraw %})</span>
+    <span *ngIf="item.domain" class="domain">({{item.domain}})</span>
   </p>
   <div class="subtext-laptop">
     <span>
-      {% raw %}{{item.points}}{% endraw %} points by
-      <a href="">{% raw %}{{item.user}}{% endraw %}</a>
+      {{item.points}} points by
+      <a href="">{{item.user}}</a>
     </span>
     <span>
-      {% raw %}{{item.time_ago}}{% endraw %}
+      {{item.time_ago}}
       <span> |
          <a [routerLink]="['/item', item.id]">
           <span *ngIf="item.comments_count !== 0">
-            {% raw %}{{item.comments_count}}{% endraw %}
+            {{item.comments_count}}
             <span *ngIf="item.comments_count === 1">comment</span>
             <span *ngIf="item.comments_count > 1">comments</span>
           </span>
@@ -1124,11 +1124,11 @@ Run the application and click on an item's comments.
 
 Beauty. We can see that it's routing to `ItemCommentsComponent`. Now let's create our additional components.
 
-```console
+```bash
 ng g component CommentTree
 ```
 
-```console
+```bash
 ng g component Comment
 ```
 
@@ -1199,22 +1199,22 @@ Similar to what we did in `StoriesComponent`, we subscribe to our route paramete
     </div>
     <div class="laptop" [class.item-header]="item.comments_count > 0 || item.type === 'job'" [class.head-margin]="item.text">
       <p>
-        <a class="title" href="{% raw %}{{item.url}}{% endraw %}">
-        {% raw %}{{item.title}}{% endraw %}
+        <a class="title" href="{{item.url}}">
+        {{item.title}}
         </a>
-        <span *ngIf="item.domain" class="domain">({% raw %}{{item.domain}}{% endraw %})</span>
+        <span *ngIf="item.domain" class="domain">({{item.domain}})</span>
       </p>
       <div class="subtext">
         <span>
-        {% raw %}{{item.points}}{% endraw %} points by
-          <a href="">{% raw %}{{item.user}}{% endraw %}</a>
+        {{item.points}} points by
+          <a href="">{{item.user}}</a>
         </span>
         <span>
-          {% raw %}{{item.time_ago}}{% endraw %}
+          {{item.time_ago}}
           <span> |
             <a [routerLink]="['/item', item.id]">
               <span *ngIf="item.comments_count !== 0">
-                {% raw %}{{item.comments_count}}{% endraw %}
+                {{item.comments_count}}
                 <span *ngIf="item.comments_count === 1">comment</span>
                 <span *ngIf="item.comments_count > 1">comments</span>
               </span>
@@ -1298,9 +1298,9 @@ this.collapse = false;
 
 <div *ngIf="!comment.deleted">
   <div class="meta" [class.meta-collapse]="collapse">
-    <span class="collapse" (click)="collapse = !collapse">[{% raw %}{{collapse ? '+' : '-'}}{% endraw %}]</span>
-    <a [routerLink]="['/user', comment.user]" routerLinkActive="active">{% raw %}{{comment.user}}{% endraw %}</a>
-    <span class="time">{% raw %}{{comment.time_ago}}{% endraw %}</span>
+    <span class="collapse" (click)="collapse = !collapse">[{{collapse ? '+' : '-'}}]</span>
+    <a [routerLink]="['/user', comment.user]" routerLinkActive="active">{{comment.user}}</a>
+    <span class="time">{{comment.time_ago}}</span>
   </div>
   <div class="comment-tree">
     <div [hidden]="collapse">

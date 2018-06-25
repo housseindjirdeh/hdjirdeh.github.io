@@ -1,8 +1,7 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 
-import { Footer } from 'src/components';
-import { HomeIcon } from 'src/icons';
+import { Header, Footer } from 'src/components';
 import { posts } from 'src/config';
 
 export default class Home extends Component {
@@ -14,18 +13,13 @@ export default class Home extends Component {
   	return (
   		<div>
   			<div class="flex flex-column items-center justify-between">
-  				<div class="h4 flex items-center">
-  					<Link id="home-icon-container" href="/"><HomeIcon /></Link>
-  				</div>
+  				<Header />
   			</div>
 
   			{posts.ids.map(id => (
   				<div class="flex flex-column justify-between mw7 pv5 center bb">
   					<h5 class="f3 fw6 mb3 mt0 grow">
-  						<Link
-	href={`/${id}`}
-	class="near-black link hover-primary-color grow ttl"
-  						>
+  						<Link href={`/${id}`} class="near-black link hover-red grow ttl">
   							{posts[id].title}
   						</Link>
   					</h5>

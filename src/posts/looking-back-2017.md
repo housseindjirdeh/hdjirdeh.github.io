@@ -26,7 +26,7 @@ Now let’s talk about the other side of things:
 - I have over a dozen half baked side projects and there are literally only two side projects I've ever built to completion (not including other people's projects I've helped). That's still two more than last year, so there's that!
 - Still a complete noob at almost everything I do.
 - I'm still trying to find the right balance of things. I've been stressed more than a few times, and I don't want to burn out.
-- Still haven't learned how to swim or skateboard (properly). **_THESE TWO ARE THE MOST IMPORTANT THINGS I NEED TO LEARN THIS YEAR FAM_**.
+- Still haven't learned how to swim or skateboard (properly). **THESE TWO ARE THE MOST IMPORTANT THINGS I NEED TO LEARN THIS YEAR FAM**.
 
 ## Looking further back
 

@@ -37,13 +37,13 @@ This post will not explain how you can use the CLI in detail nor show you how to
 
 Let's start by installing Angular CLI.
 
-```console
+```bash
 npm install -g @angular/cli
 ```
 
 And now we can create and run a new project. I'm going to call it `Boom Shakalaka`.
 
-```console
+```bash
 ng new boom-shakalaka
 cd boom-shakalaka
 ng serve
@@ -59,7 +59,7 @@ Since Travis CI easily syncs with Github, let's create our repository.
 
 We can now add the remote repository to our project.
 
-```console
+```bash
 git init
 git add .
 git commit -m "first commit"
@@ -77,7 +77,7 @@ For **Boom Shakalaka**, we'll only need to host it. We can do that by using the 
 
 Once you've created your project, you can head to your terminal and run the following at the root of your project to set up the CLI.
 
-```console
+```bash
 npm install -g firebase-tools
 firebase login
 firebase init
@@ -97,7 +97,7 @@ Let's go through each of the questions.
 
 And that's it. Since you specified your default project, all you'll need to do is run the following to create a production build and deploy it.
 
-```console
+```bash
 ng build --prod
 firebase deploy
 ```
@@ -110,7 +110,7 @@ Now if you navigate to the URL provided, you'll see your application!
 
 In your terminal, run the following command to get your token (you'll be asked to authenticate). We'll need it in a bit.
 
-```console
+```bash
 firebase login:ci
 ```
 
@@ -134,7 +134,7 @@ You also need to add an environment variable for your token. Let's name it `FIRE
 
 Now the final thing we need to do is set up our configurations, which we can do by creating a `.travis.yml` file at the root of our project (notice how I also have **`Build only if .travis.yml is present`** turned _ON_).
 
-```console
+```bash
 #.travis.yml
 
 language: node_js
@@ -190,7 +190,7 @@ Now that we have our `.travis.yml` file set up, I'm going to modify the applicat
 
 Now all we need to do is commit and push our changes.
 
-```console
+```bash
 git add .
 git commit -m "set up .travis.yml"
 git push origin master

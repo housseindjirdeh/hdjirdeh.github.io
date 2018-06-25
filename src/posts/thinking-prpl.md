@@ -102,7 +102,7 @@ import(/* webpackPreload: true */ "PreloadedPage")
 
 import(/_ webpackPrefetch: true _/ "PrefetchedPage")
 
-```
+````
 </div>
 
 - If you happen to be using an older version of webpack:
@@ -137,13 +137,13 @@ One thing we didn't mention earlier about preload is that instead of using HTML 
 ```html
 Link: </app/style.css>; rel=preload; as=style
 Link: </app/script.js>; rel=preload; as=script
-```
+````
 
 Many hosting platforms that support HTTP/2 Push will attempt to push assets down the wire when it sees that you've preloaded them using Link HTTP headers. Examples include [https://firebase.googleblog.com/2016/09/http2-comes-to-firebase-hosting.html](https://firebase.google.com/docs/hosting/) and [Netlify](https://www.netlify.com/blog/2017/07/18/http/2-server-push-on-netlify/).
 
 <aside>
   <p>Although having Server Push instantiated automatically for assets where we've declated Link Headers can be useful, there may be cases where you may only want to preload your assets and not rely on Push whatsoever. In those cases, you can use a <code>nopush</code> attribute:</p>
-  <figure class="highlight"><pre class=" language-html"><code class=" language-html" data-lang="html">Link: &lt;/app/style.css&gt;; rel=preload; as=style; nopush
+  <figure class="highlight"><pre class=" lang-html"><code class=" lang-html" data-lang="html">Link: &lt;/app/style.css&gt;; rel=preload; as=style; nopush
 Link: &lt;/app/script.js&gt;; rel=preload; as=script</code></pre></figure>
 <p>The result here is the same as using a preload link HTML tag.</p>
 </aside>
@@ -166,10 +166,10 @@ Now let's shift gears a bit and talk about the _pre-cache_ concept in PRPL. I've
 
 A service worker is a script that runs in the background of your browser when you view a webpage. We can either create the service worker file and write the logic ourselves, or we can use libraries that can make this process easier. One example is [Workbox](https://developers.google.com/web/tools/workbox/), which provides a suite of libraries and tools that we can use. One of the tools that it provides is a CLI which we can install globally:
 
-```console
+```bash
 npm install workbox-cli --global
-
 ```
+
 We can then use `workbox wizard` to start the process:
 
 ![Workbox wizard](assets/thinking-prpl/workbox-wizard.gif 'Workbox wizard'){: .article-image-with-border }
@@ -194,14 +194,13 @@ module.exports = {
 
 Once we have our configurations file saved, simply running the following command creates a new service worker file:
 
-```console
+```bash
 workbox generateSW workbox-config.js
-
 ```
+
 Although this creates a service worker file where we've asked it to, we still need to tell the browser to register it. We can do this by adding a `<script>` tag in `index.html`:
 
 ```html
-
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
@@ -237,13 +236,13 @@ Storing the resources that make up the shell in the service worker cache means t
 
 Although using Workbox's CLI can simplify creating a service worker, we would still need to remember to create a new one every time we make a change to our application. In this case, it might make more sense to integrate Workbox into our build system. For example, instead of installing the library globally - we can install it as a dependency:
 
-```console
+```bash
 npm install workbox-cli --save-dev
-
 ```
+
 We can then add it as part of our build step:
 
-```console
+```bash
 // package.json
 
 "scripts": {
@@ -264,15 +263,15 @@ Let's modify our configurations file, `workbox-config.js`, to add a `runtimeCach
 
 ```javascript
 module.exports = {
-globDirectory: 'dist/',
-globPatterns: ['**/*.{js,png,svg,html,json}'],
-swDest: 'dist/service-worker.js',
-runtimeCaching: [
-{
-urlPattern: /^https:\/\/your.api.com\/.*/,
-handler: 'networkFirst'
-}
-]
+  globDirectory: 'dist/',
+  globPatterns: ['**/*.{js,png,svg,html,json}'],
+  swDest: 'dist/service-worker.js',
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/your.api.com\/.*/,
+      handler: 'networkFirst',
+    },
+  ],
 };
 ```
 
@@ -333,9 +332,9 @@ Angular's routing framework has lazy loading [built-in](https://angular.io/guide
 
 ```javascript
 export const routes: Routes = [
-{ path: '', redirectTo: 'main', pathMatch: 'full' },
-{ path: 'main', component: MainComponent },
-{ path: 'details', loadChildren: 'details/details.module#DetailsModule' }
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: 'main', component: MainComponent },
+  { path: 'details', loadChildren: 'details/details.module#DetailsModule' },
 ];
 ```
 
@@ -348,14 +347,14 @@ import Loadable from 'react-loadable';
 import Loading from './my-loading-component';
 
 const LoadableComponent = Loadable({
-loader: () => import('./my-component'),
-loading: Loading,
+  loader: () => import('./my-component'),
+  loading: Loading,
 });
 
 export default class App extends React.Component {
-render() {
-return <LoadableComponent/>;
-}
+  render() {
+    return <LoadableComponent />;
+  }
 }
 ```
 
@@ -390,4 +389,7 @@ If a webpage takes longer than 3 seconds to load, [more than half of our users w
 # Conclusion
 
 It's important to first spend a little time analyzing the devices of our users before adding performance enhancements that very well may not be necessary (or important as other features our application needs). If we find out our application is not loading as fast it probably should after a little digging, then it may be worthwhile to dive in and try adding some optimizations to our site.
+
+```
+
 ```

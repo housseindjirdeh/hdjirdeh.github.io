@@ -23,40 +23,16 @@
     "eslint-config-synacor": "^2.0.2",
     "identity-obj-proxy": "^3.0.0",
     "if-env": "^1.0.0",
-    "jest": "^21.2.1",
     "preact-cli": "^2.1.0",
     "preact-cli-workbox-plugin": "^1.0.0",
     "preact-render-spy": "^1.2.1"
   },
   "dependencies": {
+    "highlight.js": "^9.12.0",
+    "marked": "^0.3.5",
     "preact": "^8.2.6",
-    "preact-compat": "^3.17.0",
     "preact-markup": "^1.6.0",
     "preact-router": "^2.5.7",
-    "marked": "^0.3.5"
-  },
-  "jest": {
-    "verbose": true,
-    "setupFiles": [
-      "<rootDir>/src/tests/__mocks__/browserMocks.js"
-    ],
-    "testURL": "http://localhost:8080",
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/tests/__mocks__/fileMock.js",
-      "\\.(css|less|scss)$": "identity-obj-proxy",
-      "^./style$": "identity-obj-proxy",
-      "^preact$": "<rootDir>/node_modules/preact/dist/preact.min.js",
-      "^react$": "preact-compat",
-      "^react-dom$": "preact-compat",
-      "^create-react-class$": "preact-compat/lib/create-react-class",
-      "^react-addons-css-transition-group$": "preact-css-transition-group"
-    }
+    "yaml": "^0.3.0"
   }
 }
