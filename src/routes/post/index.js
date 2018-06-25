@@ -1,14 +1,36 @@
-import { h } from 'preact';
-import Markdown from 'preact-markdown';
+import { h, Component } from 'preact';
+import { Link } from 'preact-router/match';
 
-import post from './post.md';
+import { Footer, PostContent } from 'src/components';
+import { HomeIcon } from 'src/icons';
+import { posts } from 'src/static.config';
 
-const Post = () => (
-	<div>
-		<h1>Home</h1>
-		<p>This is the Home component.</p>
-		{<Markdown markdown={post} />}
-	</div>
-);
+export default class Post extends Component {
+  state = {
+  	post: posts[this.props.id]
+  };
 
-export default Post;
+  render() {
+  	const { id } = this.props;
+  	const { title, date } = this.state.post;
+  	return (
+  		<div>
+  			<div class="flex flex-column items-center justify-between">
+  				<div class="h4 flex items-center">
+  					<Link id="home-icon-container" href="/blog"><HomeIcon /></Link>
+  				</div>
+
+  				<div class="mw7">
+  					<h1 class="f1 mv5 ttl">
+  						{title}
+  					</h1>
+  					<div class="f4 lh-copy">
+  						<PostContent name={id} />
+  					</div>
+  				</div>
+  				<Footer />
+  			</div>
+  		</div>
+  	);
+  }
+}

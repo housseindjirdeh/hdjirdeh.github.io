@@ -1,8 +1,7 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 
-import { Nav } from 'src/components';
-import { HomeIcon } from 'src/icons';
+import { Nav, Footer } from 'src/components';
 import { posts } from 'src/static.config';
 
 export default class Home extends Component {
@@ -44,7 +43,7 @@ export default class Home extends Component {
   				</div>
   				<h5 class="f3 grow">
   					<a
-	class="near-black mt4 mb5 link hover-primary-color ttl"
+  						class="near-black mt4 mb5 link hover-primary-color ttl"
   						href="https://rangle.io/"
   					>
               Rangle.io
@@ -52,7 +51,7 @@ export default class Home extends Component {
   				</h5>
   				<h5 class="f3 grow">
   					<a
-  						class="near-black mb5 link hover-primary-color ttl"
+	class="near-black mb5 link hover-primary-color ttl"
 	href="https://www2.deloitte.com/global/en/pages/technology/solutions/deloitte-digital.html"
   					>
               Deloitte Digital
@@ -67,10 +66,7 @@ export default class Home extends Component {
   					</a>
   				</h5>
   			</div>
-
-  			<div class="flex flex-column items-center mt7 mb5">
-  				<p class="f4 near-black">© MMXVIII Houssein Djirdeh</p>
-  			</div>
+  			<Footer />
   		</div>
   	);
   }

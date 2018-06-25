@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 
+import { Footer } from 'src/components';
 import { HomeIcon } from 'src/icons';
 import { posts } from 'src/static.config';
 
@@ -14,7 +15,7 @@ export default class Blog extends Component {
   		<div>
   			<div class="flex flex-column items-center justify-between">
   				<div class="h4 flex items-center">
-  					<Link id="home-icon-container" href="/"><HomeIcon /></Link>
+  					<Link id="home-icon-container" href="/blog"><HomeIcon /></Link>
   				</div>
   			</div>
 
@@ -28,11 +29,13 @@ export default class Blog extends Component {
   							{posts[id].title}
   						</Link>
   					</h5>
-  					<p class="f4">
+  					<p class="f4 lh-copy">
   						{posts[id].description}
   					</p>
   				</div>
   			))}
+
+  			<Footer />
   		</div>
   	);
   }

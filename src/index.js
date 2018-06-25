@@ -26,7 +26,7 @@ export default class App extends Component {
   			<Router onChange={this.handleRoute}>
   				<Home path="/" />
   				<Blog path="/blog/" />
-  				<Post path="/blog/:title" />
+  				<Post path="/blog/:id" />
   			</Router>
   		</div>
   	);

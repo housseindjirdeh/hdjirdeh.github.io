@@ -1,97 +1,393 @@
-Functions in Javascript are treated as first-class objects. This means that they have a type of `Object` and can be referenced like any other first-class object, such as `Date`, `Number`, and `String`. This may seem obvious to you, but it's important to remember that the nature of functions in Javascript are quite different then, for example, methods in Ruby.
+![PRPL Pattern](assets/thinking-prpl/banner.png 'PRPL Pattern'){: .article-image-with-border }
 
-So what does this mean? Since functions are actually objects, they can be assigned to variables and passed as arguments to functions. 
+**_Although modified to include additional information, this article is a write-up of a talk I gave at .concat() and Fluent. You can watch it [here](https://www.youtube.com/watch?v=RcHWKieBslk) if you happen to be interested._**
 
-For example, take a look at the following snippet.
+The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably.
 
-<pre>
-  <code>
-  var React = require('react');
-  var Markdown = require('react-markdown');
-  React.render(
-    <Markdown source="# Your markdown here" />,
-    document.getElementById('content')
-  );
-  </code>
-</pre>
+- First and foremost, you send (**push**) the most critical resources to your users.
+- You do this in order to **render** your initial route as soon as possible.
+- You then **pre-cache** remaining assets.
+- Finally, you can consider **lazy loading** your routes.
 
-The result might be what you expect.
+The term `PRPL` was coined by the Polymer team in their [talk at Google I/O 2016](https://youtu.be/J4i0xJnQUzU?t=2032).
 
-`Damn Daniel` <br>
-`Back at it again!`
+# Mobile Web
 
-Asynchronous JavaScript
-==================
-Now let's add a timeout to the first function. 
+It is probably safe to assume that the majority of individuals who read this article own a mobile device, and the amount of time that we spend on our smartphones and tablets have only increased year after year.
 
-{% highlight javascript %}
-function functionFirst() {
-  setTimeout(function() {
-    console.log('Damn Daniel');
-  }, 3000);
+![comScore 2017 U.S. Mobile App Report](assets/thinking-prpl/comScore-app-report.png 'comScore 2017 U.S. Mobile App Report'){: .article-image-with-source-border }
+
+{:comscore app report: .image-source}
+[Source: comScore 2017 U.S. Mobile App Report](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2017/The-2017-US-Mobile-App-Report)
+{: comscore app report}
+
+In comScore's [2017 U.S. Mobile App Report](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2017/The-2017-US-Mobile-App-Report), it was found that the average user spends 16x more time on popular native apps than the mobile web. As mobile device consumers, we are far more likely to spend more time on native apps than we do on the mobile browser. However, mobile web pages still received over _twice as many_ unique monthly visitors than native apps. This is due to a multitude of reasons, including the convenience, security and simplicity of just typing a URL into an address bar instead of installing an entire application.
+
+So how can we ensure that users who discover our web pages have a great experience regardless of what device they use? There are quite a few ways, and we'll go through some specific techniques and resource hints in this article. But before we do that, let's take a little time to talk about how the web works first.
+
+When we open a browser on a mobile device (or tablet or desktop) and type something into the address bar and press `Enter`, a request is sent to a remote server somewhere.
+
+![Request to remote server](assets/thinking-prpl/request.png 'Request to remote server'){: .article-image-with-border }
+
+After a certain period of time, the server responds with content that the browser needs. This usually takes shape of an HTML document. The underlying application protocol used by the web (HTTP) works using this request-response pattern.
+
+Once the browser retrieves the initial HTML document, the next thing it does is parse through the contents of the file in order to determine what other resources it needs. For each external resource that it finds, it submits a separate request for it. These resources can include CSS files for styling, JavaScript for dynamic content or even static images.
+
+![Requests and responses](assets/thinking-prpl/request-response.gif 'Requests and responses'){: .article-image-with-border }
+
+Multiple round trips are usually needed for a typical webpage in order to get all of the content that the user needs to see.
+
+# Link Preload
+
+Let's assume that the following markup represents the HTML document that our browser receives on the initial request:
+
+```html
+<html lang="en">
+   <head>
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <!--(>'-')> <('-'<)-->
+      <script src="script.js"></script>
+   </body>
+</html>
+```
+
+We can see that there's a style sheet file that is referenced as well as a JavaScript file. One thing we can do in order to help the fact that multiple requests are needed is to leverage [preload](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content):
+
+```html
+<html lang="en">
+   <head>
+      <link rel="preload" as="script" href="script.js">
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <!--(>'-')> <('-'<)-->
+      <script src="script.js"></script>
+   </body>
+</html>
+```
+
+The preload hint has a syntax that a lot of us may already be familiar with:
+
+```html
+<link rel="preload" as="script" href="script.js">
+```
+
+It's a `<link>` element where we define the location of the file as an `href` attribute. We specify the `preload` keyword using the `rel` attribute and the type of file we're trying to load using `as`. In this case, we're trying to preload a JavaScript file - hence why we've defined `as="script"`.
+
+Using preload allows us to inform the browser that a resource is needed immediately after the page loads. In other words, we’re telling the browser that this is a critical resource so please start loading it as soon as you can.
+
+![Preload](assets/thinking-prpl/preload.png 'Preload'){: .article-image-with-border }
+
+Although we can specify preload tags for resources defined in the `head` or `body` of our root HTML file, you're more likely to get the most bang for your buck using preload for resources that might be discovered much later. An example of this could be a specific font tucked deep in one of your CSS files.
+
+Style sheet and JavaScript files are not the only types of resources we can pre-emptively fetch using preload. [Other types of content](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content#What_types_of_content_can_be_preloaded) can be preloaded as well.
+
+## Link Prefetch
+
+Instead of preload, we can also make use of a [prefetch](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) tag for some of our resources. The difference here is that prefetch is more suited for resources needed for a different navigation route. This means that the browser will know to fetch and cache this resource once it has completed loading the current page.
+
+<aside>
+  <p>For a deeper dive into how Chrome prioritizes preloaded and prefetched resources as well as some real-world preload statistics, you can refer to Addy Osmani's write-up: <a href="https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf">Preload, Prefetch And Priorities in Chrome</a>.</p>
+</aside>
+
+Although it may seem straightforward to add `<link rel="preload">` and `<link rel="prefetch">` tags to the head of your HTML document for static sites, it can be a little tricker if you happen to be using a module bundler for a single-page application. Fortunately, there are a number of potential tools that can make this easier:
+
+- webpack 4.6.0 [provides support](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c) for prefetching and preloading resources using 'magic' comments:
+
+<div class="highlight-in-list">
+```javascript
+import(/* webpackPreload: true */ "PreloadedPage")
+
+import(/_ webpackPrefetch: true _/ "PrefetchedPage")
+
+```
+</div>
+
+- If you happen to be using an older version of webpack:
+  - [preload-webpack-plugin](https://github.com/GoogleChromeLabs/preload-webpack-plugin) is a webpack plugin that allows you to define dynamically generated chunks (as a result of code-splitting) as preloaded or prefetched resources. This plugin is supposed to be used alongside [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin).
+  - [script-ext-html-webpack-plugin](https://github.com/numical/script-ext-html-webpack-plugin) is an extension of [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin) and can be used to attach custom attributes and resource hints to generated chunks, including `preload` and `prefetch`.
+
+## Browser Support
+
+At the time of writing this article, the browser support for preload is as follows:
+
+- Shipped:
+
+  - [Chrome](https://www.chromestatus.com/feature/5757468554559488)
+  - [Safari](https://webkit.org/status/#specification-preload)
+  - [Firefox](https://platform-status.mozilla.org/#link-rel-preload)
+
+- In development:
+  - [Edge](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/preload/)
+
+# HTTP/2 Server Push
+
+We've just covered how we can use `<link rel="preload">` to load critical resources as early as possible, but another useful point of topic is HTTP/2 Server Push. In short, [HTTP/2](https://http2.github.io/) is a revision of HTTP and aims to provide a number of performance improvements. For the purpose of this article, we're only going to focus on Server Push.
+
+The idea behind Server Push is that when we send down the initial HTML document during our first request/response interaction, we can also send down (or push) critical assets at the same time. These are assets we know the browser will need before it even knows it needs them itself.
+
+![Server Push](assets/thinking-prpl/server-push.png 'Server Push'){: .article-image-with-border }
+
+One of the primary benefits of using Server Push is that it can minimize round trips to the server. We can remove the time it takes the browser to parse the contents of the HTML file and fire subsequent requests for any assets that it finds which can result in shorter page load times.
+
+One thing we didn't mention earlier about preload is that instead of using HTML tags, we can also specify HTTP headers:
+
+```html
+Link: </app/style.css>; rel=preload; as=style
+Link: </app/script.js>; rel=preload; as=script
+```
+
+Many hosting platforms that support HTTP/2 Push will attempt to push assets down the wire when it sees that you've preloaded them using Link HTTP headers. Examples include [https://firebase.googleblog.com/2016/09/http2-comes-to-firebase-hosting.html](https://firebase.google.com/docs/hosting/) and [Netlify](https://www.netlify.com/blog/2017/07/18/http/2-server-push-on-netlify/).
+
+<aside>
+  <p>Although having Server Push instantiated automatically for assets where we've declated Link Headers can be useful, there may be cases where you may only want to preload your assets and not rely on Push whatsoever. In those cases, you can use a <code>nopush</code> attribute:</p>
+  <figure class="highlight"><pre class=" language-html"><code class=" language-html" data-lang="html">Link: &lt;/app/style.css&gt;; rel=preload; as=style; nopush
+Link: &lt;/app/script.js&gt;; rel=preload; as=script</code></pre></figure>
+<p>The result here is the same as using a preload link HTML tag.</p>
+</aside>
+
+## Server Push is experimental
+
+Although page load times can be reduced with Server Push, it can actually harm performance if not used correctly. There are a number of reasons why this can happen:
+
+- **Pushing unused assets:** The server has no idea which resources are being used by the client, and pushing assets that aren't used can waste user bandwidth.
+- **Pushing too many assets:** Pushing too many assets can cause performance hits. There's no specific number of files you should be pushing and it can vary depending on how many resources the browser is trying to load. It is important to keep in mind that Server Push can overwrite the browser's prioritization logic and you should try pushing assets with the correct order of loading.
+- **Pushing assets already cached by the browser:** Ideally, we would want the browser to reject pushed resources if it already has it stored in one of its caches. Although the client can use [settings](https://tools.ietf.org/html/rfc7540#section-8.2.2) to make this possible, each browser behaves differently and this can get a little tricky. Jake Archibald covers this in a little more detail in his excellent [write-up](https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/#the-browser-can-abort-pushed-items-if-it-already-has-them) about the nuances of HTTP/2 Push between different browsers.
+
+<aside>
+  <p>For more information on Server Push, you can refer to Jeremy Wagner's <a href="https://www.smashingmagazine.com/2017/04/guide-http2-server-push/">guide.</a></p>
+</aside>
+
+# Service Workers
+
+Now let's shift gears a bit and talk about the _pre-cache_ concept in PRPL. I've briefly addressed service workers in my previous [post]({{ site.url }}/progressive-angular-applications) about building progressive Angular applications, but we'll dive a little deeper here.
+
+A service worker is a script that runs in the background of your browser when you view a webpage. We can either create the service worker file and write the logic ourselves, or we can use libraries that can make this process easier. One example is [Workbox](https://developers.google.com/web/tools/workbox/), which provides a suite of libraries and tools that we can use. One of the tools that it provides is a CLI which we can install globally:
+
+```console
+npm install workbox-cli --global
+
+```
+We can then use `workbox wizard` to start the process:
+
+![Workbox wizard](assets/thinking-prpl/workbox-wizard.gif 'Workbox wizard'){: .article-image-with-border }
+
+Workbox asks a series of questions in order to set up a service worker with the correct configurations:
+
+1.  <code>What is the root of your web app?</code> If you're using a module bundler or have a build step in your application, you most likely have a final folder that you'll need to deploy (for example: `dist/` or `build/`).
+2.  <code>Which file types would you like to precache?</code> You can decide which file types you would like to precache.
+3.  <code>Where would you like your service worker file to be saved?</code> You most likely would need to have your service worker saved in the folder you deploy, but you can specify where exactly.
+4.  <code>Where would you like to save these configuration settings?</code> Workbox saves these settings into a separate configurations file (and you can decide where to save it). The default answer is `workbox-config.js` at the root of your application and the file generated looks like this:
+
+<div class="highlight-in-list">
+```javascript
+module.exports = {
+  globDirectory: 'dist/',
+  globPatterns: ['**/*.{js,png,svg,html,json}'],
+  swDest: 'dist/service-worker.js',
+};
+```
+
+</div>
+
+Once we have our configurations file saved, simply running the following command creates a new service worker file:
+
+```console
+workbox generateSW workbox-config.js
+
+```
+Although this creates a service worker file where we've asked it to, we still need to tell the browser to register it. We can do this by adding a `<script>` tag in `index.html`:
+
+```html
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/service-worker.js').then(function(){
+        // Registration was successful
+        console.log('ServiceWorker registration successful!');
+      }).catch(function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+</script>
+```
+
+In here, we check to see if service workers are supported in the browser. If they are, we register our service worker using `navigator.serviceWorker.register()`. To prevent the possibility of the service worker being registered at the same time as other resources are still being loaded to the DOM, we make sure to only register it after `window.onload` is complete with the use of an event listener. At the end, we have logs outputted to our console in the case of a successful registration or a failed one.
+
+## Application Shell
+
+So we briefly covered how to install and register a service worker using Workbox, but we still haven't mentioned how they work. One of the primary benefits of using a service worker is that they allow you to precache the resources that make up the Application Shell. Like the name suggests, the App Shell is the _shell_ of your user interface.
+
+![App Shell - Twitter Lite](assets/thinking-prpl/twitter-lite-app-shell.png 'App Shell - Twitter Lite'){: .article-image-with-source-border }
+
+{:app shell: .image-source}
+[Application Shell - Twitter Lite](https://mobile.twitter.com)
+{: app shell}
+
+The App Shell consists of all the HTML, CSS and JS that make up the parts of that application that don't convey actual data (or dynamic data retrieved from a third-party location). Once the app is loaded for the first time, the assets that make up the shell can be retrieved over the network normally. A service worker can act like a middleman between the browser and the network allowing us to to cache these resources as well.
+
+![Service Worker](assets/thinking-prpl/service-worker.png 'Service Worker'){: .article-image-with-border }
+
+Storing the resources that make up the shell in the service worker cache means that when the user loads the application for a second time, the browser can retrieve them from the service worker instead of making network requests. This results in **faster page loads on repeat visits**.
+
+Although using Workbox's CLI can simplify creating a service worker, we would still need to remember to create a new one every time we make a change to our application. In this case, it might make more sense to integrate Workbox into our build system. For example, instead of installing the library globally - we can install it as a dependency:
+
+```console
+npm install workbox-cli --save-dev
+
+```
+We can then add it as part of our build step:
+
+```console
+// package.json
+
+"scripts": {
+//...
+"build": "{build} && workbox generateSW workbox-config.js"
 }
+```
 
-function functionSecond(){
-  console.log( 'Back at it again!');
+<aside>
+  <p>Instead of using the CLI, we also have the option of using an <code class="highlighter-rouge">npm</code> module or webpack plugin provided by Workbox. You can find out more in the <a href="https://developers.google.com/web/tools/workbox/modules/#node-modules">documentation.</a></p>
+</aside>
+
+## Dynamic Content
+
+The next thing service workers allow us to do is pre-cache **dynamic content**. Just like the resources that make up the App Shell, this is data that can be retrieved from a third-party network. However, the difference here is that this is content that can change with subsequent page loads.
+
+Let's modify our configurations file, `workbox-config.js`, to add a `runtimeCaching` attribute:
+
+```javascript
+module.exports = {
+globDirectory: 'dist/',
+globPatterns: ['**/*.{js,png,svg,html,json}'],
+swDest: 'dist/service-worker.js',
+runtimeCaching: [
+{
+urlPattern: /^https:\/\/your.api.com\/.*/,
+handler: 'networkFirst'
 }
+]
+};
+```
 
-functionFirst();
-functionSecond();
-{% endhighlight %}
+With `runtimeCaching`, we can add an array of URL patterns and define a specific caching strategy for each. Different caching strategies allow us to control how our service worker can handle caching results fetched from a URL. In this example, we use the `networkFirst` strategy which means the service worker will always know to retrieve the contents from the network and serve it to the user. However, it will also always update its pre-cached results with the latest data. If the network happens to fail, the service worker will serve its cached information and the user can see older data instead of _no data at all_.
 
-After a three second delay, this gets outputted:
+Although extremely useful for applications where data is changing frequently, `networkFirst` isn't the only caching strategy we can use. Let's quickly go over the others:
 
-`Back at it again!` <br>
-`Damn Daniel`
+- `cacheFirst`: If there is no cached data, a network request is made and the results are cached. After that, the cache will only serve its data and no network requests will be made. This can be useful for handling things in an offline-first manner.
+- `staleWhileRevalidate`: Mostly suited for serving non-critical data to the user as fast as possible, this approach is used to serve cached data to the user quickly at first. A network request is also made in parallel with the request made to the cache. When the network request is complete, the cache is updated.
+- `cacheOnly`: Only retrieve resources from the cache and do not rely on the network at all. However, `cacheFirst` is more commonly used for offline-first patterns.
+- `networkOnly`: Only retrieve resources from the network and do not have any data cached. This may not be commonly used but may be suitable for data that cannot be cached.
 
-Why? Javascript is of **a single threaded nature**. This means it executes one piece of code at a time (each piece of code, or operation, is queued along this single thread). Notice how `functionFirst()` triggers `setTimeout`, which queues an operation to run after a certain delay (in this case, after 3 seconds). The concept of *running after a certain time* is exactly what **asynchronous** means.
+<aside>
+  <p>The Workbox <a href="https://developers.google.com/web/tools/workbox/modules/workbox-strategies">documentation</a> and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">Offline Cookbook</a> go into more detail about each of the different strategies.</p>
+</aside>
 
-Callbacks
-==================
-Now, for obvious reasons, we want the text `Back at it again!` to show after `Damn Daniel`. To do so, we can store `functionSecond()` as a **callback**.
+## Customize Service Worker
 
-{% highlight javascript %}
-function functionFirst(callback) {
-  setTimeout(function() {
-    console.log('Back at it again');
-    callback();
-    }, 3000);
-}
+Although using the Workbox CLI can make getting a service worker up and running an extremely simple and straightforward process, there may be scenarios where we would need a little more control on how our service worker is created. This can be for a number of reasons:
 
-function functionSecond() {
-  console.log('with the white Vans!');
-}
+- We have more complex pre-caching requirements than what Workbox provides out of the box.
+- We want to take advantage of other service worker features (such as [Web Push](https://developer.mozilla.org/en-US/docs/Web/API/Push_API))
+- We already have a service worker file and only need to incorporate some Workbox features in addition to it.
 
-functionFirst(function(){
-  functionSecond();
+For any of these scenarios, we can use the `injectManifest` mode provided by Workbox:
+
+```javascript
+workbox injectManifest workbox-config.js
+```
+
+By using this flag, we not only need to provide a destination service worker location but the location of an existing service worker as a source as well.
+
+<aside>
+  <p>There is a common conception that service workers may not be necessary in cases where the majority of users who would open a specific webpage likely have a working network connection. Even though developers who cater to users who are fortunate enough to have reliable network connections all the time may <i>feel</i> like there's no need for offline support, flaky network connections will eventually affect them for varying reasons.</p>
+  <img src="assets/thinking-prpl/reliability-tweet.png" alt="Reliability" title="Reliability" class="article-image-with-source-border">
+  <p><a href="https://twitter.com/HenrikJoreteg/status/909632750453321734">Tweet Source</a></p>
+</aside>
+
+## Browser Support
+
+At the time of writing, service workers are supported in all major browsers:
+
+- Shipped:
+  - [Chrome](https://www.chromestatus.com/feature/6561526227927040)
+  - [Safari](https://webkit.org/status/#specification-service-workers)
+  - [Firefox](https://platform-status.mozilla.org/#service-worker)
+  - [Edge](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/serviceworker)
+
+# Bundles
+
+Front-end development has changed a lot in the past few years. A large number of JavaScript libraries and frameworks have allowed us to add more client-side logic and functionality than ever before. Unfortunately, this can come at a cost of [larger bundle sizes](https://twitter.com/slightlylate/status/834507657209733121).
+
+Although adding more and more JavaScript code to a large application will inevitably make our bundle sizes grow and grow, we can incorporate _code splitting_ into our application to help. The idea behind code splitting is that instead of providing users with all of the code that makes up our application as soon as they navigate to the first page, we can try to give them _pieces_ of the entire bundle that are only relevant to their current route. The browser can then make requests for more chunks of the bundle as the user navigates through the application. The concept of loading different pieces of a bundle on demand is called _lazy loading_.
+
+Code splitting and lazy loading allow us to send smaller chunks to our users as well prioritize loading of specific chunks if we need to (with `<link rel="preload">` for example). This can improve loading times significantly.
+
+Angular's routing framework has lazy loading [built-in](https://angular.io/guide/lazy-loading-ngmodules) where we can use a `loadChildren` attribute to load a feature module on demand:
+
+```javascript
+export const routes: Routes = [
+{ path: '', redirectTo: 'main', pathMatch: 'full' },
+{ path: 'main', component: MainComponent },
+{ path: 'details', loadChildren: 'details/details.module#DetailsModule' }
+];
+```
+
+For React, [React Loadable](https://github.com/jamiebuilds/react-loadable) is an excellent library that allows you to create higher order components to load components asynchronously.
+
+```javascript
+// snippet from React Loadable README.md
+
+import Loadable from 'react-loadable';
+import Loading from './my-loading-component';
+
+const LoadableComponent = Loadable({
+loader: () => import('./my-component'),
+loading: Loading,
 });
 
-console.log('Damn Daniel');
-{% endhighlight %}
+export default class App extends React.Component {
+render() {
+return <LoadableComponent/>;
+}
+}
+```
 
-The output:
+Code splitting at the component level can even allow for more fine-grained control over doing things at the route level.
 
-`Damn Daniel` <br>
-`Back at it again` <br>
-`with the white Vans!`
+<blockquote>
+  <p>There are many more places than just routes where you can pretty easily split apart your app. Modals, tabs, and many more UI components hide content until the user has done something to reveal it.</p>
+  <footer><a href="https://github.com/jamiebuilds/react-loadable">React Loadable README.md</a></footer>
+</blockquote>
 
-We can see that `functionFirst` accepts `functionSecond` as an argument, or callback, and this means that `functionFirst` is a **higher-order function**. In other words, `functionFirst` will *call the second function back later* once its operation is complete.
+## Tracking bundle size changes
 
-So why is this useful? Say you send off an HTTP request and you need to do something with the response. Instead of holding up your browser, you can use a callback to handle the response *whenever it arrives*. Another useful example in this context could be when your application is dependent on user input.
+If you're considering adding code splitting/lazy loading to your application, it's probably a good idea to keep an eye on your bundle size from time to time. There are a number of different community-built tools that can make this easier, such as [Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) which shows a visualization of how different parts of your bundle are larger/smaller than others with a treemap.
 
-The only reason I used `setTimeout` was to simulate an operation that takes a certain time. Such operations could be reading from a text file, downloading things or performing an HTTP request. Node, for example, is built entirely on an asynchronous concept and uses callbacks extensively. The following is a simple example.
+![Webpack Bundle Analyzer](assets/thinking-prpl/webpack-bundle-analyzer.png 'Webpack Bundle Analyzer'){: .article-image-with-border }
 
-{% highlight javascript %}
-var fs = require("fs");
+# Metrics
 
-fs.readFile('input.txt', function(err, data) {
-  if (err) return console.error(err);
-  console.log(data);
-});
-{% endhighlight %}
+With regards to load times, using metrics can be important to set a baseline on how well our webpage loads for different users. Some important metrics to consider are:
 
-Notice the first argument of the call back is reserved for an error object. This is the *error callback convention* that has been standardized to allow for Node's asynchronous nature.
+- **First Meaningful Paint**: The time it takes the user to see _meaningful_ content on their device.
+- **Time to Interactive (TTI)**: The time it takes for the JavaScript thread to settle and the user can interact with the application.
 
-Wrapping things up
-==================
-With that, we've covered the basics of callbacks and how they can be used. However, callbacks aren't the only way to handle asynchronous operations in JavaScript. **Promises** are another way, and I'll write about that in my next post about asynchronous JavaScript <i class="fa fa-smile-o" aria-hidden="true"></i>.
+As developers, many of us have become accustomed to building web applications with healthy network connections and powerful machines. At times, we may not realize how users would experience our applications with lower-end devices and weaker connections. According to a statistic mentioned [here](https://www.thinkwithgoogle.com/_qs/documents/57/mobile-page-speed-new-industry-benchmarks.pdf), the average time it takes to fully load a webpage on mobile is greater than _20 seconds_. This was found by running tests on a globally representative 3G network connection and a Nexus 5 device. Another Google Research statistic mentioned [here](https://www.thinkwithgoogle.com/intl/en-ca/advertising-channels/mobile/mobile-shopping-ecosystem/) found the average load time to be _15.3 seconds_ with a 4G connection.
+
+If a webpage takes longer than 3 seconds to load, [more than half of our users will give up](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/).
+
+<aside>
+  <p>For an excellent (and deeper) dive into perfomance metrics, take a look at Philip Walton's article: <a href="https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#first_meaningful_paint_and_hero_element_timing">User-centric Performance Metrics</a>.</p>
+</aside>
+
+# Conclusion
+
+It's important to first spend a little time analyzing the devices of our users before adding performance enhancements that very well may not be necessary (or important as other features our application needs). If we find out our application is not loading as fast it probably should after a little digging, then it may be worthwhile to dive in and try adding some optimizations to our site.
+```
