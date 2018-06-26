@@ -1,0 +1,104 @@
+html,
+body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  font-family: avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto,
+    noto, segoe ui, arial, sans-serif;
+  font-weight: 400;
+  color: #444;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  width: 100%;
+}
+
+.red {
+  color: #fc6767;
+}
+
+.hover-red:hover {
+  color: #fc6767;
+}
+
+#home-icon-container {
+  transition: all 0.15s ease-in-out;
+
+  &:hover {
+    #home-icon {
+      fill: #fc6767;
+    }
+  }
+}
+
+.internal-link {
+  -webkit-box-shadow: inset 0 -2px 0 0 #fc6767;
+  box-shadow: inset 0 -2px 0 0 #fc6767;
+  border-bottom: 1px solid #fc6767;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.lds-dual-ring:after {
+  content: ' ';
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #111;
+  border-color: #111 transparent #111 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#markup {
+  a {
+    font-weight: 600;
+    text-decoration: none;
+    transition: color .15s ease-in;
+    color: #fc6767;
+    -webkit-box-shadow: inset 0 -2px 0 0 #fc6767;
+    box-shadow: inset 0 -2px 0 0 #fc6767;
+    border-bottom: 1px solid #fc6767;
+    
+    &:hover {
+      color: #111;
+    }  
+  }
+
+  figure {
+    margin: 0;
+
+    code,
+    li code {
+      background: #f8f8f8;
+      font-size: 0.95rem;
+      padding: 1rem;
+    }
+  }
+
+  p code,
+  li code {
+    background: #f8f8f8;
+    font-size: 0.95rem;
+    padding: 5px;
+  }
+}

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 
-  {% include head.html %}
+{% include head.html %}
 
-  <body>
+<body>
 
-      <div class="wrapper">
-        {{ content }}
-      </div>
+  <div class="flex flex-column items-center justify-between">
+    {% include header.html %} {{ content }} {% include footer.html %}
+  </div>
 
-  </body>
+</body>
 
 </html>

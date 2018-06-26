@@ -1,73 +1,15 @@
 ---
 layout: default
 ---
-<div class="index-main">
-  <div class="full-screen">
-    <div class="full-screen-section">
-      <header>
-        <div>
-            <h1>
-              <strong>Houssein</strong> Djirdeh
-            </h1>
-        </div>
-      </header>
-      <section class="about">
-            <p class="about-me">Front-end engineer based in Toronto</p>
-      </section>
-      <nav>
-        <div class="menu">
-          <a class="subscribe-button" href="https://github.com/housseindjirdeh" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a>
-          <a class="subscribe-button" href="https://twitter.com/hdjirdeh"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
-          <a class="blog-button" href="/blog"><i class="fa fa-pencil" aria-hidden="true"></i> Blog</a>
-        </div>
-      </nav>
-    </div>
-    <span class="chevron"><i class="fa fa-chevron-down"></i></span>
+{% for post in site.posts %}
+  <div class="flex flex-column justify-between mw7 pv5 center bb w-100">
+    <h5 class="f3 fw6 mb3 mt0 grow">
+      <a href="{{ post.url | prepend: site.baseurl }}" class="near-black link hover-red grow ttl">
+        {{ post.title | downcase }}
+      </a>
+    </h5>
+    <p class="f4 lh-copy mb0 near-black">
+      {{ post.description }}
+    </p>
   </div>
-  <main>
-    <section class="sub-section">
-      <h2 class="header">Recent Posts</h2>
-      <hr>
-        {% for post in site.posts limit:3 %}
-          {% if post.type == "post" %}
-            <h3 class="heading">
-              <a href="{{ post.url | prepend: site.baseurl }}">
-                {{ post.title | downcase }}
-              </a>
-          </h3>
-          {% endif %}
-        {% endfor %}
-    </section>
-    <section class="sub-section">
-      <h2 class="header">Places I've worked</h2>
-      <hr>
-        <div class="item">
-          <h3 class="heading">
-            <a href="https://rangle.io/">
-              rangle.io
-            </a>
-          </h3>
-          <p>2017–2018</p>
-        </div>
-        <div class="item">
-          <h3 class="heading">
-            <a href="https://deloittedigital.ca/">
-              deloitte digital
-            </a>
-          </h3>
-          <p>2015–2017</p>
-        </div>
-        <div class="item">
-          <h3 class="heading">
-            <a href="https://onramp-solutions.com/">
-              onramp
-            </a>
-          </h3>
-          <p>2013–2014</p>
-        </div>
-    </section>
-  </main>
-  <footer>
-      <p>&copy; MMXVIII Houssein Djirdeh</p>
-  </footer>
-</div>
+{% endfor %}

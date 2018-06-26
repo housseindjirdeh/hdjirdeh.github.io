@@ -7,82 +7,45 @@
 
   <!-- Schema.org markup for Google+ -->
   {% if page.title %}
-    <meta itemprop="name" content="{{ page.title }}">
-  {% else %}
-    <meta itemprop="name" content="{{ site.title }}">
-  {% endif %}
-  {% if page.description %}
-    <meta itemprop="description" content="{{ page.description }}">
-  {% else %}
-    <meta itemprop="description" content="{{ site.description }}">
-  {% endif %}
-  {% if page.image %}
-    <meta itemprop="image" content="{{ site.url }}/{{ page.image }}">
-  {% else %}
-    <meta itemprop="image" content="{{ site.url }}/public/angular2.png">
-  {% endif %}
+  <meta itemprop="name" content="{{ page.title }}"> {% else %}
+  <meta itemprop="name" content="{{ site.title }}"> {% endif %} {% if page.description %}
+  <meta itemprop="description" content="{{ page.description }}"> {% else %}
+  <meta itemprop="description" content="{{ site.description }}"> {% endif %} {% if page.image %}
+  <meta itemprop="image" content="{{ site.url }}/{{ page.image }}"> {% else %}
+  <meta itemprop="image" content="{{ site.url }}/public/angular2.png"> {% endif %}
 
   <!-- Twitter Card data -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@hdjirdeh">
-  <meta name="twitter:creator" content="@hdjirdeh">
-  {% if page.title %}
-    <meta name="twitter:title" content="{{ page.title }}">
-  {% else %}
-    <meta name="twitter:title" content="{{ site.title }}">
-  {% endif %}
-  {% if page.url %}
-    <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
-  {% endif %}
-  {% if page.description %}
-    <meta name="twitter:description" content="{{ page.description | truncate: 200 }}">
-  {% else %}
-    <meta name="twitter:description" content="{{ site.description | truncate: 200 }}">
-  {% endif %}
-  {% if page.image %}
-    <meta name="twitter:image" content="{{ site.url }}/{{ page.image }}">
-  {% else %}
-    <meta name="twitter:image" content="{{ site.url }}/public/angular2.png">
-  {% endif %}
+  <meta name="twitter:creator" content="@hdjirdeh"> {% if page.title %}
+  <meta name="twitter:title" content="{{ page.title }}"> {% else %}
+  <meta name="twitter:title" content="{{ site.title }}"> {% endif %} {% if page.url %}
+  <meta name="twitter:url" content="{{ site.url }}{{ page.url }}"> {% endif %} {% if page.description %}
+  <meta name="twitter:description" content="{{ page.description | truncate: 200 }}"> {% else %}
+  <meta name="twitter:description" content="{{ site.description | truncate: 200 }}"> {% endif %} {% if page.image %}
+  <meta name="twitter:image" content="{{ site.url }}/{{ page.image }}"> {% else %}
+  <meta name="twitter:image" content="{{ site.url }}/public/angular2.png"> {% endif %}
 
   <!-- Open Graph data -->
   {% if page.title %}
-    <meta property="og:title" content="{{ page.title }}">
-  {% else %}
-    <meta property="og:title" content="{{ site.title }}">
-  {% endif %}
-  <meta property="og:type" content="article" />
-  {% if page.url %}
-    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  {% endif %}
-  {% if page.image %}
-    <meta property="og:image" content="{{ site.url }}/{{ page.image }}">
-  {% else %}
-    <meta property="og:image" content="{{ site.url }}/public/angular2.png">
-  {% endif %}
-  {% if page.description %}
-    <meta property="og:description" content="{{ page.description | truncate: 200 }}">
-  {% else %}
-    <meta property="og:description" content="{{ site.description | truncate: 200 }}">
-  {% endif %}
-  {% if page.date %}
+  <meta property="og:title" content="{{ page.title }}"> {% else %}
+  <meta property="og:title" content="{{ site.title }}"> {% endif %}
+  <meta property="og:type" content="article" /> {% if page.url %}
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}"> {% endif %} {% if page.image %}
+  <meta property="og:image" content="{{ site.url }}/{{ page.image }}"> {% else %}
+  <meta property="og:image" content="{{ site.url }}/public/angular2.png"> {% endif %} {% if page.description %}
+  <meta property="og:description" content="{{ page.description | truncate: 200 }}"> {% else %}
+  <meta property="og:description" content="{{ site.description | truncate: 200 }}"> {% endif %} {% if page.date %}
   <meta property="article:published_time" content="{{ page.date }}" />
-  <meta property="article:modified_time" content="{{ page.date }}" />
-  {% endif %}
+  <meta property="article:modified_time" content="{{ page.date }}" /> {% endif %}
   <meta property="fb:admins" content="1518546144" />
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+  <link rel="stylesheet" href="{{ " /css/main.css " | prepend: site.baseurl }}">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-  <link rel="author" href="https://plus.google.com/109730836902589271473"/>
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/prism.css">
-
-  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
-  {% if jekyll.environment == 'production' %}
-    {% include analytics.html %}
-  {% endif %}
+  <link rel="author" href="https://plus.google.com/109730836902589271473" />
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ " /feed.xml
+    " | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <script src="/lib/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 </head>
