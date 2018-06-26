@@ -1,5 +1,3 @@
-![Progressive Angular Banner](assets/progressive-angular-applications-2/banner.jpg 'Progressive Angular Banner'){: .article-image-with-border }
-
 In [Part 1]({{ site.url }}/progressive-angular-applications) of this article, we explored how to add a number of progressive enhancements to a [Hacker News client built with Angular](https://angular2-hn.firebaseapp.com). That post was written a year ago and a lot has changed in the Angular ecoystem since then, and the next two articles in this series will focus on newer tools that we can use to build progressive Angular applications. This post will focus on **lazy-loading**.
 
 # The breakdown
@@ -32,8 +30,8 @@ If we have the required [Node and NPM versions](https://github.com/angular/angul
 
 ```bash
 npm install -g @angular/cli
-
 ```
+
 We can then create a new application:
 
 ```bash
@@ -80,9 +78,9 @@ Let's begin by building the first few components in our application. We'll start
 import { Component } from '@angular/core';
 
 @Component({
-selector: 'app-header',
-templateUrl: './header.component.html',
-styleUrls: ['./header.component.scss'],
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {}
 ```
@@ -136,7 +134,6 @@ By default, Angular CLI allows us to import using absolute imports (`import Comp
 The only component (`app.component.ts`) and module (`app.module.ts`) scaffolded when we created the project live directly in `src/app`. Let's modify `AppComponent` to include `HeaderComponent`:
 
 ```html
-
 <!-- src/app/app.component.html -->
 
 <div id="app">
@@ -158,10 +155,10 @@ import { HeaderComponent } from 'app/component';
 import { AppComponent } from './app.component';
 
 @NgModule({
-declarations: [AppComponent, HeaderComponent],
-imports: [BrowserModule],
-providers: [],
-bootstrap: [AppComponent],
+  declarations: [AppComponent, HeaderComponent],
+  imports: [BrowserModule],
+  providers: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -189,7 +186,6 @@ Now that we've got our feet wet building our first component. Let's move on to b
 Let's begin with our `CardComponent`:
 
 ```html
-
 <!-- src/app/component/card/card.component.html -->
 
 <div (click)="onClick()" class="card grow" [ngStyle]="setBackgroundStyle()">
@@ -270,7 +266,6 @@ declarations: [AppComponent, HeaderComponent],
 Let's add a couple of dummy card components to `AppComponent` to see if they're displaying correctly:
 
 ```html
-
 <!-- src/app/app.component.html -->
 
 <div id="app">
@@ -293,7 +288,6 @@ It's time to begin adding navigation to our application. Instead of placing comp
 Let's build `HomeComponent` responsible for the initial route:
 
 ```html
-
 <!-- src/app/scene/home/home.component.html -->
 
 <div class="grid">
@@ -307,7 +301,6 @@ Let's build `HomeComponent` responsible for the initial route:
 ```
 
 ```javascript
-
 <!-- src/app/scene/home/home.component.ts -->
 
 import { Component, OnInit } from '@angular/core';
@@ -369,22 +362,22 @@ import { HomeComponent } from 'app/scene';
 import { AppComponent } from './app.component';
 
 const routePaths: Routes = [
-{
-path: '',
-redirectTo: 'home',
-pathMatch: 'full',
-},
-{
-path: 'home',
-component: HomeComponent,
-},
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
 ];
 
 @NgModule({
-declarations: [AppComponent, HeaderComponent, CardComponent, HomeComponent],
-imports: [BrowserModule, RouterModule.forRoot(routePaths)],
-providers: [],
-bootstrap: [AppComponent],
+  declarations: [AppComponent, HeaderComponent, CardComponent, HomeComponent],
+  imports: [BrowserModule, RouterModule.forRoot(routePaths)],
+  providers: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -392,7 +385,6 @@ export class AppModule {}
 We’ve defined a single route path (`home`) that maps to a component (`HomeComponent`) and we've set up the root path to redirect to this. Now we need to let our application know where to dynamically load the correct component based on the current route, and we can do that by using `router-outlet`:
 
 ```html
-
 <!-- src/app/app.component.html -->
 
 <div id="app">
@@ -455,18 +447,18 @@ import { NgModule } from '@angular/core';
 import { IceAndFireService } from './iceandfire.service';
 
 @NgModule({
-imports: [],
-exports: [],
-declarations: [],
-providers: [],
+  imports: [],
+  exports: [],
+  declarations: [],
+  providers: [],
 })
 export class ServicesModule {
-static forRoot() {
-return {
-ngModule: ServicesModule,
-providers: [IceAndFireService],
-};
-}
+  static forRoot() {
+    return {
+      ngModule: ServicesModule,
+      providers: [IceAndFireService],
+    };
+  }
 }
 
 export { IceAndFireService };
@@ -486,24 +478,24 @@ In our service, we type-check with a `House` interface. Let's add our types and 
 type Url = string;
 
 export interface House {
-id: number;
-url: Url;
-name: string;
-region: string;
-coatOfArms: string;
-words: string;
-titles: string[];
-seats: string[];
-currentLord: string;
-heir: string;
-overlord: Url;
-founded: string;
-founder: string;
-diedOut: string;
-ancestralWeapons: string[];
-cadetBranches: Url[];
-swornMembers: Url[];
-color: string;
+  id: number;
+  url: Url;
+  name: string;
+  region: string;
+  coatOfArms: string;
+  words: string;
+  titles: string[];
+  seats: string[];
+  currentLord: string;
+  heir: string;
+  overlord: Url;
+  founded: string;
+  founder: string;
+  diedOut: string;
+  ancestralWeapons: string[];
+  cadetBranches: Url[];
+  swornMembers: Url[];
+  color: string;
 }
 ```
 
@@ -524,13 +516,13 @@ import { ServicesModule } from 'app/service';
 //...
 
 @NgModule({
-//...
-imports: [
-//...
-HttpClientModule,
-ServicesModule.forRoot(),
-],
-//...
+  //...
+  imports: [
+    //...
+    HttpClientModule,
+    ServicesModule.forRoot(),
+  ],
+  //...
 })
 export class AppModule {}
 ```
@@ -635,11 +627,11 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 //...
 
 @NgModule({
-imports: [
-//...
-InfiniteScrollModule,
-],
-//...
+  imports: [
+    //...
+    InfiniteScrollModule,
+  ],
+  //...
 })
 export class AppModule {}
 ```
@@ -647,7 +639,6 @@ export class AppModule {}
 We can now add this to `HomeComponent`:
 
 ```html
-
 <!-- src/app/scene/home/home.component.html -->
 
 <div class="grid" infinite-scroll (scrolled)="onScrollDown()">
@@ -670,17 +661,17 @@ import { IceAndFireService } from 'app/service';
 import { House } from 'app/type';
 
 @Component({
-selector: 'app-home',
-templateUrl: './home.component.html',
-styleUrls: ['./home.component.scss'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-//...
+  //...
 
-onScrollDown() {
-this.pageNum++;
-this.getHouses(this.pageNum);
-}
+  onScrollDown() {
+    this.pageNum++;
+    this.getHouses(this.pageNum);
+  }
 }
 ```
 
@@ -715,7 +706,6 @@ We can apply code splitting in different ways, but it commonly happens on the ro
 Let's see this in action by building our next route, `/home`, which shows information for a single house:
 
 ```html
-
 <!-- src/app/scene/house/house.component.html -->
 
 <app-modal (modalClose)="modalClose()">
@@ -772,16 +762,16 @@ import { ModalComponent, LoaderComponent } from 'app/component';
 import { HouseComponent } from './house.component';
 
 const routes: Routes = [
-{
-path: '',
-component: HouseComponent,
-},
+  {
+    path: '',
+    component: HouseComponent,
+  },
 ];
 
 @NgModule({
-imports: [CommonModule, RouterModule, RouterModule.forChild(routes)],
-declarations: [HouseComponent, ModalComponent, LoaderComponent],
-exports: [HouseComponent, RouterModule],
+  imports: [CommonModule, RouterModule, RouterModule.forChild(routes)],
+  declarations: [HouseComponent, ModalComponent, LoaderComponent],
+  exports: [HouseComponent, RouterModule],
 })
 export class HouseModule {}
 ```
@@ -836,7 +826,6 @@ In Angular, we can create any number of _named_ router outlets in order to creat
 Let's begin by defining our second router outlet:
 
 ```html
-
 <!-- src/app/app.component.html -->
 
 <div id="app">
@@ -856,24 +845,24 @@ Now let's add `HomeModule` into our top-level route configurations while lazy lo
 //....
 
 const routePaths: Routes = [
-{
-path: '',
-redirectTo: 'home',
-pathMatch: 'full',
-},
-{
-path: 'home',
-component: HomeComponent,
-},
-{
-path: 'house/:id',
-outlet: 'modal',
-loadChildren: 'app/scene/house/house.module#HouseModule',
-},
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'house/:id',
+    outlet: 'modal',
+    loadChildren: 'app/scene/house/house.module#HouseModule',
+  },
 ];
 
 @NgModule({
-//...
+  //...
 })
 export class AppModule {}
 ```
@@ -884,41 +873,39 @@ Although using a `loadChildren` attribute with a value of the path to the module
 // src/app/app.module.ts
 
 import {
-//...
-RouteProxyComponent,
+  //...
+  RouteProxyComponent,
 } from 'app/component';
 
 //...
 
 const routePaths: Routes = [
-{
-path: '',
-redirectTo: 'home',
-pathMatch: 'full',
-},
-{
-path: 'home',
-component: HomeComponent,
-},
-{
-path: 'house/:id',
-outlet: 'modal',
-component: RouteProxyComponent,
-children: [
-{
-path: '',
-loadChildren: 'app/scene/house/house.module#HouseModule',
-},
-],
-},
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'house/:id',
+    outlet: 'modal',
+    component: RouteProxyComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: 'app/scene/house/house.module#HouseModule',
+      },
+    ],
+  },
 ];
 
 @NgModule({
-//...
-declarations: [
-RouteProxyComponent,
-],
-//...
+  //...
+  declarations: [RouteProxyComponent],
+  //...
 })
 export class AppModule {}
 ```
@@ -956,7 +943,6 @@ We added a `routeToHouse` method that navigates to a modal outlet with an array 
 Now let's add a click handler to bind to this event:
 
 ```html
-
 <!-- src/scene/home/home.component.html -->
 
 <div class="grid" infinite-scroll (scrolled)="onScrollDown()">
@@ -993,4 +979,7 @@ Building feature modules is useful to separate concerns in an Angular applicatio
 In this article, we built an Angular 6 application from the ground up using the CLI as well as explored how lazy loading can be useful to optimize performance. I was also planning to cover `@angular/service-worker` and how it ties into the CLI in this post but this article turned out to be a lot longer than I anticipated. We'll dive in to that topic in the next part of series.
 
 As always, please don't hesitate to reach out to me if you have any comments, questions, or suggestions!
+
+```
+
 ```

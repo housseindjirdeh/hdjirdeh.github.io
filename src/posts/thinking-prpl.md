@@ -1,5 +1,3 @@
-![PRPL Pattern](assets/thinking-prpl/banner.png 'PRPL Pattern'){: .article-image-with-border }
-
 **_Although modified to include additional information, this article is a write-up of a talk I gave at .concat() and Fluent. You can watch it [here](https://www.youtube.com/watch?v=RcHWKieBslk) if you happen to be interested._**
 
 The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably.
@@ -181,7 +179,6 @@ Workbox asks a series of questions in order to set up a service worker with the 
 3.  <code>Where would you like your service worker file to be saved?</code> You most likely would need to have your service worker saved in the folder you deploy, but you can specify where exactly.
 4.  <code>Where would you like to save these configuration settings?</code> Workbox saves these settings into a separate configurations file (and you can decide where to save it). The default answer is `workbox-config.js` at the root of your application and the file generated looks like this:
 
-<div class="highlight-in-list">
 ```javascript
 module.exports = {
   globDirectory: 'dist/',
@@ -189,8 +186,6 @@ module.exports = {
   swDest: 'dist/service-worker.js',
 };
 ```
-
-</div>
 
 Once we have our configurations file saved, simply running the following command creates a new service worker file:
 

@@ -1,5 +1,3 @@
-![Banner](assets/looking-back-2017/banner.jpg 'Me smiling'){: .article-image-with-border }
-
 I'm late, I know.
 
 Let's take a look at what I accomplished this past year:

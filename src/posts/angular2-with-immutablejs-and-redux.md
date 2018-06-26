@@ -1,5 +1,3 @@
-![angular2 redux]({{ site.url }}/public/angular2-redux.jpg "Angular 2 and Redux"){: .article-image-with-source }
-
 If you have done any JavaScript development in the past year, then you may have already heard of [Redux](http://redux.js.org/). Popularized with the use of React, some developers claim it's the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good.
 
 Okay, I got a little carried away there. But seriously, Redux does sort of change the way you can build your applications. This post will explain how you can integrate it with Angular 2 alongside another library, [Immutable.js](https://facebook.github.io/immutable-js/).

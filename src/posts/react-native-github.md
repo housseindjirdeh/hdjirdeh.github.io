@@ -1,5 +1,3 @@
-![React Native GitHub Banner](assets/react-native-github/banner.png 'GitHub in your pocket'){: .article-image-with-border }
-
 **_`Shameless plug`: If you enjoy reading this tutorial, you might be interested in reading [FullStack React Native](https://www.fullstackreact.com/react-native/), a book I'm writing along with [Devin](https://twitter.com/dvnabbott) from Airbnb and the FullStack team. The first chapter is a free standalone section that also goes through building an entire app from scratch._**
 
 React builds on the premise that you can [learn once and write anywhere](https://code.facebook.com/posts/1014532261909640/react-native-bringing-modern-web-techniques-to-mobile/). With this, the Facebook team built React Native, a framework that allows us to write in the same React style to create platform-specific iOS and Android components that produces a purely native mobile application. In short, [React Native](https://facebook.github.io/react-native/) let's us build native mobile applications using JavaScript and React.

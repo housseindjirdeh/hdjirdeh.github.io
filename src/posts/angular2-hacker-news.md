@@ -1,5 +1,3 @@
-![angular 2 hn banner](https://i.imgur.com/V0tNgEr.jpg 'Angular 2 HN Banner'){: .article-image }
-
 If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team have rolled out [Angular CLI](https://cli.angular.io/), a command line interface that makes creating and scaffolding an application significantly easier.
 
 In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI, RxJS Observables and Webpack as our module loader.
@@ -32,8 +30,8 @@ Once you have the required [Node and NPM versions](https://github.com/angular/an
 
 ```bash
 npm install -g @angular/cli
-
 ```
+
 You can then create and start your application.
 
 ```bash
@@ -63,18 +61,12 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 
 @NgModule({
-declarations: [
-AppComponent
-],
-imports: [
-BrowserModule,
-FormsModule,
-HttpModule
-],
-providers: [],
-bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  imports: [BrowserModule, FormsModule, HttpModule],
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 So what exactly is happening here? The `@NgModule` decorator specifies all declarations (components, directives and pipes), library imports (such as `FormsModule` and `HttpModule`) and providers (a single-instance service for example) that we'll be using in our application.
@@ -128,7 +120,6 @@ HeaderComponent
 If you take a look at `header.component.ts`, you can see that its component selector is `app-header`. Let's add this in our root component, `app.component.ts`.
 
 ```html
-
 <!-- app.component.html -->
 
 <app-header></app-header>
@@ -141,7 +132,6 @@ Running the application will show you that the header component loads successful
 Sweet, now let's add some markup and styling.
 
 ```html
-
 <!-- app.component.html -->
 
 <div id="wrapper">
@@ -152,7 +142,6 @@ Sweet, now let's add some markup and styling.
 The styling in `app.component.scss` can be found [here](https://github.com/housseindjirdeh/angular2-hn/blob/initial-setup/src/app/app.component.scss). Now let's work on the header.
 
 ```html
-
 <!-- header.component.html -->
 
 <header id="header">
@@ -204,14 +193,14 @@ As you can see, there seems to be an offset from the edge of the page. This is b
 But if you take a look at `app.component.scss`, we explicity set `margin: 0` for screen sizes less then 768px.
 
 ```css
-$mobile-only: "only screen and (max-width : 768px)";
+$mobile-only: 'only screen and (max-width : 768px)';
 
 body {
-margin-bottom: 0;
+  margin-bottom: 0;
 
-@media #{$mobile-only} {
-margin: 0;
-}
+  @media #{$mobile-only} {
+    margin: 0;
+  }
 }
 ```
 
@@ -229,14 +218,12 @@ In our root component, we're trying to add styles to the `body` element which re
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-selector: 'app-root',
-encapsulation: ViewEncapsulation.None,
-templateUrl: './app.component.html',
-styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
-
-export class AppComponent {
-}
+export class AppComponent {}
 ```
 
 Take a look at our application once more and you'll notice that the styles have now been applied to `body`. This is because all of the styles in this component now affect the entire document.
@@ -263,25 +250,22 @@ ng g component Stories
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-selector: 'app-stories',
-templateUrl: './stories.component.html',
-styleUrls: ['./stories.component.scss']
+  selector: 'app-stories',
+  templateUrl: './stories.component.html',
+  styleUrls: ['./stories.component.scss'],
 })
-
 export class StoriesComponent implements OnInit {
-items: number[];
+  items: number[];
 
-constructor() {
-this.items = Array(30);
-}
+  constructor() {
+    this.items = Array(30);
+  }
 
-ngOnInit() {
-}
+  ngOnInit() {}
 }
 ```
 
 ```html
-
 <!-- stories.component.html -->
 
 <div class="main-content">
@@ -308,7 +292,6 @@ ng g component Footer
 ```
 
 ```html
-
 <!-- footer.component.html -->
 
 <div id="footer">
@@ -323,7 +306,6 @@ ng g component Footer
 We'll also need to update our root component to show these components.
 
 ```html
-
 <!-- app.component.html -->
 
 <div id="wrapper">
@@ -346,7 +328,6 @@ ng g component Item
 Once we start getting real data, we'll need to pass down the item identifier from the story component to it's child item component. In the meantime, let's just pass down the list index as `itemID`.
 
 ```html
-
 <!-- stories.component.html -->
 
 <div class="main-content">
@@ -372,23 +353,20 @@ Once we start getting real data, we'll need to pass down the item identifier fro
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-selector: 'item',
-templateUrl: './item.component.html',
-styleUrls: ['./item.component.scss']
+  selector: 'item',
+  templateUrl: './item.component.html',
+  styleUrls: ['./item.component.scss'],
 })
 export class ItemComponent implements OnInit {
-@Input() itemID: number;
+  @Input() itemID: number;
 
-constructor() { }
+  constructor() {}
 
-ngOnInit() {
-}
-
+  ngOnInit() {}
 }
 ```
 
 ```html
-
 <!-- item.component.html -->
 
 <p>Story #{{itemID}}<p>
@@ -471,7 +449,6 @@ providers: [HackerNewsAPIService],
 bootstrap: [AppComponent]
 })
 export class AppModule { }
-
 ```
 
 Now let's add the request method to our service.
@@ -532,7 +509,6 @@ error => console.log('Error fetching stories'));
 In the `ngOnInit` hook, which fires when the component is initialized, we `subscribe` to the data stream and set the `items` attribute to what gets returned. In our view, the only thing we're going to add is a `SlicePipe` to show 30 list items instead of all 500 which gets returned.
 
 ```html
-
 <!-- stories.component.html -->
 
 <div class="main-content">
@@ -591,7 +567,6 @@ this.item = data;
 ```
 
 ```html
-
 <!-- item.component.html -->
 
 <div *ngIf="!item" class="loading-section">
@@ -731,7 +706,6 @@ error => console.log('Error fetching stories'));
 The correpsonding markup is as follows.
 
 ```html
-
 <!-- stories.component.html -->
 
 <div class="loading-section" *ngIf="!items">
@@ -762,20 +736,17 @@ This means we should be able to clean things up in `ItemComponent`. In `item.com
 // item.component.ts
 
 export class ItemComponent implements OnInit {
-@Input() item;
+  @Input() item;
 
-constructor() {}
+  constructor() {}
 
-ngOnInit() {
-
-}
+  ngOnInit() {}
 }
 ```
 
 The markup (`item.component.html`) is very similar, but we now don't need to conditionally check if the item object is present anymore (we do that in the parent component). Moreover, each parameter now refers to the properties of our new API.
 
 ```html
-
 <!-- item.component.html -->
 
 <div class="item-laptop">
@@ -848,13 +819,33 @@ import { StoriesComponent } from './stories/stories.component';
 import { ItemCommentsComponent } from './item-comments/item-comments.component';
 
 const routes: Routes = [
-{path: '', redirectTo: 'news/1', pathMatch : 'full'},
-{path: 'news/:page', component: StoriesComponent, data: {storiesType: 'news'}},
-{path: 'newest/:page', component: StoriesComponent, data: {storiesType: 'newest'}},
-{path: 'show/:page', component: StoriesComponent, data: {storiesType: 'show'}},
-{path: 'ask/:page', component: StoriesComponent, data: {storiesType: 'ask'}},
-{path: 'jobs/:page', component: StoriesComponent, data: {storiesType: 'jobs'}},
-{path: 'item/:id', component: ItemCommentsComponent}
+  { path: '', redirectTo: 'news/1', pathMatch: 'full' },
+  {
+    path: 'news/:page',
+    component: StoriesComponent,
+    data: { storiesType: 'news' },
+  },
+  {
+    path: 'newest/:page',
+    component: StoriesComponent,
+    data: { storiesType: 'newest' },
+  },
+  {
+    path: 'show/:page',
+    component: StoriesComponent,
+    data: { storiesType: 'show' },
+  },
+  {
+    path: 'ask/:page',
+    component: StoriesComponent,
+    data: { storiesType: 'ask' },
+  },
+  {
+    path: 'jobs/:page',
+    component: StoriesComponent,
+    data: { storiesType: 'jobs' },
+  },
+  { path: 'item/:id', component: ItemCommentsComponent },
 ];
 
 export const routing = RouterModule.forRoot(routes);
@@ -878,23 +869,22 @@ There's a lot more you can do with routing, but this basic setup should be every
 import { routing } from './app.routes';
 
 @NgModule({
-declarations: [
-//...
-],
-imports: [
-//...
-routing
-],
-providers: [HackerNewsAPIService],
-bootstrap: [AppComponent]
+  declarations: [
+    //...
+  ],
+  imports: [
+    //...
+    routing,
+  ],
+  providers: [HackerNewsAPIService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 To tell Angular where to load the component to route to, we need to use `RouterOutlet`.
 
 ```html
-
 <!-- app.component.html -->
 
 <div id="wrapper">
@@ -909,7 +899,6 @@ To tell Angular where to load the component to route to, we need to use `RouterO
 Let's bind our navigation links in `HeaderComponent` to their respective routes.
 
 ```html
-
 <!-- header.component.html -->
 
 <header>
@@ -1048,7 +1037,6 @@ window.scrollTo(0, 0);
 To signal completion, we use `onCompleted()` to update a `listStart` variable which is used as the starting value of our ordered list (which you can see in the markup below). We also scroll to the top of the window so the user is not stuck at the bottom of the page when he/she tries to switch pages.
 
 ```html
-
 <!-- stories.component.html -->
 
 <div class="main-content">
@@ -1080,7 +1068,6 @@ We now have the front page complete with [navigation and pagination](https://med
 We're almost done! Before we start adding our other comment page components, let's update the links in `ItemComponent` to include routing.
 
 ```html
-
 <!-- item.component.html -->
 
 <div class="item-laptop">
@@ -1183,7 +1170,6 @@ this.item = data;
 Similar to what we did in `StoriesComponent`, we subscribe to our route parameters, obtain the item id and use that to fetch our comments.
 
 ```html
-
 <!-- item-comments.component.html -->
 
 <div class="main-content">
@@ -1240,23 +1226,20 @@ Next, set up the `CommentTreeComponent`.
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-selector: 'app-comment-tree',
-templateUrl: './comment-tree.component.html',
-styleUrls: ['./comment-tree.component.scss']
+  selector: 'app-comment-tree',
+  templateUrl: './comment-tree.component.html',
+  styleUrls: ['./comment-tree.component.scss'],
 })
 export class CommentTreeComponent implements OnInit {
-@Input() commentTree;
+  @Input() commentTree;
 
-constructor() {}
+  constructor() {}
 
-ngOnInit() {
-
-}
+  ngOnInit() {}
 }
 ```
 
 ```html
-
 <!-- comment-tree.component.html -->
 
 <ul class="comment-list">
@@ -1276,24 +1259,23 @@ Let's fill out `CommentComponent`, the component responsible for each specific c
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-selector: 'app-comment',
-templateUrl: './comment.component.html',
-styleUrls: ['./comment.component.scss']
+  selector: 'app-comment',
+  templateUrl: './comment.component.html',
+  styleUrls: ['./comment.component.scss'],
 })
 export class CommentComponent implements OnInit {
-@Input() comment;
-collapse: boolean;
+  @Input() comment;
+  collapse: boolean;
 
-constructor() {}
+  constructor() {}
 
-ngOnInit() {
-this.collapse = false;
-}
+  ngOnInit() {
+    this.collapse = false;
+  }
 }
 ```
 
 ```html
-
 <!-- comment.component.html -->
 
 <div *ngIf="!comment.deleted">
@@ -1348,4 +1330,7 @@ I hope you found this tutorial useful. If you did, please [tweet it forward](htt
 If you happen to be interested enough to work on this app further, take a look at the [issue list](https://github.com/housseindjirdeh/angular2-hn/issues) and feel free to put up a feature request or a PR! There have been some structural and feature changes since I've written this post and this version of the app lives in a [separate branch](https://github.com/housseindjirdeh/angular2-hn/tree/version-1) from [master](https://github.com/housseindjirdeh/angular2-hn), so you'll need to go there to see the latest version <i class="fa fa-smile-o" aria-hidden="true"></i>.
 
 If you're interested, please take a look at [my post](https://houssein.me/progressive-angular-applications) on how I made this a Progressive Web App that works offline and can be installed to your mobile homescreen!
+
+```
+
 ```

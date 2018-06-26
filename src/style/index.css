@@ -21,11 +21,11 @@ body {
 }
 
 .red {
-  color: #b74746;
+  color: #fc6767;
 }
 
 .hover-red:hover {
-  color: #b74746;
+  color: #fc6767;
 }
 
 #home-icon-container {
@@ -33,12 +33,20 @@ body {
 }
 
 #home-icon-container:hover #home-icon {
-  fill: #b74746;
+  fill: #fc6767;
 }
 
-p code {
+p code,
+li code {
   background: #f8f8f8;
   font-size: 1.1rem;
+  padding: 5px 10px;
+}
+
+.internal-link {
+  -webkit-box-shadow: inset 0 -2px 0 0 #fc6767;
+  box-shadow: inset 0 -2px 0 0 #fc6767;
+  border-bottom: 1px solid #fc6767;
 }
 
 .lds-dual-ring {

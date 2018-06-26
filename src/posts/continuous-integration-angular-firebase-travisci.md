@@ -1,5 +1,3 @@
-![Banner](assets/continuous-integration-angular-firebase-travisci/continuous-integration-banner.jpg 'Continuous Integration for Angular CLI with Firebase and Travis CI'){: .article-image }
-
 After completing the first step of building your application, the next thing most of us do is pick a hosting platform (like [Github Pages](https://pages.github.com/)) and deploy it. This is awesome, but we always need to make sure to deploy a newer build every time we update our app. We also need to run any unit tests we may have and make sure they pass beforehand.
 
 Thankfully, there are continuous integration and deployment tools that can make this process a lot simpler. This isn't something you only need to do for large scale production applications, but even updating a small hobby project can be a lot easier if all you had to do is `push` to your repository and let your integration pipeline do the rest.

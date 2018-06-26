@@ -13,7 +13,7 @@ const COMPONENTS = {
 			props.rel = 'noopener noreferrer';
 		}
 
-		return <a class="fw6 link red hover-near-black underline" {...props} />;
+		return <a class="fw6 link internal-link red hover-near-black" {...props} />;
 	},
 	strong(props) {
 		return <strong class="fw6" {...props} />;
@@ -49,7 +49,7 @@ export class PostContent extends Component {
   render({ title, date }, { content }) {
   	return (
   		<div class="mw7">
-  			<h1 class="f1 mv5 ttl near-black">
+  			<h1 class="f1 mv5 ttl near-black lh-title">
   				{title}
   			</h1>
   			<div class="f4 lh-copy near-black">
