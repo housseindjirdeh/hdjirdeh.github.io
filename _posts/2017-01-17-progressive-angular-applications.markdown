@@ -2,12 +2,7 @@
 layout: post
 title:  "Progressive Web Apps with Angular"
 date:   2017-01-17 07:30:00
-categories: angular progressive web app javascript
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
-tags:
-- angular
-- progressive web app
-- javascript
 comments: true
 type: post
 image: assets/progressive-angular-applications/angular-progressive-banner.png
@@ -26,7 +21,7 @@ An earlier post of mine (see [here]({{ site.url }}/angular2-hacker-news)) revolv
   <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/housseindjirdeh/angular2-hn/tree/version-1">Source Code</a>
 </div>
 
-![angular 2 hn preview](assets/progressive-angular-applications/angular2-hn-mobile.png "Angular 2 HN Preview"){: .shadow }
+<img alt="Angular 2 HN Preview" title="Angular 2 HN Preview" data-src="/assets/progressive-angular-applications/angular2-hn-mobile.png" class="lazyload shadow" />
 
 Let's go through some of the main concepts of progressive applications.
 
@@ -38,7 +33,7 @@ Let's go through some of the main concepts of progressive applications.
 
 ## The case for Progressive Web
 
-![installing](assets/progressive-angular-applications/xkcd-installing.png)
+<img alt="Installing" title="Installing" data-src="/assets/progressive-angular-applications/xkcd-installing.png" class="lazyload shadow" />
 
 {:installing: .image-source}
 [XKCD - Installing](http://xkcd.com/1367/)
@@ -54,7 +49,7 @@ However, most people feel a lot less *restricted* to open up a browser and just 
 
 Here's a snippet of the report before I added a number of progressive elements to the app.
 
-![Lighthouse Report](assets/progressive-angular-applications/lighthouse-before.png){: .shadow }
+<img alt="Lighthouse Report" title="Lighthouse Report" data-src="/assets/progressive-angular-applications/lighthouse-before.png" class="lazyload shadow" />
 
 The report consists of a number of audits that validate the aspects of a PWA. Let's go over each of these audits and how we can improve each of these areas in our application.
 

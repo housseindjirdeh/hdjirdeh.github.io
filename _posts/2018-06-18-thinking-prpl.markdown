@@ -2,13 +2,7 @@
 layout: post
 title:  "Thinking PRPL - A Progressive Web Pattern"
 date:   2018-06-18 07:30:00
-categories: prpl progressive web app performance
 description: The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably...
-tags:
-- prpl
-- progressive web app
-- performance
-comments: true
 type: post
 image: assets/thinking-prpl/banner.png
 permalink: /:title
@@ -179,7 +173,7 @@ npm install workbox-cli --global
 
 We can then use `workbox wizard` to start the process:
 
-<img alt="Workbox wizard" title="Workbox wizard" data-src="/assets/thinking-prpl/assets/thinking-prpl/workbox-wizard.gif" class="lazyload shadow" />
+<img alt="Workbox wizard" title="Workbox wizard" data-src="/assets/thinking-prpl/workbox-wizard.gif" class="lazyload shadow" />
 
 Workbox asks a series of questions in order to set up a service worker with the correct configurations:
 
@@ -228,7 +222,7 @@ In here, we check to see if service workers are supported in the browser. If the
 
 So we briefly covered how to install and register a service worker using Workbox, but we still haven't mentioned how they work. One of the primary benefits of using a service worker is that they allow you to precache the resources that make up the Application Shell. Like the name suggests, the App Shell is the _shell_ of your user interface.
 
-<img alt="App Shell - Twitter Lite" title="App Shell - Twitter Lite" data-src="/assets/thinking-prpl/assets/thinking-prpl/twitter-lite-app-shell.png" class="lazyload shadow" />
+<img alt="App Shell - Twitter Lite" title="App Shell - Twitter Lite" data-src="/assets/thinking-prpl/twitter-lite-app-shell.png" class="lazyload shadow" />
 
 {:app shell: .image-source}
 [Application Shell - Twitter Lite](https://mobile.twitter.com)
@@ -236,7 +230,7 @@ So we briefly covered how to install and register a service worker using Workbox
 
 The App Shell consists of all the HTML, CSS and JS that make up the parts of that application that don't convey actual data (or dynamic data retrieved from a third-party location). Once the app is loaded for the first time, the assets that make up the shell can be retrieved over the network normally. A service worker can act like a middleman between the browser and the network allowing us to to cache these resources as well.
 
-<img alt="Service Worker" title="Service Worker" data-src="/assets/thinking-prpl/assets/thinking-prpl/service-worker.png" class="lazyload shadow" />
+<img alt="Service Worker" title="Service Worker" data-src="/assets/thinking-prpl/service-worker.png" class="lazyload shadow" />
 
 Storing the resources that make up the shell in the service worker cache means that when the user loads the application for a second time, the browser can retrieve them from the service worker instead of making network requests. This results in **faster page loads on repeat visits**.
 
@@ -377,7 +371,7 @@ Code splitting at the component level can even allow for more fine-grained contr
 
 If you're considering adding code splitting/lazy loading to your application, it's probably a good idea to keep an eye on your bundle size from time to time. There are a number of different community-built tools that can make this easier, such as [Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) which shows a visualization of how different parts of your bundle are larger/smaller than others with a treemap.
 
-<img alt="Webpack Bundle Analyzer" title="Webpack Bundle Analyzer" data-src="/assets/thinking-prpl/assets/thinking-prpl/webpack-bundle-analyzer.png" class="lazyload shadow" />
+<img alt="Webpack Bundle Analyzer" title="Webpack Bundle Analyzer" data-src="/assets/thinking-prpl/webpack-bundle-analyzer.png" class="lazyload shadow" />
 
 ## Metrics
 

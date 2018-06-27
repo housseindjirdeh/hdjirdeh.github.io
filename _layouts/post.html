@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 {% include head.html %}
 
@@ -7,19 +7,20 @@
 
   <div class="flex flex-column items-center justify-between">
     {% include header.html %}
-    <div class="mw7 mt5">
-      <div class="flex flex-column mt2 mb5">
-        <h1 class="f1 ttl mb3 near-black lh-title">
-          {{ page.title }}
-        </h1>
-        <time class="f5 fw6 red" datetime="{{ page.date }}">{{ page.date | date: '%B %d, %Y' }}</time>
-      </div>
-      <div id="markup" class="f4 lh-copy near-black">
-        {{ content }}
-      </div>
+  </div>
+
+  <div class="flex flex-column justify-between mw7 pv5 center w-100 ph4">
+    <div class="flex flex-column mt2 mb5">
+      <h1 class="f3 f1-ns ttl mb3 near-black lh-title">
+        {{ page.title }}
+      </h1>
+      <time class="f5 fw6 red" datetime="{{ page.date }}">{{ page.date | date: '%B %d, %Y' }}</time>
+    </div>
+    <div id="markup" class="f5 f4-ns lh-copy near-black">
+      {{ content }}
     </div>
 
-    <div class="f5 fw6 lh-copy mt6">
+    <div class="f5 fw6 lh-copy mt5">
       <p>If you have any questions or suggestions, feel free to open an
         <a class="link-effect" href="https://github.com/housseindjirdeh/housseindjirdeh.github.io/issues/new">issue!</a>
       </p>
@@ -28,8 +29,7 @@
     {% include footer.html %}
   </div>
 
-  {% include script-lazysizes.html %}
-  {% include script-highlight.html %}
+  {% include script-highlight.html %} {% include script-lazysizes.html %}
 </body>
 
 </html>

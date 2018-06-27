@@ -2,15 +2,10 @@
 layout: post
 title:  "Building Angular 2 applications with Immutable.js and Redux"
 date:   2016-07-04 9:30:00 -0400
-categories: redux immutablejs angular
 description: If you have done any JavaScript development in the past year, then you may have already heard of Redux. Popularized with the use of React, some developers claim it's the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good...
-tags:
-- redux
-- immutablejs
-- angular
-comments: true
 type: post
 image: public/angular2-redux.jpg
+permalink: /:title
 ---
 If you have done any JavaScript development in the past year, then you may have already heard of [Redux](http://redux.js.org/). Popularized with the use of React, some developers claim it's the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good.
 

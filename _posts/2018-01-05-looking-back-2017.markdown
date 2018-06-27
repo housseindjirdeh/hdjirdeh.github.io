@@ -2,11 +2,7 @@
 layout: post
 title:  "Looking back at 2017"
 date:   2018-01-05 07:30:00
-categories: review
 description: I'm late, I know.
-tags:
-- review
-comments: true
 type: post
 image: assets/looking-back-2017/banner.jpg
 permalink: /:title
@@ -51,7 +47,7 @@ I submitted my [first pull request](https://github.com/javascriptair/site/pull/1
 
 ## Goals for 2018
 
-![2017 to 2018](assets/looking-back-2017/2017-was-tough.png "2017 to 2018"){: .shadow .small }
+<img alt="2017 to 2018" title="2017 to 2018" data-src="/assets/looking-back-2017/2017-was-tough.png" class="lazyload shadow small" />
 
 New Years resolutions never made sense to me. Why not just begin something in December if it's weighing on your mind? Why wait for the new year?
 

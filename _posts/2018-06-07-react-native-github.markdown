@@ -2,13 +2,7 @@
 layout: post
 title:  "Building GitHub with React Native"
 date:   2018-06-07 07:30:00
-categories: react native mobile tutorial
 description: Progressive Web Applications have been the talk of the town in the past few months. In short, they use modern web capabilities to provide a user experience similar to that of mobile apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in modern browsers...
-tags:
-- react native
-- mobile
-- tutorial
-comments: true
 type: post
 image: assets/react-native-github/banner.png
 permalink: /:title
