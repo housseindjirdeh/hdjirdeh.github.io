@@ -8,6 +8,7 @@ layout: default
         {{ post.title | downcase }}
       </a>
     </h5>
+    <time class="f6 fw6 red mb3" datetime="{{ post.date }}">{{ post.date | date: '%B %d, %Y' }}</time>
     <p class="f4 lh-copy mb0 near-black">
       {{ post.description }}
     </p>

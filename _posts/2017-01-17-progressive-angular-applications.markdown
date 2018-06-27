@@ -13,20 +13,20 @@ type: post
 image: assets/progressive-angular-applications/angular-progressive-banner.png
 permalink: /:title
 ---
-![angular 2 hn banner](assets/progressive-angular-applications/angular-progressive-banner.png "Progressive Angular"){: .article-image-with-border }
-
-***Among other things, this post goes through how I set up offline support using the `sw-precache` and `sw-toolbox` libraries. Many updates and changes have been made to Angular tooling with regard to PWA support since this article was written, so please refer to my [newer post](assets/progressive-angular-applications/angular-progressive-banner.png) for more up to date information.***
+<aside>
+<p>Among other things, this post goes through how I set up offline support using the <code>sw-precache</code> and <code>sw-toolbox</code> libraries. Many updates and changes have been made to Angular tooling with regard to PWA support since this article was written. I'll be writing up newer posts in the coming weeks with more up to date information!</p>
+</aside>
 
 Progressive Web Apps (PWA) have been the talk of the town in 2016. In short, they are applications that use modern web capabilities to provide a user experience similar to that of mobile and native apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some.
 
 An earlier post of mine (see [here]({{ site.url }}/angular2-hacker-news)) revolved around building a Hacker News client from scratch using [Angular CLI](https://cli.angular.io/). In this post, we're going to look into how we can make it faster and more reliable by making it a PWA.
 
-<div class="button-center">
-  <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
-  <a class="blog-button" href="https://github.com/housseindjirdeh/angular2-hn">Source Code</a>
+<div class="flex items-center justify-center h3">
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red mr2 ttu br2" href="https://angular2-hn.firebaseapp.com/">View App</a>
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/housseindjirdeh/angular2-hn/tree/version-1">Source Code</a>
 </div>
 
-![angular 2 hn preview](assets/progressive-angular-applications/angular2-hn-mobile.png "Angular 2 HN Preview"){: .article-image-with-border }
+![angular 2 hn preview](assets/progressive-angular-applications/angular2-hn-mobile.png "Angular 2 HN Preview"){: .shadow }
 
 Let's go through some of the main concepts of progressive applications.
 
@@ -36,9 +36,9 @@ Let's go through some of the main concepts of progressive applications.
 * They can be **installed** to the home screen of your device
 * They can be accessed directly with just a URL
 
-The case for Progressive Web
-==================
-![installing](assets/progressive-angular-applications/xkcd-installing.png){: .article-image }
+## The case for Progressive Web
+
+![installing](assets/progressive-angular-applications/xkcd-installing.png)
 
 {:installing: .image-source}
 [XKCD - Installing](http://xkcd.com/1367/)
@@ -48,31 +48,31 @@ Although installing an app is usually a fast and simple process, when was the la
 
 However, most people feel a lot less *restricted* to open up a browser and just type in to the address bar. The convenience, security and simplicity of just typing a URL into an address bar is a powerful advantage of the web, and PWAs combine this with the feel of native applications.
 
-Lighthouse
-==================
+## Lighthouse
+
 [Lighthouse](https://github.com/GoogleChrome/lighthouse) is an open-source auditing tool that you can use to test and improve your webpage. It runs a number of tests and generates a report on how well the page did. You can install Lighthouse as a [Chrome extension](https://github.com/GoogleChrome/lighthouse#install-chrome-extension) or use its [Node CLI tool](https://github.com/GoogleChrome/lighthouse#install-cli-).
 
 Here's a snippet of the report before I added a number of progressive elements to the app.
 
-![Lighthouse Report](assets/progressive-angular-applications/lighthouse-before.png){: .article-image-with-border }
+![Lighthouse Report](assets/progressive-angular-applications/lighthouse-before.png){: .shadow }
 
 The report consists of a number of audits that validate the aspects of a PWA. Let's go over each of these audits and how we can improve each of these areas in our application.
 
 **Note: This tutorial will reference my Hacker News client as we add a number of different tools to improve it. However, you can easily follow along and include each tool in your app if you already have an application built with Angular CLI. If you don't and would like to know how, my [previous post]({{ site.url }}/angular2-hacker-news) can help.**
 
-Network connection is secure
-==================
+## Network connection is secure
+
 A number of progressive web technologies, such as service workers (which we'll go over in a bit), require a **HTTPS** connection in order to work. The '**S**' at the end, which stands for secure, ensures that the content that you retrieve is secure and cannot be tampered with.
 
 There are a number of hosting platforms that are protected with HTTPS by default which makes it easy to have your website or application protected. Our Hacker News client is hosted on Firebase and this website is hosted on Github Pages: both allow **HTTPS** encryption.
 
 I also wrote a [post]({{ site.url }}/continuous-integration-angular-firebase-travisci) that explains how you can deploy your Angular CLI app with Firebase so please take a look if you're interested.
 
-Page load performance is fast
-==================
+## Page load performance is fast
+
 Let's take a look at how our app loads without any configuration. To represent mobile users more fairly, we'll use simulated conditions of **a 3G Network** and **a CPU Throttle of 2X slower** thanks to Chrome's Developer Tools.
 
-![Network - No Configuration](assets/progressive-angular-applications/network-first.png){: .article-image }
+![Network - No Configuration](assets/progressive-angular-applications/network-first.png)
 
 Humans are impatient creatures, and [53% of us will give up if a site takes longer than 3 seconds to load](https://developers.google.com/web/progressive-web-apps/#fast). Even under these simulated conditions, no webpage should take this long to load if we can prevent it.
 
@@ -96,7 +96,7 @@ ng build --prod --aot
 
 And that's it. Now let's see how our app loads under the same conditions.
 
-![Network - Ahead-of-Time](assets/progressive-angular-applications/network-aot.png){: .article-image }
+![Network - Ahead-of-Time](assets/progressive-angular-applications/network-aot.png)
 
 The app now loads 55% faster. That's a pretty big difference for such a quick adjustment. The bundled file sizes were also reduced by [roughly 40%](https://twitter.com/beeman_nl/status/808180209719582720).
 
@@ -106,7 +106,7 @@ Application Shell
 -
 An application shell (or App Shell) is the minimal HTML, CSS and JS responsible for providing the user with the *shell* of the user interface. A toolbar is a good example of something that would be encapsulated in this shell. In a PWA, the App Shell can be cached so it loads as quickly as possible when a user decides to return to the webpage. With this, we can provide the user with something meaningful **immediately** even if the actual content has not rendered yet.
 
-![App Shell](assets/progressive-angular-applications/app-shell-content.png){: .article-image-with-border }
+![App Shell](assets/progressive-angular-applications/app-shell-content.png){: .shadow }
 
 We can see that the App Shell in this application just consists of a header, navigation and loading icon that shows while the content is being fetched over the network. To cache our shell in order to load faster on repeat visits, we'll need to add a **Service Worker** to our application.
 
@@ -133,7 +133,7 @@ We can register a service worker to our application by adding the following to `
 
 All this does is check to see if the browser supports service workers and if so, register it's file path. Let's run our application locally with `ng serve` or `ng serve --prod`, open it in a Chromium browser (Google Chrome, Firefox or Opera) and check the console.
 
-![App Shell](assets/progressive-angular-applications/service-worker-fail-local.png){: .article-image-with-border }
+![App Shell](assets/progressive-angular-applications/service-worker-fail-local.png){: .shadow }
 
 We can see that it can't retrieve the service worker file, `service-worker.js`, since it doesn't exist. There's a few ways we can set up this file:
 
@@ -169,7 +169,7 @@ Now just run the following script.
 npm run precache
 {% endhighlight %}
 
-![Service worker output](assets/progressive-angular-applications/service-worker-output.png){: .article-image-with-border }
+![Service worker output](assets/progressive-angular-applications/service-worker-output.png){: .shadow }
 
 It generates a `service-worker.js` file right in your root folder. You can see the output also includes the total size and number of assets that are cached. This corresponds to the total number of resources that your application shell contains.
 
@@ -186,7 +186,7 @@ Now this is all pretty cool and everything, but having the service worker in the
 
 Now running the script should generate the service worker right inside the `dist/` directory. We've added `verbose` so we can see a logged output in the terminal for each and every resource that's precached. Let's run `ng build --prod --aot` to set up a production build followed with `npm run precache`.
 
-![Service worker dist output](assets/progressive-angular-applications/service-worker-dist-output.png){: .article-image-with-border }
+![Service worker dist output](assets/progressive-angular-applications/service-worker-dist-output.png){: .shadow }
 
 We can see that our service worker file was generated in the `dist/` folder which is perfect. We can also see that each and every static resource in our dist folder is precached by default. This is a bit overkill since not every one of those files are requested when you run the application. Now if we wanted to just precache our HTML files, we can use the following command instead.
 
@@ -219,7 +219,7 @@ We can now simplify our script to just refer to that file.
 
 Now let's run `npm run precache` once more.
 
-![Service worker dist HTML](assets/progressive-angular-applications/service-worker-only-html.png){: .article-image-with-border }
+![Service worker dist HTML](assets/progressive-angular-applications/service-worker-only-html.png){: .shadow }
 
 As expected, the only HTML file in our production folder, `index.html`, is cached. Remember that Angular is a Single Page Application, where the final output consists of a single HTML file that dynamically changes based on the JavaScript we have. Now that we have a decent understanding of how `sw-precache` allows us to set up a service worker, let's add some more configurations to `sw-precache-config.js`.
 
@@ -250,20 +250,20 @@ Now that we have all our static resources set up for precaching, we need to make
 
 Once deployed, let's take a look at the network requests when we load the application **on a repeat visit**.
 
-![Requests with sw-precache](assets/progressive-angular-applications/requests-sw-precache.png){: .article-image-with-border }
+![Requests with sw-precache](assets/progressive-angular-applications/requests-sw-precache.png){: .shadow }
 
 You can see that every precached resource was retrieved from the service worker! The only data transferred was our third party call to get the list of stories from the Hacker News API. Let's take a look at the captured sequences on reload.
 
-![Network with sw-precache](assets/progressive-angular-applications/network-sw-precache.png){: .article-image }
+![Network with sw-precache](assets/progressive-angular-applications/network-sw-precache.png)
 
 Not bad at all. You can see that the static resources load a lot faster since they're now being retrieved from the service worker. This significantly reduces our [Time to Interactive](https://developers.google.com/web/tools/lighthouse/audits/time-to-interactive).
 
-Service Worker Webpack Plugin
--------------------
+### Service Worker Webpack Plugin
+
 To make this entire procedure a lot simple, there's a Webpack plugin for service workers, [`SWPrecacheWebpackPlugin`](https://www.npmjs.com/package/sw-precache-webpack-plugin), that you can include in your Webpack configuration. When I built this application, Angular CLI [did not support](https://github.com/angular/angular-cli/issues/1656) overriding Webpack configurations. However, the team has recently included the ability to [eject](https://github.com/angular/angular-cli/blob/3ad2856b27889a50a742c9dca9554a190c8509bf/CHANGELOG.md#100-beta32-2017-02-17) and modify your configurations so using this plugin may probably make things even smoother (and I look forward to trying this soon).
 
-Continuous Integration  
--------------------
+### Continuous Integration  
+
 It's important to remember that because we're doing this manually, we need to make sure we generate our service worker every time we create a new build. For example, this app is hosted on Firebase and I use a simple command line, `firebase deploy` to host `dist/`. So that means I need to always run the following in order when I make updates to my app.
 
 1. `ng build --prod --aot`
@@ -272,8 +272,8 @@ It's important to remember that because we're doing this manually, we need to ma
 
 There's been quite a few times I forgot to run that command, so I set up a simple continuous integration script that automatically runs a build, generates a new service worker and deploys to Firebase every time I just `push` to my repository. My previous [post]({{ site.url }}/continuous-integration-angular-firebase-travisci) explains how I set this up as well.
 
-App can load on offline/flaky connections
-==================
+## App can load on offline/flaky connections
+
 Now that we understand how we can set up an App Shell using `sw-precache`, let's look at another important factor of progressive web applications, **working with unavailable or poor network connections**. We'll be using another library for this, [Service Worker Toolbox](https://github.com/GoogleChrome/sw-toolbox) (`sw-toolbox`).
 
 Although this is a different tool, `sw-precache` is capable of including this just by adding a new configuration, `runtimeCaching`, to our config file. Although this may [change in the future](https://github.com/GoogleChrome/sw-precache/issues/147), this lets us easily integrate dynamic network caching into our service worker.
@@ -283,8 +283,8 @@ Although this is a different tool, `sw-precache` is capable of including this ju
   <footer><a href="https://github.com/GoogleChrome/sw-precache/blob/master/sw-precache-and-sw-toolbox.md">sw-precache? sw-toolbox? What's the difference?</a></footer>
 </blockquote>
 
-runtimeCaching
-------------------
+### runtimeCaching
+
 Let's look at how we can add this configuration to `sw-precache-config`.
 
 {% highlight javascript %}
@@ -302,7 +302,7 @@ The [documentation](https://googlechrome.github.io/sw-toolbox/docs/master/tutori
 
 Now when we run the application offline, requests previously fetched are now retrieved from the cache. This means that the user can now use the app with pages they have previously visited.
 
-![Network with sw-toolbox](assets/progressive-angular-applications/network-sw-toolbox.png){: .article-image-with-border }
+![Network with sw-toolbox](assets/progressive-angular-applications/network-sw-toolbox.png){: .shadow }
 
 Someone was nice enough to open an [issue](https://github.com/{{site.github_username}}/angular2-hn/issues/21) and mention that for failing requests (both cache and network), it makes more sense to show an error message instead of a loading indicator. Consider the following two scenarios:
 
@@ -311,30 +311,30 @@ Someone was nice enough to open an [issue](https://github.com/{{site.github_user
 
 In either of these scenarios, an appropriate warning message would be nice so the user isn't confused when nothing is loading, **especially on a mobile device**.
 
-![Request error message](assets/progressive-angular-applications/request-error-message.png){: .article-image-with-border .fix-small }
+![Request error message](assets/progressive-angular-applications/request-error-message.png){: .shadow .small }
 
 {:CSS Skull: .image-source}
 [Awesome minimalist skull CSS](https://codepen.io/MyXoToD/pen/HFeda) by [Max](https://codepen.io/MyXoToD/) on Codepen
 {: CSS Skull}
 
-Site is progressively enhanced
-==================
+## Site is progressively enhanced
+
 One of the primary principles behind progressively enhanced web pages is that anyone and everyone should be able to access its basic content at the very least. So far we've overlooked those who browse the web with *JavaScript disabled*.
 
-Working without JavaScript
-------------------
+### Working without JavaScript
+
 Some think that always developing an application for users with their JavaScript disabled [doesn't make much sense](http://tomdale.net/2013/09/progressive-enhancement-is-dead/). If you think about it, SPA's *rely* on client JS in order to work. That's how we end up with a single `index.html` file that dynamically changes based on user events.
 
 But how would we go about having a SPA to work without client side JS in the first place? We can do this by **server-side rendering** some (or all) of our content. [Angular Universal](https://universal.angular.io/) allows us to do this in Angular applications, which can give your application a better perceived performance and make it more SEO friendly.
 
 I haven't had the chance to try this (and hopefully I will soon), but in the meantime we can at least insert a `<noscript>` tag in `index.html` to warn the user that JavaScript is required.
 
-![JS disabled message](assets/progressive-angular-applications/js-disabled.png){: .article-image-with-border }
+![JS disabled message](assets/progressive-angular-applications/js-disabled.png){: .shadow }
 
-![Better than nothing](assets/progressive-angular-applications/better-than-nothing.png){: .article-image-with-border }
+![Better than nothing](assets/progressive-angular-applications/better-than-nothing.png){: .shadow }
 
-Design is mobile-friendly
-==================
+## Design is mobile-friendly
+
 If you plan on building a web application and not expect any users to access it through their mobile device, than you may not be concerned with how it looks with smaller screens whatsoever. However, more and more users access the web through their phones and if you intend on building an app with progressive enhancement in mind, you most likely want to make sure it sizes correctly to all screen sizes.
 
 In this area, Lighthouse will check to see if your HTML has a `<meta name="viewport">` in order to optimize your app for mobile devices. Fortunately, Angular CLI includes this by default.
@@ -343,8 +343,8 @@ In this area, Lighthouse will check to see if your HTML has a `<meta name="viewp
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% endhighlight %}
 
-User can be prompted to Add to Homescreen
-==================
+## User can be prompted to Add to Homescreen
+
 We can give users the ability to install the application to their homescreen in order to feel more like a native application.
 
 ![Installed to homescreen](assets/progressive-angular-applications/app-installed-phone.png){: .article-image .no-padding }
@@ -389,8 +389,8 @@ Since our manifest has a `short_name`, a `start_url` and an icon larger than **1
 
 ![App install banner](assets/progressive-angular-applications/install-to-home-screen.png){: .article-image .no-padding }
 
-Installed web app will launch with custom splash screen
-==================
+## Installed web app will launch with custom splash screen
+
 Another thing that a manifest file allows for is a custom splash screen when you open the app through your home screen. This is useful because it can reduce the *perceived* load time of your application (even if it loads in the same amount of time). To do this, we'll need to flush out our manifest file a little more.
 
 {% highlight json %}
@@ -419,36 +419,36 @@ Another thing that a manifest file allows for is a custom splash screen when you
 
 You can see that we've added two new attributes, `theme_color` and `background_color`. The manifest needs to contain this along with `name` and an icon of at least 192px (we added a new one of 256px) in order to serve a splash screen.
 
-![Mobile splash screen](assets/progressive-angular-applications/mobile-whitebg-combined.png){: .article-image }
+![Mobile splash screen](assets/progressive-angular-applications/mobile-whitebg-combined.png)
 
-Icons
-------------------
+### Icons
+
 To simply generate a number of icons needed not just for Android, but for Windows and iOS devices as well, I used [RealFaviconGenerator](http://realfavicongenerator.net/). It shows you how your icons will look in each device as well previews of the splash screen in Android. It then provides the markup you can include in your `index.html` along with all the icons you need (which I put in `assets/icons`).
 
-![Assets icons folder](assets/progressive-angular-applications/assets-icons-folder.png){: .article-image-with-border .fix }
+![Assets icons folder](assets/progressive-angular-applications/assets-icons-folder.png){: .shadow .small }
 
-Installing with iOS
-------------------
+### Installing with iOS
+
 Like Chromium browsers (Chrome, Firefox, Opera) on Android, Safari on iOS allows you to install to homescreen and provide an icon. However, splash screens are not supported.
 
 Moreover, with the presence of a web manifest, the URL bar is automatically removed giving the user a full-screen experience on Android devices. This is not the case on iOS, but there are [supported meta tags](https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html) that we can add to fix this (credits to [Bram Borggreve](https://github.com/beeman), I didn't know this was possible until he put up a PR for this <i class="fa fa-smile-o" aria-hidden="true"></i>). With this, we can have a rich full-screen experience on iOS as well.
 
-![iPhone Demo](assets/progressive-angular-applications/iphone-demo.gif){: .article-image-with-border }
+![iPhone Demo](assets/progressive-angular-applications/iphone-demo.gif){: .shadow }
 
 {:full-screen iOS: .image-source}
 Recording by Bram Borggreve
 {: full-screen iOS}
 
-Best Practices
-==================
+## Best Practices
+
 Along with audits that measure the aspects of a PWA, Lighthouse provides a list of recommendations to improve your webpage in terms of best practices. Although these don't affect your score, it's still fun/handy to tick them off the list as you work on your application. Some examples:
 
 1. Site opens external links using `rel="noopener"`
 2. Every image element has an alt attribute
 
-Conclusion
-==================
-![Conclusion](assets/progressive-angular-applications/conclusion.png){: .article-image-with-border }
+## Conclusion
+
+![Conclusion](assets/progressive-angular-applications/conclusion.png){: .shadow }
 
 Although Angular Mobile Toolkit may eventually make creating a PWA a smooth and simple process with the CLI, it's still very possible to integrate a number of progressive elements to your application without adding much overhead at all.
 

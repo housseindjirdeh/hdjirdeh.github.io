@@ -12,27 +12,25 @@ comments: true
 type: post
 image: public/angular2-redux.jpg
 ---
-![angular2 redux]({{ site.url }}/public/angular2-redux.jpg "Angular 2 and Redux"){: .article-image-with-source }
-
 If you have done any JavaScript development in the past year, then you may have already heard of [Redux](http://redux.js.org/). Popularized with the use of React, some developers claim it's the most exciting thing happening in JavaScript at the moment, revolutionizing the way we build our applications and even helping us prevent global warming for good.
 
 Okay, I got a little carried away there. But seriously, Redux does sort of change the way you can build your applications. This post will explain how you can integrate it with Angular 2 alongside another library, [Immutable.js](https://facebook.github.io/immutable-js/).
 
-The breakdown
-==================
+## The breakdown
+
 In this post, we'll go over the basic concepts of the Flux architecture and Redux. We'll then go over a simple contact list application step by step, building the basic setup first, adding immutability then finally creating a Redux state container.
 
-<div class="button-center">
-  <a class="blog-button" href="https://embed.plnkr.co/ns1tfi/">View Demo</a>
-  <a class="blog-button" href="https://github.com/housseindjirdeh/angular2-redux-contact-list">Source Code</a>
+<div class="flex items-center justify-center h3">
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red mr2 ttu br2" href="https://embed.plnkr.co/ns1tfi/">View App</a>
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/housseindjirdeh/angular2-redux-contact-list">Source Code</a>
 </div>
 
-![contact list]({{ site.url }}/public/contact-list.gif "Contact Link Example"){: .article-image }
+![contact list]({{ site.url }}/public/contact-list.gif "Contact Link Example")
 
 As we go along, I'll do my best to explain why we're doing each and every step. The final application will not be complicated but will hopefully be enough for you to grasp the main concepts.
 
-Redux and Flux Architecture
-==================
+## Redux and Flux Architecture
+
 Flux is simply an architectural pattern to build user interfaces. It's not a framework or library, it's a design pattern for building client side applications.
 
 ![flux architecture](https://facebook.github.io/flux/img/flux-simple-f8-diagram-1300w.png "The Flux Architecture"){: .article-image-with-source }
@@ -85,8 +83,8 @@ In Redux, these are known as **reducers** and are responsible for determining ho
 
 Don't worry if all of this isn't crystal clear yet. It'll make more sense as you go through this post and see how reducers, actions and the store are used in a real example.
 
-Contact List Example
-==================
+## Contact List Example
+
 Let's start building the contact list example! If you haven't already, you can set up your application using the [Angular 2 QuickStart.](https://angular.io/docs/ts/latest/quickstart.html) I'll remove the unnecessary class definitions and styling elements in the code embeds and just show you what's needed. However, I'll link to the complete source code for each step.
 
 To kick things off, let's build a simple version with purely Angular elements. We'll start with a contact store to handle the logic of our application.
@@ -182,8 +180,8 @@ In here, we have a constructor that defines a private `store` property and ident
 
 So far we've built something simple which works, so that's a good start. The source code for this can be found [here.](https://github.com/housseindjirdeh/angular2-redux-contact-list/tree/basic-setup)
 
-Multiple Components
-==================
+## Multiple Components
+
 Since Angular 2 is component based, it makes more sense to have another component for each of the contacts. So let's set the parent component to be the actual list.
 
 {% highlight javascript %}
@@ -267,8 +265,8 @@ export default class Contact {
 
 As you can see, the store instance was injected to both the parent and child components. Things are looking a little cleaner now. The source code for this can be found [here.](https://github.com/housseindjirdeh/angular2-redux-contact-list/tree/child-contact-component)
 
-Change Detection Strategy
-==================
+## Change Detection Strategy
+
 In Angular 2, each and every component has its own **change detector** responsible for bindings in their own template. For example, we have the `{% raw %}{{ contact.name }}{% endraw %}` binding for which the `Contact` component is responsible for. In other words, the change detection behind the `Contact` component projects the data for `contact.name` as well as **its change.**  
 
 So what really happens when an event is triggered? In Angular 1.x, when a digest cycle is fired, every binding is triggered in the entire application. Similarly in Angular 2, every single component is also checked. Now wouldn't it be cool to tell Angular to run change detection on a component only if one of its input properties changed instead of every time an event happens? We can by using Angular's `ChangeDetectionStrategy` in our component level.
@@ -290,8 +288,8 @@ It's as simple as that! Now the change detection for this component will only fi
 
 Now does this really matter in a simple application like this? Not really, since there aren't that many bindings in the application in the first place. But for a huge application, this can help significantly reduce the number of bindings to consider when an event is triggered.
 
-The case for Immutability
-==================
+## The case for Immutability
+
 To take advantage of this change detection strategy, we need to ensure that the state is indeed immutable. However, the nature of JavaScript objects are by default, mutable. We can solve this by using [Immutable.js](https://facebook.github.io/immutable-js/), a library created by the Facebook team.
 
 <blockquote>
@@ -367,8 +365,8 @@ Here's the [link](https://github.com/housseindjirdeh/angular2-redux-contact-list
 
 *Note: You may be wondering why `<any>` was used in the `starContact` method. This is just TypeScript type assertion to prevent compiler errors when returning an updated contact object. This is just a workaround due to an issue with type definitions when running methods against a list (discussed [here](https://github.com/facebook/immutable-js/issues/684#issuecomment-153812280)).*
 
-Let's make things spicy with Redux
-==================
+## Let's make things spicy with Redux
+
 You can install Redux with `npm install --save redux`. You'll also need to update your system configuration once again.
 
 {% highlight javascript %}
@@ -562,37 +560,35 @@ export default class Contact {
 
 And that's it! That covers up the basics of using Redux in your application. The final source code is [here.](https://github.com/housseindjirdeh/angular2-redux-contact-list/tree/master/app)
 
-![that's a wrap]({{ site.url }}/public/thatsawrap.jpg "That's a wrap"){: .article-image }
+![that's a wrap]({{ site.url }}/public/thatsawrap.jpg "That's a wrap")
 
-Wrapping things up
-==================
+## Wrapping things up
+
 
 As you may have noticed, implementing immutable collections along with a redux state container adds some complexity to your application. **This isn't the only way to build Angular applications, nor is it the best way.** It's one way and it can make things easier under certain circumstances
 
-Why should I care about immutability?
-------------------
+### Why should I care about immutability?
+
 By default, Angular's change detection checks every component with any change in the application. Enforcing immutability allows you to use `ChangeDetectionStrategy.OnPush` on some of your components so that they get triggered only when they need to (i.e. when their input properties change). A nice and simple way to enforce this is by using a library like Immutable.js.
 
-When should I use Redux?
-------------------
+### When should I use Redux?
+
 A better question would be, when should I be implementing a Flux style architecture in my application? I can't answer it any better than [this.](https://github.com/petehunt/react-howto/issues/12#issuecomment-169546558)
 
-Further reading
-==================
+## Further reading
 
-Angular 2 Change Detection
-------------------
+
+### Angular 2 Change Detection
+
 Some great resources to understand how change detection works in Angular 2.
 
 [Change Detection in Angular 2](http://victorsavkin.com/post/110170125256/change-detection-in-angular-2) - Victor Savkin<br>
 [Angular 2 Change Detection Explained](http://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html) - Thoughtram
 
-Understanding Redux
-------------------
+### Understanding Redux
 
 Dan Abramov has an absolutely excellent course on egghead.io - [Getting Started with Redux](https://egghead.io/courses/getting-started-with-redux)
 
-Redux and Angular 2
-------------------
+### Redux and Angular 2
 
 Colin Eberhardt goes into some nice detail on integrating Redux with state persistence and time travel - [Angular 2 Time Travel with Redux](http://blog.scottlogic.com/2016/01/25/angular2-time-travel-with-redux.html)

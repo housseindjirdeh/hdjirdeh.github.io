@@ -13,18 +13,16 @@ type: post
 image: public/angular2-hn.jpg
 permalink: /:title
 ---
-![angular 2 hn banner](https://i.imgur.com/V0tNgEr.jpg "Angular 2 HN Banner"){: .article-image }
-
 If you have ever built an Angular 2 application before, you'll know that setting up and bootstrapping an application can take a significant amount of time. Thankfully, the Angular team have rolled out [Angular CLI](https://cli.angular.io/), a command line interface that makes creating and scaffolding an application significantly easier.
 
 In this post, we'll build an entire [Hacker News](https://news.ycombinator.com/) client using Angular CLI, RxJS Observables and Webpack as our module loader.
 
-<div class="button-center">
-  <a class="blog-button" href="https://angular2-hn.firebaseapp.com/">View App</a>
-  <a class="blog-button" href="https://github.com/housseindjirdeh/angular2-hn/tree/version-1">Source Code</a>
+<div class="flex items-center justify-center h3">
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red mr2 ttu br2" href="https://angular2-hn.firebaseapp.com/">View App</a>
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/housseindjirdeh/angular2-hn/tree/version-1">Source Code</a>
 </div>
 
-![angular 2 hn preview](https://i.imgur.com/3gIhXqC.gif "Angular 2 HN Preview"){: .article-image }
+![angular 2 hn preview](https://i.imgur.com/3gIhXqC.gif "Angular 2 HN Preview")
 
 We'll go through building the entire application step by step. Throughout this post, I'll try my best to explain my thought process as well as some of the mistakes I've made and what I did to fix them.
 
@@ -41,8 +39,8 @@ This visual tutorial should make you feel a little more comfortable building an 
 2. View Encapsulation<br>
 3. RxJS
 
-Getting Started
-==================
+## Getting Started
+
 Once you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install the CLI through your terminal.
 
 {% highlight bash %}
@@ -59,12 +57,12 @@ ng serve
 
 If you now open `https://localhost:4200/`, you'll see the application running.
 
-![app setup](https://i.imgur.com/4ME0JaW.png "App Setup"){: .article-image }
+![app setup](https://i.imgur.com/4ME0JaW.png "App Setup")
 
 Pretty cool huh? Angular CLI used to use [SystemJS](https://github.com/systemjs/systemjs) as the module bundler and loader. Using SystemJS had a few quirks including long loading times and a lengthy process just to add third party libraries. So to make things simpler and faster, the Angular CLI team have moved from [SystemJS to Webpack!](https://github.com/angular/angular-cli/blob/master/CHANGELOG.md#100-beta11-webpack-2016-08-02)
 
-NgModule
-==================
+## NgModule
+
 Bootstrapping an application with CLI uses Angular's latest release version, but let's go over one of the biggest changes that happened with the release of [RC5](https://angularjs.blogspot.se/2016/08/angular-2-rc5-ngmodules-lazy-loading.html), the `@NgModule` decorator. We can see it being used in the `app.module.ts` file.
 
 {% highlight javascript %}
@@ -96,8 +94,8 @@ So what exactly is happening here? The `@NgModule` decorator specifies all decla
 
 You can probably already see how much more organized it is to not need to specify all our module-level components, directives, pipes and so forth in each of our components.
 
-Let's get ready to rumble
-==================
+## Let's get ready to rumble
+
 Let's set up [Sass](http://sass-lang.com/) as our CSS preprocessor. The CLI makes it simple for a project that's already been started.
 
 {% highlight bash %}
@@ -119,7 +117,7 @@ You'll notice that a `header` folder is immediately created and scaffolded with 
 - `header.component.ts`<br>
 - `header.component.spec.ts`
 
-![Unit Tests](https://i.imgur.com/ET1JQLg.jpg "Unit Tests"){: .article-image }
+![Unit Tests](https://i.imgur.com/ET1JQLg.jpg "Unit Tests")
 
 I'm only joking, unit testing is always important for apps that go to production. We won't be doing them for this tutorial however so feel free to delete/comment out the `spec` files.
 
@@ -150,7 +148,7 @@ If you take a look at `header.component.ts`, you can see that its component sele
 
 Running the application will show you that the header component loads successfully.
 
-![header loads](https://i.imgur.com/8upqeWW.png "Header Loads"){: .article-image }
+![header loads](https://i.imgur.com/8upqeWW.png "Header Loads")
 
 Sweet, now let's add some markup and styling.
 
@@ -201,17 +199,17 @@ The styling in `app.component.scss` can be found [here](https://github.com/houss
 
 And similarly, you can find the styling for this component [here](https://github.com/housseindjirdeh/angular2-hn/blob/initial-setup/src/app/header/header.component.scss). Running the application gives us the following result.
 
-![header](https://i.imgur.com/oLAH0EJ.png "Header"){: .article-image }
+![header](https://i.imgur.com/oLAH0EJ.png "Header")
 
-View Encapsulation
-==================
+## View Encapsulation
+
 Since we want this application to be as responsive as possible, it's important to check how it looks with different screen sizes regularly. Let's adjust our viewport to see how it would look on a mobile device.
 
-![header mobile](https://i.imgur.com/UGyVSEi.png "Header Mobile"){: .article-image }
+![header mobile](https://i.imgur.com/UGyVSEi.png "Header Mobile")
 
 As you can see, there seems to be an offset from the edge of the page. This is because the `body` element has a bult-in offset (through `margin`) that shows in almost all modern browsers.
 
-![body margin](https://i.imgur.com/gpogcbO.png "body margin"){: .article-image }
+![body margin](https://i.imgur.com/gpogcbO.png "body margin")
 
 But if you take a look at `app.component.scss`, we explicity set `margin: 0` for screen sizes less then 768px.
 
@@ -253,16 +251,16 @@ export class AppComponent {
 
 Take a look at our application once more and you'll notice that the styles have now been applied to `body`. This is because all of the styles in this component now affect the entire document.
 
-![header fixed](https://i.imgur.com/SK0RhAr.png "Header Fixed"){: .article-image }
+![header fixed](https://i.imgur.com/SK0RhAr.png "Header Fixed")
 
 But wait a minute, was all of this really necessary? I see a `styles.css` file in our `src` folder. Isn't this for global styles? Can't we just add a class here to style `body`?
 
 Yes you can, but hey at least we learned something here. <i class="fa fa-smile-o" aria-hidden="true"></i>
 
-![face palm](https://i.imgur.com/WtE1S58.jpg "Face Palm"){: .article-image }
+![face palm](https://i.imgur.com/WtE1S58.jpg "Face Palm")
 
-Multiple Components
-==================
+## Multiple Components
+
 Let's create two more components, `Stories` and `Footer`. Stories represent posts in Hacker News, and we'll start out with a skeleton just to get an ordered list in place.
 
 {% highlight bash %}
@@ -344,7 +342,7 @@ We'll also need to update our root component to show these components.
 
 Let's see what our page is looking like.
 
-![numbered list](https://i.imgur.com/r5cQTZ9.png "Numbered List"){: .article-image }
+![numbered list](https://i.imgur.com/r5cQTZ9.png "Numbered List")
 
 Since each post, or item, will have its own attributes, it makes sense to create a component for this as well.
 
@@ -405,8 +403,8 @@ Refreshing the application will give you the same result, showing that the index
 
 We have a basic skeleton of the home page done and that's a good start. Here's the [link](https://github.com/housseindjirdeh/angular2-hn/tree/initial-setup) for the source code for this step.
 
-RxJS and Observables
-==================
+## RxJS and Observables
+
 Before we start fetching real data, let's briefly go over the concept of RxJS and observables.
 
 Angular's [HTTP client](https://angular.io/docs/ts/latest/guide/server-communication.html) allows you to communicate with a server, and you need it to fetch data from anywhere. To fetch data from a server, the first thing you would most likely do is pass the resource URL through an `http.get` call. But what gets returned exactly?
@@ -423,8 +421,8 @@ The diagram above depicts the events that occur when a user clicks on a button. 
 
 The entire concept of using Observables in your application is known as [Reactive Programming.](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 
-Observable Data Service
-==================
+## Observable Data Service
+
 Okay, now it’s time to start retrieving some real data. To do this, we’re going to be creating an Observable Data Service and injecting it into our components.
 
 {% highlight bash %}
@@ -553,7 +551,7 @@ In the `ngOnInit` hook, which fires when the component is initialized, we `subsc
 
 Now if you run the application, you'll see a list of item ids populated.
 
-![item id list](https://i.imgur.com/Bj2MSeX.png "Item ID List"){: .article-image }
+![item id list](https://i.imgur.com/Bj2MSeX.png "Item ID List")
 
 Since we have the item id's being passed down successfully to each of the `item` components, let's set up another Observable subscription for each item to show their details. To do this, let's start by adding a new method to our service.
 
@@ -641,13 +639,13 @@ Nice and straightforward. For each item, we're subscribing to their respective s
 
 Now if you run the application, you'll see the first page of Hacker News! Click [here](https://github.com/housseindjirdeh/angular2-hn/tree/first-page) for the full source code until this step.
 
-![top stories](https://i.imgur.com/VLKj7xr.png "Top Stories"){: .article-image }
+![top stories](https://i.imgur.com/VLKj7xr.png "Top Stories")
 
-Things are kinda slow though
-==================
+## Things are kinda slow though
+
 Let's take a look at the requests transferred when we load the front page of our application.
 
-![front page requests](https://i.imgur.com/j99CNyz.png "Front Page Requests"){: .article-image }
+![front page requests](https://i.imgur.com/j99CNyz.png "Front Page Requests")
 
 Woah, 31 requests and 20.8KB transferred in 546ms. This takes almost five times as long loading the front page of Hacker News and more then twice as much data to just load the posts. This is pretty darn slow, and maybe it's kind of tolerable when you're loading the list of posts on the front page but this is a serious problem if we try loading a large number of comments for a single post.
 
@@ -655,8 +653,8 @@ I built the entire application with each component using this method, including 
 
 *Just for reference's sake, I still have this version of the app up on my GitHub pages. At your own caution, you can take a look at how long it takes to load this many comments [here](https://houssein.me/angular2-hn/item/12445994)*.
 
-Let's switch things up
-==================
+## Let's switch things up
+
 Okay, now we can see why having multiple network connections to fetch a parent item and it's content isn't the nicest experience. After a little bit of searching, I found this awesome [unofficial API](https://github.com/cheeaun/node-hnapi) which returns an item and it's details through a single request.
 
 For example, the response for the list of top stories looks like this.
@@ -818,22 +816,22 @@ The markup (`item.component.html`) is very similar, but we now don't need to con
 
 Now let's see what happens when we run this bad boy.
 
-![front page](https://i.imgur.com/VLKj7xr.png "Front Page"){: .article-image }
+![front page](https://i.imgur.com/VLKj7xr.png "Front Page")
 
 And now everything loads much faster. The source code for this step can be found [here](https://github.com/housseindjirdeh/angular2-hn/tree/first-page-final).
 
-Routing
-==================
+## Routing
+
 
 We've come quite a long way, but before we continue let's map out the entire component structure of the application. Please excuse my funky Powerpoint skills.
 
 Let's start with what we've built so far.
 
-![front page components](https://i.imgur.com/zUH1SPy.png "Front Page Components"){: .article-image }
+![front page components](https://i.imgur.com/zUH1SPy.png "Front Page Components")
 
 Let's also map out the components that show when we navigate to the comments page.
 
-![item comments components](https://i.imgur.com/XttxmfM.png "Item Comment Components"){: .article-image }
+![item comments components](https://i.imgur.com/XttxmfM.png "Item Comment Components")
 
 To allow the user to navigate between these pages, we're going to have to include some basic routing in our application. Before we begin, let's create our next component.
 
@@ -907,8 +905,7 @@ To tell Angular where to load the component to route to, we need to use `RouterO
 </div>
 {% endhighlight %}
 
-Story Navigation
-==================
+## Story Navigation
 
 Let's bind our navigation links in `HeaderComponent` to their respective routes.
 
@@ -1076,8 +1073,8 @@ To signal completion, we use `onCompleted()` to update a `listStart` variable wh
 
 We now have the front page complete with [navigation and pagination](https://media.giphy.com/media/l3vR4zR3rCMX76Pm0/giphy.gif). Run the application to see the good stuff.
 
-Item Comments
-==================
+## Item Comments
+
 We're almost done! Before we start adding our other comment page components, let's update the links in `ItemComponent` to include routing.
 
 {% highlight html %}
@@ -1120,7 +1117,7 @@ We're almost done! Before we start adding our other comment page components, let
 
 Run the application and click on an item's comments.
 
-![item comments route](https://i.imgur.com/tvCNyWz.png "Item Comments Route"){: .article-image }
+![item comments route](https://i.imgur.com/tvCNyWz.png "Item Comments Route")
 
 Beauty. We can see that it's routing to `ItemCommentsComponent`. Now let's create our additional components.
 
@@ -1321,12 +1318,11 @@ Notice how we're recursively referencing `app-comment` inside of it's own compon
 
 Click [here](https://github.com/housseindjirdeh/angular2-hn/blob/item-comments/src/app/comment/comment.component.scss) to see the styling for this component. If you now run the application, you can see all the comments for each item!
 
-![item comments](https://i.imgur.com/lLcdxd0.png "Item Comments"){: .article-image }
+![item comments](https://i.imgur.com/lLcdxd0.png "Item Comments")
 
 The entire source code for this step can be found [here](https://github.com/housseindjirdeh/angular2-hn/tree/item-comments).
 
-User Profiles
-==================
+## User Profiles
 
 All we have left is user profiles. Since the concept is pretty much the same, I won't go through this in detail. All you need to do is:
 
@@ -1337,8 +1333,7 @@ All we have left is user profiles. Since the concept is pretty much the same, I 
 
 And that's it! Take a look [here](https://github.com/housseindjirdeh/angular2-hn/tree/version-1/src/app/user) if you want to see the whole user component setup.
 
-Wrapping things up
-==================
+## Wrapping things up
 
 We're done! To kick off a production build, you can run `ng build --prod` or `ng serve --prod` which will make use of uglifying and tree-shaking.
 

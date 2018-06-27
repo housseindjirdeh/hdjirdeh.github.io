@@ -15,19 +15,17 @@ permalink: /:title
 published: false
 ---
 
-![Progressive Angular Banner](assets/progressive-angular-applications-2/banner.jpg 'Progressive Angular Banner'){: .article-image-with-border }
-
 In [Part 1]({{ site.url }}/progressive-angular-applications) of this article, we explored how to add a number of progressive enhancements to a [Hacker News client built with Angular](https://angular2-hn.firebaseapp.com). That post was written a year ago and a lot has changed in the Angular ecoystem since then, and the next two articles in this series will focus on newer tools that we can use to build progressive Angular applications. This post will focus on **lazy-loading**.
 
-# The breakdown
+## The breakdown
 
 To explore how we can add lazy loading to an Angular application, we'll build a relatively small application called **Tour of Thrones**.
 
-![Tour of Thrones](assets/progressive-angular-applications-2/tour-of-thrones.png 'Tour of Thrones'){: .article-image-with-border }
+![Tour of Thrones](assets/progressive-angular-applications-2/tour-of-thrones.png 'Tour of Thrones'){: .shadow }
 
-<div class="button-center">
-  <a class="blog-button" href="https://tour-of-thrones.firebaseapp.com/home">View App</a>
-  <a class="blog-button" href="https://github.com/housseindjirdeh/tour-of-thrones">Source Code</a>
+<div class="flex items-center justify-center h3">
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2 mr2" href="https://tour-of-thrones.firebaseapp.com/home">View App</a>
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/gitpoint/git-point">Source Code</a>
 </div>
 
 The app will use [An API of Ice and Fire](https://anapioficeandfire.com/) (an unofficial, community-built API for Game of Thrones) to list houses from the book series and provide information about them. While building this application, we'll explore a number of topics including:
@@ -43,7 +41,7 @@ Since I got a little carried away writing this article, the first half consists 
   <p>In case you happen to be a fan of the book series/show and are concerned about potential spoilers in this article or application - don't worry because there are none :).</p>
 </aside>
 
-# Getting Started
+## Getting Started
 
 If we have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), we can install Angular CLI with the following command:
 
@@ -61,19 +59,19 @@ npm start
 
 Adding `--style=scss` bootstraps our application with predefined Sass files for styling. You should now see the "Hello World" of our app.
 
-![Hello World](assets/progressive-angular-applications-2/hello-world.png 'Hello World'){: .article-image-with-border }
+![Hello World](assets/progressive-angular-applications-2/hello-world.png 'Hello World'){: .shadow }
 
 Our application will consist of two parts:
 
 * A base `home` route that lists all the Game of Thrones houses.
 
-![Home Route](assets/progressive-angular-applications-2/home-route.png 'Home Route'){: .article-image-with-border }
+![Home Route](assets/progressive-angular-applications-2/home-route.png 'Home Route'){: .shadow }
 
 * A secondary `house` route that shows information for a particular house in a modal.
 
-![House Route](assets/progressive-angular-applications-2/house-route.png 'House Route'){: .article-image-with-border }
+![House Route](assets/progressive-angular-applications-2/house-route.png 'House Route'){: .shadow }
 
-## First Component
+### First Component
 
 Let's begin by building the first few components in our application. We'll start with the `HeaderComponent` responsible for showing the name of the application in the `home` route. We'll create a separate `components/` directory to contain this component:
 
@@ -188,13 +186,13 @@ The last thing we'll do before taking a quick look at our progress is add some g
   <p>If you want to use the same Game of Thrones font (created by <a href="https://charliesamways.carbonmade.com/">Charlie Samways</a>), make sure to download it <a href="https://charliesamways.carbonmade.com/projects/4420181#7">here</a> (it is free for personal use). Otherwise, feel free to remove the <code>@font-face</code> in <code>styles.scss</code>.</p>
 </aside>
 
-### Try it out
+#### Try it out
 
 If we run the application now, we'll see our header component take up a little more than half our screen.
 
-![Header](assets/progressive-angular-applications-2/header.png 'Header'){: .article-image-with-border }
+![Header](assets/progressive-angular-applications-2/header.png 'Header'){: .shadow }
 
-# Base Route
+## Base Route
 
 Now that we've got our feet wet building our first component. Let's move on to building everything necessary for the base route of our application, the `/home` route. We'll need:
 
@@ -280,7 +278,7 @@ import { HeaderComponent, CardComponent } from 'app/component';
 // ...
 {% endhighlight %}
 
-### Try it out
+#### Try it out
 
 Let's add a couple of dummy card components to `AppComponent` to see if they're displaying correctly:
 
@@ -296,7 +294,7 @@ Let's add a couple of dummy card components to `AppComponent` to see if they're 
 </div>
 {% endhighlight %}
 
-![Card Components](assets/progressive-angular-applications-2/cards.png 'Card Components'){: .article-image-with-border }
+![Card Components](assets/progressive-angular-applications-2/cards.png 'Card Components'){: .shadow }
 
 We can see our cards being rendered! They don't have any specific widths/heights assigned to them and they take the shape of their parent container. Once we add our home route next, we'll use CSS grid to give our cards some structure.
 
@@ -412,11 +410,11 @@ We’ve defined a single route path (`home`) that maps to a component (`HomeComp
 </div>
 {% endhighlight %}
 
-### Try it out
+#### Try it out
 
 If we take a look at our application now, we'll see our `HomeComponent` showing our list of houses in a grid structure.
 
-![Home Component](assets/progressive-angular-applications-2/home-component.png 'Home Component'){: .article-image-with-border }
+![Home Component](assets/progressive-angular-applications-2/home-component.png 'Home Component'){: .shadow }
 
 We can also see that loading the base URL of our application immediately redirects to `/home`.
 
@@ -605,13 +603,13 @@ Let's quickly go over the changes here:
 * In our service, `this.http.get` returns an observable. In this component, the `getHouses` method calls our service method and subscribes to the observable returned. Since the API does not have a specific ID attribute for each object, we're mapping through the response and obtaining the ID from the URL attribute as well as assigning a color to each house.
 * We finally added `getColor`, a tiny utility method that returns a color that we assign for each house. This isn't _exactly_ random, but it works for now. Also the two digits at the end of the string, `66`, represent [alpha transparency](https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4).
 
-### Try it out
+#### Try it out
 
 If we take a look at our application now, we'll see the first page of houses rendered as soon as we load the application:
 
-![Service](assets/progressive-angular-applications-2/service.png 'Service'){: .article-image-with-border }
+![Service](assets/progressive-angular-applications-2/service.png 'Service'){: .shadow }
 
-# Lazy Loading
+## Lazy Loading
 
 To improve loading times on a web page, we can try to **lazy load** non-critical resources where possible. In other words, we can defer the loading of certain resources until the user actually needs them.
 
@@ -620,7 +618,7 @@ In this application, we're going to lazy load on two different user actions:
 * On scroll
 * On route change
 
-## Infinite scrolling
+### Infinite scrolling
 
 **Infinite scrolling** is a lazy loading technique to defer loading of future resources until the user has almost scrolled to the end of their currently visible content. 
 
@@ -699,7 +697,7 @@ We just added `onScrollDown` as a callback for the directive `scrolled` method. 
 
 Now if we try running the application, we'll see houses load as we scroll down the page.
 
-![Infinite Scroll](assets/progressive-angular-applications-2/infinite-scroll.gif 'Infinite Scroll'){: .article-image-with-border }
+![Infinite Scroll](assets/progressive-angular-applications-2/infinite-scroll.gif 'Infinite Scroll'){: .shadow }
 
 The library allows users to customize a number of attributes such as modifying the distance of the current scroll location with respect to the end of the container that determines when to fire an event. You can refer to the [README](https://github.com/orizens/ngx-infinite-scroll) for more information.
 
@@ -707,7 +705,7 @@ The library allows users to customize a number of attributes such as modifying t
   <p>If you're interested in learning how to build your own infinite scroll directive without the use of additional libraries, Ashwin Sureshkumar has a write-up you can refer to <a href="https://codeburst.io/angular-2-simple-infinite-scroller-directive-with-rxjs-observables-a989b12d4fb1">here</a>.</p>
 </aside>
 
-### When should we lazy load on scroll?
+#### When should we lazy load on scroll?
 
 There are countless ways to organize a paginated list of results in an application like this, and an infinitely long list is definitely not the best way. Popular social media applications (such as [Twitter](https://twitter.com/)) use this model to keep users engaged, but it is really not a suitable pattern for applications where the user needs to find specific information quickly. In this application for example, it would take a user an unnecessarily long time to find information about a particular house. Adding normal pagination, allowing the user to filter by region or name, or allowing them to search for a particular house are techniques that may serve for a better user experience.
 
@@ -717,7 +715,7 @@ Instead of trying to lazy load _all_ the content that is displayed to the user a
   <p>Addy Osmani has an excellent section on lazy loading images in his <a href="https://images.guide/#lazy-load-non-critical-images">guide to image optimization</a> and Jeremy Wagner has a great <a href="https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/">article</a> on the topic as well.</p>
 </aside>
 
-## Code splitting
+### Code splitting
 
 **Code splitting** refers to the practice of splitting the entire application bundle into separate chunks that can be lazy loaded on demand. In other words, instead of providing users with all the code that makes up the application when they load the very first page, we can give them pieces of the bundle as they navigate throughout the app.
 
@@ -838,7 +836,7 @@ In here, we subscribe to our route parameters after the component finishes initi
 
 We also have a `modalClose` method that navigates to a modal outlet with a value of `null`. We do this to clear our modal's **secondary route**.
 
-## Secondary routes
+### Secondary routes
 
 In Angular, we can create any number of _named_ router outlets in order to create [secondary routes](https://angular.io/guide/router#displaying-multiple-routes-in-named-outlets). This can be useful to separate different parts of the application in terms of router configurations that don't need to fit into the primary router outlet. A good example of using this is for a modal or popup.
 
@@ -977,11 +975,11 @@ Now let's add a click handler to bind to this event:
 </div>
 {% endhighlight %}
 
-### Try it out
+#### Try it out
 
 Try loading the application with our changes and clicking on any house.
 
-![House Module](assets/progressive-angular-applications-2/house-module.png 'House Module'){: .article-image-with-border }
+![House Module](assets/progressive-angular-applications-2/house-module.png 'House Module'){: .shadow }
 
 If you have the _Network_ tab of your browser's developer tools open, you'll notice that the code that makes up our house module is only loaded when we click on a house.
 
@@ -989,13 +987,13 @@ If you have the _Network_ tab of your browser's developer tools open, you'll not
   <p>Notice that the URL for our secondary route tied to our named modal outlet is <code>.../home(modal:house/1)</code>. In here, <code>home</code> is still our primary route. For more information on how secondary routes work, take a look at the detailed <a href="https://angular.io/guide/router#secondary-routes">documentation</a>.</p>
 </aside>
 
-### When should we code split?
+#### When should we code split?
 
 It depends. In this example, the lazy loaded feature module is less than 10 KB during development and less than 3KB with a production build of the application. If you think this probably doesn't warrant code splitting, you might be right. Lazy loading feature modules can be a lot more useful when your application reaches a considerable size and each of your modules is a juicy cut of the entire application bundle in terms of size. 
 
 Building feature modules is useful to separate concerns in an Angular application. As you continue to grow your Angular app, you'll most likely reach a point where you realize that code-splitting some modules can cut down the initial page size significantly. 
 
-# Conclusion
+## Conclusion
 
 In this article, we built an Angular 6 application from the ground up using the CLI as well as explored how lazy loading can be useful to optimize performance. I was also planning to cover `@angular/service-worker` and how it ties into the CLI in this post but this article turned out to be a lot longer than I anticipated. We'll dive in to that topic in the next part of series.
 

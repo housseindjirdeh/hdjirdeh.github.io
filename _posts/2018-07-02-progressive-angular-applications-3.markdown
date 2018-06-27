@@ -14,9 +14,6 @@ image: assets/progressive-angular-applications-2/banner.jpg
 permalink: /:title
 published: false
 ---
-
-![Progressive Angular Banner](assets/progressive-angular-applications-2/banner.jpg 'Progressive Angular Banner'){: .article-image-with-border }
-
 In [Part 1]({{ site.url }}/progressive-angular-applications) of this article, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That article was written a year ago and a lot has changed since then. This article (as well as the next in the series) will dive into a number of different topics relevant to building a PWA with Angular. This post will focus on **lazy-loading**.
 
 # The case for Progressive Angular

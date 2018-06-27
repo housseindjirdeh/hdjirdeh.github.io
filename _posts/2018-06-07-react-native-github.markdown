@@ -10,24 +10,21 @@ tags:
 - tutorial
 comments: true
 type: post
-image: assets/progressive-angular-applications/banner.png
+image: assets/react-native-github/banner.png
 permalink: /:title
 published: false
 ---
-
-![React Native GitHub Banner](assets/react-native-github/banner.png 'GitHub in your pocket'){: .article-image-with-border }
-
-**_`Shameless plug`: If you enjoy reading this tutorial, you might be interested in reading [FullStack React Native](https://www.fullstackreact.com/react-native/), a book I'm writing along with [Devin](https://twitter.com/dvnabbott) from Airbnb and the FullStack team. The first chapter is a free standalone section that also goes through building an entire app from scratch._**
+_`Shameless plug`: If you enjoy reading this tutorial, you might be interested in reading [FullStack React Native](https://www.fullstackreact.com/react-native/), a book I'm writing along with [Devin](https://twitter.com/dvnabbott) from Airbnb and the FullStack team. The first chapter is a free standalone section that also goes through building an entire app from scratch._
 
 React builds on the premise that you can [learn once and write anywhere](https://code.facebook.com/posts/1014532261909640/react-native-bringing-modern-web-techniques-to-mobile/). With this, the Facebook team built React Native, a framework that allows us to write in the same React style to create platform-specific iOS and Android components that produces a purely native mobile application. In short, [React Native](https://facebook.github.io/react-native/) let's us build native mobile applications using JavaScript and React.
 
 In this post, we'll go over how I built [GitPoint](https://gitpoint.co/), a GitHub mobile client, in significant detail.
 
-<div class="button-center">
-  <a class="blog-button" href="https://github.com/gitpoint/git-point">Source Code</a>
+<div class="flex items-center justify-center h3">
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/gitpoint/git-point">Source Code</a>
 </div>
 
-![GitPoint](assets/react-native-github/app.jpg 'GitPoint'){: .article-image-with-border }
+![GitPoint](assets/react-native-github/app.jpg 'GitPoint'){: .shadow }
 
 With the help of some amazing [contributors](https://github.com/gitpoint/git-point/graphs/contributors) these past few months, the application has grown to a considerable size. This means we won't be able to go through how I built the entire application in this blog post unfortunately, but I hope I do a decent enough job explaining all of the core concepts as well as how I built a number of the important screens and components in the app.
 
@@ -57,7 +54,7 @@ Nope. If you've used React before, you'll pick up some of the initial concepts e
 
 Nope. I never used React before I started building GitPoint.
 
-# Getting Started
+## Getting Started
 
 There are a couple of ways to start building a React Native app. Let's go through them in brief.
 
@@ -102,7 +99,7 @@ yarn start
 
 This outputs a QR code to the terminal:
 
-![GitPoint QR Code](assets/react-native-github/gitpoint-qr-code.png 'GitPoint QR Code'){: .article-image-with-border }
+![GitPoint QR Code](assets/react-native-github/gitpoint-qr-code.png 'GitPoint QR Code'){: .shadow }
 
 ## Running the app
 
@@ -110,13 +107,13 @@ One of the amazing tools in the Expo toolchain is the client app. You can instal
 
 Not only is this an extremely simple way to quickly load and test an application you're building on any iOS or Android device, but you can use this to scan any QR code of a complete published Expo app. For example, here's the QR code for the first app we build in the Fullstack React Native book:
 
-![Weather QR Code](assets/react-native-github/weather-qr-code.png 'Weather QR Code'){: .article-image }
+![Weather QR Code](assets/react-native-github/weather-qr-code.png 'Weather QR Code')
 
 Scanning this QR code will load the complete app to your device. Not only does CRNA make it extremely easy to get started building an application, _but it also makes publishing straightforward_ using the Expo client app.
 
 Okay, now back to GitPoint. If you've already installed the Expo client app and scanned the original QR code printed on your terminal, you should see something like this as the starting point of the app:
 
-![Hello World](assets/react-native-github/hello-world.png 'Hello World'){: .article-image }
+![Hello World](assets/react-native-github/hello-world.png 'Hello World')
 
 {:Hello World: .image-source}
 Hello World!
@@ -128,7 +125,7 @@ You'll need to make sure your mobile device is on the same local network as your
 
 Using the Expo client app and scanning the QR code on a real device isn't the only way to view a running application. If you happen to have the required native tooling (Xcode for iOS, or Android Studio for Android), you can view your app using a simulator/emulator. Not only is this useful to test on different platforms and device sizes without actually owning a million phones and tablets, but it can make it easier to view changes to the app faster during development.
 
-![iOS Simulator](assets/react-native-github/ios-simulator.png 'iOS Simulator'){: .article-image-with-border }
+![iOS Simulator](assets/react-native-github/ios-simulator.png 'iOS Simulator'){: .shadow }
 
 {:iOS Simulator: .image-source}
 Running the application on an iOS simulator
@@ -290,7 +287,7 @@ This is why we have `StyleSheet` imported at the top of the file. This API allow
 
 Now that we have a good understanding of the base component scaffolded for us already, let's actually start building our first screen. Before we begin, let's try to understand what we mean by _screen_. Let's take a second to view the Instagram app:
 
-![Instagram Saved Screen](assets/react-native-github/instagram-saved-screen.png 'Instagram Saved Screen'){: .article-image-with-border .fix-small }
+![Instagram Saved Screen](assets/react-native-github/instagram-saved-screen.png 'Instagram Saved Screen'){: .shadow .small }
 
 {:Instagram Saved Screen: .image-source}
 Instagram Saved screen (where I save nothing but quality memes)
@@ -298,7 +295,7 @@ Instagram Saved screen (where I save nothing but quality memes)
 
 In Instagram, you can save posts to your profile so you can always come back to take a look at them at a later time. If I were to build this screen with React Native, I might do something like this:
 
-![Instagram Saved Screen Components](assets/react-native-github/instagram-saved-screen-comps.png 'Instagram Saved Screen Components'){: .article-image .fix}
+![Instagram Saved Screen Components](assets/react-native-github/instagram-saved-screen-comps.png 'Instagram Saved Screen Components'){: .article-image .small}
 
 The entire UI you see on the device when you view your saved posts can be characterized as a _screen_. It's a component just like any other component, but nested within would be the lower level components that make up what we see.
 
@@ -306,7 +303,7 @@ A common data architecture when building JavaScript applications is seperating t
 
 Now when we think of building screens, we'll most likely need to set up navigation to allow the user to switch between different screens. Let's take a look at this Instagram screen again in terms of navigation:
 
-![Instagram Saved Screen Navigation](assets/react-native-github/instagram-saved-screen-nav.png 'Instagram Saved Screen Navigation'){: .article-image .fix}
+![Instagram Saved Screen Navigation](assets/react-native-github/instagram-saved-screen-nav.png 'Instagram Saved Screen Navigation'){: .article-image .small}
 
 We can see that there are two places on the screen that allow us to navigate, a top navigation bar that allows us to go back to where we were previously and a bottom tab navigation bar that allows us to switch between different root screens. These navigation elements are components like anything else and although we can build them manually along with their routing logic, there are libraries out there that make it simpler. We'll explore this in more detail in a bit.
 
@@ -326,7 +323,7 @@ We'll work on building the following GitHub screens:
 
 We'll begin with the GitHub profile screen:
 
-![GitHub Profile](assets/react-native-github/github-profile.png 'GitHub Profile'){: .article-image-with-border }
+![GitHub Profile](assets/react-native-github/github-profile.png 'GitHub Profile'){: .shadow }
 
 {:GitHub Profile: .image-source}
 My Profile!
@@ -341,7 +338,7 @@ Everyone has their own way of mocking how their application would look like befo
 
 One thing that I did do however, was spend some time observing all the native mobile apps that I use regularly to see how they built different parts of their UI. The profile screen in the [Meetup](https://www.meetup.com/apps/) app caught my eye:
 
-![Meetup Profile Screen](assets/react-native-github/meetup-profile-scroll.gif 'Meetup Profile Screen'){: .article-image-with-border .fix-very-small }
+![Meetup Profile Screen](assets/react-native-github/meetup-profile-scroll.gif 'Meetup Profile Screen'){: .shadow .small }
 
 I thought the parallax scroll aspect of this was pretty neat, as well as how the user with their details is shown nicely in the top part of the screen. Let's get started to make our screen look this delicious:
 
@@ -408,7 +405,7 @@ fontSize: 12,
 
 And this renders:
 
-![Profile Screen 1](assets/react-native-github/profile-screen-1.png 'Profile Screen 1'){: .article-image-with-border .fix-small }
+![Profile Screen 1](assets/react-native-github/profile-screen-1.png 'Profile Screen 1'){: .shadow .small }
 
 It's a start! Let's break down what we just did, beginning with the imports at the top of file:
 
@@ -522,7 +519,7 @@ import { Component1, Component2, ... } from './components';
 
 Now let's take a look at how we can update `App.js`.
 
-![Shocked](assets/react-native-github/shocked.gif 'Shocked'){: .article-image-with-border }
+![Shocked](assets/react-native-github/shocked.gif 'Shocked'){: .shadow }
 
 {:Shocked: .image-source}
 My reaction when launching the Chrome Debugger for the first time

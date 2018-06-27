@@ -11,8 +11,6 @@ type: post
 image: assets/looking-back-2017/banner.jpg
 permalink: /:title
 ---
-![Banner](assets/looking-back-2017/banner.jpg "Me smiling"){: .article-image-with-border }
-
 I'm late, I know.
 
 Let's take a look at what I accomplished this past year:
@@ -53,7 +51,7 @@ I submitted my [first pull request](https://github.com/javascriptair/site/pull/1
 
 ## Goals for 2018
 
-![2017 to 2018](assets/looking-back-2017/2017-was-tough.png "2017 to 2018"){: .article-image-with-border .fix }
+![2017 to 2018](assets/looking-back-2017/2017-was-tough.png "2017 to 2018"){: .shadow .small }
 
 New Years resolutions never made sense to me. Why not just begin something in December if it's weighing on your mind? Why wait for the new year?
 
