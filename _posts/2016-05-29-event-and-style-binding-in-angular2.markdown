@@ -23,7 +23,7 @@ Whenever the expression `{% raw %}{{firstname}}{% endraw %}` changes, we want th
 
 Two-way data binding explains how the view updates when the model changes **and vice-versa**. This happens immediately which means that the model and view are always in-sync. In other words, you can think of the view as an instant projection of the model.
 
-![two way]({{ site.url }}/public/two_way_data_binding.png "Two Way Data Binding"){: .article-image-with-source }
+<img alt="two way" title="two way" data-src="/public/two_way_data_binding.png" class="lazyload shadow" />
 
 {:two way: .image-source}
 [Source: AngularJS Developer Guide - Data Binding](https://docs.angularjs.org/guide/databinding)

@@ -3,7 +3,7 @@ layout: default
 ---
 {% for post in site.posts %}
   <div class="flex flex-column justify-between mw7 pv5 center bb w-100">
-    <h5 class="f4 f3-ns fw6 mb3 mt0 grow">
+    <h5 class="f4 f3-ns fw6 mb2 mt0 grow">
       <a href="{{ post.url | prepend: site.baseurl }}" class="near-black link hover-red grow ttl">
         {{ post.title | downcase }}
       </a>

@@ -8,7 +8,7 @@ image: assets/thinking-prpl/banner.png
 permalink: /:title
 ---
 <aside>
-<p>Although modified to include additional information, this article is a write-up of a talk I gave at .concat() and Fluent. You can watch it <a href="https://www.youtube.com/watch?v=RcHWKieBslk">here</a> if you happen to be interested.</p>
+<p>Although modified to include additional information, this article is a write-up of a talk I gave at <a href="https://www.youtube.com/watch?v=RcHWKieBslk">.concat()</a> and Fluent.</p>
 </aside>
 
 The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably.
@@ -380,7 +380,7 @@ With regards to load times, using metrics can be important to set a baseline on 
 * **First Meaningful Paint**: The time it takes the user to see _meaningful_ content on their device.
 * **Time to Interactive (TTI)**: The time it takes for the JavaScript thread to settle and the user can interact with the application.
 
-As developers, many of us have become accustomed to building web applications with healthy network connections and powerful machines. At times, we may not realize how users would experience our applications with lower-end devices and weaker connections. According to a statistic mentioned [here](https://www.thinkwithgoogle.com/_qs/documents/57/mobile-page-speed-new-industry-benchmarks.pdf), the average time it takes to fully load a webpage on mobile is greater than _20 seconds_. This was found by running tests on a globally representative 3G network connection and a Nexus 5 device. Another Google Research statistic mentioned [here](https://www.thinkwithgoogle.com/intl/en-ca/advertising-channels/mobile/mobile-shopping-ecosystem/) found the average load time to be _15.3 seconds_ with a 4G connection.
+As developers, many of us have become accustomed to building web applications with healthy network connections and powerful machines. At times, we may not realize how users would experience our applications with lower-end devices and weaker connections. According to a [Google Research statistic](https://www.thinkwithgoogle.com/_qs/documents/57/mobile-page-speed-new-industry-benchmarks.pdf), the average time it takes to fully load a webpage on mobile is greater than _20 seconds_. This was found by running tests on a globally representative 3G network connection and a Nexus 5 device. Another [Google Research statistic](https://www.thinkwithgoogle.com/intl/en-ca/advertising-channels/mobile/mobile-shopping-ecosystem/) found the average load time to be _15.3 seconds_ with a 4G connection.
 
 If a webpage takes longer than 3 seconds to load, [more than half of our users will give up](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/).
 
