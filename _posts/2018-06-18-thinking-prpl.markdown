@@ -30,11 +30,7 @@ The term `PRPL` was coined by the Polymer team in their [talk at Google I/O 2016
 
 It is probably safe to assume that the majority of individuals who read this article own a mobile device, and the amount of time that we spend on our smartphones and tablets have only increased year after year.
 
-![comScore 2017 U.S. Mobile App Report](assets/thinking-prpl/comScore-app-report.png "comScore 2017 U.S. Mobile App Report"){: .shadow }
-
-{:comscore app report: .image-source}
-[Source: comScore 2017 U.S. Mobile App Report](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2017/The-2017-US-Mobile-App-Report)
-{: comscore app report}
+<img alt="comScore 2017 U.S. Mobile App Report" title="comScore 2017 U.S. Mobile App Report" data-src="/assets/thinking-prpl/comScore-app-report.png" class="lazyload shadow" />
 
 In comScore's [2017 U.S. Mobile App Report](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2017/The-2017-US-Mobile-App-Report), it was found that the average user spends 16x more time on popular native apps than the mobile web. As mobile device consumers, we are far more likely to spend more time on native apps than we do on the mobile browser. However, mobile web pages still received over _twice as many_ unique monthly visitors than native apps. This is due to a multitude of reasons, including the convenience, security and simplicity of just typing a URL into an address bar instead of installing an entire application.
 
@@ -42,13 +38,13 @@ So how can we ensure that users who discover our web pages have a great experien
 
 When we open a browser on a mobile device (or tablet or desktop) and type something into the address bar and press `Enter`, a request is sent to a remote server somewhere. 
 
-![Request to remote server](assets/thinking-prpl/request.png "Request to remote server"){: .shadow }
+<img alt="Request to remote server" title="Request to remote server" data-src="/assets/thinking-prpl/request.png" class="lazyload shadow" />
 
 After a certain period of time, the server responds with content that the browser needs. This usually takes shape of an HTML document. The underlying application protocol used by the web (HTTP) works using this request-response pattern.
 
 Once the browser retrieves the initial HTML document, the next thing it does is parse through the contents of the file in order to determine what other resources it needs. For each external resource that it finds, it submits a separate request for it. These resources can include CSS files for styling, JavaScript for dynamic content or even static images.
 
-![Requests and responses](assets/thinking-prpl/request-response.gif "Requests and responses"){: .shadow }
+<img alt="Request and responses" title="Request and responses" data-src="/assets/thinking-prpl/request-response.gif" class="lazyload shadow" />
 
 Multiple round trips are usually needed for a typical webpage in order to get all of the content that the user needs to see.
 
@@ -93,7 +89,7 @@ It's a `<link>` element where we define the location of the file as an `href` at
 
 Using preload allows us to inform the browser that a resource is needed immediately after the page loads. In other words, we’re telling the browser that this is a critical resource so please start loading it as soon as you can.
 
-![Preload](assets/thinking-prpl/preload.png "Preload"){: .shadow }
+<img alt="Preload" title="Preload" data-src="/assets/thinking-prpl/preload.png" class="lazyload shadow" />
 
 Although we can specify preload tags for resources defined in the `head` or `body` of our root HTML file, you're more likely to get the most bang for your buck using preload for resources that might be discovered much later. An example of this could be a specific font tucked deep in one of your CSS files.
 
@@ -111,13 +107,11 @@ Although it may seem straightforward to add `<link rel="preload">` and `<link re
 
 * webpack 4.6.0 [provides support](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c) for prefetching and preloading resources using 'magic' comments:
 
-<div class="highlight-in-list">
 {% highlight javascript %}
 import(/* webpackPreload: true */ "PreloadedPage")
 
 import(/* webpackPrefetch: true */ "PrefetchedPage")
 {% endhighlight %}
-</div>
 
 * If you happen to be using an older version of webpack:
     * [preload-webpack-plugin](https://github.com/GoogleChromeLabs/preload-webpack-plugin) is a webpack plugin that allows you to define dynamically generated chunks (as a result of code-splitting) as preloaded or prefetched resources. This plugin is supposed to be used alongside [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin).
@@ -141,7 +135,7 @@ We've just covered how we can use `<link rel="preload">` to load critical resour
 
 The idea behind Server Push is that when we send down the initial HTML document during our first request/response interaction, we can also send down (or push) critical assets at the same time. These are assets we know the browser will need before it even knows it needs them itself.
 
-![Server Push](assets/thinking-prpl/server-push.png "Server Push"){: .shadow }
+<img alt="Server Push" title="Server Push" data-src="/assets/thinking-prpl/server-push.png" class="lazyload shadow" />
 
 One of the primary benefits of using Server Push is that it can minimize round trips to the server. We can remove the time it takes the browser to parse the contents of the HTML file and fire subsequent requests for any assets that it finds which can result in shorter page load times.
 
@@ -185,7 +179,7 @@ npm install workbox-cli --global
 
 We can then use `workbox wizard` to start the process:
 
-![Workbox wizard](assets/thinking-prpl/workbox-wizard.gif "Workbox wizard"){: .shadow }
+<img alt="Workbox wizard" title="Workbox wizard" data-src="/assets/thinking-prpl/assets/thinking-prpl/workbox-wizard.gif" class="lazyload shadow" />
 
 Workbox asks a series of questions in order to set up a service worker with the correct configurations:
 
@@ -234,7 +228,7 @@ In here, we check to see if service workers are supported in the browser. If the
 
 So we briefly covered how to install and register a service worker using Workbox, but we still haven't mentioned how they work. One of the primary benefits of using a service worker is that they allow you to precache the resources that make up the Application Shell. Like the name suggests, the App Shell is the _shell_ of your user interface.
 
-![App Shell - Twitter Lite](assets/thinking-prpl/twitter-lite-app-shell.png "App Shell - Twitter Lite"){: .shadow }
+<img alt="App Shell - Twitter Lite" title="App Shell - Twitter Lite" data-src="/assets/thinking-prpl/assets/thinking-prpl/twitter-lite-app-shell.png" class="lazyload shadow" />
 
 {:app shell: .image-source}
 [Application Shell - Twitter Lite](https://mobile.twitter.com)
@@ -242,7 +236,7 @@ So we briefly covered how to install and register a service worker using Workbox
 
 The App Shell consists of all the HTML, CSS and JS that make up the parts of that application that don't convey actual data (or dynamic data retrieved from a third-party location). Once the app is loaded for the first time, the assets that make up the shell can be retrieved over the network normally. A service worker can act like a middleman between the browser and the network allowing us to to cache these resources as well.
 
-![Service Worker](assets/thinking-prpl/service-worker.png "Service Worker"){: .shadow }
+<img alt="Service Worker" title="Service Worker" data-src="/assets/thinking-prpl/assets/thinking-prpl/service-worker.png" class="lazyload shadow" />
 
 Storing the resources that make up the shell in the service worker cache means that when the user loads the application for a second time, the browser can retrieve them from the service worker instead of making network requests. This results in **faster page loads on repeat visits**.
 
@@ -318,7 +312,9 @@ By using this flag, we not only need to provide a destination service worker loc
 
 <aside>
   <p>There is a common conception that service workers may not be necessary in cases where the majority of users who would open a specific webpage likely have a working network connection. Even though developers who cater to users who are fortunate enough to have reliable network connections all the time may <i>feel</i> like there's no need for offline support, flaky network connections will eventually affect them for varying reasons.</p>
-  <img src="assets/thinking-prpl/reliability-tweet.png" alt="Reliability" title="Reliability" class="small">
+
+  <img alt="Reliability" title="Reliability" data-src="/assets/thinking-prpl/reliability-tweet.png" class="lazyload small" />
+
   <p class="image-source no-margin"><a href="https://twitter.com/HenrikJoreteg/status/909632750453321734">Tweet Source</a></p>
 </aside>
 
@@ -381,7 +377,7 @@ Code splitting at the component level can even allow for more fine-grained contr
 
 If you're considering adding code splitting/lazy loading to your application, it's probably a good idea to keep an eye on your bundle size from time to time. There are a number of different community-built tools that can make this easier, such as [Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) which shows a visualization of how different parts of your bundle are larger/smaller than others with a treemap.
 
-![Webpack Bundle Analyzer](assets/thinking-prpl/webpack-bundle-analyzer.png "Webpack Bundle Analyzer"){: .shadow }
+<img alt="Webpack Bundle Analyzer" title="Webpack Bundle Analyzer" data-src="/assets/thinking-prpl/assets/thinking-prpl/webpack-bundle-analyzer.png" class="lazyload shadow" />
 
 ## Metrics
 

@@ -6,12 +6,12 @@
 <body>
 
   <div class="flex flex-column items-center justify-between">
-    {% include header.html %} 
+    {% include header.html %}
     <div class="mw7 mt5">
       <div class="flex flex-column mt2 mb5">
         <h1 class="f1 ttl mb3 near-black lh-title">
           {{ page.title }}
-        </h1>   
+        </h1>
         <time class="f5 fw6 red" datetime="{{ page.date }}">{{ page.date | date: '%B %d, %Y' }}</time>
       </div>
       <div id="markup" class="f4 lh-copy near-black">
@@ -20,12 +20,16 @@
     </div>
 
     <div class="f5 fw6 lh-copy mt6">
-      <p>If you have any questions or suggestions, please don't hesitate to open an <a class="link-effect" href="https://github.com/housseindjirdeh/housseindjirdeh.github.io/issues/new">issue!</a></p>
+      <p>If you have any questions or suggestions, feel free to open an
+        <a class="link-effect" href="https://github.com/housseindjirdeh/housseindjirdeh.github.io/issues/new">issue!</a>
+      </p>
     </div>
 
     {% include footer.html %}
   </div>
 
+  {% include script-lazysizes.html %}
+  {% include script-highlight.html %}
 </body>
 
 </html>
