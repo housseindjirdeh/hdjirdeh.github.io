@@ -424,7 +424,7 @@ To simply generate a number of icons needed not just for Android, but for Window
 
 Like Chromium browsers (Chrome, Firefox, Opera) on Android, Safari on iOS allows you to install to homescreen and provide an icon. However, splash screens are not supported.
 
-Moreover, with the presence of a web manifest, the URL bar is automatically removed giving the user a full-screen experience on Android devices. This is not the case on iOS, but there are [supported meta tags](https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html) that we can add to fix this (credits to [Bram Borggreve](https://github.com/beeman), I didn't know this was possible until he put up a PR for this <i class="fa fa-smile-o" aria-hidden="true"></i>). With this, we can have a rich full-screen experience on iOS as well.
+Moreover, with the presence of a web manifest, the URL bar is automatically removed giving the user a full-screen experience on Android devices. This is not the case on iOS, but there are [supported meta tags](https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html) that we can add to fix this (credits to [Bram Borggreve](https://github.com/beeman), I didn't know this was possible until he put up a PR for this!). With this, we can have a rich full-screen experience on iOS as well.
 
 <img alt="iPhone Demo" title="iPhone Demo" data-src="/assets/progressive-angular-applications/iphone-demo.gif" class="lazyload shadow" />
 

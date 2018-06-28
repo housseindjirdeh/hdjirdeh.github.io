@@ -36,11 +36,7 @@ When we open a browser on a mobile device (or tablet or desktop) and type someth
 
 After a certain period of time, the server responds with content that the browser needs. This usually takes shape of an HTML document. The underlying application protocol used by the web (HTTP) works using this request-response pattern.
 
-Once the browser retrieves the initial HTML document, the next thing it does is parse through the contents of the file in order to determine what other resources it needs. For each external resource that it finds, it submits a separate request for it. These resources can include CSS files for styling, JavaScript for dynamic content or even static images.
-
-<img alt="Request and responses" title="Request and responses" data-src="/assets/thinking-prpl/request-response.gif" class="lazyload shadow" />
-
-Multiple round trips are usually needed for a typical webpage in order to get all of the content that the user needs to see.
+Once the browser retrieves the initial HTML document, the next thing it does is parse through the contents of the file in order to determine what other resources it needs. For each external resource that it finds, it submits a separate request for it. These resources can include CSS files for styling, JavaScript for dynamic content or even static images. Multiple round trips are usually needed for a typical webpage in order to get all of the content that the user needs to see.
 
 ## Link Preload
 
@@ -171,16 +167,14 @@ A service worker is a script that runs in the background of your browser when yo
 npm install workbox-cli --global
 {% endhighlight %}
 
-We can then use `workbox wizard` to start the process:
-
-<img alt="Workbox wizard" title="Workbox wizard" data-src="/assets/thinking-prpl/workbox-wizard.gif" class="lazyload shadow" />
-
-Workbox asks a series of questions in order to set up a service worker with the correct configurations:
+We can run `workbox wizard` in our terminal to start the process. Workbox will then ask a series of questions in order to set up a service worker with the correct configurations:
 
 1. <code>What is the root of your web app?</code> If you're using a module bundler or have a build step in your application, you most likely have a final folder that you'll need to deploy (for example: `dist/` or `build/`).
 2. <code>Which file types would you like to precache?</code> You can decide which file types you would like to precache.
 3. <code>Where would you like your service worker file to be saved?</code> You most likely would need to have your service worker saved in the folder you deploy, but you can specify where exactly.
-4. <code>Where would you like to save these configuration settings?</code> Workbox saves these settings into a separate configurations file (and you can decide where to save it). The default answer is `workbox-config.js` at the root of your application and the file generated looks like this:
+4. <code>Where would you like to save these configuration settings?</code> Workbox saves these settings into a separate configurations file (and you can decide where to save it). 
+
+The default answer for saving the configurations file is `workbox-config.js` at the root of your application. The generated file looks like this:
 
 <div class="highlight-in-list">
 {% highlight javascript %}

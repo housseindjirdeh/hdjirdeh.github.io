@@ -2,7 +2,11 @@
 layout: default
 ---
 {% for post in site.posts %}
-  <div class="flex flex-column justify-between mw7 pv5 center bb w-100">
+  {% if forloop.first %}
+    <div class="flex flex-column justify-between mw7 pv5 center bb bt w-100">
+  {% else %}  
+    <div class="flex flex-column justify-between mw7 pv5 center bb w-100">
+  {% endif %}
     <h5 class="f4 f3-ns fw6 mb2 mt0 grow">
       <a href="{{ post.url | prepend: site.baseurl }}" class="near-black link hover-red grow ttl">
         {{ post.title | downcase }}

@@ -20,15 +20,13 @@ In this post, we'll go over the basic concepts of the Flux architecture and Redu
   <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/housseindjirdeh/angular2-redux-contact-list">Source Code</a>
 </div>
 
-![contact list]({{ site.url }}/public/contact-list.gif "Contact Link Example")
-
 As we go along, I'll do my best to explain why we're doing each and every step. The final application will not be complicated but will hopefully be enough for you to grasp the main concepts.
 
 ## Redux and Flux Architecture
 
 Flux is simply an architectural pattern to build user interfaces. It's not a framework or library, it's a design pattern for building client side applications.
 
-![flux architecture](https://facebook.github.io/flux/img/flux-simple-f8-diagram-1300w.png "The Flux Architecture"){: .article-image-with-source }
+<img alt="Flux Architecture" title="Flux Architecture" data-src="https://facebook.github.io/flux/img/flux-simple-f8-diagram-1300w.png" class="lazyload shadow" />
 
 {:flux architecture: .image-source}
 [Source: Flux Documentation - Structure and Data Flow](https://facebook.github.io/flux/docs/overview.html#structure-and-data-flow)
@@ -555,10 +553,9 @@ export default class Contact {
 
 And that's it! That covers up the basics of using Redux in your application. The final source code is [here.](https://github.com/housseindjirdeh/angular2-redux-contact-list/tree/master/app)
 
-![that's a wrap]({{ site.url }}/public/thatsawrap.jpg "That's a wrap")
+<img alt="That's a wrap" title="That's a wrap" data-src="/public/thatsawrap.jpg" class="lazyload shadow" />
 
 ## Wrapping things up
-
 
 As you may have noticed, implementing immutable collections along with a redux state container adds some complexity to your application. **This isn't the only way to build Angular applications, nor is it the best way.** It's one way and it can make things easier under certain circumstances
 

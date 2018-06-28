@@ -15,30 +15,13 @@ Thankfully, there are continuous integration and deployment tools that can make 
 
 ## The breakdown
 
-In this post, we'll begin by creating an application from scratch using [Angular CLI](https://github.com/angular/angular-cli). We'll then use [Firebase](https://firebase.google.com/) as our hosting service and [Travis CI](https://travis-ci.org/) as our continuous integration platform. By the end of this article, your workflow will look something like this.
+In this post, we'll begin by creating an application from scratch using [Angular CLI](https://github.com/angular/angular-cli). We'll then use [Firebase](https://firebase.google.com/) as our hosting service and [Travis CI](https://travis-ci.org/) as our continuous integration platform. By the end of this article, your workflow will look something like this:
 
-<div id="cont-integration-flow" class="row">
-  <div class="item col-md-2 col-md-offset-1">
-    <i class="fa fa-4x fa-github" aria-hidden="true"></i>
-    <p>You push to your Github repository</p>
-  </div>
-  <div class="item col-md-2">
-    <i class="fa fa-4x fa-coffee" aria-hidden="true"></i>
-    <p>Grab a coffee</p>
-  </div>
-  <div class="item col-md-2">
-    <i class="fa fa-4x fa-terminal" aria-hidden="true"></i>
-    <p>TravisCI begins by installing all the dependencies</p>
-  </div>
-  <div class="item col-md-2">
-    <i class="fa fa-4x fa-wrench" aria-hidden="true"></i>
-    <p>The build script is run</p>
-  </div>
-  <div class="item col-md-2">
-    <i class="fa fa-4x fa-check" aria-hidden="true"></i>
-    <p>If your build passes, it's deployed to Firebase</p>
-  </div>
-</div>
+1. You push to your Github repository
+2. Grab a coffee
+3. TravisCI begins by installing all the dependencies
+4. The build script is run
+5. If your build passes, the application is deployed to Firebase
 
 This post will not explain how you can use the CLI in detail nor show you how to actually build an Angular application. I wrote a [post]({{ site.url }}/angular2-hacker-news) that explains this thoroughly so please take a look if you're interested.
 
@@ -60,11 +43,11 @@ ng serve
 
 If you go to `localhost:4200`, you'll see your application!
 
-![Boom Shakalaka App](assets/continuous-integration-angular-firebase-travisci/boom-shakalaka.png){: .shadow }
+<img alt="Boom Shakalaka App" title="Boom Shakalaka App" data-src="/assets/continuous-integration-angular-firebase-travisci/boom-shakalaka.png" class="lazyload shadow" />
 
 Since Travis CI easily syncs with Github, let's create our repository.
 
-![Github Repository](assets/continuous-integration-angular-firebase-travisci/boom-shakalaka-github.png){: .shadow }
+<img alt="Github Repository" title="Github Repository" data-src="/assets/continuous-integration-angular-firebase-travisci/boom-shakalaka-github.png" class="lazyload shadow" />
 
 We can now add the remote repository to our project.
 
@@ -82,7 +65,7 @@ Firebase is an awesome platform that provides a number of different services tha
 
 For **Boom Shakalaka**, we'll only need to host it. We can do that by using the Firebase CLI, but first you'll need to [sign in](https://firebase.google.com/), head to the console and create your project.
 
-![Create New Project](assets/continuous-integration-angular-firebase-travisci/create-project.png){: .shadow .small }
+<img alt="Create New Project" title="Create New Project" data-src="/assets/continuous-integration-angular-firebase-travisci/create-project.png" class="lazyload shadow small" />
 
 Once you've created your project, you can head to your terminal and run the following at the root of your project to set up the CLI.
 
@@ -94,7 +77,7 @@ firebase init
 
 You should see the following in your terminal.
 
-![Firebase init](assets/continuous-integration-angular-firebase-travisci/firebase-init.png){: .shadow }
+<img alt="Firebase init" title="Firebase init" data-src="/assets/continuous-integration-angular-firebase-travisci/firebase-init.png" class="lazyload shadow" />
 
 Let's go through each of the questions.
 
@@ -111,11 +94,11 @@ ng build --prod
 firebase deploy
 {% endhighlight %}
 
-![Firebase Deploy](assets/continuous-integration-angular-firebase-travisci/firebase-deploy.png){: .shadow }
+<img alt="Firebase Deploy" title="Firebase Deploy" data-src="/assets/continuous-integration-angular-firebase-travisci/firebase-deploy.png" class="lazyload shadow" />
 
 Now if you navigate to the URL provided, you'll see your application!
 
-![Firebase Hosted](assets/continuous-integration-angular-firebase-travisci/boom-shakalaka-firebase.png){: .shadow  }
+<img alt="Firebase Hosted" title="Firebase Hosted" data-src="/assets/continuous-integration-angular-firebase-travisci/boom-shakalaka-firebase.png" class="lazyload shadow" />
 
 In your terminal, run the following command to get your token (you'll be asked to authenticate). We'll need it in a bit.
 
@@ -123,7 +106,7 @@ In your terminal, run the following command to get your token (you'll be asked t
 firebase login:ci
 {% endhighlight %}
 
-![Firebase Token](assets/continuous-integration-angular-firebase-travisci/firebase-token.png){: .shadow  }
+<img alt="Firebase Token" title="Firebase Token" data-src="/assets/continuous-integration-angular-firebase-travisci/firebase-token.png" class="lazyload shadow" />
 
 ## Travis CI
 
@@ -131,11 +114,11 @@ Travis CI is a continuous integration platform that you can use with your Github
 
 [Sign in](https://travis-ci.org/) to Travis CI with your Github account and you should see a list of your repositories.
 
-![Travis CI Repositories](assets/continuous-integration-angular-firebase-travisci/travis-ci-repositories.png){: .shadow }
+<img alt="Travis CI Repositories" title="Travis CI Repositories" data-src="/assets/continuous-integration-angular-firebase-travisci/travis-ci-repositories.png" class="lazyload shadow" />
 
 Check the one you wish to sync and click the little **cog** icon to enter its settings.
 
-![Travis CI Settings](assets/continuous-integration-angular-firebase-travisci/travis-ci-settings.png){: .shadow}
+<img alt="Travis CI Settings" title="Travis CI Settings" data-src="/assets/continuous-integration-angular-firebase-travisci/travis-ci-settings.png" class="lazyload shadow" />
 
 You can see that I have **`Build Pushes`** and **`Build Pull Requests`** turned *ON*. This means that anytime I push directly to this repository or merge a pull-request, Travis CI will trigger a build.
 
@@ -192,7 +175,7 @@ I didn't cover tests in my configuration, but it is important to mention that An
 
 Now that we have our `.travis.yml` file set up, I'm going to modify the application slightly to look like this.
 
-![Boom Shakalaka GIF](assets/continuous-integration-angular-firebase-travisci/boom-shakalaka.gif){: .shadow}
+<img alt="Boom Shakalaka" title="Boom Shakalaka" data-src="assets/continuous-integration-angular-firebase-travisci/boom-shakalaka-final.png" class="lazyload shadow" />
 
 Now all we need to do is commit and push our changes.
 
