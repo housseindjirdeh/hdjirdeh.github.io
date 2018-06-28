@@ -16,8 +16,17 @@ linkedin_username: Houssein Djirdeh
 github_username:  housseindjirdeh
 twitter_username: hdjirdeh
 google_analytics: UA-66348622-2
-gems:
+plugins:
   - jekyll-sitemap
+  - jekyll-feed
 
 # Build settings
 markdown: kramdown
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - package.json
+  - workbox.config.js
+  - node_modules

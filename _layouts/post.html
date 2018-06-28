@@ -28,8 +28,11 @@
 
     {% include footer.html %}
   </div>
-
-  {% include script-highlight.html %} {% include script-lazysizes.html %}
+  
+  {% include script-highlight.html %} {% include script-lazysizes.html %} {% include script-serviceworker.html %}
+  {% if jekyll.environment == 'production' and site.google_analytics %}
+    {% include google-analytics.html %}
+  {% endif %}
 </body>
 
 </html>

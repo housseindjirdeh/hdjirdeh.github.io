@@ -1,4 +1,6 @@
-<script src="/lib/highlight.min.js"></script>
+<script defer src="/lib/highlight.min.js"></script>
 <script>
-  hljs.initHighlightingOnLoad();
+  window.addEventListener('load', () => {
+    hljs.initHighlighting();
+  });
 </script>

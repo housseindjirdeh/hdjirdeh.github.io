@@ -1,0 +1,33 @@
+language: ruby
+rvm:
+  - 2.4.1
+
+before_install:
+  - nvm install 7
+  - npm install
+
+script:
+  npm run build
+
+branches:
+  only:
+    - master
+
+sudo: false # route your build to the container-based infrastructure for a faster build
+
+cache: bundler # caching bundler gem packages will speed up build
+
+# Optional: disable email notifications about the outcome of your builds
+notifications:
+  email: false
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: _site
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
+  repo: housseindjirdeh/housseindjirdeh.github.io
+  target_branch: master
+  fqdn: houssein.me

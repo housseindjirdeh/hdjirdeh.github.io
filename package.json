@@ -1,0 +1,13 @@
+{
+  "name": "housseindjirdeh.github.io",
+  "description": "Houssein's blog!",
+  "scripts": {
+    "build": "JEKYLL_ENV=production bundle exec jekyll build && workbox generateSW workbox.config.js",
+    "dev": "bundle exec jekyll serve",
+    "dev-sw": "npm run build && npm run dev"
+  },
+  "devDependencies": {
+    "workbox-cli": "^3.3.1"
+  },
+  "dependencies": {}
+}
