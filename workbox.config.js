@@ -1,6 +1,6 @@
 module.exports = {
   globDirectory: '_site',
-  globPatterns: ['**/*.{js,svg,html}'],
+  globPatterns: ['**/*.{svg,html}'],
   runtimeCaching: [{
     urlPattern: /assets/,
     handler: 'staleWhileRevalidate',
