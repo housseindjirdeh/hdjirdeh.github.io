@@ -5,6 +5,8 @@ const posts = [
   'angular2-with-immutablejs-and-redux',
   'continuous-integration-angular-firebase-travisci',
   'progressive-angular-applications',
+  'progressive-angular-applications-2',
+  'progressive-angular-applications-3',
   'looking-back-2017',
   'thinking-prpl',
 ];
@@ -22,7 +24,6 @@ module.exports = {
   globDirectory: '_site',
   globPatterns: [],
   runtimeCaching: [
-    runtimeCache(new RegExp(/^https:\/\/finallyits2.surge.sh\/$/), 'index'),
     runtimeCache(/assets/, 'image-assets'),
     ...posts.map(title => runtimeCache(title, `post-${title}`)),
   ],

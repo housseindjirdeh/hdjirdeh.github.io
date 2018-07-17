@@ -384,4 +384,4 @@ If a webpage takes longer than 3 seconds to load, [more than half of our users w
 
 ## Conclusion
 
-It's important to first spend a little time analyzing the devices of our users before adding performance enhancements that very well may not be necessary (or important as other features our application needs). If we find out our application is not loading as fast it probably should after a little digging, then it may be worthwhile to dive in and try adding some optimizations to our site.
+It's important to first spend a little time analyzing the devices of our users before adding performance enhancements that very well may not be necessary (or important as other features our application needs). If we find out our application is not loading as fast as it probably should after a little digging, then it may be worthwhile to dive in and try adding some optimizations!

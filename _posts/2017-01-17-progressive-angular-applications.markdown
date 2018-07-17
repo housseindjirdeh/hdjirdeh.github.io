@@ -247,7 +247,7 @@ Once deployed, let's take a look at the network requests when we load the applic
 
 You can see that every precached resource was retrieved from the service worker! The only data transferred was our third party call to get the list of stories from the Hacker News API. Let's take a look at the captured sequences on reload.
 
-<img alt="Network with sw-precache" title="Network with sw-precache" data-src="/assets/progressive-angular-applications/network-sw-precache.png" class="lazyload shadow" />
+<img alt="Network with sw-precache" title="Network with sw-precache" data-src="/assets/progressive-angular-applications/network-sw-precache.png" class="lazyload" />
 
 Not bad at all. You can see that the static resources load a lot faster since they're now being retrieved from the service worker. This significantly reduces our [Time to Interactive](https://developers.google.com/web/tools/lighthouse/audits/time-to-interactive).
 
@@ -340,7 +340,7 @@ In this area, Lighthouse will check to see if your HTML has a `<meta name="viewp
 
 We can give users the ability to install the application to their homescreen in order to feel more like a native application.
 
-<img alt="Installed to homescreen" title="Installed to homescreen" data-src="/assets/progressive-angular-applications/app-installed-phone.png" class="lazyload shadow" />
+<img alt="Installed to homescreen" title="Installed to homescreen" data-src="/assets/progressive-angular-applications/app-installed-phone.png" class="lazyload" />
 
 This is done by adding a [Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest), a JSON file that contains specific information about your app. We can begin by adding a `link` to the head of our `index.html`.
 

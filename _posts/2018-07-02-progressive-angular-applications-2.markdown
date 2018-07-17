@@ -1,21 +1,21 @@
 ---
 layout: post
 title:  "Progressive Web Apps with Angular: Part 2 - Lazy Loading"
-date:   2018-07-02 07:30:00
-description: In Part 1 of this article, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That article was written a year ago and a lot has changed since then. This post will dive into building a PWA using Angular version 6.0 in order to understand how to use newer technologies provided by the platform....
+date:   2018-07-30 07:30:00
+description: In Part 1 of this series, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That post was written over a year ago and a lot has changed in the Angular ecoystem since. The next two articles in this series will focus on newer tools that we can use to build progressive Angular applications, and this post will focus on lazy-loading...
 type: post
-image: assets/progressive-angular-applications-2/banner.jpg
+image: assets/progressive-angular-applications-2/banner.png
 permalink: /:title
 published: false
 ---
 
-In [Part 1]({{ site.url }}/progressive-angular-applications) of this article, we explored how to add a number of progressive enhancements to a [Hacker News client built with Angular](https://angular2-hn.firebaseapp.com). That post was written a year ago and a lot has changed in the Angular ecoystem since then, and the next two articles in this series will focus on newer tools that we can use to build progressive Angular applications. This post will focus on **lazy-loading**.
+In [Part 1]({{ site.url }}/progressive-angular-applications) of this series, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. That post was written over a year ago and a lot has changed in the Angular ecoystem since. The next two articles in this series will focus on newer tools that we can use to build progressive Angular applications, and this post will focus on **lazy-loading**.
 
 ## The breakdown
 
 To explore how we can add lazy loading to an Angular application, we'll build a relatively small application called **Tour of Thrones**.
 
-![Tour of Thrones](assets/progressive-angular-applications-2/tour-of-thrones.png 'Tour of Thrones'){: .shadow }
+<img alt="Tour of Thrones" title="Tour of Thrones" data-src="/assets/progressive-angular-applications-2/tour-of-thrones.png" class="lazyload shadow" />
 
 <div class="flex items-center justify-center h3">
   <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2 mr2" href="https://tour-of-thrones.firebaseapp.com/home">View App</a>
@@ -29,10 +29,10 @@ The app will use [An API of Ice and Fire](https://anapioficeandfire.com/) (an un
 * Lazy loading on route change
 * Secondary routes
 
-Since I got a little carried away writing this article, the first half consists of building the application from the ground up before diving into some lazy loading techniques. If you're not interested in spending some time learning how to build this application from scratch, feel free to skip right ahead to the [Lazy Loading]({{ site.url }}/progressive-angular-applications-2#lazy-loading) section. If you would like to first read and understand more about what progressive web applications are, you can take a look at the [first part](http://localhost:4000/progressive-angular-applications) of this series.
+Since I got a little carried away writing this article, the first half consists of building the application from the ground up before diving into some lazy loading techniques. If you're not interested in spending some time learning how to build this application from scratch, feel free to skip right ahead to the [Lazy Loading]({{ site.url }}/progressive-angular-applications-2#lazy-loading) section. If you would like to first read and understand more about what progressive web applications are, you can take a look at the [first part](http://localhost:4000/progressive-angular-applications) of this series. Otherwise, continue reading on!
 
 <aside>
-  <p>In case you happen to be a fan of the book series/show and are concerned about potential spoilers in this article or application - don't worry because there are none :).</p>
+  <p>In case you happen to be a fan of the book series (or show) and are concerned about potential spoilers in this article or application - don't worry because there are none :).</p>
 </aside>
 
 ## Getting Started
@@ -53,17 +53,17 @@ npm start
 
 Adding `--style=scss` bootstraps our application with predefined Sass files for styling. You should now see the "Hello World" of our app.
 
-![Hello World](assets/progressive-angular-applications-2/hello-world.png 'Hello World'){: .shadow }
+<img alt="Hello World" title="Hello World" data-src="/assets/progressive-angular-applications-2/hello-world.png" class="lazyload shadow" />
 
 Our application will consist of two parts:
 
 * A base `home` route that lists all the Game of Thrones houses.
 
-![Home Route](assets/progressive-angular-applications-2/home-route.png 'Home Route'){: .shadow }
+<img alt="Home Route" title="Home Route" data-src="/assets/progressive-angular-applications-2/home-route.png" class="lazyload shadow" />
 
 * A secondary `house` route that shows information for a particular house in a modal.
 
-![House Route](assets/progressive-angular-applications-2/house-route.png 'House Route'){: .shadow }
+<img alt="House Route" title="House Route" data-src="/assets/progressive-angular-applications-2/house-route.png" class="lazyload shadow" />
 
 ### First Component
 
@@ -121,11 +121,11 @@ export { HeaderComponent } from './header';
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ComponentB <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../component/component-b'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ComponentC <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../component/component-c'</span><span class="token punctuation">;</span></code></pre></figure>
   
-  <p>We can also use <code>index.ts</code> files to re-export components (or any exports). This files are sometimes referred to as <i>barrel</i> files and allow us to simplify how we can import exports into something like this:</p>
+  <p>We also have the option to use <code>index.ts</code> files to re-export components (or any exports). This files are sometimes referred to as <i>barrel</i> files and allow us to simplify how we can import exports into something like this:</p>
 
   <figure class="highlight"><pre class=" language-javascript"><code class=" language-javascript" data-lang="javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> ComponentA<span class="token punctuation">,</span> ComponentB<span class="token punctuation">,</span> ComponentC <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../component'</span><span class="token punctuation">;</span></code></pre></figure>
 
-  <p>Although we use the latter approach in this article, there is no <i>correct</i> way to export and import modules, components, or any exports. It's always a matter of preference.</p>
+  <p>Although we use the latter approach in this article, there is no <i>correct</i> way to export and import modules, components, or any exports. It is always a matter of preference.</p>
 </aside>
 
 By default, Angular CLI allows us to import using absolute imports (`import ComponentA from 'src/app/component'`). Since all of our files live within the `app` directory, we can modify our `baseUrl` in `tsconfig.json` to import directly from `app` and not `src/app`:
@@ -184,7 +184,7 @@ The last thing we'll do before taking a quick look at our progress is add some g
 
 If we run the application now, we'll see our header component take up a little more than half our screen.
 
-![Header](assets/progressive-angular-applications-2/header.png 'Header'){: .shadow }
+<img alt="Header" title="Header" data-src="/assets/progressive-angular-applications-2/header.png" class="lazyload shadow" />
 
 ## Base Route
 
@@ -288,7 +288,7 @@ Let's add a couple of dummy card components to `AppComponent` to see if they're 
 </div>
 {% endhighlight %}
 
-![Card Components](assets/progressive-angular-applications-2/cards.png 'Card Components'){: .shadow }
+<img alt="Card Components" title="Card Components" data-src="/assets/progressive-angular-applications-2/cards.png" class="lazyload shadow" />
 
 We can see our cards being rendered! They don't have any specific widths/heights assigned to them and they take the shape of their parent container. Once we add our home route next, we'll use CSS grid to give our cards some structure.
 
@@ -356,7 +356,7 @@ export { HomeComponent } from './home';
 The styles for this component can be found [here](https://github.com/housseindjirdeh/tour-of-thrones/blob/master/src/app/scene/home/home.component.scss). If you take a look at the styles, we wrap our list of cards in a grid structure.
 
 <aside>
-  <p>We're not going to explain CSS grid in this article, but you can refer to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout">this</a> if you're interested in learning more.</p>
+  <p>We're not going to explain CSS grid in this article, but you can refer to this <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout">MDN resource</a> if you're interested in learning more.</p>
 </aside>
 
 Now let's define our routes:
@@ -408,7 +408,7 @@ We’ve defined a single route path (`home`) that maps to a component (`HomeComp
 
 If we take a look at our application now, we'll see our `HomeComponent` showing our list of houses in a grid structure.
 
-![Home Component](assets/progressive-angular-applications-2/home-component.png 'Home Component'){: .shadow }
+<img alt="Home Component" title="Home Component" data-src="/assets/progressive-angular-applications-2/home-component.png" class="lazyload shadow" />
 
 We can also see that loading the base URL of our application immediately redirects to `/home`.
 
@@ -601,7 +601,7 @@ Let's quickly go over the changes here:
 
 If we take a look at our application now, we'll see the first page of houses rendered as soon as we load the application:
 
-![Service](assets/progressive-angular-applications-2/service.png 'Service'){: .shadow }
+<img alt="Service" title="Service" data-src="/assets/progressive-angular-applications-2/service.png" class="lazyload shadow" />
 
 ## Lazy Loading
 
@@ -614,9 +614,9 @@ In this application, we're going to lazy load on two different user actions:
 
 ### Infinite scrolling
 
-**Infinite scrolling** is a lazy loading technique to defer loading of future resources until the user has almost scrolled to the end of their currently visible content. 
+*Infinite scrolling* is a lazy loading technique to defer loading of future resources until the user has almost scrolled to the end of their currently visible content. 
 
-In this application, we want to be careful with how many houses we fetch over the network as soon as the page loads. Like many APIs, the one we're using [paginates](https://anapioficeandfire.com/Documentation#pagination) responses which allows us to pass a `?page` parameter to iterate over responses. We can add infinite scrolling here to defer loading of future paginated results until the user has almost scrolled to the bottom of the web page.
+In this application, we want to be careful with how many houses we fetch over the network as soon as the page loads. Like many APIs, the one we're using paginates responses which allows us to pass a `?page` parameter to iterate over responses. We can add infinite scrolling here to defer loading of future paginated results until the user has almost scrolled to the bottom of the web page.
 
 There is more than one way to apply lazy loading to DOM elements:
 
@@ -691,7 +691,7 @@ We just added `onScrollDown` as a callback for the directive `scrolled` method. 
 
 Now if we try running the application, we'll see houses load as we scroll down the page.
 
-![Infinite Scroll](assets/progressive-angular-applications-2/infinite-scroll.gif 'Infinite Scroll'){: .shadow }
+<img alt="Infinite Scroll" title="Infinite Scroll" data-src="/assets/progressive-angular-applications-2/infinite-scroll.gif" class="lazyload shadow" />
 
 The library allows users to customize a number of attributes such as modifying the distance of the current scroll location with respect to the end of the container that determines when to fire an event. You can refer to the [README](https://github.com/orizens/ngx-infinite-scroll) for more information.
 
@@ -701,7 +701,7 @@ The library allows users to customize a number of attributes such as modifying t
 
 #### When should we lazy load on scroll?
 
-There are countless ways to organize a paginated list of results in an application like this, and an infinitely long list is definitely not the best way. Popular social media applications (such as [Twitter](https://twitter.com/)) use this model to keep users engaged, but it is really not a suitable pattern for applications where the user needs to find specific information quickly. In this application for example, it would take a user an unnecessarily long time to find information about a particular house. Adding normal pagination, allowing the user to filter by region or name, or allowing them to search for a particular house are techniques that may serve for a better user experience.
+There are countless ways to organize a paginated list of results in an application like this, and an infinitely long list is definitely not the best way. Many social media platforms (such as [Twitter](https://twitter.com/)) use this model to keep users engaged, but it is really not a suitable pattern for scenarios where the user needs to find specific information quickly. In this application for example, it would take a user an unnecessarily long time to find information about a particular house. Adding normal pagination, allowing the user to filter by region or name, or allowing them to search for a particular house are techniques that may serve for a better user experience.
 
 Instead of trying to lazy load _all_ the content that is displayed to the user as they scroll (i.e. infinite scroll), it might be more worthwhile to try and defer loading of certain elements that aren't immediately visible to users on page load. Elements such as images and video can consume significant amounts of user bandwidth and lazy loading them specifically will not necessarily affect the entire paginated flow of the application.
 
@@ -711,9 +711,9 @@ Instead of trying to lazy load _all_ the content that is displayed to the user a
 
 ### Code splitting
 
-**Code splitting** refers to the practice of splitting the entire application bundle into separate chunks that can be lazy loaded on demand. In other words, instead of providing users with all the code that makes up the application when they load the very first page, we can give them pieces of the bundle as they navigate throughout the app.
+*Code splitting* refers to the practice of splitting the entire application bundle into separate chunks that can be lazy loaded on demand. In other words, instead of providing users with all the code that makes up the application when they load the very first page, we can give them pieces of the bundle as they navigate throughout the app.
 
-We can apply code splitting in different ways, but it commonly happens on the route level. Webpack, the module bundler used by Angular CLI, has code splitting [built-in](https://webpack.js.org/guides/code-splitting/). Without needing to dive in to the internals of our Webpack configurations in order to make this work, Angular router allows us to [lazy-load](https://angular.io/guide/lazy-loading-ngmodules) any feature module that we build. 
+We can apply code splitting in different ways, but it commonly happens on the route level. Webpack, the module bundler used by Angular CLI, has code splitting [built-in](https://webpack.js.org/guides/code-splitting/). Without needing to dive in to the internals of our Webpack configurations in order to make this work, Angular router allows us to lazy-load any feature module that we build. 
 
 Let's see this in action by building our next route, `/home`, which shows information for a single house:
 
@@ -753,7 +753,7 @@ Our `HouseComponent` shows a number of details for the house selected. It is ren
   <p>In case you're wondering how the <code>#houseContent</code> attribute works in this template - it's used to render the entire <code>ng-template</code> block if the expression passed into <code>*ngIf</code> is falsy.</p>
 </aside>
 
-However, one important thing to mention is that we using projection (`ng-content`) to project content into our modal. We either project a loading state (`modal-loader`) if we don't have any house information yet or modal content (`modal-content`) if we do. You can find the code that makes up our loader [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/loader).
+However, one important thing to mention is that we're using projection (`ng-content`) to project content into our modal. We either project a loading state (`modal-loader`) if we don't have any house information yet or modal content (`modal-content`) if we do. You can find the code that makes up our loader [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/loader).
 
 <aside>
   <p>Although we're only using our modal wrapper for a single component in this application, we're using projection in order to make it more reusable. This can be useful if we happen to need to use a modal in any other part of the application.</p>
@@ -973,7 +973,7 @@ Now let's add a click handler to bind to this event:
 
 Try loading the application with our changes and clicking on any house.
 
-![House Module](assets/progressive-angular-applications-2/house-module.png 'House Module'){: .shadow }
+<img alt="House Module" title="House Module" data-src="/assets/progressive-angular-applications-2/house-module.png" class="lazyload shadow" />
 
 If you have the _Network_ tab of your browser's developer tools open, you'll notice that the code that makes up our house module is only loaded when we click on a house.
 
@@ -983,12 +983,16 @@ If you have the _Network_ tab of your browser's developer tools open, you'll not
 
 #### When should we code split?
 
-It depends. In this example, the lazy loaded feature module is less than 10 KB during development and less than 3KB with a production build of the application. If you think this probably doesn't warrant code splitting, you might be right. Lazy loading feature modules can be a lot more useful when your application reaches a considerable size and each of your modules is a juicy cut of the entire application bundle in terms of size. 
+It depends. In this example, the JavaScript that makes up our lazy loaded feature module is less than 3KB minified + gzipped. If you think this really probably doesn't warrant code splitting, you might be right. Lazy loading feature modules can be a lot more useful when your application starts growing with each of your modules making up a juicy cut of the entire bundle in terms of size. Many developers think code-splitting should be one of the primary things to consider when trying to improve the performance of an application, and rightly so.
+
+<img alt="Sean Larkin tweet on the importance of code-splitting" title="Sean Larkin tweet on the importance of code-splitting" data-src="/assets/progressive-angular-applications-2/sean-larkin-tweet.png" class="lazyload shadow small" />
+
+{:Sean Larkin tweet on the importance of code-splitting: .image-source}
+[Tweet Source](https://twitter.com/thelarkinn/status/1017052742039326721?lang=en)
+{: Sean Larkin tweet on the importance of code-splitting}
 
 Building feature modules is useful to separate concerns in an Angular application. As you continue to grow your Angular app, you'll most likely reach a point where you realize that code-splitting some modules can cut down the initial page size significantly. 
 
 ## Conclusion
 
-In this article, we built an Angular 6 application from the ground up using the CLI as well as explored how lazy loading can be useful to optimize performance. I was also planning to cover `@angular/service-worker` and how it ties into the CLI in this post but this article turned out to be a lot longer than I anticipated. We'll dive in to that topic in the next part of series.
-
-As always, please don't hesitate to reach out to me if you have any comments, questions, or suggestions!
+In this article, we built an Angular 6 application from the ground up using the CLI as well as explored how lazy loading can be useful to optimize performance. I was also planning to cover `@angular/service-worker` and how it ties into the CLI in this post but it turned out to be a lot longer than I anticipated. We'll dive in to that topic in the next part of series!
