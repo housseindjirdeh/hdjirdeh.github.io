@@ -1058,4 +1058,4 @@ Building feature modules is useful to separate concerns in an Angular applicatio
 
 ## Conclusion
 
-In this article, we built an Angular 7 application from the ground up as well as explored how lazy loading can be useful to optimize performance. I was also planning to cover `@angular/service-worker` and how it ties into the CLI in this post but it turned out to be a lot longer than I expected, so we'll dive in to that in the next part of the series.
+In this article, we built an Angular 7 application from the ground up as well as explored how lazy loading can be useful to optimize performance. I was planning to also cover `@angular/service-worker` and how it fits into the CLI in this post, but it turned out to be longer than I expected :). We'll explore that in the next part of the series.
