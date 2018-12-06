@@ -8,7 +8,7 @@ image: assets/progressive-angular-applications-2/banner.png
 permalink: /:title
 ---
 
-To explore how to add lazy loading functionality to an Angular application, this article will go through the process of building a relatively small application called **Tour of Thrones**.
+To explore how to add lazy loading functionality to an Angular app, this article will go through the process of building a relatively small application called **Tour of Thrones**.
 
 <img alt="Tour of Thrones" title="Tour of Thrones" data-src="/assets/progressive-angular-applications-2/tour-of-thrones.png" class="lazyload shadow" />
 
@@ -17,7 +17,7 @@ To explore how to add lazy loading functionality to an Angular application, this
   <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/GoogleChromeLabs/tour-of-thrones">Source Code</a>
 </div>
 
-We'll use [An API of Ice and Fire](https://anapioficeandfire.com/) (an unofficial, community-built API for Game of Thrones) to list houses from the book series and provide information about them. While building this application, we'll explore a number of topics including:
+[An API of Ice and Fire](https://anapioficeandfire.com/) (an unofficial, community-built API for Game of Thrones) will be used to list houses from the book series and provide information about them. While building this application, we'll explore a number of topics including:
 
 * Getting started with Angular CLI
 * Lazy loading on scroll
@@ -25,9 +25,11 @@ We'll use [An API of Ice and Fire](https://anapioficeandfire.com/) (an unofficia
 * Secondary routes
 
 <aside>
-  <p>The first half of this article covers how to building this app from scratch. If you're not interested in this, feel free to skip right ahead to the <a href="{{ site.url }}/progressive-angular-applications-2#lazy-loading">Lazy Loading</a> section.</p><br>
-  
-  <p>If you would like to first read a PWA introduction, you can take a look at the <a href="http://localhost:4000/progressive-angular-applications">first part</a> of this series.</p>
+  <p>The first half of this article covers how to build the application from scratch. If you're not interested in this, feel free to skip right ahead to the <a href="{{ site.url }}/progressive-angular-applications-2#lazy-loading">Lazy Loading</a> section.</p><br>
+</aside>
+
+<aside>
+  <p>If you would like to first read an introduction to Progressive Angular applications, you can take a look at the <a href="{{ site.url }}/progressive-angular-applications">first part</a> of this series.</p>
 </aside>
 
 ## Getting Started
@@ -38,7 +40,7 @@ If you have the required [Node and NPM versions](https://angular.io/guide/quicks
 npm install -g @angular/cli
 {% endhighlight %}
 
-You can then create a new application:
+You can then create a new application with:
 
 {% highlight bash %}
 ng new tour-of-thrones
@@ -60,7 +62,7 @@ You can say _No_ to Angular routing for now. We'll include it manually when we b
 
 Feel free to select whichever stylesheet format you prefer. If you would like to copy over all the styles in this article however, select `SCSS`.
 
-You can now start the app:
+To start the app:
 
 {% highlight bash %}
 cd tour-of-thrones
@@ -83,13 +85,13 @@ The application will consist of two parts:
 
 ### First Component
 
-Let's begin by building the first few components in the application. We'll start with the `HeaderComponent` responsible for showing the name of the application in the `home` route. 
+Building the first few components in the application is a good way to kick things off. We'll start with the `HeaderComponent` responsible for showing the name of the application in the `home` route. 
 
 Create a separate `components/` directory that contains a separate `header/` directory within. This sub-directory can contain all the files needed for `HeaderComponent`.
 
 <img alt="Header directory" title="Header directory" data-src="/assets/progressive-angular-applications-2/header-directory.png" class="lazyload shadow" />
 
-Let's begin with the template file, `header.component.html`:
+Starting with the template file, `header.component.html`:
 
 {% highlight html %}
 <!-- src/app/component/header/header.component.html -->
@@ -122,7 +124,7 @@ export class HeaderComponent {}
 
 You can copy and paste the styles for `header.component.scss` from [here](https://github.com/GoogleChromeLabs/tour-of-thrones/blob/master/src/app/component/header/header.component.scss). We'll do this for all the styles in the application.
 
-To simplify how components are imported throughout the app, we can have named exports in the same directory for each component using an `index.ts` file. Since `header/` is the only component directory we have, let's begin by exporting within the `index.ts` file that lives in the folder:
+To simplify how components are imported throughout the app, you can use named exports in the same directory for each component with an `index.ts` file. Since `header/` is the only component directory we currently have,  exporting within the `index.ts` file that lives in the folder:
 
 {% highlight javascript %}
 // src/app/component/header/index.ts
@@ -130,7 +132,7 @@ To simplify how components are imported throughout the app, we can have named ex
 export { HeaderComponent } from './header.component';
 {% endhighlight %}
 
-Similarly, we can re-export these components one level higher in an `index.ts` file within the `components/` directory:
+Similarly, you can re-export these components one level higher in an `index.ts` file within the `components/` directory:
 
 {% highlight javascript %}
 // src/app/component/index.ts
@@ -138,7 +140,7 @@ Similarly, we can re-export these components one level higher in an `index.ts` f
 export { HeaderComponent } from './header';
 {% endhighlight %}
 
-By default, Angular CLI allows us to import using absolute imports (`import ComponentA from 'src/app/component'`). Since all of our files live within the `app` directory, we can modify our `baseUrl` in `tsconfig.json` to import directly from `app` and not `src/app`:
+By default, Angular CLI allows you to import using absolute imports (`import ComponentA from 'src/app/component'`). Since all of the files live within the `app` directory here, you can modify `baseUrl` in `tsconfig.json` to import directly from `app` and not `src/app`:
 
 <pre>
   <code class="language-javascript hljs" data-lang="javascript">
@@ -165,14 +167,14 @@ By default, Angular CLI allows us to import using absolute imports (`import Comp
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ComponentB <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../component/component-b'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ComponentC <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../component/component-c'</span><span class="token punctuation">;</span></code></pre></figure>
   
-  <p>To simplify this, you can use <code>index.ts</code> files to re-export components (or any other exports). This files are sometimes referred to as <i>barrel</i> files and allow you to simplify how we can import exports into something like this:</p>
+  <p>You can also use <code>index.ts</code> files to re-export components (or any other exports). These are sometimes referred to as <i>barrel</i> files and allow you to simplify how you can import exports into something like this:</p>
 
   <figure class="highlight"><pre class=" language-javascript"><code class=" language-javascript" data-lang="javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> ComponentA<span class="token punctuation">,</span> ComponentB<span class="token punctuation">,</span> ComponentC <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../component'</span><span class="token punctuation">;</span></code></pre></figure>
 
-  <p>Although the latter approach is used in this article, there is no correct way to export and import modules, and there are actually a few issues with this approach. It can make jumping between files within your editor/IDE harder when coupled with absolute imports as well as make autocomplete not work as effectively. If you don't prefer this way, feel free to import/export normally instead of how we do it in this article.</p>
+  <p>Although the latter approach is used in this article, there is no correct way. There are actually a few issues with the second approach. It can make jumping between files within your editor/IDE harder as well as make autocomplete not work as effectively. If you don't like this, feel free to import/export normally instead of how it's done in this article.</p>
 </aside>
 
-The only component (`app.component.ts`) and module (`app.module.ts`) scaffolded when we created the project live directly in `src/app`. You'll need to modify `AppComponent` to include `HeaderComponent`:
+The only component (`app.component.ts`) and module (`app.module.ts`) scaffolded when the project was created live inside of `src/app`. You'll need to modify `AppComponent` to include `HeaderComponent`:
 
 {% highlight html %}
 <!-- src/app/app.component.html -->
@@ -184,7 +186,7 @@ The only component (`app.component.ts`) and module (`app.module.ts`) scaffolded 
 
 You can see the styling in `app.component.scss` [here](https://github.com/GoogleChromeLabs/tour-of-thrones/blob/master/src/app/app.component.scss).
 
-In order to be able to reference the header component in `AppComponent`, you also have to make sure it's declared in `AppModule`:
+You also have to make sure it's declared in `AppModule`:
 
 <figure class="highlight">
 <pre>
@@ -207,10 +209,10 @@ export class AppModule {}
 </pre>
 </figure>
 
-The last thing you'll need to do before taking a quick look at the progress so far is to add some global styles to the application (which includes the Thrones-style font). All global styles in an Angular app go to the `styles.scss` file at the root of the `src/` directory. Take a look [here](https://github.com/GoogleChromeLabs/tour-of-thrones/blob/master/src/styles.scss) to copy over the styles directly.
+The last thing you'll need to do here is to add some global styles to the application (which includes the Thrones-style font). All global styles in an Angular app go to `styles.scss` at the root of the `src/` directory. Take a look [here](https://github.com/GoogleChromeLabs/tour-of-thrones/blob/master/src/styles.scss) to copy over the styles directly.
 
 <aside>
-  <p>If you want to use the same font (created by <a href="https://charliesamways.carbonmade.com/">Charlie Samways</a>), make sure to download it <a href="https://charliesamways.carbonmade.com/projects/4420181#7">here</a> (it's free for personal use). Otherwise, feel free to remove the <code>@font-face</code> in <code>styles.scss</code>.</p>
+  <p>The "Thrones" font used in the app (created by <a href="https://charliesamways.carbonmade.com/">Charlie Samways</a>) can be found <a href="https://charliesamways.carbonmade.com/projects/4420181#7">here</a>.</p>
 </aside>
 
 #### Try it out
@@ -227,7 +229,7 @@ Now that you've got your feet wet building the first component, let's move on to
 * A routing system in place to define a `/home` route
 * A service to interface with our external API
 
-Let's begin with `CardComponent`. Similarly, create a `card/` subdirectory within `components/` with all of its files:
+We'll start with `CardComponent`. Similarly, create a `card/` subdirectory within `components/` with all of its files:
 
 {% highlight html %}
 <!-- src/app/component/card/card.component.html -->
@@ -283,7 +285,7 @@ export { CardComponent } from './card';
 export { HeaderComponent } from './header';
 {% endhighlight %}
 
-* Input binding is used to pass in an `id` parameter (the house ID) as well the house name and color. The color isn't fetched from the API, but is randomly generated to add a little _spicyness_ 🌶. You'll see this in a bit.
+* Input binding is used to pass an `id` parameter (the house ID) as well the house name and color. The color isn't fetched from the API, but is randomly generated to add a little _spicyness_ 🌶 to the app. You'll see this in a bit.
 * `ngStyle` is used to add `box-shadow` and `background` CSS properties using this color.
 * An `EventEmitter` is used to fire a click event to a parent component. We pass the house `id` into this event as well. 
 
@@ -328,13 +330,13 @@ Let's add a couple of dummy card components to `AppComponent` to see if they're 
 
 <img alt="Card Components" title="Card Components" data-src="/assets/progressive-angular-applications-2/cards.png" class="lazyload shadow" />
 
-You can see our cards being rendered! They don't have any specific widths/heights assigned to them and they take the shape of their parent container, which is expected. Once we add our home route next, we'll use CSS grid to give our cards some structure.
+Cards are being rendered! They don't have any specific widths/heights assigned to them and they take the shape of their parent container, which is expected. Once we add the home route next, we'll use CSS grid to give our cards some structure.
 
 ## Routing
 
 It's time to begin adding some navigation to the application. Instead of placing components that make up the routes in the `component/` directory, we'll put them in a separate directory called `scene/`. 
 
-Create a separate `scene/` directory with a `home/` subdirectory. Add all the files for `HomeComponent` responsible for the initial route here:
+Create a separate `scene/` directory with a `home/` subdirectory. Add all the files for `HomeComponent` responsible for the initial route can be added here:
 
 {% highlight html %}
 <!-- src/app/scene/home/home.component.html -->
@@ -455,7 +457,7 @@ You can also see that loading the base URL of the application immediately redire
 
 ## Service
 
-To get some real data, we need to interface with the API. Create a service responsible for this by placing it within a `/service` directory:
+To get some real data, we need to interface with the API. Create a service for this by placing it in a `/service` directory:
 
 {% highlight javascript %}
 // src/app/service/iceandfire.service.ts
@@ -582,7 +584,7 @@ export class AppModule {}
 </pre>
 </figure>
 
-You can now update `HomeComponent` to use our appropriate service method:
+You can now update `HomeComponent` to use the appropriate service method:
 
 <figure class="highlight">
 <pre>
@@ -661,7 +663,7 @@ If you take a look at the application now, you'll see the first page of houses r
 
 ## Lazy Loading
 
-To improve loading times on a web page, we can try to **lazy load** non-critical resources where possible. In other words, we can defer the loading of certain resources until the user actually needs them.
+To improve loading times on a web page, we can try to **lazy load** non-critical resources where possible. In other words, we can defer the loading of certain assets until the user actually needs them.
 
 In this application, we're going to lazy load on two different user actions:
 
@@ -670,22 +672,22 @@ In this application, we're going to lazy load on two different user actions:
 
 ### Infinite scrolling
 
-*Infinite scrolling* is a lazy loading technique to defer loading of future resources until the user has almost scrolled to the end of their currently visible content. 
+Infinite scrolling is a lazy loading technique to defer loading of future resources until the user has almost scrolled to the end of their currently visible content. 
 
 In this application, we want to be careful with how many houses we fetch over the network as soon as the page loads. Like many APIs, the one we're using paginates responses which allows us to pass a `?page` parameter to iterate over responses. We can add infinite scrolling here to defer loading of future paginated results until the user has almost scrolled to the bottom of the web page.
 
 There is more than one way to lazy load elements that show below the edge of the device viewport:
 
-* Using [scroll event handlers](https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/#using_event_handlers_the_most_compatible_way)
-* Using newer browser APIs like [Intersection Observer](https://developers.google.com/web/updates/2016/04/intersectionobserver)
+* Using [scroll event listeners](https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/#using_event_handlers_the_most_compatible_way)
+* Using [Intersection Observer](https://developers.google.com/web/updates/2016/04/intersectionobserver)
 
-For this application, we'll use [ngx-infinite-scroll](https://github.com/orizens/ngx-infinite-scroll), a community-built library that provides an Angular directive abstraction over changes to the scroll event. With the library, we can listen and fire callback events triggered by scroll behaviour.
+For this application, we'll use [ngx-infinite-scroll](https://github.com/orizens/ngx-infinite-scroll), a community-built library that provides an Angular directive abstraction over changes to the scroll event. With this library, you can listen and fire callback events triggered by scroll behaviour.
 
 {% highlight javascript %}
 npm install ngx-infinite-scroll --save
 {% endhighlight %}
 
-We can now import its module into our application:
+You can now import its module into the application:
 
 {% highlight javascript %}
 // src/app/app.module.ts
@@ -704,7 +706,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 export class AppModule {}
 {% endhighlight %}
 
-We can now add this to `HomeComponent`:
+And add it to `HomeComponent`:
 
 {% highlight html %}
 <!-- src/app/scene/home/home.component.html -->
@@ -745,7 +747,7 @@ export class HomeComponent implements OnInit {
 
 We just added `onScrollDown` as a callback for the directive `scrolled` method. In here, we increment the page number and call the `getHouses` method.
 
-Now if we try running the application, we'll see houses load as we scroll down the page.
+Now if you try running the application, you'll see houses load as you scroll down the page.
 
 <img alt="Infinite Scroll" title="Infinite Scroll" data-src="/assets/progressive-angular-applications-2/infinite-scroll.gif" class="lazyload shadow" />
 
@@ -757,9 +759,9 @@ The library allows users to customize a number of attributes such as modifying t
 
 #### When should we lazy load on scroll?
 
-There are countless ways to organize a paginated list of results in an application like this, and an infinitely long list is definitely not the best way. Many social media platforms (such as [Twitter](https://twitter.com/)) use this model to keep users engaged, but it is really not suitable for when the user needs to find a specific piece information quickly. 
+There are countless ways to organize a paginated list of results in an application like this, and an infinitely long list is definitely not the best way. Many social media platforms (such as [Twitter](https://twitter.com/)) use this model to keep users engaged, but it is not suitable for when the user needs to find a specific piece of information quickly. 
 
-In this application for example, it would take a user an unnecessarily long time to find information about a particular house. Adding normal pagination, allowing the user to filter by region or name, or allowing them to search for a particular house are all probably better approaches.
+In this application for example, it would take a user a very long time to find information about a particular house. Adding normal pagination, allowing the user to filter by region or name, or allowing them to search for a particular house are all probably better ways of doing this.
 
 Instead of trying to lazy load _all_ the content that is displayed to the user as they scroll (i.e. infinite scroll), it might be more worthwhile to try and defer loading of certain elements that aren't immediately visible to users on page load. Elements such as images and video can consume significant amounts of user bandwidth and lazy loading them specifically will not necessarily affect the entire paginated flow of the application.
 
@@ -769,15 +771,15 @@ Instead of trying to lazy load _all_ the content that is displayed to the user a
 
 #### How should we lazy load on scroll?
 
-Using a library that makes it easier to lazy load elements but uses scroll event listeners is a good start. If possible however, try to find a solution that relies on IntersectionObserver but also provides a polyfill for browsers that do not yet support it. Here's a [handy article](https://blog.angularindepth.com/a-modern-solution-to-lazy-loading-using-intersection-observer-9280c149bbc) that shows you how to create an Angular directive with IntersectionObserver.
+Finding a library that makes it easier to lazy load elements but uses scroll event listeners is a start. If possible however, try to find a solution that relies on IntersectionObserver but also provides a polyfill for browsers that do not yet support it. Here's a [handy article](https://blog.angularindepth.com/a-modern-solution-to-lazy-loading-using-intersection-observer-9280c149bbc) that shows you how to create an Angular directive with IntersectionObserver.
 
 <aside><p>Psst...Chrome will soon let you <a href="https://youtu.be/reztLS3vomE?t=643">lazy load images and iframes</a> without relying on a third-party library or custom solution.</p></aside>
 
 ### Code splitting
 
-*Code splitting* refers to the practice of splitting the entire application bundle into separate chunks that can be lazy loaded on demand. In other words, instead of providing users with all the code that makes up the application when they load the very first page, we can give them pieces of the bundle as they navigate throughout the app.
+Code splitting refers to the practice of splitting the application bundle into separate chunks that can be lazy loaded on demand. In other words, instead of providing users with all the code that makes up the application when they load the very first page, you can give them pieces of the bundle as they navigate throughout the app.
 
-We can apply code splitting in different ways, but it commonly happens on the route level. Webpack, the module bundler used by Angular CLI, has code splitting [built-in](https://webpack.js.org/guides/code-splitting/). Without needing to dive in to the internals of our Webpack configurations in order to make this work, Angular router allows us to lazy-load any feature module that we build. 
+You can apply code splitting in different ways, but it commonly happens on the route level. Webpack, the module bundler used by Angular CLI, has code splitting [built-in](https://webpack.js.org/guides/code-splitting/). Without needing to dive in to the internals of our Webpack configurations in order to make this work, Angular router allows you to lazy-load any feature module that you build. 
 
 Let's see this in action by building our next route, `/house`, which shows information for a single house:
 
@@ -817,9 +819,9 @@ The `HouseComponent` shows a number of details for the house selected. It is ren
   <p>In case you're wondering how the <code>#houseContent</code> attribute works in this template - it's used to render the entire <code>ng-template</code> block if the expression passed into <code>*ngIf</code> is falsy.</p>
 </aside>
 
-However, one important thing to mention is that we're using projection (`ng-content`) to project content into our modal. We either project a loading state (`modal-loader`) if we don't have any house information yet or modal content (`modal-content`) if we do. You can find the code that makes up our loader [here](https://github.com/GoogleChromeLabs/tour-of-thrones/tree/master/src/app/component/loader).
+One important thing to mention is that we're using projection (`ng-content`) to project content into our modal. We either project a loading state (`modal-loader`) if we don't have any house information yet or modal content (`modal-content`) if we do. You can find the code that makes up our loader [here](https://github.com/GoogleChromeLabs/tour-of-thrones/tree/master/src/app/component/loader).
 
-Although we're only using our modal wrapper for a single component in this application, we're using projection in order to make it more reusable. This can be useful if we happen to need to use a modal in any other part of the application.
+Although we're only using our modal wrapper for a single component in this application, projection is used to make it more reusable. This can be useful if we happen to need to use a modal in any other part of the application.
 
 Unlike the `HomeComponent` which is being bundled directly with the root `AppModule`, you can create a separate feature module for `HouseComponent` that can be lazy loaded:
 
@@ -940,7 +942,9 @@ const routePaths: Routes = [
 export class AppModule {}
 {% endhighlight %}
 
-Although using a `loadChildren` attribute with a value of the path to the module would normally work, there's an [open issue](https://github.com/angular/angular/issues/12842) about a bug that occurs while lazy loading a module tied to a named outlet (secondary route). In the same issue thread, somebody suggests a [workaround](https://github.com/angular/angular/issues/12842#issuecomment-270836368) that involves adding a route proxy component in between:
+Although using a `loadChildren` attribute with a value of the path to the module would normally work, there's an [open issue](https://github.com/angular/angular/issues/12842) about a bug that occurs while lazy loading a module tied to a named outlet (secondary route). 
+
+In the same issue thread, somebody suggests a [workaround](https://github.com/angular/angular/issues/12842#issuecomment-270836368) that involves adding a route proxy component in between:
 
 {% highlight javascript %}
 // src/app/app.module.ts
@@ -1013,7 +1017,7 @@ export class HomeComponent implements OnInit {
 }
 {% endhighlight %}
 
-We added a `routeToHouse` method that navigates to a modal outlet with an array for link parameters. Since `HouseComponent` looks up the ID of the house in our route parameters, we've included it here in the array. 
+A `routeToHouse` method that navigates to a modal outlet with an array for link parameters was added here. Since `HouseComponent` looks up the ID of the house in our route parameters, we've included it here in the array. 
 
 Now add a click handler to bind to this event:
 
@@ -1037,7 +1041,7 @@ Load the application with these changes and click on any house.
 
 <img alt="House Module" title="House Module" data-src="/assets/progressive-angular-applications-2/house-module.png" class="lazyload shadow" />
 
-If you have the _Network_ tab of your browser's developer tools open, you'll notice that the code that makes up the house module is only loaded when we click on a house.
+If you have the _Network_ tab of your browser's developer tools open, you'll notice that the code that makes up the house module is only loaded when you click on a house.
 
 <aside>
   <p>Notice that the URL for our secondary route tied to our named modal outlet is <code>.../home(modal:house/1)</code>. In here, <code>home</code> is still our primary route. For more information on how secondary routes work, take a look at the detailed <a href="https://angular.io/guide/router#secondary-routes">documentation</a>.</p>
@@ -1045,7 +1049,9 @@ If you have the _Network_ tab of your browser's developer tools open, you'll not
 
 #### When should we code split?
 
-It depends. In this example, the JavaScript that makes up the lazy loaded feature module is less than 3KB minified + gzipped (on a production build). If you think this does not warrant code splitting, you might be right. Lazy loading feature modules can be a lot more useful when your application starts growing with each of your modules making up a juicy cut of the entire bundle. Many developers think code-splitting should be one of the primary things to consider when trying to improve the performance of an application, and rightly so.
+It depends. In this example, the code that makes up the lazy loaded feature module is less than 3KB minified + gzipped (on a production build). If you think this does not warrant code splitting, you might be right. 
+
+Lazy loading feature modules can be a lot more useful when your application starts growing with each module making up a juicy cut of the entire bundle. Many developers think code-splitting should be one of the first things to consider when trying to improve the performance of an application, and rightly so.
 
 <img alt="Sean Larkin tweet on the importance of code-splitting" title="Sean Larkin tweet on the importance of code-splitting" data-src="/assets/progressive-angular-applications-2/sean-larkin-tweet.png" class="lazyload shadow small" />
 
@@ -1057,4 +1063,4 @@ Building feature modules is useful to separate concerns in an Angular applicatio
 
 ## Conclusion
 
-In this article, we built an Angular 7 application from the ground up as well as explored how lazy loading can be useful to optimize performance. I was planning to also cover `@angular/service-worker` and how it fits into the CLI in this post, but it turned out to be longer than I expected :). We'll explore that in the next part of the series.
+In this article, we built an Angular 7 app from scratch as well as explored how lazy loading can be useful to optimize its performance. I was planning to also cover `@angular/service-worker` and how it fits into the CLI in this post, but it turned out to be a bit longer than I expected :). We'll explore that in the next part of the series.
