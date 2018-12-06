@@ -1,12 +1,11 @@
 ---
 layout: post
 title:  "Progressive Web Apps with Angular: Part 2 - Lazy Loading"
-date:   2018-12-04 07:30:00
-description: Lazy loading + Angular = ❤️
+date:   2018-12-05 07:30:00
+description: Lazy loading with Angular
 type: post
 image: assets/progressive-angular-applications-2/banner.png
 permalink: /:title
-published: false
 ---
 
 To explore how to add lazy loading functionality to an Angular application, this article will go through the process of building a relatively small application called **Tour of Thrones**.
@@ -15,7 +14,7 @@ To explore how to add lazy loading functionality to an Angular application, this
 
 <div class="flex items-center justify-center h3">
   <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2 mr2" href="https://tour-of-thrones.firebaseapp.com/home">View App</a>
-  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/gitpoint/git-point">Source Code</a>
+  <a class="f6 fw6 link dim ph3 pv2 mb2 dib white bg-red ttu br2" href="https://github.com/GoogleChromeLabs/tour-of-thrones">Source Code</a>
 </div>
 
 We'll use [An API of Ice and Fire](https://anapioficeandfire.com/) (an unofficial, community-built API for Game of Thrones) to list houses from the book series and provide information about them. While building this application, we'll explore a number of topics including:
@@ -33,7 +32,7 @@ We'll use [An API of Ice and Fire](https://anapioficeandfire.com/) (an unofficia
 
 ## Getting Started
 
-If you have the required [Node and NPM versions](https://github.com/angular/angular-cli#prerequisites), you can install Angular CLI with the following command:
+If you have the required [Node and NPM versions](https://angular.io/guide/quickstart#nodejs), you can install Angular CLI with the following command:
 
 {% highlight bash %}
 npm install -g @angular/cli
@@ -121,7 +120,7 @@ import { Component } from '@angular/core';
 export class HeaderComponent {}
 {% endhighlight %}
 
-You can copy and paste the styles for `header.component.scss` from [here](https://github.com/housseindjirdeh/tour-of-thrones/blob/master/src/app/component/header/header.component.scss). We'll do this for all the styles in the application.
+You can copy and paste the styles for `header.component.scss` from [here](https://github.com/GoogleChromeLabs/tour-of-thrones/blob/master/src/app/component/header/header.component.scss). We'll do this for all the styles in the application.
 
 To simplify how components are imported throughout the app, we can have named exports in the same directory for each component using an `index.ts` file. Since `header/` is the only component directory we have, let's begin by exporting within the `index.ts` file that lives in the folder:
 
@@ -183,7 +182,7 @@ The only component (`app.component.ts`) and module (`app.module.ts`) scaffolded 
 </div>
 {% endhighlight %}
 
-You can see the styling in `app.component.scss` [here](https://github.com/housseindjirdeh/tour-of-thrones/blob/master/src/app/app.component.scss).
+You can see the styling in `app.component.scss` [here](https://github.com/GoogleChromeLabs/tour-of-thrones/blob/master/src/app/app.component.scss).
 
 In order to be able to reference the header component in `AppComponent`, you also have to make sure it's declared in `AppModule`:
 
@@ -208,7 +207,7 @@ export class AppModule {}
 </pre>
 </figure>
 
-The last thing you'll need to do before taking a quick look at the progress so far is to add some global styles to the application (which includes the Thrones-style font). All global styles in an Angular app go to the `styles.scss` file at the root of the `src/` directory. Take a look [here](https://github.com/housseindjirdeh/tour-of-thrones/blob/master/src/styles.scss) to copy over the styles directly.
+The last thing you'll need to do before taking a quick look at the progress so far is to add some global styles to the application (which includes the Thrones-style font). All global styles in an Angular app go to the `styles.scss` file at the root of the `src/` directory. Take a look [here](https://github.com/GoogleChromeLabs/tour-of-thrones/blob/master/src/styles.scss) to copy over the styles directly.
 
 <aside>
   <p>If you want to use the same font (created by <a href="https://charliesamways.carbonmade.com/">Charlie Samways</a>), make sure to download it <a href="https://charliesamways.carbonmade.com/projects/4420181#7">here</a> (it's free for personal use). Otherwise, feel free to remove the <code>@font-face</code> in <code>styles.scss</code>.</p>
@@ -292,7 +291,7 @@ export { HeaderComponent } from './header';
 <p>Although you could to try to handle all logic within this component, it probably makes more sense to keep it as <i>stateless</i> as possible and let the parent handle what happens on the click event.</p>
 </aside>
 
-The styles for the card component can be found [here](https://github.com/housseindjirdeh/tour-of-thrones/blob/master/src/app/component/card/card.component.scss). Lastly, you'll need to declare this component in `AppModule` in order to use it:
+The styles for the card component can be found [here](https://github.com/GoogleChromeLabs/tour-of-thrones/blob/master/src/app/component/card/card.component.scss). Lastly, you'll need to declare this component in `AppModule` in order to use it:
 
 <figure class="highlight">
 <pre>
@@ -392,7 +391,7 @@ export { HomeComponent } from './home.component';
 export { HomeComponent } from './home';
 {% endhighlight %}
 
-The styles for this component can be found [here](https://github.com/housseindjirdeh/tour-of-thrones/blob/master/src/app/scene/home/home.component.scss). If you take a look at the styles, you'll notice that the list of cards is wrapped in a grid structure.
+The styles for this component can be found [here](https://github.com/GoogleChromeLabs/tour-of-thrones/blob/master/src/app/scene/home/home.component.scss). If you take a look at the styles, you'll notice that the list of cards is wrapped in a grid structure.
 
 <aside>
   <p>We're not going to explain CSS grid in this article, but you can refer to this <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout">MDN resource</a> if you're interested in learning more.</p>
@@ -812,13 +811,13 @@ Let's see this in action by building our next route, `/house`, which shows infor
 </app-modal>
 {% endhighlight %}
 
-The `HouseComponent` shows a number of details for the house selected. It is rendered within a modal and for that reason, its contents are wrapped within an `<app-modal>` component. We're not going to into too much detail on how this modal component files are written, but you can find them [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/modal). 
+The `HouseComponent` shows a number of details for the house selected. It is rendered within a modal and for that reason, its contents are wrapped within an `<app-modal>` component. We're not going to into too much detail on how this modal component files are written, but you can find them [here](https://github.com/GoogleChromeLabs/tour-of-thrones/tree/master/src/app/component/modal). 
 
 <aside>
   <p>In case you're wondering how the <code>#houseContent</code> attribute works in this template - it's used to render the entire <code>ng-template</code> block if the expression passed into <code>*ngIf</code> is falsy.</p>
 </aside>
 
-However, one important thing to mention is that we're using projection (`ng-content`) to project content into our modal. We either project a loading state (`modal-loader`) if we don't have any house information yet or modal content (`modal-content`) if we do. You can find the code that makes up our loader [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/loader).
+However, one important thing to mention is that we're using projection (`ng-content`) to project content into our modal. We either project a loading state (`modal-loader`) if we don't have any house information yet or modal content (`modal-content`) if we do. You can find the code that makes up our loader [here](https://github.com/GoogleChromeLabs/tour-of-thrones/tree/master/src/app/component/loader).
 
 Although we're only using our modal wrapper for a single component in this application, we're using projection in order to make it more reusable. This can be useful if we happen to need to use a modal in any other part of the application.
 
@@ -986,7 +985,7 @@ const routePaths: Routes = [
 export class AppModule {}
 {% endhighlight %}
 
-This workaround works for now, but it does add an extra component layer in between. You can see how the `RouteProxyComponent` is nothing more than a single router outlet [here](https://github.com/housseindjirdeh/tour-of-thrones/tree/master/src/app/component/route-proxy).
+This workaround works for now, but it does add an extra component layer in between. You can see how the `RouteProxyComponent` is nothing more than a single router outlet [here](https://github.com/GoogleChromeLabs/tour-of-thrones/tree/master/src/app/component/route-proxy).
 
 The last thing you'll need to do is allow the user to switch routes when a house is clicked:
 
