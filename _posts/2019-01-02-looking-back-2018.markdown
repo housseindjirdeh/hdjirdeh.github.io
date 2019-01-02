@@ -1,0 +1,56 @@
+---
+layout: post
+title:  "Looking back at 2018 - and a note on being grateful, helpful, and empathetic"
+date:   2019-01-02 07:30:00
+description: Not too late this time around.
+type: post
+image: assets/looking-back-2018/banner.jpg
+permalink: /:title
+---
+Some things I did last year:
+
+* Joined the Web Developer Relations team at Google.
+* Moved to California.
+* Completed and launched [Full Stack React Native](https://www.fullstackreact.com/react-native/).
+* Gave talks at a few places: 
+  * [.concat()](https://www.youtube.com/watch?v=RcHWKieBslk)
+  * [FITC Web Unleashed](https://twitter.com/thedaviddias/status/1047237655111651328)
+  * [React Boston](https://www.youtube.com/watch?v=zSECXuCB8wg)
+  * [Chrome Dev Summit](https://www.youtube.com/watch?v=reztLS3vomE)
+* Shipped a few open-source projects including [Progressive Tooling](https://github.com/GoogleChromeLabs/progressive-tooling).
+* Built [something](https://gohackernews.com/#/news/1) with Golang for the first time.
+* Helped maintain [GitPoint](https://github.com/gitpoint/git-point) with some **amazing** contributors.
+
+Some other things:
+
+* I think I found a better balance. It's easy to get overwhelmed and burnt out, and I've been close a few times. I still think I'm managing my time a little better however.
+* Imposter syndrome is still my good friend seven days of the week. This won't change anytime soon.
+* I'm still learning how to skateboard and swim!
+
+## Being grateful
+
+A lot of people seem to think that I've been building websites and writing JavaScript for a very long time, but that's simply not true. I wrote my first lines of HTML and CSS in the summer of 2015. Fast forward three years, and I started working with so many people that I've looked up to since I started building my first website. I still look up to them, and that's why I enjoy what I do so much.
+
+It's easy to take things for granted, or to only attribute one's progress to their hard work and dedication. Don't get me wrong, everybody should be super proud of the hard work they do to achieve whatever they want to achieve. Hard work and consistency can take anyone far, but there's always more to it.
+
+I have to thank the countless people I've worked with that showed me the ropes, the many open-source contributors that I hacked projects with, the folks that referred me for a new job, and the individuals that nudged me to give my first conference talk. If it weren't for them, I would not be where I am today.
+
+## Being helpful
+
+The one thing I told myself that I need to in [last year's version of this article]({{ site.url }}/looking-back-2017) was to be more helpful, especially to those that are just getting started in web development. I think I helped quite a few people begin their journey and I'm glad I did, but this doesn't mean that I could not have done more. Let's hope I only take things a step further in 2019.
+
+This year was also the very first time I began working as a Developer Advocate. I've been fascinated about web performance for a while now and have always tried to spend time to help others learn more about the topic. It feels even better to know that this is literally a part of my job now.
+
+## Being empathetic
+
+The amazing thing about the front-end community is that people are **very** passionate. For most of the time, this is great! So many folks share their opinions on tooling, workflow and code that it helps everyone learn more as a result. Nonetheless, I also think that this can be taken a little too far.
+
+I hope we don't see as many people objecting strongly to the presence of a free, open-source library because they think other solutions that are better already exist. There's no harm in letting people know your opinion, but there's a line that gets crossed where it turns to bashing. Everybody is free to **use what works** for them, and there's always more than one way to solve a problem.
+
+<img alt="Use what works" title="Use what works" data-src="/assets/looking-back-2018/banner.jpg" class="lazyload shadow" />
+
+I also hope we see less of a sentiment that developers are "careless" if their site performs poorly. Everyone has problems that they need to deal with when they build a website, and most people don't have the same privileges that I do (I get paid to think about web performance). However, I'm glad I work with a team that tries to solve this problem on a daily basis and I look forward to [better tooling](https://mobile.twitter.com/addyosmani/status/1079279037074223108) and [improved guidance](https://web.dev/) in 2019. 
+
+## My plans for next year
+
+Be more grateful, helpful, and empathetic. Everything else will, hopefully, fall into place.

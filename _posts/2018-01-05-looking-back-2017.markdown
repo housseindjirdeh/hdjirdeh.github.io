@@ -14,7 +14,7 @@ Let's take a look at what I accomplished this past year:
 * Joined [Rangle.io](https://www.instagram.com/p/BdYR9ySh7JA/?taken-by=houssein_dj)
 * Published [two](https://www.ng-book.com/modern-ng1/) [books](https://www.fullstackreact.com/react-native/) (one still in progress) with the amazing folks at Fullstack.io.
 * [Spoke](https://www.youtube.com/watch?v=CTTL5_G2U9U) at 5 conferences around the world plus a dozen more meet-ups and events.
-* Travelled to more cities in a single year than the previous ten years combined (I visited [Europe](https://www.instagram.com/p/BYk-3nNhcWE/?taken-by=houssein_dj) for the first time!).
+* Travelled to more cities in a single year than the previous ten years combined (I visited Europe for the first time!).
 * My blog garnered over 100,000 page views (even though I haven't published a new post in almost a year :O).
 * Built [GitPoint](https://gitpoint.co/), which currently has over 11,000 users.
 * Built Angular HN which was briefly featured at [Google I/O](https://www.youtube.com/watch?v=aCMbSyngXB4&feature=youtu.be&t=2230) (a million thanks to [Addy](https://twitter.com/addyosmani) for all the help and advice I needed to build this app).
