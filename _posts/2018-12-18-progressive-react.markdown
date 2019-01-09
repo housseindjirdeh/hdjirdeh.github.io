@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Progressive React"
-date:   2019-01-03 10:00:00
-description: In Part 1 of this series, we explored how to add a number of progressive enhancements to a Hacker News client built with Angular. Some of these enhancements included adding a service worker to allow for faster repeat visits and improved reliability for poor network connections. Instead of using a third-party library, we'll explore how to add service worker functionality using a built-in Angular package, `@angular/service-worker`, in this article.
+date:   2019-02-03 10:00:00
+description: Developer Advocates/Evangelists/Programs Engineers spend a significant amount of time reaching out to the community to explain how they can build their websites better. For those of us that focus on web performance, it can sometimes feel a bit like this...
 type: post
 image: assets/progressive-react/banner.png
 permalink: /:title
@@ -20,7 +20,7 @@ Developer Advocates/Evangelists/Programs Engineers spend a significant amount of
   <source src="/assets/progressive-react/panda-wildin.mp4" type="video/mp4">
 </video>
 
-So for the rest of this article, we'll be covering all the reasons why you should stop using React today!
+So for the rest of this article, we'll go through all the reasons for why you should stop using React today!
 
 Okay, that's just a joke :). In all seriousness, this article will cover how you can continue to build the same React applications that you're currently working on, but to also consider adding a number of progressive enhancements to it. The key point here is to make sure that you build your app so that _more people can use it_.
 
@@ -126,20 +126,107 @@ React uses the [User Timing API](https://developer.mozilla.org/en-US/docs/Web/AP
 <img alt="DevTools Performance Panel" title="DevTools Performance Panel" data-src="/assets/progressive-react/chrome-perf-panel.png" class="lazyload shadow" />
 
 <aside>
-Ben Schwarz has an excellent tutorial, <a href="https://building.calibreapp.com/debugging-react-performance-with-react-16-and-chrome-devtools-c90698a522ad">Debugging React performance with React 16 and Chrome Devtools</a>, that covers this in detail.
+Ben Schwarz has an excellent tutorial that covers this in detail - <a href="https://building.calibreapp.com/debugging-react-performance-with-react-16-and-chrome-devtools-c90698a522ad">Debugging React performance with React 16 and Chrome Devtools</a>.
 </aside>
 
 The User Timing API is only used during development and is disabled in production mode. A faster implementation that can even be used during production without significantly harming performance was one of the motivations behind building a newer timing API.
 
 #### React DevTools Profiler
 
-With `react-dom` 16.5, a new Profiler panel can be used to trace how well your components are rendering in terms of performance. It does this by using a newer and experimental [`Profiler`](https://github.com/reactjs/rfcs/pull/51) API to collect timing information for every component that re-renders.
+With `react-dom` 16.5, the Profiler panel can be used to trace how well your components are rendering in terms of performance. It does this by using a newer [`Profiler`](https://github.com/reactjs/rfcs/pull/51) API to collect timing information for every component that re-renders.
 
-The `Profiler` panel lives as a separate tab within [React DevTools](https://github.com/facebook/react-devtools). Similar to the Performance panel in Chrome DevTools, you can record user interactions and page reloads to analyze how wellyour components are performing.
+The `Profiler` panel lives as a separate tab within [React DevTools](https://github.com/facebook/react-devtools). Similar to the Performance panel in Chrome DevTools, you can record user interactions and page reloads to analyze how well your components are performing.
 
 <video class="shadow" autoplay loop muted playsinline>
   <source src="/assets/progressive-react/fetch-profiler.webm" type="video/webm">
   <source src="/assets/progressive-react/fetch-profiler.mp4" type="video/mp4">
 </video>
 
+When you stop recording with the Profiler, you're greeted with a flame chart that shows you how long each of the components in the page took to render.
+
+<img alt="Profiler Flame Chart" title="Profiler Flame Chart" data-src="/assets/progressive-react/profiler-flame-chart.png" class="lazyload" />
+
+You can switch between different _commits_, or states when DOM nodes are added, removed, or updated, to get more nuanced data of when components are taking their time while rendering. 
+
+<img alt="Profiler Commit Chart" title="Profiler Commit Chart" data-src="/assets/progressive-react/profiler-commit-chart.png" class="lazyload" />
+
+These screenshots are from profiling a single user interaction in a [simple app] which involves fetching a list of trending GitHub repos when a button is clicked. As you can see, there are only two commits:
+
+* One for a loading indicator that shows when the list of items are fetched
+* One after the API call is completed and the list is populated to the DOM
+
+The right hand side shows other useful metadata including commit information or component-specific data such as props and state.
+
+<img alt="Profiler Metadata" title="Profiler Metadata" data-src="/assets/progressive-react/profiler-metadata.png" class="lazyload" />
+
+<aside>
+Other chart views (ranked, component) are also available for you to fiddle around with. For more details on this (as well as everything else about the Profiler), the <a href="https://reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html">canonical blog post</a> in the React docs is a must-read. 
+</aside>
+
+To complicate things up a bit, consider the same example but with multiple API calls being fired at the same time to load specific trending repositories based on language (JavaScript, Golang, etc...). As expected, there are more commits now.
+
+<img alt="Profiler - more commits" title="Profiler - more commits" data-src="/assets/progressive-react/profiler-more-commits.png" class="lazyload" />
+
+The later the commit - the longer and more yellow the bar happens to be in the commit chart. This means that the time it takes for all the components to finish rendering take longer and longer as the list in the app grows.
+
+In the flame chart itself, we can see that this happens because _every_ item component in the list re-renders with each API call completing. This helps identify an issue that can be resolved relatively quickly: we can just try to only render newly added items to the list instead of re-rendering every single item as the list grows.
+
+There are quite a few ways to minimize/remove unecessary re-renders in a React app depending on context:
+
+* Override [`shouldComponentUpdate`](https://reactjs.org/docs/optimizing-performance.html#shouldcomponentupdate-in-action)
+
+{% highlight javascript %}
+shouldComponentUpdate(nextProps, nextState) {
+  // return true only if a certain condition is met
+}
+{% endhighlight %}
+
+* Use [`PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent) for class components
+
+{% highlight javascript %}
+import React, { PureComponent } from 'react';
+
+class SomeComponent extends PureComponent {
+
+}
+{% endhighlight %}
+
+* Use [`memo`](https://reactjs.org/docs/react-api.html#reactmemo) for functional components
+
+{% highlight javascript %}
+import React, { memo } from 'react';
+
+const SomeComponent = memo(props => {
+
+});
+{% endhighlight %}
+
+* Memoize Redux selectors (with [reselect](https://github.com/reduxjs/reselect) for example)
+* Virtualize super long lists (with [react-window](https://github.com/bvaughn/react-window) for example)
+
+<aside>
+There are two videos by Brian Vaughn that are worth watching if you would like to learn more about using the Profiler to identify bottlenecks in your application:
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=nySib7ipZdk">Deep dive with the React DevTools profiler</a></li>
+  <li><a href="https://youtu.be/ByBPyMBTzM0?t=1988">Profiling React - React Conf 2018</a></li>
+</ul>
+</aside>
+
 ### App-level performance
+
+Aside from specific DOM mutations and component re-renders, there are other higher level concerns worth profiling in a React app as well. [Lighthouse](https://github.com/GoogleChrome/lighthouse), a tool built by the Google Chrome team, makes it easy to analyze and assess how a particular site performs. There are three ways to run Lighthouse tests on a webpage:
+
+* Node CLI
+* Chrome Extension
+* Directly through Chrome DevTools in the `Audits` panel
+
+[GIF]
+
+Lighthouse usually takes a little time gathering all the data it needs from a page, auditing the data against a number of checks, and then finally generating a report with all the information. A number of audits can be used to identify if the amount of JavaScript being shipped to the browser can (and should) be improved:
+
+* Eliminate render-blocking resources
+* JavaScript boot-up time is too high
+* Avoid enormous network payloads
+
+If any of these audits fail due to large JavaScript bundles being sent over the wire, the first thing that should be considered is splitting the bundle and only trying to load what's necessary for the current page during initial load. Dynamic imports 
