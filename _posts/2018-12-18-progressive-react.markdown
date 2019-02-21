@@ -42,8 +42,8 @@ permalink: /:title
 Performance advocates, like me, spend a lot of time "advocating" for faster sites. Sometimes, it's a bit overwhelming.
 
 <video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/panda-wildin.webm" type="video/webm">
   <source src="/assets/progressive-react/panda-wildin.mp4" type="video/mp4">
+  <source src="/assets/progressive-react/panda-wildin.webm" type="video/webm">
 </video>
 
 I'm going to take a leaf out of this panda's book and tell you why you should stop using React today.
@@ -65,8 +65,9 @@ The numbers here are from v16.6.3.
 [WebPageTest](https://webpagetest.org) can be used to see how long it would take for a brand new CRA application to load on a Moto G4.
 
 <video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/cra-motog4.webm" type="video/webm">
   <source src="/assets/progressive-react/cra-motog4.mp4" type="video/mp4">
+  <source src="/assets/progressive-react/cra-motog4.ogg" type="video/ogg">
+  <source src="/assets/progressive-react/cra-motog4.webm" type="video/webm">
 </video>
 
 This "Hello, World" application is hosted on Firebase and viewed on Chrome with three different network connection types: 
@@ -82,8 +83,9 @@ Why use a Moto G4? It's a low-end mobile phone similar to what many people use i
 As interesting as these numbers may seem, they aren't very useful if you don’t know who your users are. Your definition of slow can be completely different from mine or somebody else's, and your perception on how fast a site loads can be skewed to the device and network connection that you use. Including a desktop machine (with cable connection) in this experiment shows how drastic the difference can be:
 
 <video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/cra-desktop-motog4.webm" type="video/webm">
   <source src="/assets/progressive-react/cra-desktop-motog4.mp4" type="video/mp4">
+  <source src="/assets/progressive-react/cra-desktop-motog4.ogv" type="video/ogg">
+  <source src="/assets/progressive-react/cra-desktop-motog4.webm" type="video/webm">
 </video>
 
 <aside>
@@ -287,6 +289,7 @@ The import syntax may look like a function call, but it allows you to import any
 
 <video class="shadow" autoplay loop muted playsinline>
   <source src="/assets/progressive-react/magic-sorter.mp4" type="video/mp4">
+  <source src="/assets/progressive-react/magic-sorter.ogg" type="video/ogg">
 </video>
 
 In this visualization:
@@ -367,6 +370,7 @@ The idea behind service workers is to include specific functionality on a separa
 
 <video class="shadow" autoplay loop muted playsinline>
   <source src="/assets/progressive-react/service-worker-vid.mp4" type="video/mp4">
+  <source src="/assets/progressive-react/service-worker-vid.ogg" type="video/ogg">
 </video>
 
 [Workbox](https://developers.google.com/web/tools/workbox/) is a set of libraries that can make it easier to include service workers without actually writing one from scratch. With CRA 2.0, you only need to remove 2 characters in `src/index.js` to have a workbox-powered service worker up and running with basic caching functionality.
@@ -426,10 +430,11 @@ Extracting critical styles can improve things quite substantially for users with
 
 <video class="shadow" autoplay loop muted playsinline>
   <source src="/assets/progressive-react/css-in-js-updates.mp4" type="video/mp4">
+  <source src="/assets/progressive-react/css-in-js-updates.ogg" type="video/ogg">
 </video>
 
 {:vid: .image-source}
-This is actually a Preact app, but you get the idea :)
+This is actually a Preact app, but you get the idea :) (optimizations by [denar90](https://github.com/GoogleChromeLabs/progressive-tooling/pull/26))
 {: vid}
 
 <aside>
