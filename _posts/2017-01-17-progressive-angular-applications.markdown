@@ -9,7 +9,7 @@ image: assets/progressive-angular-applications/angular-progressive-banner.png
 permalink: /:title
 ---
 <aside>
-<p>Among other things, this post goes through how I set up offline support using the <code>sw-precache</code> and <code>sw-toolbox</code> libraries. Many updates and changes have been made to Angular tooling with regard to PWA support since this article was written.
+<p>Among other things, this post goes through how I set up offline support using the <code>sw-precache</code> and <code>sw-toolbox</code> libraries. Many updates and changes have been made to Angular tooling with regard to PWA support since this article was written.</p>
 </aside>
 
 Progressive Web Apps (PWA) have been the talk of the town in 2016. In short, they are applications that use modern web capabilities to provide a user experience similar to that of mobile and native apps. Still a relatively new concept, these applications work for every user in every browser but are enhanced in some.
