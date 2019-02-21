@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event and Style binding in Angular 2</title>
+  <meta name="description" content="Angular 2 introduces new template syntax and directives that allow us to manipulate data in our applications. In this post, I begin with a brief introdu...">
+
+  <!-- Schema.org markup for Google+ -->
+  
+  <meta itemprop="name" content="Event and Style binding in Angular 2">  
+  <meta itemprop="description" content="Angular 2 introduces new template syntax and directives that allow us to manipulate data in our applications. In this post, I begin with a brief introduction on data and event binding then dive right in to using style and class binding as well as directives to dynamically apply CSS and CSS classes...">  
+  <meta itemprop="image" content="https://houssein.me/public/angular2.png"> 
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@hdjirdeh">
+  <meta name="twitter:creator" content="@hdjirdeh"> 
+  <meta name="twitter:title" content="Event and Style binding in Angular 2">  
+  <meta name="twitter:url" content="https://houssein.me/event-and-style-binding-in-angular2">  
+  <meta name="twitter:description" content="Angular 2 introduces new template syntax and directives that allow us to manipulate data in our applications. In this post, I begin with a brief introduction on data and event binding then dive rig...">  
+  <meta name="twitter:image" content="https://houssein.me/public/angular2.png"> 
+
+  <!-- Open Graph data -->
+  
+  <meta property="og:title" content="Event and Style binding in Angular 2"> 
+  <meta property="og:type" content="article" /> 
+  <meta property="og:url" content="https://houssein.me/event-and-style-binding-in-angular2">  
+  <meta property="og:image" content="https://houssein.me/public/angular2.png">  
+  <meta property="og:description" content="Angular 2 introduces new template syntax and directives that allow us to manipulate data in our applications. In this post, I begin with a brief introduction on data and event binding then dive rig...">  
+  <meta property="article:published_time" content="2016-05-29 11:13:00 +0000" />
+  <meta property="article:modified_time" content="2016-05-29 11:13:00 +0000" /> 
+  <meta property="fb:admins" content="1518546144" />
+  
+  <!-- Icons -->
+  <meta name="msapplication-TileColor" content="#b91d47">
+	<meta name="msapplication-TileImage" content="/icons/mstile-150x150.png">
+  <meta name="msapplication-config" content="/icons/browserconfig.xml">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <link rel="manifest" href="/icons/site.webmanifest">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#d0113f">
+
+  <link rel="shortcut icon" type="image/x-icon" href="/icons/favicon.ico" />
+  <link rel="shortcut icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="shortcut icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png">
+
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="canonical" href="https://houssein.me/event-and-style-binding-in-angular2">
+  <link rel="author" href="https://plus.google.com/109730836902589271473" />
+  <link rel="alternate" type="application/rss+xml" title="Houssein Djirdeh" href="https://houssein.me/feed.xml">  
+  <style>
+    /*! TACHYONS v4.9.1 | http://tachyons.io  (SELECTED STYLES) */
+    .dim:active,.dim:focus,.dim:hover{-webkit-backface-visibility:hidden}.f-6,.f-headline{font-size:6rem}.f-5,.f-subheadline{font-size:5rem}.f1{font-size:3rem}.f2{font-size:2.25rem}.f3{font-size:1.5rem}.f4{font-size:1.25rem}.f5{font-size:1rem}.f6{font-size:.875rem}.f7{font-size:.75rem}.br0{border-radius:0}.br1{border-radius:.125rem}.br2{border-radius:.25rem}.br3{border-radius:.5rem}.br4{border-radius:1rem}@media screen and (min-width:30em){.f1-ns{font-size:3rem}.f2-ns{font-size:2.25rem}.f3-ns{font-size:1.5rem}.f4-ns{font-size:1.25rem}.f5-ns{font-size:1rem}.f6-ns{font-size:.875rem}.f7-ns{font-size:.75rem}.fw1-ns{font-weight:100}.fw2-ns{font-weight:200}.fw3-ns{font-weight:300}.fw4-ns{font-weight:400}.fw5-ns{font-weight:500}.fw6-ns{font-weight:600}.fw7-ns{font-weight:700}.fw8-ns{font-weight:800}.fw9-ns{font-weight:900}.pa0-ns{padding:0}.pa1-ns{padding:.25rem}.pa2-ns{padding:.5rem}.pa3-ns{padding:1rem}.pa4-ns{padding:2rem}.pa5-ns{padding:4rem}.pa6-ns{padding:8rem}.pa7-ns{padding:16rem}.pl0-ns{padding-left:0}.pl1-ns{padding-left:.25rem}.pl2-ns{padding-left:.5rem}.pl3-ns{padding-left:1rem}.pl4-ns{padding-left:2rem}.pl5-ns{padding-left:4rem}.pl6-ns{padding-left:8rem}.pl7-ns{padding-left:16rem}.pr0-ns{padding-right:0}.pr1-ns{padding-right:.25rem}.pr2-ns{padding-right:.5rem}.pr3-ns{padding-right:1rem}.pr4-ns{padding-right:2rem}.pr5-ns{padding-right:4rem}.pr6-ns{padding-right:8rem}.pr7-ns{padding-right:16rem}.pb0-ns{padding-bottom:0}.pb1-ns{padding-bottom:.25rem}.pb2-ns{padding-bottom:.5rem}.pb3-ns{padding-bottom:1rem}.pb4-ns{padding-bottom:2rem}.pb5-ns{padding-bottom:4rem}.pb6-ns{padding-bottom:8rem}.pb7-ns{padding-bottom:16rem}.pt0-ns{padding-top:0}.pt1-ns{padding-top:.25rem}.pt2-ns{padding-top:.5rem}.pt3-ns{padding-top:1rem}.pt4-ns{padding-top:2rem}.pt5-ns{padding-top:4rem}.pt6-ns{padding-top:8rem}.pt7-ns{padding-top:16rem}.pv0-ns{padding-top:0;padding-bottom:0}.pv1-ns{padding-top:.25rem;padding-bottom:.25rem}.pv2-ns{padding-top:.5rem;padding-bottom:.5rem}.pv3-ns{padding-top:1rem;padding-bottom:1rem}.pv4-ns{padding-top:2rem;padding-bottom:2rem}.pv5-ns{padding-top:4rem;padding-bottom:4rem}.pv6-ns{padding-top:8rem;padding-bottom:8rem}.pv7-ns{padding-top:16rem;padding-bottom:16rem}.ph0-ns{padding-left:0;padding-right:0}.ph1-ns{padding-left:.25rem;padding-right:.25rem}.ph2-ns{padding-left:.5rem;padding-right:.5rem}.ph3-ns{padding-left:1rem;padding-right:1rem}.ph4-ns{padding-left:2rem;padding-right:2rem}.ph5-ns{padding-left:4rem;padding-right:4rem}.ph6-ns{padding-left:8rem;padding-right:8rem}.ph7-ns{padding-left:16rem;padding-right:16rem}.ma0-ns{margin:0}.ma1-ns{margin:.25rem}.ma2-ns{margin:.5rem}.ma3-ns{margin:1rem}.ma4-ns{margin:2rem}.ma5-ns{margin:4rem}.ma6-ns{margin:8rem}.ma7-ns{margin:16rem}.ml0-ns{margin-left:0}.ml1-ns{margin-left:.25rem}.ml2-ns{margin-left:.5rem}.ml3-ns{margin-left:1rem}.ml4-ns{margin-left:2rem}.ml5-ns{margin-left:4rem}.ml6-ns{margin-left:8rem}.ml7-ns{margin-left:16rem}.mr0-ns{margin-right:0}.mr1-ns{margin-right:.25rem}.mr2-ns{margin-right:.5rem}.mr3-ns{margin-right:1rem}.mr4-ns{margin-right:2rem}.mr5-ns{margin-right:4rem}.mr6-ns{margin-right:8rem}.mr7-ns{margin-right:16rem}.mb0-ns{margin-bottom:0}.mb1-ns{margin-bottom:.25rem}.mb2-ns{margin-bottom:.5rem}.mb3-ns{margin-bottom:1rem}.mb4-ns{margin-bottom:2rem}.mb5-ns{margin-bottom:4rem}.mb6-ns{margin-bottom:8rem}.mb7-ns{margin-bottom:16rem}.mt0-ns{margin-top:0}.mt1-ns{margin-top:.25rem}.mt2-ns{margin-top:.5rem}.mt3-ns{margin-top:1rem}.mt4-ns{margin-top:2rem}.mt5-ns{margin-top:4rem}.mt6-ns{margin-top:8rem}.mt7-ns{margin-top:16rem}.mv0-ns{margin-top:0;margin-bottom:0}.mv1-ns{margin-top:.25rem;margin-bottom:.25rem}.mv2-ns{margin-top:.5rem;margin-bottom:.5rem}.mv3-ns{margin-top:1rem;margin-bottom:1rem}.mv4-ns{margin-top:2rem;margin-bottom:2rem}.mv5-ns{margin-top:4rem;margin-bottom:4rem}.mv6-ns{margin-top:8rem;margin-bottom:8rem}.mv7-ns{margin-top:16rem;margin-bottom:16rem}.mh0-ns{margin-left:0;margin-right:0}.mh1-ns{margin-left:.25rem;margin-right:.25rem}.mh2-ns{margin-left:.5rem;margin-right:.5rem}.mh3-ns{margin-left:1rem;margin-right:1rem}.mh4-ns{margin-left:2rem;margin-right:2rem}.mh5-ns{margin-left:4rem;margin-right:4rem}.mh6-ns{margin-left:8rem;margin-right:8rem}.mh7-ns{margin-left:16rem;margin-right:16rem}.mw1-ns{max-width:1rem}.mw2-ns{max-width:2rem}.mw3-ns{max-width:4rem}.mw4-ns{max-width:8rem}.mw5-ns{max-width:16rem}.mw6-ns{max-width:32rem}.mw7-ns{max-width:48rem}.mw8-ns{max-width:64rem}.mw9-ns{max-width:96rem}}.normal{font-weight:400}.b{font-weight:700}.fw1{font-weight:100}.fw2{font-weight:200}.fw3{font-weight:300}.fw4{font-weight:400}.fw5{font-weight:500}.fw6{font-weight:600}.fw7{font-weight:700}.fw8{font-weight:800}.fw9{font-weight:900}.near-black{color:#111}.white{color:#fff}.ttl{text-transform:lowercase}.flex{display:-webkit-box;display:-ms-flexbox;display:flex}.flex-column{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.items-start{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.items-end{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.items-center{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.justify-center{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-between{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.pa0{padding:0}.pa1{padding:.25rem}.pa2{padding:.5rem}.pa3{padding:1rem}.pa4{padding:2rem}.pa5{padding:4rem}.pa6{padding:8rem}.pa7{padding:16rem}.pl0{padding-left:0}.pl1{padding-left:.25rem}.pl2{padding-left:.5rem}.pl3{padding-left:1rem}.pl4{padding-left:2rem}.pl5{padding-left:4rem}.pl6{padding-left:8rem}.pl7{padding-left:16rem}.pr0{padding-right:0}.pr1{padding-right:.25rem}.pr2{padding-right:.5rem}.pr3{padding-right:1rem}.pr4{padding-right:2rem}.pr5{padding-right:4rem}.pr6{padding-right:8rem}.pr7{padding-right:16rem}.pb0{padding-bottom:0}.pb1{padding-bottom:.25rem}.pb2{padding-bottom:.5rem}.pb3{padding-bottom:1rem}.pb4{padding-bottom:2rem}.pb5{padding-bottom:4rem}.pb6{padding-bottom:8rem}.pb7{padding-bottom:16rem}.pt0{padding-top:0}.pt1{padding-top:.25rem}.pt2{padding-top:.5rem}.pt3{padding-top:1rem}.pt4{padding-top:2rem}.pt5{padding-top:4rem}.pt6{padding-top:8rem}.pt7{padding-top:16rem}.pv0{padding-top:0;padding-bottom:0}.pv1{padding-top:.25rem;padding-bottom:.25rem}.pv2{padding-top:.5rem;padding-bottom:.5rem}.pv3{padding-top:1rem;padding-bottom:1rem}.pv4{padding-top:2rem;padding-bottom:2rem}.pv5{padding-top:4rem;padding-bottom:4rem}.pv6{padding-top:8rem;padding-bottom:8rem}.pv7{padding-top:16rem;padding-bottom:16rem}.ph0{padding-left:0;padding-right:0}.ph1{padding-left:.25rem;padding-right:.25rem}.ph2{padding-left:.5rem;padding-right:.5rem}.ph3{padding-left:1rem;padding-right:1rem}.ph4{padding-left:2rem;padding-right:2rem}.ph5{padding-left:4rem;padding-right:4rem}.ph6{padding-left:8rem;padding-right:8rem}.ph7{padding-left:16rem;padding-right:16rem}.ma0{margin:0}.ma1{margin:.25rem}.ma2{margin:.5rem}.ma3{margin:1rem}.ma4{margin:2rem}.ma5{margin:4rem}.ma6{margin:8rem}.ma7{margin:16rem}.ml0{margin-left:0}.ml1{margin-left:.25rem}.ml2{margin-left:.5rem}.ml3{margin-left:1rem}.ml4{margin-left:2rem}.ml5{margin-left:4rem}.ml6{margin-left:8rem}.ml7{margin-left:16rem}.mr0{margin-right:0}.mr1{margin-right:.25rem}.mr2{margin-right:.5rem}.mr3{margin-right:1rem}.mr4{margin-right:2rem}.mr5{margin-right:4rem}.mr6{margin-right:8rem}.mr7{margin-right:16rem}.mb0{margin-bottom:0}.mb1{margin-bottom:.25rem}.mb2{margin-bottom:.5rem}.mb3{margin-bottom:1rem}.mb4{margin-bottom:2rem}.mb5{margin-bottom:4rem}.mb6{margin-bottom:8rem}.mb7{margin-bottom:16rem}.mt0{margin-top:0}.mt1{margin-top:.25rem}.mt2{margin-top:.5rem}.mt3{margin-top:1rem}.mt4{margin-top:2rem}.mt5{margin-top:4rem}.mt6{margin-top:8rem}.mt7{margin-top:16rem}.mv0{margin-top:0;margin-bottom:0}.mv1{margin-top:.25rem;margin-bottom:.25rem}.mv2{margin-top:.5rem;margin-bottom:.5rem}.mv3{margin-top:1rem;margin-bottom:1rem}.mv4{margin-top:2rem;margin-bottom:2rem}.mv5{margin-top:4rem;margin-bottom:4rem}.mv6{margin-top:8rem;margin-bottom:8rem}.mv7{margin-top:16rem;margin-bottom:16rem}.mh0{margin-left:0;margin-right:0}.mh1{margin-left:.25rem;margin-right:.25rem}.mh2{margin-left:.5rem;margin-right:.5rem}.mh3{margin-left:1rem;margin-right:1rem}.mh4{margin-left:2rem;margin-right:2rem}.mh5{margin-left:4rem;margin-right:4rem}.mh6{margin-left:8rem;margin-right:8rem}.mh7{margin-left:16rem;margin-right:16rem}.mw1{max-width:1rem}.mw2{max-width:2rem}.mw3{max-width:4rem}.mw4{max-width:8rem}.mw5{max-width:16rem}.mw6{max-width:32rem}.mw7{max-width:48rem}.mw8{max-width:64rem}.mw9{max-width:96rem}.w-100{width:100%}.dim{opacity:1;-webkit-transition:opacity .15s ease-in;transition:opacity .15s ease-in}.dim:focus,.dim:hover{backface-visibility:hidden;opacity:.5;-webkit-transition:opacity .15s ease-in;transition:opacity .15s ease-in}.dim:active{backface-visibility:hidden;opacity:.8;-webkit-transition:opacity .15s ease-out;transition:opacity .15s ease-out}.grow{-moz-osx-font-smoothing:grayscale;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform:translateZ(0);transform:translateZ(0);-webkit-transition:-webkit-transform .25s ease-out;transition:-webkit-transform .25s ease-out;transition:transform .25s ease-out;transition:transform .25s ease-out,-webkit-transform .25s ease-out}.grow:focus,.grow:hover{-webkit-transform:scale(1.05);transform:scale(1.05)}.grow:active{-webkit-transform:scale(.9);transform:scale(.9)}.dib{display:inline-block}.h1{height:1rem}.h2{height:2rem}.h3{height:4rem}.h4{height:8rem}.h5{height:16rem}.bb{border-bottom-style:solid;border-bottom-width:1px}.bt{border-top-style:solid;border-top-width:1px}.link{text-decoration:none;-webkit-transition:color .15s ease-in;transition:color .15s ease-in}.link:active,.link:hover,.link:link,.link:visited{-webkit-transition:color .15s ease-in;transition:color .15s ease-in}.link:focus{-webkit-transition:color .15s ease-in;transition:color .15s ease-in;outline:currentColor dotted 1px}.center{margin-right:auto;margin-left:auto}img,video{max-width:100%}    
+    /* Extra styles */
+    #markup video,body,html{width:100%}#markup aside a,#markup li a,#markup p a,.link-effect{text-decoration:none;transition:color .15s ease-in;border-bottom:1px solid #d0113f}#markup aside p,#markup figure,body,html{margin:0}body,html{padding:0;background:#fff;font-family:avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;font-weight:400;color:#444;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}#markup aside ol,#markup aside p,#markup aside ul{font-weight:500}*{box-sizing:border-box}.hover-red:hover,.red{color:#d0113f}.bg-red{background-color:#d0113f}#home-icon-container{transition:all .15s ease-in-out}#home-icon-container:hover #home-icon{fill:#d0113f}.lh-copy{line-height:1.7}#markup h2,#markup h3,#markup h4{margin-top:3rem;margin-bottom:1rem}#markup aside{margin:30px 0;background:#f1ece9;padding:25px;border-radius:10px}#markup aside.secondary{background:#e3f3f9}#markup aside a,#markup li a,#markup p a{font-weight:600;color:#d0113f;-webkit-box-shadow:inset 0 -2px 0 0 #d0113f;box-shadow:inset 0 -2px 0 0 #d0113f;padding-bottom:2px}#markup aside a:hover,#markup blockquote footer,#markup li a:hover,#markup p a:hover{color:#111}#markup aside h1,#markup aside h2,#markup aside h3,#markup aside h4{margin-top:0}#markup aside img{margin-top:2rem}#markup blockquote{color:#767676;border-left:4px solid #e9e9e9;padding-left:15px;letter-spacing:-1px;font-style:italic;margin:0}#markup li code,#markup p code{background:#f8f8f8;padding:5px}#markup figure code,#markup figure li code{background:#f8f8f8;font-size:.95rem;padding:1rem}@media (max-width:30rem){#markup figure code,#markup figure li code{font-size:.8rem}}#markup img{left:50%;position:relative;transform:translate(-50%,0);top:50%;margin:0 -50% 0 0}@media (min-width:560px){#markup img.small,video.small{max-width:500px}}#markup img.shadow,video.shadow{box-shadow:0 1px 16px 0 rgba(0,0,0,.2),0 2px 8px 0 rgba(0,0,0,.14),0 4px 8px -1px rgba(0,0,0,.12)}#markup .image-source{font-size:16px;margin:0 0 3rem;text-align:center;letter-spacing:.02rem;color:#d0113f;font-weight:700}#markup .image-source.no-margin{margin-bottom:0}.link-effect{font-weight:600;color:#d0113f;-webkit-box-shadow:inset 0 -2px 0 0 #d0113f;box-shadow:inset 0 -2px 0 0 #d0113f;padding-bottom:2px}.link-effect:hover{color:#111}
+    /* Github Highlight */
+    /* GitHub highlight (slightly modified) */
+    .hljs{display:block;overflow-x:auto;padding:0.5em;color:#333;background:#f8f8f8}.hljs-comment,.hljs-quote{color:#404040;font-style:italic}.hljs-keyword,.hljs-selector-tag,.hljs-subst{color:#333;font-weight:bold}.hljs-number,.hljs-literal,.hljs-variable,.hljs-template-variable,.hljs-tag .hljs-attr{color:#045252}.hljs-string,.hljs-doctag{color:#d14}.hljs-title,.hljs-section,.hljs-selector-id{color:#900;font-weight:bold}.hljs-subst{font-weight:normal}.hljs-type,.hljs-class .hljs-title{color:#458;font-weight:bold}.hljs-tag,.hljs-name,.hljs-attribute{color:#000080;font-weight:normal}.hljs-regexp,.hljs-link{color:#014c13}.hljs-symbol,.hljs-bullet{color:#990073}.hljs-built_in,.hljs-builtin-name{color:#004d67}.hljs-meta{color:#999;font-weight:bold}.hljs-deletion{background:#fdd}.hljs-addition{background:#dfd}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:bold}
+  </style>
+</head>
+
+<body>
+
+  <div class="flex flex-column items-center justify-between">
+    <header class="h5 flex items-center">
+  <a id="home-icon-container" href="/" aria-label="Home"><svg width="50" height="50" preserveAspectRatio="none" viewBox="0 0 350 350">
+  <defs>
+    <clipPath id="a">
+      <path d="M0 300h500V0H0z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 -150 390)">
+    <path id="home-icon" fill="#1d1d1d" d="M237.4502 130.5498c5 4.967 11.017 7.45 18.05 7.45 7.033 0 13.033-2.483 18-7.45 5-5 7.5-11.017 7.5-18.05 0-7.033-2.5-13.033-7.5-18-4.967-5-10.967-7.5-18-7.5-7.033 0-13.05 2.5-18.05 7.5-4.967 4.967-7.45 10.967-7.45 18 0 7.033 2.483 13.05 7.45 18.05m87.3 56.85l15.099-15.1c2.368-2.367 2.384-4.716.051-7.05l-17.15-17.15c-2.366-2.366-4.734-2.366-7.1 0l-59.551 59.55-59.299-59.3c-.5-.5-.983-.883-1.45-1.15l-53.95-53.95c-2.367-2.366-4.734-2.366-7.1 0l-17.15 17.151c-2.333 2.333-2.317 4.682.05 7.049l61.15 61.15h.3l55.1 55.1h.35l7.85 7.85c4.6 4.6 9.2 6.95 13.8 7.05h.599c3.467-.067 6.934-1.417 10.401-4.05l13.65-12.6-.1-.1 23.2-23.2v13.2c0 3.333 1.667 5 5 5h11.25c3.333 0 5-1.667 5-5z" fill-rule="evenodd"/>
+  </g>
+</svg></a>
+</header>
+  </div>
+
+  <div class="flex flex-column justify-between mw7 pb5 center w-100 ph4">
+    <div class="flex flex-column mt2 mb5">
+      <h1 class="f3 f1-ns ttl mb2 near-black lh-title">
+        Event and Style binding in Angular 2
+      </h1>
+      <time class="f5 fw6 red" datetime="2016-05-29 11:13:00 +0000">May 29, 2016</time>
+    </div>
+    <div id="markup" class="f5 f4-ns lh-copy near-black">
+      <p>Angular 2 introduces new template syntax and directives that allow us to manipulate data in our applications. In this post, I begin with a brief introduction on data and event binding then dive right in to using style and class binding as well as directives to dynamically apply CSS and CSS classes.</p>
+
+<h2 id="one-way-data-binding">One-way data binding</h2>
+
+<p>In Angular, data binding describes the <strong>synchronization between model and view</strong>. To explain this simply, assume we have a simple expression in our template.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>{{firstname}}<span class="nt">&lt;/h1&gt;</span></code></pre></figure>
+
+<p>Whenever the expression <code class="highlighter-rouge">{{firstname}}</code> changes, we want the DOM to update. The processes that trigger this instant update of the DOM is known as <strong>data binding</strong> and <strong>one-way</strong> refers to the directional flow of data from model to view.</p>
+
+<h2 id="two-way-data-binding">Two-way data binding</h2>
+
+<p>Two-way data binding explains how the view updates when the model changes <strong>and vice-versa</strong>. This happens immediately which means that the model and view are always in-sync. In other words, you can think of the view as an instant projection of the model.</p>
+
+<p><img alt="two way" title="two way" data-src="/public/two_way_data_binding.png" class="lazyload shadow" /></p>
+
+<p class="image-source"><a href="https://docs.angularjs.org/guide/databinding">Source: AngularJS Developer Guide - Data Binding</a></p>
+
+<p>Lets look at a simple example of how this works.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>{{firstname}}<span class="nt">&lt;/h1&gt;</span>
+Name: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]="</span><span class="na">firstname</span><span class="err">"</span><span class="nt">&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">MyApp</span> <span class="p">{</span>
+  <span class="nl">firstname</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="s1">'Jimmy'</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We can see that the HTML is similar to what you would see in Angular 1.x. However, the two way binding syntax, <code class="highlighter-rouge">[(ngModel)]</code>, is slightly different.</p>
+
+<p>Just as you would expect, changing the input value changes the interpolation <code class="highlighter-rouge">{{firstname}}</code> which is evidence that the value is flowing to the model and vice-versa.</p>
+
+<h2 id="event-binding">Event Binding</h2>
+
+<p>Now let’s add a click event to make things a little more exciting.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>{{firstname}}<span class="nt">&lt;/h1&gt;</span>
+Name: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]="</span><span class="na">firstname</span><span class="err">"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="err">(</span><span class="na">click</span><span class="err">)="</span><span class="na">changeName</span><span class="err">()"</span><span class="nt">&gt;</span>Change Name<span class="nt">&lt;/button&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">MyApp</span> <span class="p">{</span>
+  <span class="nl">firstname</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="s1">'Jimmy'</span><span class="p">;</span>
+
+  <span class="nx">changeName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">=</span> <span class="s1">'Houssein'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The syntax is simple. The <strong>target event</strong> <code class="highlighter-rouge">(click)</code> is in parentheses and the response to the event <code class="highlighter-rouge">changeName()</code> is to the right of it. The notation of having events within parentheses is new in Angular 2, where in Angular 1.x this would have looked like  <code class="highlighter-rouge">ng-click="changeName()"</code>.</p>
+
+<h2 id="style-binding">Style Binding</h2>
+
+<p>Angular 2 allows us to conditionally add styles to an element with a few different ways, and one of them is by <strong>style binding</strong>.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1</span> <span class="err">[</span><span class="na">style</span><span class="err">.</span><span class="na">color</span><span class="err">]="</span><span class="na">isHoussein</span><span class="err">()</span> <span class="err">?</span> <span class="err">'</span><span class="na">red</span><span class="err">'</span><span class="na">:</span> <span class="err">'</span><span class="na">black</span><span class="err">'"</span><span class="nt">&gt;</span>{{firstname}}<span class="nt">&lt;/h1&gt;</span>
+Name: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]="</span><span class="na">firstname</span><span class="err">"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="err">(</span><span class="na">click</span><span class="err">)="</span><span class="na">changeName</span><span class="err">()"</span><span class="nt">&gt;</span>Change Name<span class="nt">&lt;/button&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">MyApp</span> <span class="p">{</span>
+  <span class="nl">firstname</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="s1">'Jimmy'</span><span class="p">;</span>
+
+  <span class="nx">changeName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">=</span> <span class="s1">'Houssein'</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">isHoussein</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">===</span> <span class="s1">'Houssein'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Again, the syntax is straightforward where <code class="highlighter-rouge">style</code> is preceded by the name of a CSS style property: <code class="highlighter-rouge">[style.color]</code>. In this example, the color style property binds to the template expression, <code class="highlighter-rouge">isHoussein()</code>. With the code copied to your project, try changing the name to <em>Houssein</em> through the input field or by clicking the button.</p>
+
+<p>Now what if we wanted to set multiple inline styles? That’s where the <code class="highlighter-rouge">ngStyle</code> directive comes in. With this, we can have multiple style properties each connected to their own condition through a key:value object.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1</span> <span class="err">[</span><span class="na">ngStyle</span><span class="err">]="</span><span class="na">setStyles</span><span class="err">()"</span><span class="nt">&gt;</span>{{firstname}}<span class="nt">&lt;/h1&gt;</span>
+Name: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]="</span><span class="na">firstname</span><span class="err">"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="err">(</span><span class="na">click</span><span class="err">)="</span><span class="na">changeName</span><span class="err">()"</span><span class="nt">&gt;</span>Change Name<span class="nt">&lt;/button&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">App</span> <span class="p">{</span>
+  <span class="nl">firstname</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="s1">'Jimmy'</span><span class="p">;</span>
+
+  <span class="nx">changeName</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">alternate</span> <span class="p">?</span> <span class="s1">'Daniel'</span> <span class="p">:</span> <span class="s1">'Houssein'</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">alternate</span> <span class="o">=</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">alternate</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">isHoussein</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">===</span> <span class="s1">'Houssein'</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">isDaniel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">===</span> <span class="s1">'Daniel'</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">setStyles</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">styles</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">'color'</span><span class="p">:</span>  <span class="k">this</span><span class="p">.</span><span class="nx">isHoussein</span><span class="p">()</span> <span class="p">?</span> <span class="s1">'red'</span> <span class="p">:</span> <span class="s1">'black'</span><span class="p">,</span>
+      <span class="s1">'font-size'</span><span class="p">:</span>  <span class="k">this</span><span class="p">.</span><span class="nx">isDaniel</span><span class="p">()</span> <span class="p">?</span> <span class="s1">'3em'</span> <span class="p">:</span> <span class="s1">'2em'</span><span class="p">,</span>
+      <span class="s1">'font-style'</span><span class="p">:</span>  <span class="k">this</span><span class="p">.</span><span class="nx">isDaniel</span><span class="p">()</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">isHoussein</span><span class="p">()</span> <span class="p">?</span> <span class="s1">'italic'</span> <span class="p">:</span> <span class="s1">'normal'</span><span class="p">,</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="nx">styles</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="class-binding">Class Binding</h2>
+
+<p>Similar to style binding, <strong>class binding</strong> allows you to add or remove classes based on variables or expressions.</p>
+
+<p>Here’s an example of adding a conditional-based class.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1</span> <span class="err">[</span><span class="na">class</span><span class="err">.</span><span class="na">awesome</span><span class="err">]="</span><span class="na">isHoussein</span><span class="err">()"</span><span class="nt">&gt;</span>{{firstname}}<span class="nt">&lt;/h1&gt;</span>
+Name: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]="</span><span class="na">firstname</span><span class="err">"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="err">(</span><span class="na">click</span><span class="err">)="</span><span class="na">changeName</span><span class="err">()"</span><span class="nt">&gt;</span>Change Name<span class="nt">&lt;/button&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.awesome</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">MyApp</span> <span class="p">{</span>
+  <span class="nl">firstname</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="s1">'Jimmy'</span><span class="p">;</span>
+
+  <span class="nx">changeName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">=</span> <span class="s1">'Houssein'</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">isHoussein</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">===</span> <span class="s1">'Houssein'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">[class.awesome]</code> binds to the specific <code class="highlighter-rouge">.awesome</code> class when the template expression, <code class="highlighter-rouge">isHoussein()</code>, is truthy.</p>
+
+<p>Now let’s see how we can use the <code class="highlighter-rouge">ngClass</code> directive to add multiple classes at the same time.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1</span> <span class="err">[</span><span class="na">ngClass</span><span class="err">]="</span><span class="na">setClasses</span><span class="err">()"</span><span class="nt">&gt;</span>{{firstname}}<span class="nt">&lt;/h1&gt;</span>
+Name: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]="</span><span class="na">firstname</span><span class="err">"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="err">(</span><span class="na">click</span><span class="err">)="</span><span class="na">changeName</span><span class="err">()"</span><span class="nt">&gt;</span>Change Name<span class="nt">&lt;/button&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.italic</span> <span class="p">{</span>
+  <span class="nl">font-style</span><span class="p">:</span> <span class="nb">italic</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.awesome</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.move</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+  <span class="nl">animation</span><span class="p">:</span><span class="n">move</span> <span class="m">1s</span> <span class="n">infinite</span><span class="p">;</span>
+  <span class="nl">animation-duration</span><span class="p">:</span> <span class="m">3s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@keyframes</span> <span class="n">move</span> <span class="p">{</span>
+    <span class="nt">0</span><span class="o">%</span>   <span class="p">{</span><span class="nl">left</span><span class="p">:</span><span class="m">0px</span><span class="p">;}</span>
+    <span class="nt">50</span><span class="o">%</span>  <span class="p">{</span><span class="nl">left</span><span class="p">:</span><span class="m">200px</span><span class="p">;}</span>
+    <span class="nt">100</span><span class="o">%</span> <span class="p">{</span><span class="nl">left</span><span class="p">:</span><span class="m">0px</span><span class="p">;}</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">App</span> <span class="p">{</span>
+  <span class="nl">firstname</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="s1">'Jimmy'</span><span class="p">;</span>
+  <span class="nl">alternate</span><span class="p">:</span> <span class="kr">boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+  <span class="nx">changeName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">alternate</span> <span class="p">?</span> <span class="s1">'Daniel'</span> <span class="p">:</span> <span class="s1">'Houssein'</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">alternate</span> <span class="o">=</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">alternate</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">isHoussein</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">===</span> <span class="s1">'Houssein'</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">isDaniel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">===</span> <span class="s1">'Daniel'</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">setClasses</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">classes</span> <span class="o">=</span>  <span class="p">{</span>
+      <span class="na">awesome</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isHoussein</span><span class="p">(),</span>
+      <span class="na">move</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isDaniel</span><span class="p">(),</span>
+      <span class="na">italic</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isHoussein</span><span class="p">()</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">isDaniel</span><span class="p">(),</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="nx">classes</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="wrapping-things-up">Wrapping things up</h2>
+
+<p>In this post, I covered the basics of one-way and two-way data binding as well as showed how you can manipulate style properties and classes with a few different ways. Hope it proved useful and stay tuned for my next post on Angular 2.</p>
+
+    </div>
+
+    <div class="f5 fw6 lh-copy mt5">
+      <p>If you have any questions or suggestions, feel free to open an
+        <a class="link-effect" href="https://github.com/housseindjirdeh/housseindjirdeh.github.io/issues/new">issue!</a>
+      </p>
+    </div>
+
+    <div class="flex flex-column items-center mt6 mt7-ns mb5">
+	<p class="grow">
+		<a class="f4 fw6 link near-black hover-red ttl" href="https://twitter.com/hdjirdeh" rel="noopener noreferrer" target="_blank">
+			Houssein Djirdeh
+		</a>
+	</p>
+</div>
+  </div>
+  
+  <script>
+  /*! highlight.js v9.12.0 | BSD3 License | git.io/hljslicense */
+  !function(e){var t="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):t&&(t.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return t.hljs}))}(function(e){function t(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function r(e){return e.nodeName.toLowerCase()}function n(e,t){var r=e&&e.exec(t);return r&&0===r.index}function a(e){return v.test(e)}function c(e){var t,r={},n=Array.prototype.slice.call(arguments,1);for(t in e)r[t]=e[t];return n.forEach(function(e){for(t in e)r[t]=e[t]}),r}function i(e){var t=[];return function e(n,a){for(var c=n.firstChild;c;c=c.nextSibling)3===c.nodeType?a+=c.nodeValue.length:1===c.nodeType&&(t.push({event:"start",offset:a,node:c}),a=e(c,a),r(c).match(/br|hr|img|input/)||t.push({event:"stop",offset:a,node:c}));return a}(e,0),t}function s(e){function t(e){return e&&e.source||e}function r(r,n){return new RegExp(t(r),"m"+(e.cI?"i":"")+(n?"g":""))}!function n(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var s={},o=function(t,r){e.cI&&(r=r.toLowerCase()),r.split(" ").forEach(function(e){var r=e.split("|");s[r[0]]=[t,r[1]?Number(r[1]):1]})};"string"==typeof a.k?o("keyword",a.k):d(a.k).forEach(function(e){o(e,a.k[e])}),a.k=s}a.lR=r(a.l||/\w+/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=r(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=r(a.e)),a.tE=t(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=r(a.i)),null==a.r&&(a.r=1),a.c||(a.c=[]),a.c=Array.prototype.concat.apply([],a.c.map(function(e){return(t="self"===e?a:e).v&&!t.cached_variants&&(t.cached_variants=t.v.map(function(e){return c(t,{v:null},e)})),t.cached_variants||t.eW&&[c(t)]||[t];var t})),a.c.forEach(function(e){n(e,a)}),a.starts&&n(a.starts,i);var l=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(t).filter(Boolean);a.t=l.length?r(l.join("|"),!0):{exec:function(){return null}}}}(e)}function o(e,r,a,c){function i(e,t,r,n){var a='<span class="'+(n?"":E.classPrefix);return(a+=e+'">')+t+(r?"":y)}function u(){N+=null!=m.sL?function(){var e="string"==typeof m.sL;if(e&&!h[m.sL])return t(w);var r=e?o(m.sL,w,!0,v[m.sL]):l(w,m.sL.length?m.sL:void 0);return m.r>0&&(M+=r.r),e&&(v[m.sL]=r.top),i(r.language,r.value,!1,!0)}():function(){var e,r,n,a,c,s,o;if(!m.k)return t(w);for(a="",r=0,m.lR.lastIndex=0,n=m.lR.exec(w);n;)a+=t(w.substring(r,n.index)),c=m,s=n,o=g.cI?s[0].toLowerCase():s[0],e=c.k.hasOwnProperty(o)&&c.k[o],e?(M+=e[1],a+=i(e[0],t(n[0]))):a+=t(n[0]),r=m.lR.lastIndex,n=m.lR.exec(w);return a+t(w.substr(r))}(),w=""}function f(e){N+=e.cN?i(e.cN,"",!0):"",m=Object.create(e,{parent:{value:m}})}function b(e,t){if(w+=e,null==t)return u(),0;var r=function(e,t){var r,a;for(r=0,a=t.c.length;a>r;r++)if(n(t.c[r].bR,e))return t.c[r]}(t,m);if(r)return r.skip?w+=t:(r.eB&&(w+=t),u(),r.rB||r.eB||(w=t)),f(r),r.rB?0:t.length;var c,i=function e(t,r){if(n(t.eR,r)){for(;t.endsParent&&t.parent;)t=t.parent;return t}return t.eW?e(t.parent,r):void 0}(m,t);if(i){var s=m;s.skip?w+=t:(s.rE||s.eE||(w+=t),u(),s.eE&&(w=t));do{m.cN&&(N+=y),m.skip||(M+=m.r),m=m.parent}while(m!==i.parent);return i.starts&&f(i.starts),s.rE?0:t.length}if(c=t,!a&&n(m.iR,c))throw new Error('Illegal lexeme "'+t+'" for mode "'+(m.cN||"<unnamed>")+'"');return w+=t,t.length||1}var g=p(e);if(!g)throw new Error('Unknown language: "'+e+'"');s(g);var d,m=c||g,v={},N="";for(d=m;d!==g;d=d.parent)d.cN&&(N=i(d.cN,"",!0)+N);var w="",M=0;try{for(var x,R,C=0;m.t.lastIndex=C,x=m.t.exec(r);)R=b(r.substring(C,x.index),x[0]),C=x.index+R;for(b(r.substr(C)),d=m;d.parent;d=d.parent)d.cN&&(N+=y);return{r:M,value:N,language:e,top:m}}catch(e){if(e.message&&-1!==e.message.indexOf("Illegal"))return{r:0,value:t(r)};throw e}}function l(e,r){r=r||E.languages||d(h);var n={r:0,value:t(e)},a=n;return r.filter(p).forEach(function(t){var r=o(t,e,!1);r.language=t,r.r>a.r&&(a=r),r.r>n.r&&(a=n,n=r)}),a.language&&(n.second_best=a),n}function u(e){return E.tabReplace||E.useBR?e.replace(w,function(e,t){return E.useBR&&"\n"===e?"<br>":E.tabReplace?t.replace(/\t/g,E.tabReplace):""}):e}function f(e){var n,c,s,f,b,d,h,v,w,y,M=function(e){var t,r,n,c,i=e.className+" ";if(i+=e.parentNode?e.parentNode.className:"",r=N.exec(i))return p(r[1])?r[1]:"no-highlight";for(t=0,n=(i=i.split(/\s+/)).length;n>t;t++)if(c=i[t],a(c)||p(c))return c}(e);a(M)||(E.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div")).innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n"):n=e,b=n.textContent,s=M?o(M,b,!0):l(b),(c=i(n)).length&&((f=document.createElementNS("http://www.w3.org/1999/xhtml","div")).innerHTML=s.value,s.value=function(e,n,a){function c(){return e.length&&n.length?e[0].offset!==n[0].offset?e[0].offset<n[0].offset?e:n:"start"===n[0].event?e:n:e.length?e:n}function i(e){u+="<"+r(e)+g.map.call(e.attributes,function(e){return" "+e.nodeName+'="'+t(e.value).replace('"',"&quot;")+'"'}).join("")+">"}function s(e){u+="</"+r(e)+">"}function o(e){("start"===e.event?i:s)(e.node)}for(var l=0,u="",f=[];e.length||n.length;){var b=c();if(u+=t(a.substring(l,b[0].offset)),l=b[0].offset,b===e){f.reverse().forEach(s);do{o(b.splice(0,1)[0]),b=c()}while(b===e&&b.length&&b[0].offset===l);f.reverse().forEach(i)}else"start"===b[0].event?f.push(b[0].node):f.pop(),o(b.splice(0,1)[0])}return u+t(a.substr(l))}(c,i(f),b)),s.value=u(s.value),e.innerHTML=s.value,e.className=(d=e.className,h=M,v=s.language,w=h?m[h]:v,y=[d.trim()],d.match(/\bhljs\b/)||y.push("hljs"),-1===d.indexOf(w)&&y.push(w),y.join(" ").trim()),e.result={language:s.language,re:s.r},s.second_best&&(e.second_best={language:s.second_best.language,re:s.second_best.r}))}function b(){if(!b.called){b.called=!0;var e=document.querySelectorAll("pre code");g.forEach.call(e,f)}}function p(e){return e=(e||"").toLowerCase(),h[e]||h[m[e]]}var g=[],d=Object.keys,h={},m={},v=/^(no-?highlight|plain|text)$/i,N=/\blang(?:uage)?-([\w-]+)\b/i,w=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,y="</span>",E={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0};return e.highlight=o,e.highlightAuto=l,e.fixMarkup=u,e.highlightBlock=f,e.configure=function(e){E=c(E,e)},e.initHighlighting=b,e.initHighlightingOnLoad=function(){addEventListener("DOMContentLoaded",b,!1),addEventListener("load",b,!1)},e.registerLanguage=function(t,r){var n=h[t]=r(e);n.aliases&&n.aliases.forEach(function(e){m[e]=t})},e.listLanguages=function(){return d(h)},e.getLanguage=p,e.inherit=c,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/},e.C=function(t,r,n){var a=e.inherit({cN:"comment",b:t,e:r,c:[]},n||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e}),hljs.registerLanguage("css",function(e){var t={b:/[A-Z\_\.\-]+\s*:/,rB:!0,e:";",eW:!0,c:[{cN:"attribute",b:/\S/,e:":",eE:!0,starts:{eW:!0,eE:!0,c:[{b:/[\w-]+\(/,rB:!0,c:[{cN:"built_in",b:/[\w-]+/},{b:/\(/,e:/\)/,c:[e.ASM,e.QSM]}]},e.CSSNM,e.QSM,e.ASM,e.CBCM,{cN:"number",b:"#[0-9A-Fa-f]+"},{cN:"meta",b:"!important"}]}}]};return{cI:!0,i:/[=\/|'\$]/,c:[e.CBCM,{cN:"selector-id",b:/#[A-Za-z0-9_-]+/},{cN:"selector-class",b:/\.[A-Za-z0-9_-]+/},{cN:"selector-attr",b:/\[/,e:/\]/,i:"$"},{cN:"selector-pseudo",b:/:(:)?[a-zA-Z0-9\_\-\+\(\)"'.]+/},{b:"@(font-face|page)",l:"[a-z-]+",k:"font-face page"},{b:"@",e:"[{;]",i:/:/,c:[{cN:"keyword",b:/\w+/},{b:/\s/,eW:!0,eE:!0,r:0,c:[e.ASM,e.QSM,e.CSSNM]}]},{cN:"selector-tag",b:"[a-zA-Z-][a-zA-Z0-9_-]*",r:0},{b:"{",e:"}",i:/\S/,c:[e.CBCM,t]}]}}),hljs.registerLanguage("bash",function(e){var t={cN:"variable",v:[{b:/\$[\w\d#@][\w\d_]*/},{b:/\$\{(.*?)}/}]},r={cN:"string",b:/"/,e:/"/,c:[e.BE,t,{cN:"variable",b:/\$\(/,e:/\)/,c:[e.BE]}]};return{aliases:["sh","zsh"],l:/\b-?[a-z\._]+\b/,k:{keyword:"if then else elif fi for while in do done case esac function",literal:"true false",built_in:"break cd continue eval exec exit export getopts hash pwd readonly return shift test times trap umask unset alias bind builtin caller command declare echo enable help let local logout mapfile printf read readarray source type typeset ulimit unalias set shopt autoload bg bindkey bye cap chdir clone comparguments compcall compctl compdescribe compfiles compgroups compquote comptags comptry compvalues dirs disable disown echotc echoti emulate fc fg float functions getcap getln history integer jobs kill limit log noglob popd print pushd pushln rehash sched setcap setopt stat suspend ttyctl unfunction unhash unlimit unsetopt vared wait whence where which zcompile zformat zftp zle zmodload zparseopts zprof zpty zregexparse zsocket zstyle ztcp",_:"-ne -eq -lt -gt -f -d -e -s -l -a"},c:[{cN:"meta",b:/^#![^\n]+sh\s*$/,r:10},{cN:"function",b:/\w[\w\d_]*\s*\(\s*\)\s*\{/,rB:!0,c:[e.inherit(e.TM,{b:/\w[\w\d_]*/})],r:0},e.HCM,r,{cN:"string",b:/'/,e:/'/},t]}}),hljs.registerLanguage("xml",function(e){var t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:"[A-Za-z0-9\\._:-]+",r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},e.C("\x3c!--","--\x3e",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"<\/script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}}),hljs.registerLanguage("json",function(e){var t={literal:"true false null"},r=[e.QSM,e.CNM],n={e:",",eW:!0,eE:!0,c:r,k:t},a={b:"{",e:"}",c:[{cN:"attr",b:/"/,e:/"/,c:[e.BE],i:"\\n"},e.inherit(n,{b:/:/})],i:"\\S"},c={b:"\\[",e:"\\]",c:[e.inherit(n)],i:"\\S"};return r.splice(r.length,0,a,c),{c:r,k:t,i:"\\S"}}),hljs.registerLanguage("javascript",function(e){var t="[A-Za-z$_][0-9A-Za-z$_]*",r={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},n={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},a={cN:"subst",b:"\\$\\{",e:"\\}",k:r,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,a]};a.c=[e.ASM,e.QSM,c,n,e.RM];var i=a.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:r,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,n,{b:/[{,]\s*/,r:0,c:[{b:t+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:t,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+t+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:t},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:r,c:i}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:t}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:i}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});
+</script>
+<script>
+  window.addEventListener('load', () => {
+    hljs.initHighlighting();
+  });
+</script> <script>
+  /*! lazysizes - v4.0.3 */
+  !function(a,b){var c=b(a,a.document);a.lazySizes=c,"object"==typeof module&&module.exports&&(module.exports=c)}(window,function(a,b){"use strict";if(b.getElementsByClassName){var c,d,e=b.documentElement,f=a.Date,g=a.HTMLPictureElement,h="addEventListener",i="getAttribute",j=a[h],k=a.setTimeout,l=a.requestAnimationFrame||k,m=a.requestIdleCallback,n=/^picture$/i,o=["load","error","lazyincluded","_lazyloaded"],p={},q=Array.prototype.forEach,r=function(a,b){return p[b]||(p[b]=new RegExp("(\\s|^)"+b+"(\\s|$)")),p[b].test(a[i]("class")||"")&&p[b]},s=function(a,b){r(a,b)||a.setAttribute("class",(a[i]("class")||"").trim()+" "+b)},t=function(a,b){var c;(c=r(a,b))&&a.setAttribute("class",(a[i]("class")||"").replace(c," "))},u=function(a,b,c){var d=c?h:"removeEventListener";c&&u(a,b),o.forEach(function(c){a[d](c,b)})},v=function(a,d,e,f,g){var h=b.createEvent("CustomEvent");return e||(e={}),e.instance=c,h.initCustomEvent(d,!f,!g,e),a.dispatchEvent(h),h},w=function(b,c){var e;!g&&(e=a.picturefill||d.pf)?e({reevaluate:!0,elements:[b]}):c&&c.src&&(b.src=c.src)},x=function(a,b){return(getComputedStyle(a,null)||{})[b]},y=function(a,b,c){for(c=c||a.offsetWidth;c<d.minSize&&b&&!a._lazysizesWidth;)c=b.offsetWidth,b=b.parentNode;return c},z=function(){var a,c,d=[],e=[],f=d,g=function(){var b=f;for(f=d.length?e:d,a=!0,c=!1;b.length;)b.shift()();a=!1},h=function(d,e){a&&!e?d.apply(this,arguments):(f.push(d),c||(c=!0,(b.hidden?k:l)(g)))};return h._lsFlush=g,h}(),A=function(a,b){return b?function(){z(a)}:function(){var b=this,c=arguments;z(function(){a.apply(b,c)})}},B=function(a){var b,c=0,e=d.throttleDelay,g=d.ricTimeout,h=function(){b=!1,c=f.now(),a()},i=m&&g>49?function(){m(h,{timeout:g}),g!==d.ricTimeout&&(g=d.ricTimeout)}:A(function(){k(h)},!0);return function(a){var d;(a=a===!0)&&(g=33),b||(b=!0,d=e-(f.now()-c),0>d&&(d=0),a||9>d?i():k(i,d))}},C=function(a){var b,c,d=99,e=function(){b=null,a()},g=function(){var a=f.now()-c;d>a?k(g,d-a):(m||e)(e)};return function(){c=f.now(),b||(b=k(g,d))}};!function(){var b,c={lazyClass:"lazyload",loadedClass:"lazyloaded",loadingClass:"lazyloading",preloadClass:"lazypreload",errorClass:"lazyerror",autosizesClass:"lazyautosizes",srcAttr:"data-src",srcsetAttr:"data-srcset",sizesAttr:"data-sizes",minSize:40,customMedia:{},init:!0,expFactor:1.5,hFac:.8,loadMode:2,loadHidden:!0,ricTimeout:0,throttleDelay:125};d=a.lazySizesConfig||a.lazysizesConfig||{};for(b in c)b in d||(d[b]=c[b]);a.lazySizesConfig=d,k(function(){d.init&&F()})}();var D=function(){var g,l,m,o,p,y,D,F,G,H,I,J,K,L,M=/^img$/i,N=/^iframe$/i,O="onscroll"in a&&!/glebot/.test(navigator.userAgent),P=0,Q=0,R=0,S=-1,T=function(a){R--,a&&a.target&&u(a.target,T),(!a||0>R||!a.target)&&(R=0)},U=function(a,c){var d,f=a,g="hidden"==x(b.body,"visibility")||"hidden"!=x(a,"visibility");for(F-=c,I+=c,G-=c,H+=c;g&&(f=f.offsetParent)&&f!=b.body&&f!=e;)g=(x(f,"opacity")||1)>0,g&&"visible"!=x(f,"overflow")&&(d=f.getBoundingClientRect(),g=H>d.left&&G<d.right&&I>d.top-1&&F<d.bottom+1);return g},V=function(){var a,f,h,j,k,m,n,p,q,r=c.elements;if((o=d.loadMode)&&8>R&&(a=r.length)){f=0,S++,null==K&&("expand"in d||(d.expand=e.clientHeight>500&&e.clientWidth>500?500:370),J=d.expand,K=J*d.expFactor),K>Q&&1>R&&S>2&&o>2&&!b.hidden?(Q=K,S=0):Q=o>1&&S>1&&6>R?J:P;for(;a>f;f++)if(r[f]&&!r[f]._lazyRace)if(O)if((p=r[f][i]("data-expand"))&&(m=1*p)||(m=Q),q!==m&&(y=innerWidth+m*L,D=innerHeight+m,n=-1*m,q=m),h=r[f].getBoundingClientRect(),(I=h.bottom)>=n&&(F=h.top)<=D&&(H=h.right)>=n*L&&(G=h.left)<=y&&(I||H||G||F)&&(d.loadHidden||"hidden"!=x(r[f],"visibility"))&&(l&&3>R&&!p&&(3>o||4>S)||U(r[f],m))){if(ba(r[f]),k=!0,R>9)break}else!k&&l&&!j&&4>R&&4>S&&o>2&&(g[0]||d.preloadAfterLoad)&&(g[0]||!p&&(I||H||G||F||"auto"!=r[f][i](d.sizesAttr)))&&(j=g[0]||r[f]);else ba(r[f]);j&&!k&&ba(j)}},W=B(V),X=function(a){s(a.target,d.loadedClass),t(a.target,d.loadingClass),u(a.target,Z),v(a.target,"lazyloaded")},Y=A(X),Z=function(a){Y({target:a.target})},$=function(a,b){try{a.contentWindow.location.replace(b)}catch(c){a.src=b}},_=function(a){var b,c=a[i](d.srcsetAttr);(b=d.customMedia[a[i]("data-media")||a[i]("media")])&&a.setAttribute("media",b),c&&a.setAttribute("srcset",c)},aa=A(function(a,b,c,e,f){var g,h,j,l,o,p;(o=v(a,"lazybeforeunveil",b)).defaultPrevented||(e&&(c?s(a,d.autosizesClass):a.setAttribute("sizes",e)),h=a[i](d.srcsetAttr),g=a[i](d.srcAttr),f&&(j=a.parentNode,l=j&&n.test(j.nodeName||"")),p=b.firesLoad||"src"in a&&(h||g||l),o={target:a},p&&(u(a,T,!0),clearTimeout(m),m=k(T,2500),s(a,d.loadingClass),u(a,Z,!0)),l&&q.call(j.getElementsByTagName("source"),_),h?a.setAttribute("srcset",h):g&&!l&&(N.test(a.nodeName)?$(a,g):a.src=g),f&&(h||l)&&w(a,{src:g})),a._lazyRace&&delete a._lazyRace,t(a,d.lazyClass),z(function(){(!p||a.complete&&a.naturalWidth>1)&&(p?T(o):R--,X(o))},!0)}),ba=function(a){var b,c=M.test(a.nodeName),e=c&&(a[i](d.sizesAttr)||a[i]("sizes")),f="auto"==e;(!f&&l||!c||!a[i]("src")&&!a.srcset||a.complete||r(a,d.errorClass)||!r(a,d.lazyClass))&&(b=v(a,"lazyunveilread").detail,f&&E.updateElem(a,!0,a.offsetWidth),a._lazyRace=!0,R++,aa(a,b,f,e,c))},ca=function(){if(!l){if(f.now()-p<999)return void k(ca,999);var a=C(function(){d.loadMode=3,W()});l=!0,d.loadMode=3,W(),j("scroll",function(){3==d.loadMode&&(d.loadMode=2),a()},!0)}};return{_:function(){p=f.now(),c.elements=b.getElementsByClassName(d.lazyClass),g=b.getElementsByClassName(d.lazyClass+" "+d.preloadClass),L=d.hFac,j("scroll",W,!0),j("resize",W,!0),a.MutationObserver?new MutationObserver(W).observe(e,{childList:!0,subtree:!0,attributes:!0}):(e[h]("DOMNodeInserted",W,!0),e[h]("DOMAttrModified",W,!0),setInterval(W,999)),j("hashchange",W,!0),["focus","mouseover","click","load","transitionend","animationend","webkitAnimationEnd"].forEach(function(a){b[h](a,W,!0)}),/d$|^c/.test(b.readyState)?ca():(j("load",ca),b[h]("DOMContentLoaded",W),k(ca,2e4)),c.elements.length?(V(),z._lsFlush()):W()},checkElems:W,unveil:ba}}(),E=function(){var a,c=A(function(a,b,c,d){var e,f,g;if(a._lazysizesWidth=d,d+="px",a.setAttribute("sizes",d),n.test(b.nodeName||""))for(e=b.getElementsByTagName("source"),f=0,g=e.length;g>f;f++)e[f].setAttribute("sizes",d);c.detail.dataAttr||w(a,c.detail)}),e=function(a,b,d){var e,f=a.parentNode;f&&(d=y(a,f,d),e=v(a,"lazybeforesizes",{width:d,dataAttr:!!b}),e.defaultPrevented||(d=e.detail.width,d&&d!==a._lazysizesWidth&&c(a,f,e,d)))},f=function(){var b,c=a.length;if(c)for(b=0;c>b;b++)e(a[b])},g=C(f);return{_:function(){a=b.getElementsByClassName(d.autosizesClass),j("resize",g)},checkElems:g,updateElem:e}}(),F=function(){F.i||(F.i=!0,E._(),D._())};return c={cfg:d,autoSizer:E,loader:D,init:F,uP:w,aC:s,rC:t,hC:r,fire:v,gW:y,rAF:z}}});
+</script>
+ <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').then(registration => {
+        console.log('service worker registration was successful')
+      }, err => {
+        console.log('service worker registration failed')
+      });
+    });
+  }
+</script>
+  
+    <script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-66348622-2', 'auto');
+  ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+</body>
+
+</html>

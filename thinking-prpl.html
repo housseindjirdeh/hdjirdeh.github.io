@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thinking PRPL - A Progressive Web Pattern</title>
+  <meta name="description" content="The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably...">
+
+  <!-- Schema.org markup for Google+ -->
+  
+  <meta itemprop="name" content="Thinking PRPL - A Progressive Web Pattern">  
+  <meta itemprop="description" content="The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably...">  
+  <meta itemprop="image" content="https://houssein.me/assets/thinking-prpl/banner.png"> 
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@hdjirdeh">
+  <meta name="twitter:creator" content="@hdjirdeh"> 
+  <meta name="twitter:title" content="Thinking PRPL - A Progressive Web Pattern">  
+  <meta name="twitter:url" content="https://houssein.me/thinking-prpl">  
+  <meta name="twitter:description" content="The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably...">  
+  <meta name="twitter:image" content="https://houssein.me/assets/thinking-prpl/banner.png"> 
+
+  <!-- Open Graph data -->
+  
+  <meta property="og:title" content="Thinking PRPL - A Progressive Web Pattern"> 
+  <meta property="og:type" content="article" /> 
+  <meta property="og:url" content="https://houssein.me/thinking-prpl">  
+  <meta property="og:image" content="https://houssein.me/assets/thinking-prpl/banner.png">  
+  <meta property="og:description" content="The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably...">  
+  <meta property="article:published_time" content="2018-06-18 07:30:00 +0000" />
+  <meta property="article:modified_time" content="2018-06-18 07:30:00 +0000" /> 
+  <meta property="fb:admins" content="1518546144" />
+  
+  <!-- Icons -->
+  <meta name="msapplication-TileColor" content="#b91d47">
+	<meta name="msapplication-TileImage" content="/icons/mstile-150x150.png">
+  <meta name="msapplication-config" content="/icons/browserconfig.xml">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <link rel="manifest" href="/icons/site.webmanifest">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#d0113f">
+
+  <link rel="shortcut icon" type="image/x-icon" href="/icons/favicon.ico" />
+  <link rel="shortcut icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="shortcut icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png">
+
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="canonical" href="https://houssein.me/thinking-prpl">
+  <link rel="author" href="https://plus.google.com/109730836902589271473" />
+  <link rel="alternate" type="application/rss+xml" title="Houssein Djirdeh" href="https://houssein.me/feed.xml">  
+  <style>
+    /*! TACHYONS v4.9.1 | http://tachyons.io  (SELECTED STYLES) */
+    .dim:active,.dim:focus,.dim:hover{-webkit-backface-visibility:hidden}.f-6,.f-headline{font-size:6rem}.f-5,.f-subheadline{font-size:5rem}.f1{font-size:3rem}.f2{font-size:2.25rem}.f3{font-size:1.5rem}.f4{font-size:1.25rem}.f5{font-size:1rem}.f6{font-size:.875rem}.f7{font-size:.75rem}.br0{border-radius:0}.br1{border-radius:.125rem}.br2{border-radius:.25rem}.br3{border-radius:.5rem}.br4{border-radius:1rem}@media screen and (min-width:30em){.f1-ns{font-size:3rem}.f2-ns{font-size:2.25rem}.f3-ns{font-size:1.5rem}.f4-ns{font-size:1.25rem}.f5-ns{font-size:1rem}.f6-ns{font-size:.875rem}.f7-ns{font-size:.75rem}.fw1-ns{font-weight:100}.fw2-ns{font-weight:200}.fw3-ns{font-weight:300}.fw4-ns{font-weight:400}.fw5-ns{font-weight:500}.fw6-ns{font-weight:600}.fw7-ns{font-weight:700}.fw8-ns{font-weight:800}.fw9-ns{font-weight:900}.pa0-ns{padding:0}.pa1-ns{padding:.25rem}.pa2-ns{padding:.5rem}.pa3-ns{padding:1rem}.pa4-ns{padding:2rem}.pa5-ns{padding:4rem}.pa6-ns{padding:8rem}.pa7-ns{padding:16rem}.pl0-ns{padding-left:0}.pl1-ns{padding-left:.25rem}.pl2-ns{padding-left:.5rem}.pl3-ns{padding-left:1rem}.pl4-ns{padding-left:2rem}.pl5-ns{padding-left:4rem}.pl6-ns{padding-left:8rem}.pl7-ns{padding-left:16rem}.pr0-ns{padding-right:0}.pr1-ns{padding-right:.25rem}.pr2-ns{padding-right:.5rem}.pr3-ns{padding-right:1rem}.pr4-ns{padding-right:2rem}.pr5-ns{padding-right:4rem}.pr6-ns{padding-right:8rem}.pr7-ns{padding-right:16rem}.pb0-ns{padding-bottom:0}.pb1-ns{padding-bottom:.25rem}.pb2-ns{padding-bottom:.5rem}.pb3-ns{padding-bottom:1rem}.pb4-ns{padding-bottom:2rem}.pb5-ns{padding-bottom:4rem}.pb6-ns{padding-bottom:8rem}.pb7-ns{padding-bottom:16rem}.pt0-ns{padding-top:0}.pt1-ns{padding-top:.25rem}.pt2-ns{padding-top:.5rem}.pt3-ns{padding-top:1rem}.pt4-ns{padding-top:2rem}.pt5-ns{padding-top:4rem}.pt6-ns{padding-top:8rem}.pt7-ns{padding-top:16rem}.pv0-ns{padding-top:0;padding-bottom:0}.pv1-ns{padding-top:.25rem;padding-bottom:.25rem}.pv2-ns{padding-top:.5rem;padding-bottom:.5rem}.pv3-ns{padding-top:1rem;padding-bottom:1rem}.pv4-ns{padding-top:2rem;padding-bottom:2rem}.pv5-ns{padding-top:4rem;padding-bottom:4rem}.pv6-ns{padding-top:8rem;padding-bottom:8rem}.pv7-ns{padding-top:16rem;padding-bottom:16rem}.ph0-ns{padding-left:0;padding-right:0}.ph1-ns{padding-left:.25rem;padding-right:.25rem}.ph2-ns{padding-left:.5rem;padding-right:.5rem}.ph3-ns{padding-left:1rem;padding-right:1rem}.ph4-ns{padding-left:2rem;padding-right:2rem}.ph5-ns{padding-left:4rem;padding-right:4rem}.ph6-ns{padding-left:8rem;padding-right:8rem}.ph7-ns{padding-left:16rem;padding-right:16rem}.ma0-ns{margin:0}.ma1-ns{margin:.25rem}.ma2-ns{margin:.5rem}.ma3-ns{margin:1rem}.ma4-ns{margin:2rem}.ma5-ns{margin:4rem}.ma6-ns{margin:8rem}.ma7-ns{margin:16rem}.ml0-ns{margin-left:0}.ml1-ns{margin-left:.25rem}.ml2-ns{margin-left:.5rem}.ml3-ns{margin-left:1rem}.ml4-ns{margin-left:2rem}.ml5-ns{margin-left:4rem}.ml6-ns{margin-left:8rem}.ml7-ns{margin-left:16rem}.mr0-ns{margin-right:0}.mr1-ns{margin-right:.25rem}.mr2-ns{margin-right:.5rem}.mr3-ns{margin-right:1rem}.mr4-ns{margin-right:2rem}.mr5-ns{margin-right:4rem}.mr6-ns{margin-right:8rem}.mr7-ns{margin-right:16rem}.mb0-ns{margin-bottom:0}.mb1-ns{margin-bottom:.25rem}.mb2-ns{margin-bottom:.5rem}.mb3-ns{margin-bottom:1rem}.mb4-ns{margin-bottom:2rem}.mb5-ns{margin-bottom:4rem}.mb6-ns{margin-bottom:8rem}.mb7-ns{margin-bottom:16rem}.mt0-ns{margin-top:0}.mt1-ns{margin-top:.25rem}.mt2-ns{margin-top:.5rem}.mt3-ns{margin-top:1rem}.mt4-ns{margin-top:2rem}.mt5-ns{margin-top:4rem}.mt6-ns{margin-top:8rem}.mt7-ns{margin-top:16rem}.mv0-ns{margin-top:0;margin-bottom:0}.mv1-ns{margin-top:.25rem;margin-bottom:.25rem}.mv2-ns{margin-top:.5rem;margin-bottom:.5rem}.mv3-ns{margin-top:1rem;margin-bottom:1rem}.mv4-ns{margin-top:2rem;margin-bottom:2rem}.mv5-ns{margin-top:4rem;margin-bottom:4rem}.mv6-ns{margin-top:8rem;margin-bottom:8rem}.mv7-ns{margin-top:16rem;margin-bottom:16rem}.mh0-ns{margin-left:0;margin-right:0}.mh1-ns{margin-left:.25rem;margin-right:.25rem}.mh2-ns{margin-left:.5rem;margin-right:.5rem}.mh3-ns{margin-left:1rem;margin-right:1rem}.mh4-ns{margin-left:2rem;margin-right:2rem}.mh5-ns{margin-left:4rem;margin-right:4rem}.mh6-ns{margin-left:8rem;margin-right:8rem}.mh7-ns{margin-left:16rem;margin-right:16rem}.mw1-ns{max-width:1rem}.mw2-ns{max-width:2rem}.mw3-ns{max-width:4rem}.mw4-ns{max-width:8rem}.mw5-ns{max-width:16rem}.mw6-ns{max-width:32rem}.mw7-ns{max-width:48rem}.mw8-ns{max-width:64rem}.mw9-ns{max-width:96rem}}.normal{font-weight:400}.b{font-weight:700}.fw1{font-weight:100}.fw2{font-weight:200}.fw3{font-weight:300}.fw4{font-weight:400}.fw5{font-weight:500}.fw6{font-weight:600}.fw7{font-weight:700}.fw8{font-weight:800}.fw9{font-weight:900}.near-black{color:#111}.white{color:#fff}.ttl{text-transform:lowercase}.flex{display:-webkit-box;display:-ms-flexbox;display:flex}.flex-column{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.items-start{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.items-end{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.items-center{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.justify-center{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-between{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.pa0{padding:0}.pa1{padding:.25rem}.pa2{padding:.5rem}.pa3{padding:1rem}.pa4{padding:2rem}.pa5{padding:4rem}.pa6{padding:8rem}.pa7{padding:16rem}.pl0{padding-left:0}.pl1{padding-left:.25rem}.pl2{padding-left:.5rem}.pl3{padding-left:1rem}.pl4{padding-left:2rem}.pl5{padding-left:4rem}.pl6{padding-left:8rem}.pl7{padding-left:16rem}.pr0{padding-right:0}.pr1{padding-right:.25rem}.pr2{padding-right:.5rem}.pr3{padding-right:1rem}.pr4{padding-right:2rem}.pr5{padding-right:4rem}.pr6{padding-right:8rem}.pr7{padding-right:16rem}.pb0{padding-bottom:0}.pb1{padding-bottom:.25rem}.pb2{padding-bottom:.5rem}.pb3{padding-bottom:1rem}.pb4{padding-bottom:2rem}.pb5{padding-bottom:4rem}.pb6{padding-bottom:8rem}.pb7{padding-bottom:16rem}.pt0{padding-top:0}.pt1{padding-top:.25rem}.pt2{padding-top:.5rem}.pt3{padding-top:1rem}.pt4{padding-top:2rem}.pt5{padding-top:4rem}.pt6{padding-top:8rem}.pt7{padding-top:16rem}.pv0{padding-top:0;padding-bottom:0}.pv1{padding-top:.25rem;padding-bottom:.25rem}.pv2{padding-top:.5rem;padding-bottom:.5rem}.pv3{padding-top:1rem;padding-bottom:1rem}.pv4{padding-top:2rem;padding-bottom:2rem}.pv5{padding-top:4rem;padding-bottom:4rem}.pv6{padding-top:8rem;padding-bottom:8rem}.pv7{padding-top:16rem;padding-bottom:16rem}.ph0{padding-left:0;padding-right:0}.ph1{padding-left:.25rem;padding-right:.25rem}.ph2{padding-left:.5rem;padding-right:.5rem}.ph3{padding-left:1rem;padding-right:1rem}.ph4{padding-left:2rem;padding-right:2rem}.ph5{padding-left:4rem;padding-right:4rem}.ph6{padding-left:8rem;padding-right:8rem}.ph7{padding-left:16rem;padding-right:16rem}.ma0{margin:0}.ma1{margin:.25rem}.ma2{margin:.5rem}.ma3{margin:1rem}.ma4{margin:2rem}.ma5{margin:4rem}.ma6{margin:8rem}.ma7{margin:16rem}.ml0{margin-left:0}.ml1{margin-left:.25rem}.ml2{margin-left:.5rem}.ml3{margin-left:1rem}.ml4{margin-left:2rem}.ml5{margin-left:4rem}.ml6{margin-left:8rem}.ml7{margin-left:16rem}.mr0{margin-right:0}.mr1{margin-right:.25rem}.mr2{margin-right:.5rem}.mr3{margin-right:1rem}.mr4{margin-right:2rem}.mr5{margin-right:4rem}.mr6{margin-right:8rem}.mr7{margin-right:16rem}.mb0{margin-bottom:0}.mb1{margin-bottom:.25rem}.mb2{margin-bottom:.5rem}.mb3{margin-bottom:1rem}.mb4{margin-bottom:2rem}.mb5{margin-bottom:4rem}.mb6{margin-bottom:8rem}.mb7{margin-bottom:16rem}.mt0{margin-top:0}.mt1{margin-top:.25rem}.mt2{margin-top:.5rem}.mt3{margin-top:1rem}.mt4{margin-top:2rem}.mt5{margin-top:4rem}.mt6{margin-top:8rem}.mt7{margin-top:16rem}.mv0{margin-top:0;margin-bottom:0}.mv1{margin-top:.25rem;margin-bottom:.25rem}.mv2{margin-top:.5rem;margin-bottom:.5rem}.mv3{margin-top:1rem;margin-bottom:1rem}.mv4{margin-top:2rem;margin-bottom:2rem}.mv5{margin-top:4rem;margin-bottom:4rem}.mv6{margin-top:8rem;margin-bottom:8rem}.mv7{margin-top:16rem;margin-bottom:16rem}.mh0{margin-left:0;margin-right:0}.mh1{margin-left:.25rem;margin-right:.25rem}.mh2{margin-left:.5rem;margin-right:.5rem}.mh3{margin-left:1rem;margin-right:1rem}.mh4{margin-left:2rem;margin-right:2rem}.mh5{margin-left:4rem;margin-right:4rem}.mh6{margin-left:8rem;margin-right:8rem}.mh7{margin-left:16rem;margin-right:16rem}.mw1{max-width:1rem}.mw2{max-width:2rem}.mw3{max-width:4rem}.mw4{max-width:8rem}.mw5{max-width:16rem}.mw6{max-width:32rem}.mw7{max-width:48rem}.mw8{max-width:64rem}.mw9{max-width:96rem}.w-100{width:100%}.dim{opacity:1;-webkit-transition:opacity .15s ease-in;transition:opacity .15s ease-in}.dim:focus,.dim:hover{backface-visibility:hidden;opacity:.5;-webkit-transition:opacity .15s ease-in;transition:opacity .15s ease-in}.dim:active{backface-visibility:hidden;opacity:.8;-webkit-transition:opacity .15s ease-out;transition:opacity .15s ease-out}.grow{-moz-osx-font-smoothing:grayscale;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform:translateZ(0);transform:translateZ(0);-webkit-transition:-webkit-transform .25s ease-out;transition:-webkit-transform .25s ease-out;transition:transform .25s ease-out;transition:transform .25s ease-out,-webkit-transform .25s ease-out}.grow:focus,.grow:hover{-webkit-transform:scale(1.05);transform:scale(1.05)}.grow:active{-webkit-transform:scale(.9);transform:scale(.9)}.dib{display:inline-block}.h1{height:1rem}.h2{height:2rem}.h3{height:4rem}.h4{height:8rem}.h5{height:16rem}.bb{border-bottom-style:solid;border-bottom-width:1px}.bt{border-top-style:solid;border-top-width:1px}.link{text-decoration:none;-webkit-transition:color .15s ease-in;transition:color .15s ease-in}.link:active,.link:hover,.link:link,.link:visited{-webkit-transition:color .15s ease-in;transition:color .15s ease-in}.link:focus{-webkit-transition:color .15s ease-in;transition:color .15s ease-in;outline:currentColor dotted 1px}.center{margin-right:auto;margin-left:auto}img,video{max-width:100%}    
+    /* Extra styles */
+    #markup video,body,html{width:100%}#markup aside a,#markup li a,#markup p a,.link-effect{text-decoration:none;transition:color .15s ease-in;border-bottom:1px solid #d0113f}#markup aside p,#markup figure,body,html{margin:0}body,html{padding:0;background:#fff;font-family:avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;font-weight:400;color:#444;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}#markup aside ol,#markup aside p,#markup aside ul{font-weight:500}*{box-sizing:border-box}.hover-red:hover,.red{color:#d0113f}.bg-red{background-color:#d0113f}#home-icon-container{transition:all .15s ease-in-out}#home-icon-container:hover #home-icon{fill:#d0113f}.lh-copy{line-height:1.7}#markup h2,#markup h3,#markup h4{margin-top:3rem;margin-bottom:1rem}#markup aside{margin:30px 0;background:#f1ece9;padding:25px;border-radius:10px}#markup aside.secondary{background:#e3f3f9}#markup aside a,#markup li a,#markup p a{font-weight:600;color:#d0113f;-webkit-box-shadow:inset 0 -2px 0 0 #d0113f;box-shadow:inset 0 -2px 0 0 #d0113f;padding-bottom:2px}#markup aside a:hover,#markup blockquote footer,#markup li a:hover,#markup p a:hover{color:#111}#markup aside h1,#markup aside h2,#markup aside h3,#markup aside h4{margin-top:0}#markup aside img{margin-top:2rem}#markup blockquote{color:#767676;border-left:4px solid #e9e9e9;padding-left:15px;letter-spacing:-1px;font-style:italic;margin:0}#markup li code,#markup p code{background:#f8f8f8;padding:5px}#markup figure code,#markup figure li code{background:#f8f8f8;font-size:.95rem;padding:1rem}@media (max-width:30rem){#markup figure code,#markup figure li code{font-size:.8rem}}#markup img{left:50%;position:relative;transform:translate(-50%,0);top:50%;margin:0 -50% 0 0}@media (min-width:560px){#markup img.small,video.small{max-width:500px}}#markup img.shadow,video.shadow{box-shadow:0 1px 16px 0 rgba(0,0,0,.2),0 2px 8px 0 rgba(0,0,0,.14),0 4px 8px -1px rgba(0,0,0,.12)}#markup .image-source{font-size:16px;margin:0 0 3rem;text-align:center;letter-spacing:.02rem;color:#d0113f;font-weight:700}#markup .image-source.no-margin{margin-bottom:0}.link-effect{font-weight:600;color:#d0113f;-webkit-box-shadow:inset 0 -2px 0 0 #d0113f;box-shadow:inset 0 -2px 0 0 #d0113f;padding-bottom:2px}.link-effect:hover{color:#111}
+    /* Github Highlight */
+    /* GitHub highlight (slightly modified) */
+    .hljs{display:block;overflow-x:auto;padding:0.5em;color:#333;background:#f8f8f8}.hljs-comment,.hljs-quote{color:#404040;font-style:italic}.hljs-keyword,.hljs-selector-tag,.hljs-subst{color:#333;font-weight:bold}.hljs-number,.hljs-literal,.hljs-variable,.hljs-template-variable,.hljs-tag .hljs-attr{color:#045252}.hljs-string,.hljs-doctag{color:#d14}.hljs-title,.hljs-section,.hljs-selector-id{color:#900;font-weight:bold}.hljs-subst{font-weight:normal}.hljs-type,.hljs-class .hljs-title{color:#458;font-weight:bold}.hljs-tag,.hljs-name,.hljs-attribute{color:#000080;font-weight:normal}.hljs-regexp,.hljs-link{color:#014c13}.hljs-symbol,.hljs-bullet{color:#990073}.hljs-built_in,.hljs-builtin-name{color:#004d67}.hljs-meta{color:#999;font-weight:bold}.hljs-deletion{background:#fdd}.hljs-addition{background:#dfd}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:bold}
+  </style>
+</head>
+
+<body>
+
+  <div class="flex flex-column items-center justify-between">
+    <header class="h5 flex items-center">
+  <a id="home-icon-container" href="/" aria-label="Home"><svg width="50" height="50" preserveAspectRatio="none" viewBox="0 0 350 350">
+  <defs>
+    <clipPath id="a">
+      <path d="M0 300h500V0H0z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 -150 390)">
+    <path id="home-icon" fill="#1d1d1d" d="M237.4502 130.5498c5 4.967 11.017 7.45 18.05 7.45 7.033 0 13.033-2.483 18-7.45 5-5 7.5-11.017 7.5-18.05 0-7.033-2.5-13.033-7.5-18-4.967-5-10.967-7.5-18-7.5-7.033 0-13.05 2.5-18.05 7.5-4.967 4.967-7.45 10.967-7.45 18 0 7.033 2.483 13.05 7.45 18.05m87.3 56.85l15.099-15.1c2.368-2.367 2.384-4.716.051-7.05l-17.15-17.15c-2.366-2.366-4.734-2.366-7.1 0l-59.551 59.55-59.299-59.3c-.5-.5-.983-.883-1.45-1.15l-53.95-53.95c-2.367-2.366-4.734-2.366-7.1 0l-17.15 17.151c-2.333 2.333-2.317 4.682.05 7.049l61.15 61.15h.3l55.1 55.1h.35l7.85 7.85c4.6 4.6 9.2 6.95 13.8 7.05h.599c3.467-.067 6.934-1.417 10.401-4.05l13.65-12.6-.1-.1 23.2-23.2v13.2c0 3.333 1.667 5 5 5h11.25c3.333 0 5-1.667 5-5z" fill-rule="evenodd"/>
+  </g>
+</svg></a>
+</header>
+  </div>
+
+  <div class="flex flex-column justify-between mw7 pb5 center w-100 ph4">
+    <div class="flex flex-column mt2 mb5">
+      <h1 class="f3 f1-ns ttl mb2 near-black lh-title">
+        Thinking PRPL - A Progressive Web Pattern
+      </h1>
+      <time class="f5 fw6 red" datetime="2018-06-18 07:30:00 +0000">June 18, 2018</time>
+    </div>
+    <div id="markup" class="f5 f4-ns lh-copy near-black">
+      <aside>
+<p>Although modified to include additional information, this article is a write-up of a talk I gave at <a href="https://www.youtube.com/watch?v=RcHWKieBslk">.concat()</a> and Fluent.</p>
+</aside>
+
+<p>The PRPL pattern is not a specific technology or tool, but rather a methodology for building web applications that load fast and reliably.</p>
+
+<ul>
+  <li>First and foremost, you send (<strong>push</strong>) the most critical resources to your users.</li>
+  <li>You do this in order to <strong>render</strong> your initial route as soon as possible.</li>
+  <li>You then <strong>pre-cache</strong> remaining assets.</li>
+  <li>Finally, you can consider <strong>lazy loading</strong> your routes.</li>
+</ul>
+
+<p>The term <code class="highlighter-rouge">PRPL</code> was coined by the Polymer team in their <a href="https://youtu.be/J4i0xJnQUzU?t=2032">talk at Google I/O 2016</a>.</p>
+
+<h2 id="mobile-web">Mobile Web</h2>
+
+<p>It is probably safe to assume that the majority of individuals who read this article own a mobile device, and the amount of time that we spend on our smartphones and tablets have only increased year after year.</p>
+
+<p><img alt="comScore 2017 U.S. Mobile App Report" title="comScore 2017 U.S. Mobile App Report" data-src="/assets/thinking-prpl/comScore-app-report.png" class="lazyload shadow" /></p>
+
+<p>In comScore’s <a href="https://www.comscore.com/Insights/Presentations-and-Whitepapers/2017/The-2017-US-Mobile-App-Report">2017 U.S. Mobile App Report</a>, it was found that the average user spends 16x more time on popular native apps than the mobile web. As mobile device consumers, we are far more likely to spend more time on native apps than we do on the mobile browser. However, mobile web pages still received over <em>twice as many</em> unique monthly visitors than native apps. This is due to a multitude of reasons, including the convenience, security and simplicity of just typing a URL into an address bar instead of installing an entire application.</p>
+
+<p>So how can we ensure that users who discover our web pages have a great experience regardless of what device they use? There are quite a few ways, and we’ll go through some specific techniques and resource hints in this article. But before we do that, let’s take a little time to talk about how the web works first.</p>
+
+<p>When we open a browser on a mobile device (or tablet or desktop) and type something into the address bar and press <code class="highlighter-rouge">Enter</code>, a request is sent to a remote server somewhere.</p>
+
+<p><img alt="Request to remote server" title="Request to remote server" data-src="/assets/thinking-prpl/request.png" class="lazyload shadow" /></p>
+
+<p>After a certain period of time, the server responds with content that the browser needs. This usually takes shape of an HTML document. The underlying application protocol used by the web (HTTP) works using this request-response pattern.</p>
+
+<p>Once the browser retrieves the initial HTML document, the next thing it does is parse through the contents of the file in order to determine what other resources it needs. For each external resource that it finds, it submits a separate request for it. These resources can include CSS files for styling, JavaScript for dynamic content or even static images. Multiple round trips are usually needed for a typical webpage in order to get all of the content that the user needs to see.</p>
+
+<h2 id="link-preload">Link Preload</h2>
+
+<p>Let’s assume that the following markup represents the HTML document that our browser receives on the initial request:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;head&gt;</span>
+      <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"styles.css"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;/head&gt;</span>
+   <span class="nt">&lt;body&gt;</span>
+      <span class="c">&lt;!--(&gt;'-')&gt; &lt;('-'&lt;)--&gt;</span>
+      <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"script.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+   <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<p>We can see that there’s a style sheet file that is referenced as well as a JavaScript file. One thing we can do in order to help the fact that multiple requests are needed is to leverage <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content">preload</a>:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;head&gt;</span>
+      <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"preload"</span> <span class="na">as=</span><span class="s">"script"</span> <span class="na">href=</span><span class="s">"script.js"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"styles.css"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;/head&gt;</span>
+   <span class="nt">&lt;body&gt;</span>
+      <span class="c">&lt;!--(&gt;'-')&gt; &lt;('-'&lt;)--&gt;</span>
+      <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"script.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+   <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<p>The preload hint has a syntax that a lot of us may already be familiar with:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"preload"</span> <span class="na">as=</span><span class="s">"script"</span> <span class="na">href=</span><span class="s">"script.js"</span><span class="nt">&gt;</span></code></pre></figure>
+
+<p>It’s a <code class="highlighter-rouge">&lt;link&gt;</code> element where we define the location of the file as an <code class="highlighter-rouge">href</code> attribute. We specify the <code class="highlighter-rouge">preload</code> keyword using the <code class="highlighter-rouge">rel</code> attribute and the type of file we’re trying to load using <code class="highlighter-rouge">as</code>. In this case, we’re trying to preload a JavaScript file - hence why we’ve defined <code class="highlighter-rouge">as="script"</code>.</p>
+
+<p>Using preload allows us to inform the browser that a resource is needed immediately after the page loads. In other words, we’re telling the browser that this is a critical resource so please start loading it as soon as you can.</p>
+
+<p><img alt="Preload" title="Preload" data-src="/assets/thinking-prpl/preload.png" class="lazyload shadow" /></p>
+
+<p>Although we can specify preload tags for resources defined in the <code class="highlighter-rouge">head</code> or <code class="highlighter-rouge">body</code> of our root HTML file, you’re more likely to get the most bang for your buck using preload for resources that might be discovered much later. An example of this could be a specific font tucked deep in one of your CSS files.</p>
+
+<p>Style sheet and JavaScript files are not the only types of resources we can pre-emptively fetch using preload. <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content#What_types_of_content_can_be_preloaded">Other types of content</a> can be preloaded as well.</p>
+
+<h3 id="link-prefetch">Link Prefetch</h3>
+
+<p>Instead of preload, we can also make use of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ">prefetch</a> tag for some of our resources. The difference here is that prefetch is more suited for resources needed for a different navigation route. This means that the browser will know to fetch and cache this resource once it has completed loading the current page.</p>
+
+<aside>
+  <p>For a deeper dive into how Chrome prioritizes preloaded and prefetched resources as well as some real-world preload statistics, you can refer to Addy Osmani's write-up: <a href="https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf">Preload, Prefetch And Priorities in Chrome</a>.</p>
+</aside>
+
+<p>Although it may seem straightforward to add <code class="highlighter-rouge">&lt;link rel="preload"&gt;</code> and <code class="highlighter-rouge">&lt;link rel="prefetch"&gt;</code> tags to the head of your HTML document for static sites, it can be a little tricker if you happen to be using a module bundler for a single-page application. Fortunately, there are a number of potential tools that can make this easier:</p>
+
+<ul>
+  <li>webpack 4.6.0 <a href="https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c">provides support</a> for prefetching and preloading resources using ‘magic’ comments:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">import</span><span class="p">(</span><span class="cm">/* webpackPreload: true */</span> <span class="s2">"PreloadedPage"</span><span class="p">)</span>
+
+<span class="k">import</span><span class="p">(</span><span class="cm">/* webpackPrefetch: true */</span> <span class="s2">"PrefetchedPage"</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>If you happen to be using an older version of webpack:
+    <ul>
+      <li><a href="https://github.com/GoogleChromeLabs/preload-webpack-plugin">preload-webpack-plugin</a> is a webpack plugin that allows you to define dynamically generated chunks (as a result of code-splitting) as preloaded or prefetched resources. This plugin is supposed to be used alongside <a href="https://github.com/jantimon/html-webpack-plugin">html-webpack-plugin</a>.</li>
+      <li><a href="https://github.com/numical/script-ext-html-webpack-plugin">script-ext-html-webpack-plugin</a> is an extension of <a href="https://github.com/jantimon/html-webpack-plugin">html-webpack-plugin</a> and can be used to attach custom attributes and resource hints to generated chunks, including <code class="highlighter-rouge">preload</code> and <code class="highlighter-rouge">prefetch</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="browser-support">Browser Support</h3>
+
+<p>At the time of writing this article, the browser support for preload is as follows:</p>
+
+<ul>
+  <li>Shipped:
+    <ul>
+      <li><a href="https://www.chromestatus.com/feature/5757468554559488">Chrome</a></li>
+      <li><a href="https://webkit.org/status/#specification-preload">Safari</a></li>
+      <li><a href="https://platform-status.mozilla.org/#link-rel-preload">Firefox</a></li>
+    </ul>
+  </li>
+  <li>In development:
+    <ul>
+      <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/status/preload/">Edge</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="http2-server-push">HTTP/2 Server Push</h2>
+
+<p>We’ve just covered how we can use <code class="highlighter-rouge">&lt;link rel="preload"&gt;</code> to load critical resources as early as possible, but another useful point of topic is HTTP/2 Server Push. In short, <a href="https://http2.github.io/">HTTP/2</a> is a revision of HTTP and aims to provide a number of performance improvements. For the purpose of this article, we’re only going to focus on Server Push.</p>
+
+<p>The idea behind Server Push is that when we send down the initial HTML document during our first request/response interaction, we can also send down (or push) critical assets at the same time. These are assets we know the browser will need before it even knows it needs them itself.</p>
+
+<p><img alt="Server Push" title="Server Push" data-src="/assets/thinking-prpl/server-push.png" class="lazyload shadow" /></p>
+
+<p>One of the primary benefits of using Server Push is that it can minimize round trips to the server. We can remove the time it takes the browser to parse the contents of the HTML file and fire subsequent requests for any assets that it finds which can result in shorter page load times.</p>
+
+<p>One thing we didn’t mention earlier about preload is that instead of using HTML tags, we can also specify HTTP headers:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">Link: <span class="nt">&lt;/app</span><span class="err">/style.css</span><span class="nt">&gt;</span>; rel=preload; as=style
+Link: <span class="nt">&lt;/app</span><span class="err">/script.js</span><span class="nt">&gt;</span>; rel=preload; as=script</code></pre></figure>
+
+<p>Many hosting platforms that support HTTP/2 Push will attempt to push assets down the wire when it sees that you’ve preloaded them using Link HTTP headers. Examples include <a href="https://firebase.googleblog.com/2016/09/http2-comes-to-firebase-hosting.html">Firebase Hosting</a> and <a href="https://www.netlify.com/blog/2017/07/18/http/2-server-push-on-netlify/">Netlify</a>.</p>
+
+<aside>
+  <p>Although having Server Push instantiated automatically for assets where we've declated Link Headers can be useful, there may be cases where you may only want to preload your assets and not rely on Push whatsoever. In those cases, you can use a <code>nopush</code> attribute:</p>
+  <figure class="highlight"><pre class=" language-html"><code class=" language-html" data-lang="html">Link: &lt;/app/style.css&gt;; rel=preload; as=style; nopush
+Link: &lt;/app/script.js&gt;; rel=preload; as=script</code></pre></figure>
+<p>The result here is the same as using a preload link HTML tag.</p>
+</aside>
+
+<h3 id="server-push-is-experimental">Server Push is experimental</h3>
+
+<p>Although page load times can be reduced with Server Push, it can actually harm performance if not used correctly. There are a number of reasons why this can happen:</p>
+
+<ul>
+  <li><strong>Pushing unused assets:</strong> The server has no idea which resources are being used by the client, and pushing assets that aren’t used can waste user bandwidth.</li>
+  <li><strong>Pushing too many assets:</strong> Pushing too many assets can cause performance hits. There’s no specific number of files you should be pushing and it can vary depending on how many resources the browser is trying to load. It is important to keep in mind that Server Push can overwrite the browser’s prioritization logic and you should try pushing assets with the correct order of loading.</li>
+  <li><strong>Pushing assets already cached by the browser:</strong> Ideally, we would want the browser to reject pushed resources if it already has it stored in one of its caches. Although the client can use <a href="https://tools.ietf.org/html/rfc7540#section-8.2.2">settings</a> to make this possible, each browser behaves differently and this can get a little tricky. Jake Archibald covers this in a little more detail in his excellent <a href="https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/#the-browser-can-abort-pushed-items-if-it-already-has-them">write-up</a> about the nuances of HTTP/2 Push between different browsers.</li>
+</ul>
+
+<aside>
+  <p>For more information on Server Push, you can refer to Jeremy Wagner's <a href="https://www.smashingmagazine.com/2017/04/guide-http2-server-push/">guide.</a></p>
+</aside>
+
+<h2 id="service-workers">Service Workers</h2>
+
+<p>Now let’s shift gears a bit and talk about the <em>pre-cache</em> concept in PRPL. I’ve briefly addressed service workers in my previous <a href="https://houssein.me/progressive-angular-applications">post</a> about building progressive Angular applications, but we’ll dive a little deeper here.</p>
+
+<p>A service worker is a script that runs in the background of your browser when you view a webpage. We can either create the service worker file and write the logic ourselves, or we can use libraries that can make this process easier. One example is <a href="https://developers.google.com/web/tools/workbox/">Workbox</a>, which provides a suite of libraries and tools that we can use. One of the tools that it provides is a CLI which we can install globally:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">npm install workbox-cli <span class="nt">--global</span></code></pre></figure>
+
+<p>We can run <code class="highlighter-rouge">workbox wizard</code> in our terminal to start the process. Workbox will then ask a series of questions in order to set up a service worker with the correct configurations:</p>
+
+<ol>
+  <li><code>What is the root of your web app?</code> If you’re using a module bundler or have a build step in your application, you most likely have a final folder that you’ll need to deploy (for example: <code class="highlighter-rouge">dist/</code> or <code class="highlighter-rouge">build/</code>).</li>
+  <li><code>Which file types would you like to precache?</code> You can decide which file types you would like to precache.</li>
+  <li><code>Where would you like your service worker file to be saved?</code> You most likely would need to have your service worker saved in the folder you deploy, but you can specify where exactly.</li>
+  <li><code>Where would you like to save these configuration settings?</code> Workbox saves these settings into a separate configurations file (and you can decide where to save it).</li>
+</ol>
+
+<p>The default answer for saving the configurations file is <code class="highlighter-rouge">workbox-config.js</code> at the root of your application. The generated file looks like this:</p>
+
+<div class="highlight-in-list">
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">globDirectory</span><span class="p">:</span> <span class="s1">'dist/'</span><span class="p">,</span>
+  <span class="na">globPatterns</span><span class="p">:</span> <span class="p">[</span><span class="s1">'**/*.{js,png,svg,html,json}'</span><span class="p">],</span>
+  <span class="na">swDest</span><span class="p">:</span> <span class="s1">'dist/service-worker.js'</span><span class="p">,</span>
+<span class="p">};</span></code></pre></figure>
+
+</div>
+
+<p>Once we have our configurations file saved, simply running the following command creates a new service worker file:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">workbox generateSW workbox-config.js</code></pre></figure>
+
+<p>Although this creates a service worker file where we’ve asked it to, we still need to tell the browser to register it. We can do this by adding a <code class="highlighter-rouge">&lt;script&gt;</code> tag in <code class="highlighter-rouge">index.html</code>:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script&gt;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="s1">'serviceWorker'</span> <span class="k">in</span> <span class="nb">navigator</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'load'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nb">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">'/service-worker.js'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// Registration was successful</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'ServiceWorker registration successful!'</span><span class="p">);</span>
+      <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// registration failed :(</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'ServiceWorker registration failed: '</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></figure>
+
+<p>In here, we check to see if service workers are supported in the browser. If they are, we register our service worker using <code class="highlighter-rouge">navigator.serviceWorker.register()</code>. To prevent the possibility of the service worker being registered at the same time as other resources are still being loaded to the DOM, we make sure to only register it after <code class="highlighter-rouge">window.onload</code> is complete with the use of an event listener. At the end, we have logs outputted to our console in the case of a successful registration or a failed one.</p>
+
+<h3 id="application-shell">Application Shell</h3>
+
+<p>So we briefly covered how to install and register a service worker using Workbox, but we still haven’t mentioned how they work. One of the primary benefits of using a service worker is that they allow you to precache the resources that make up the Application Shell. Like the name suggests, the App Shell is the <em>shell</em> of your user interface.</p>
+
+<p><img alt="App Shell - Twitter Lite" title="App Shell - Twitter Lite" data-src="/assets/thinking-prpl/twitter-lite-app-shell.png" class="lazyload shadow" /></p>
+
+<p class="image-source"><a href="https://mobile.twitter.com">Application Shell - Twitter Lite</a></p>
+
+<p>The App Shell consists of all the HTML, CSS and JS that make up the parts of that application that don’t convey actual data (or dynamic data retrieved from a third-party location). Once the app is loaded for the first time, the assets that make up the shell can be retrieved over the network normally. A service worker can act like a middleman between the browser and the network allowing us to to cache these resources as well.</p>
+
+<p><img alt="Service Worker" title="Service Worker" data-src="/assets/thinking-prpl/service-worker.png" class="lazyload shadow" /></p>
+
+<p>Storing the resources that make up the shell in the service worker cache means that when the user loads the application for a second time, the browser can retrieve them from the service worker instead of making network requests. This results in <strong>faster page loads on repeat visits</strong>.</p>
+
+<p>Although using Workbox’s CLI can simplify creating a service worker, we would still need to remember to create a new one every time we make a change to our application. In this case, it might make more sense to integrate Workbox into our build system. For example, instead of installing the library globally - we can install it as a dependency:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">npm install workbox-cli <span class="nt">--save-dev</span></code></pre></figure>
+
+<p>We can then add it as part of our build step:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">// package.json
+
+<span class="s2">"scripts"</span>: <span class="o">{</span> 
+  //...
+  <span class="s2">"build"</span>: <span class="s2">"{build} &amp;&amp; workbox generateSW workbox-config.js"</span> 
+<span class="o">}</span></code></pre></figure>
+
+<aside>
+  <p>Instead of using the CLI, we also have the option of using an <code class="highlighter-rouge">npm</code> module or webpack plugin provided by Workbox. You can find out more in the <a href="https://developers.google.com/web/tools/workbox/modules/#node-modules">documentation.</a></p>
+</aside>
+
+<h3 id="dynamic-content">Dynamic Content</h3>
+
+<p>The next thing service workers allow us to do is pre-cache <strong>dynamic content</strong>. Just like the resources that make up the App Shell, this is data that can be retrieved from a third-party network. However, the difference here is that this is content that can change with subsequent page loads.</p>
+
+<p>Let’s modify our configurations file, <code class="highlighter-rouge">workbox-config.js</code>, to add a <code class="highlighter-rouge">runtimeCaching</code> attribute:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">globDirectory</span><span class="p">:</span> <span class="s1">'dist/'</span><span class="p">,</span>
+  <span class="na">globPatterns</span><span class="p">:</span> <span class="p">[</span><span class="s1">'**/*.{js,png,svg,html,json}'</span><span class="p">],</span>
+  <span class="na">swDest</span><span class="p">:</span> <span class="s1">'dist/service-worker.js'</span><span class="p">,</span>
+  <span class="na">runtimeCaching</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">urlPattern</span><span class="p">:</span> <span class="sr">/^https:</span><span class="se">\/\/</span><span class="sr">your.api.com</span><span class="se">\/</span><span class="sr">.*/</span><span class="p">,</span>
+      <span class="na">handler</span><span class="p">:</span> <span class="s1">'networkFirst'</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>With <code class="highlighter-rouge">runtimeCaching</code>, we can add an array of URL patterns and define a specific caching strategy for each. Different caching strategies allow us to control how our service worker can handle caching results fetched from a URL. In this example, we use the <code class="highlighter-rouge">networkFirst</code> strategy which means the service worker will always know to retrieve the contents from the network and serve it to the user. However, it will also always update its pre-cached results with the latest data. If the network happens to fail, the service worker will serve its cached information and the user can see older data instead of <em>no data at all</em>.</p>
+
+<p>Although extremely useful for applications where data is changing frequently, <code class="highlighter-rouge">networkFirst</code> isn’t the only caching strategy we can use. Let’s quickly go over the others:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">cacheFirst</code>: If there is no cached data, a network request is made and the results are cached. After that, the cache will only serve its data and no network requests will be made. This can be useful for handling things in an offline-first manner.</li>
+  <li><code class="highlighter-rouge">staleWhileRevalidate</code>: Mostly suited for serving non-critical data to the user as fast as possible, this approach is used to serve cached data to the user quickly at first. A network request is also made in parallel with the request made to the cache. When the network request is complete, the cache is updated.</li>
+  <li><code class="highlighter-rouge">cacheOnly</code>: Only retrieve resources from the cache and do not rely on the network at all. However, <code class="highlighter-rouge">cacheFirst</code> is more commonly used for offline-first patterns.</li>
+  <li><code class="highlighter-rouge">networkOnly</code>: Only retrieve resources from the network and do not have any data cached. This may not be commonly used but may be suitable for data that cannot be cached.</li>
+</ul>
+
+<aside>
+  <p>The Workbox <a href="https://developers.google.com/web/tools/workbox/modules/workbox-strategies">documentation</a> and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">Offline Cookbook</a> go into more detail about each of the different strategies.</p>
+</aside>
+
+<h3 id="customize-service-worker">Customize Service Worker</h3>
+
+<p>Although using the Workbox CLI can make getting a service worker up and running an extremely simple and straightforward process, there may be scenarios where we would need a little more control on how our service worker is created. This can be for a number of reasons:</p>
+
+<ul>
+  <li>We have more complex pre-caching requirements than what Workbox provides out of the box.</li>
+  <li>We want to take advantage of other service worker features (such as <a href="https://developer.mozilla.org/en-US/docs/Web/API/Push_API">Web Push</a>)</li>
+  <li>We already have a service worker file and only need to incorporate some Workbox features in addition to it.</li>
+</ul>
+
+<p>For any of these scenarios, we can use the <code class="highlighter-rouge">injectManifest</code> mode provided by Workbox:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">workbox</span> <span class="nx">injectManifest</span> <span class="nx">workbox</span><span class="o">-</span><span class="nx">config</span><span class="p">.</span><span class="nx">js</span></code></pre></figure>
+
+<p>By using this flag, we not only need to provide a destination service worker location but the location of an existing service worker as a source as well.</p>
+
+<aside>
+  <p>There is a common conception that service workers may not be necessary in cases where the majority of users who would open a specific webpage likely have a working network connection. Even though developers who cater to users who are fortunate enough to have reliable network connections all the time may <i>feel</i> like there's no need for offline support, flaky network connections will eventually affect them for varying reasons.</p>
+
+  <img alt="Reliability" title="Reliability" data-src="/assets/thinking-prpl/reliability-tweet.png" class="lazyload small" />
+
+  <p class="image-source no-margin"><a href="https://twitter.com/HenrikJoreteg/status/909632750453321734">Tweet Source</a></p>
+</aside>
+
+<h3 id="browser-support-1">Browser Support</h3>
+
+<p>At the time of writing, service workers are supported in all major browsers:</p>
+
+<ul>
+  <li>Shipped:
+    <ul>
+      <li><a href="https://www.chromestatus.com/feature/6561526227927040">Chrome</a></li>
+      <li><a href="https://webkit.org/status/#specification-service-workers">Safari</a></li>
+      <li><a href="https://platform-status.mozilla.org/#service-worker">Firefox</a></li>
+      <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/status/serviceworker">Edge</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="bundles">Bundles</h2>
+
+<p>Front-end development has changed a lot in the past few years. A large number of JavaScript libraries and frameworks have allowed us to add more client-side logic and functionality than ever before. Unfortunately, this can come at a cost of <a href="https://twitter.com/slightlylate/status/834507657209733121">larger bundle sizes</a>.</p>
+
+<p>Although adding more and more JavaScript code to a large application will inevitably make our bundle sizes grow and grow, we can incorporate <em>code splitting</em> into our application to help. The idea behind code splitting is that instead of providing users with all of the code that makes up our application as soon as they navigate to the first page, we can try to give them <em>pieces</em> of the entire bundle that are only relevant to their current route. The browser can then make requests for more chunks of the bundle as the user navigates through the application. The concept of loading different pieces of a bundle on demand is called <em>lazy loading</em>.</p>
+
+<p>Code splitting and lazy loading allow us to send smaller chunks to our users as well prioritize loading of specific chunks if we need to (with <code class="highlighter-rouge">&lt;link rel="preload"&gt;</code> for example). This can improve loading times significantly.</p>
+
+<p>Angular’s routing framework has lazy loading <a href="https://angular.io/guide/lazy-loading-ngmodules">built-in</a> where we can use a <code class="highlighter-rouge">loadChildren</code> attribute to load a feature module on demand:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">const</span> <span class="nx">routes</span><span class="p">:</span> <span class="nx">Routes</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span> <span class="na">redirectTo</span><span class="p">:</span> <span class="s1">'main'</span><span class="p">,</span> <span class="na">pathMatch</span><span class="p">:</span> <span class="s1">'full'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'main'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">MainComponent</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'details'</span><span class="p">,</span> <span class="na">loadChildren</span><span class="p">:</span> <span class="s1">'details/details.module#DetailsModule'</span> <span class="p">}</span>
+<span class="p">];</span></code></pre></figure>
+
+<p>For React, <a href="https://github.com/jamiebuilds/react-loadable">React Loadable</a> is an excellent library that allows you to create higher order components to load components asynchronously.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// snippet from React Loadable README.md</span>
+
+<span class="k">import</span> <span class="nx">Loadable</span> <span class="k">from</span> <span class="s1">'react-loadable'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Loading</span> <span class="k">from</span> <span class="s1">'./my-loading-component'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">LoadableComponent</span> <span class="o">=</span> <span class="nx">Loadable</span><span class="p">({</span>
+  <span class="na">loader</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="s1">'./my-component'</span><span class="p">),</span>
+  <span class="na">loading</span><span class="p">:</span> <span class="nx">Loading</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">LoadableComponent</span><span class="o">/&gt;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Code splitting at the component level can even allow for more fine-grained control over doing things at the route level.</p>
+
+<blockquote>
+  <p>There are many more places than just routes where you can pretty easily split apart your app. Modals, tabs, and many more UI components hide content until the user has done something to reveal it.</p>
+  <footer><a href="https://github.com/jamiebuilds/react-loadable">React Loadable README.md</a></footer>
+</blockquote>
+
+<h3 id="tracking-bundle-size-changes">Tracking bundle size changes</h3>
+
+<p>If you’re considering adding code splitting/lazy loading to your application, it’s probably a good idea to keep an eye on your bundle size from time to time. There are a number of different community-built tools that can make this easier, such as <a href="https://github.com/webpack-contrib/webpack-bundle-analyzer">Webpack Bundle Analyzer</a> which shows a visualization of how different parts of your bundle are larger/smaller than others with a treemap.</p>
+
+<p><img alt="Webpack Bundle Analyzer" title="Webpack Bundle Analyzer" data-src="/assets/thinking-prpl/webpack-bundle-analyzer.png" class="lazyload shadow" /></p>
+
+<h2 id="metrics">Metrics</h2>
+
+<p>With regards to load times, using metrics can be important to set a baseline on how well our webpage loads for different users. Some important metrics to consider are:</p>
+
+<ul>
+  <li><strong>First Meaningful Paint</strong>: The time it takes the user to see <em>meaningful</em> content on their device.</li>
+  <li><strong>Time to Interactive (TTI)</strong>: The time it takes for the JavaScript thread to settle and the user can interact with the application.</li>
+</ul>
+
+<p>As developers, many of us have become accustomed to building web applications with healthy network connections and powerful machines. At times, we may not realize how users would experience our applications with lower-end devices and weaker connections. According to a <a href="https://www.thinkwithgoogle.com/_qs/documents/57/mobile-page-speed-new-industry-benchmarks.pdf">Google Research statistic</a>, the average time it takes to fully load a webpage on mobile is greater than <em>20 seconds</em>. This was found by running tests on a globally representative 3G network connection and a Nexus 5 device. Another <a href="https://www.thinkwithgoogle.com/intl/en-ca/advertising-channels/mobile/mobile-shopping-ecosystem/">Google Research statistic</a> found the average load time to be <em>15.3 seconds</em> with a 4G connection.</p>
+
+<p>If a webpage takes longer than 3 seconds to load, <a href="https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/">more than half of our users will give up</a>.</p>
+
+<aside>
+  <p>For an excellent (and deeper) dive into perfomance metrics, take a look at Philip Walton's article: <a href="https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#first_meaningful_paint_and_hero_element_timing">User-centric Performance Metrics</a>.</p>
+</aside>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>It’s important to first spend a little time analyzing the devices of our users before adding performance enhancements that very well may not be necessary (or important as other features our application needs). If we find out our application is not loading as fast as it probably should after a little digging, then it may be worthwhile to dive in and try adding some optimizations!</p>
+
+    </div>
+
+    <div class="f5 fw6 lh-copy mt5">
+      <p>If you have any questions or suggestions, feel free to open an
+        <a class="link-effect" href="https://github.com/housseindjirdeh/housseindjirdeh.github.io/issues/new">issue!</a>
+      </p>
+    </div>
+
+    <div class="flex flex-column items-center mt6 mt7-ns mb5">
+	<p class="grow">
+		<a class="f4 fw6 link near-black hover-red ttl" href="https://twitter.com/hdjirdeh" rel="noopener noreferrer" target="_blank">
+			Houssein Djirdeh
+		</a>
+	</p>
+</div>
+  </div>
+  
+  <script>
+  /*! highlight.js v9.12.0 | BSD3 License | git.io/hljslicense */
+  !function(e){var t="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):t&&(t.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return t.hljs}))}(function(e){function t(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function r(e){return e.nodeName.toLowerCase()}function n(e,t){var r=e&&e.exec(t);return r&&0===r.index}function a(e){return v.test(e)}function c(e){var t,r={},n=Array.prototype.slice.call(arguments,1);for(t in e)r[t]=e[t];return n.forEach(function(e){for(t in e)r[t]=e[t]}),r}function i(e){var t=[];return function e(n,a){for(var c=n.firstChild;c;c=c.nextSibling)3===c.nodeType?a+=c.nodeValue.length:1===c.nodeType&&(t.push({event:"start",offset:a,node:c}),a=e(c,a),r(c).match(/br|hr|img|input/)||t.push({event:"stop",offset:a,node:c}));return a}(e,0),t}function s(e){function t(e){return e&&e.source||e}function r(r,n){return new RegExp(t(r),"m"+(e.cI?"i":"")+(n?"g":""))}!function n(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var s={},o=function(t,r){e.cI&&(r=r.toLowerCase()),r.split(" ").forEach(function(e){var r=e.split("|");s[r[0]]=[t,r[1]?Number(r[1]):1]})};"string"==typeof a.k?o("keyword",a.k):d(a.k).forEach(function(e){o(e,a.k[e])}),a.k=s}a.lR=r(a.l||/\w+/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=r(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=r(a.e)),a.tE=t(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=r(a.i)),null==a.r&&(a.r=1),a.c||(a.c=[]),a.c=Array.prototype.concat.apply([],a.c.map(function(e){return(t="self"===e?a:e).v&&!t.cached_variants&&(t.cached_variants=t.v.map(function(e){return c(t,{v:null},e)})),t.cached_variants||t.eW&&[c(t)]||[t];var t})),a.c.forEach(function(e){n(e,a)}),a.starts&&n(a.starts,i);var l=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(t).filter(Boolean);a.t=l.length?r(l.join("|"),!0):{exec:function(){return null}}}}(e)}function o(e,r,a,c){function i(e,t,r,n){var a='<span class="'+(n?"":E.classPrefix);return(a+=e+'">')+t+(r?"":y)}function u(){N+=null!=m.sL?function(){var e="string"==typeof m.sL;if(e&&!h[m.sL])return t(w);var r=e?o(m.sL,w,!0,v[m.sL]):l(w,m.sL.length?m.sL:void 0);return m.r>0&&(M+=r.r),e&&(v[m.sL]=r.top),i(r.language,r.value,!1,!0)}():function(){var e,r,n,a,c,s,o;if(!m.k)return t(w);for(a="",r=0,m.lR.lastIndex=0,n=m.lR.exec(w);n;)a+=t(w.substring(r,n.index)),c=m,s=n,o=g.cI?s[0].toLowerCase():s[0],e=c.k.hasOwnProperty(o)&&c.k[o],e?(M+=e[1],a+=i(e[0],t(n[0]))):a+=t(n[0]),r=m.lR.lastIndex,n=m.lR.exec(w);return a+t(w.substr(r))}(),w=""}function f(e){N+=e.cN?i(e.cN,"",!0):"",m=Object.create(e,{parent:{value:m}})}function b(e,t){if(w+=e,null==t)return u(),0;var r=function(e,t){var r,a;for(r=0,a=t.c.length;a>r;r++)if(n(t.c[r].bR,e))return t.c[r]}(t,m);if(r)return r.skip?w+=t:(r.eB&&(w+=t),u(),r.rB||r.eB||(w=t)),f(r),r.rB?0:t.length;var c,i=function e(t,r){if(n(t.eR,r)){for(;t.endsParent&&t.parent;)t=t.parent;return t}return t.eW?e(t.parent,r):void 0}(m,t);if(i){var s=m;s.skip?w+=t:(s.rE||s.eE||(w+=t),u(),s.eE&&(w=t));do{m.cN&&(N+=y),m.skip||(M+=m.r),m=m.parent}while(m!==i.parent);return i.starts&&f(i.starts),s.rE?0:t.length}if(c=t,!a&&n(m.iR,c))throw new Error('Illegal lexeme "'+t+'" for mode "'+(m.cN||"<unnamed>")+'"');return w+=t,t.length||1}var g=p(e);if(!g)throw new Error('Unknown language: "'+e+'"');s(g);var d,m=c||g,v={},N="";for(d=m;d!==g;d=d.parent)d.cN&&(N=i(d.cN,"",!0)+N);var w="",M=0;try{for(var x,R,C=0;m.t.lastIndex=C,x=m.t.exec(r);)R=b(r.substring(C,x.index),x[0]),C=x.index+R;for(b(r.substr(C)),d=m;d.parent;d=d.parent)d.cN&&(N+=y);return{r:M,value:N,language:e,top:m}}catch(e){if(e.message&&-1!==e.message.indexOf("Illegal"))return{r:0,value:t(r)};throw e}}function l(e,r){r=r||E.languages||d(h);var n={r:0,value:t(e)},a=n;return r.filter(p).forEach(function(t){var r=o(t,e,!1);r.language=t,r.r>a.r&&(a=r),r.r>n.r&&(a=n,n=r)}),a.language&&(n.second_best=a),n}function u(e){return E.tabReplace||E.useBR?e.replace(w,function(e,t){return E.useBR&&"\n"===e?"<br>":E.tabReplace?t.replace(/\t/g,E.tabReplace):""}):e}function f(e){var n,c,s,f,b,d,h,v,w,y,M=function(e){var t,r,n,c,i=e.className+" ";if(i+=e.parentNode?e.parentNode.className:"",r=N.exec(i))return p(r[1])?r[1]:"no-highlight";for(t=0,n=(i=i.split(/\s+/)).length;n>t;t++)if(c=i[t],a(c)||p(c))return c}(e);a(M)||(E.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div")).innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n"):n=e,b=n.textContent,s=M?o(M,b,!0):l(b),(c=i(n)).length&&((f=document.createElementNS("http://www.w3.org/1999/xhtml","div")).innerHTML=s.value,s.value=function(e,n,a){function c(){return e.length&&n.length?e[0].offset!==n[0].offset?e[0].offset<n[0].offset?e:n:"start"===n[0].event?e:n:e.length?e:n}function i(e){u+="<"+r(e)+g.map.call(e.attributes,function(e){return" "+e.nodeName+'="'+t(e.value).replace('"',"&quot;")+'"'}).join("")+">"}function s(e){u+="</"+r(e)+">"}function o(e){("start"===e.event?i:s)(e.node)}for(var l=0,u="",f=[];e.length||n.length;){var b=c();if(u+=t(a.substring(l,b[0].offset)),l=b[0].offset,b===e){f.reverse().forEach(s);do{o(b.splice(0,1)[0]),b=c()}while(b===e&&b.length&&b[0].offset===l);f.reverse().forEach(i)}else"start"===b[0].event?f.push(b[0].node):f.pop(),o(b.splice(0,1)[0])}return u+t(a.substr(l))}(c,i(f),b)),s.value=u(s.value),e.innerHTML=s.value,e.className=(d=e.className,h=M,v=s.language,w=h?m[h]:v,y=[d.trim()],d.match(/\bhljs\b/)||y.push("hljs"),-1===d.indexOf(w)&&y.push(w),y.join(" ").trim()),e.result={language:s.language,re:s.r},s.second_best&&(e.second_best={language:s.second_best.language,re:s.second_best.r}))}function b(){if(!b.called){b.called=!0;var e=document.querySelectorAll("pre code");g.forEach.call(e,f)}}function p(e){return e=(e||"").toLowerCase(),h[e]||h[m[e]]}var g=[],d=Object.keys,h={},m={},v=/^(no-?highlight|plain|text)$/i,N=/\blang(?:uage)?-([\w-]+)\b/i,w=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,y="</span>",E={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0};return e.highlight=o,e.highlightAuto=l,e.fixMarkup=u,e.highlightBlock=f,e.configure=function(e){E=c(E,e)},e.initHighlighting=b,e.initHighlightingOnLoad=function(){addEventListener("DOMContentLoaded",b,!1),addEventListener("load",b,!1)},e.registerLanguage=function(t,r){var n=h[t]=r(e);n.aliases&&n.aliases.forEach(function(e){m[e]=t})},e.listLanguages=function(){return d(h)},e.getLanguage=p,e.inherit=c,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/},e.C=function(t,r,n){var a=e.inherit({cN:"comment",b:t,e:r,c:[]},n||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e}),hljs.registerLanguage("css",function(e){var t={b:/[A-Z\_\.\-]+\s*:/,rB:!0,e:";",eW:!0,c:[{cN:"attribute",b:/\S/,e:":",eE:!0,starts:{eW:!0,eE:!0,c:[{b:/[\w-]+\(/,rB:!0,c:[{cN:"built_in",b:/[\w-]+/},{b:/\(/,e:/\)/,c:[e.ASM,e.QSM]}]},e.CSSNM,e.QSM,e.ASM,e.CBCM,{cN:"number",b:"#[0-9A-Fa-f]+"},{cN:"meta",b:"!important"}]}}]};return{cI:!0,i:/[=\/|'\$]/,c:[e.CBCM,{cN:"selector-id",b:/#[A-Za-z0-9_-]+/},{cN:"selector-class",b:/\.[A-Za-z0-9_-]+/},{cN:"selector-attr",b:/\[/,e:/\]/,i:"$"},{cN:"selector-pseudo",b:/:(:)?[a-zA-Z0-9\_\-\+\(\)"'.]+/},{b:"@(font-face|page)",l:"[a-z-]+",k:"font-face page"},{b:"@",e:"[{;]",i:/:/,c:[{cN:"keyword",b:/\w+/},{b:/\s/,eW:!0,eE:!0,r:0,c:[e.ASM,e.QSM,e.CSSNM]}]},{cN:"selector-tag",b:"[a-zA-Z-][a-zA-Z0-9_-]*",r:0},{b:"{",e:"}",i:/\S/,c:[e.CBCM,t]}]}}),hljs.registerLanguage("bash",function(e){var t={cN:"variable",v:[{b:/\$[\w\d#@][\w\d_]*/},{b:/\$\{(.*?)}/}]},r={cN:"string",b:/"/,e:/"/,c:[e.BE,t,{cN:"variable",b:/\$\(/,e:/\)/,c:[e.BE]}]};return{aliases:["sh","zsh"],l:/\b-?[a-z\._]+\b/,k:{keyword:"if then else elif fi for while in do done case esac function",literal:"true false",built_in:"break cd continue eval exec exit export getopts hash pwd readonly return shift test times trap umask unset alias bind builtin caller command declare echo enable help let local logout mapfile printf read readarray source type typeset ulimit unalias set shopt autoload bg bindkey bye cap chdir clone comparguments compcall compctl compdescribe compfiles compgroups compquote comptags comptry compvalues dirs disable disown echotc echoti emulate fc fg float functions getcap getln history integer jobs kill limit log noglob popd print pushd pushln rehash sched setcap setopt stat suspend ttyctl unfunction unhash unlimit unsetopt vared wait whence where which zcompile zformat zftp zle zmodload zparseopts zprof zpty zregexparse zsocket zstyle ztcp",_:"-ne -eq -lt -gt -f -d -e -s -l -a"},c:[{cN:"meta",b:/^#![^\n]+sh\s*$/,r:10},{cN:"function",b:/\w[\w\d_]*\s*\(\s*\)\s*\{/,rB:!0,c:[e.inherit(e.TM,{b:/\w[\w\d_]*/})],r:0},e.HCM,r,{cN:"string",b:/'/,e:/'/},t]}}),hljs.registerLanguage("xml",function(e){var t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:"[A-Za-z0-9\\._:-]+",r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},e.C("\x3c!--","--\x3e",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"<\/script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}}),hljs.registerLanguage("json",function(e){var t={literal:"true false null"},r=[e.QSM,e.CNM],n={e:",",eW:!0,eE:!0,c:r,k:t},a={b:"{",e:"}",c:[{cN:"attr",b:/"/,e:/"/,c:[e.BE],i:"\\n"},e.inherit(n,{b:/:/})],i:"\\S"},c={b:"\\[",e:"\\]",c:[e.inherit(n)],i:"\\S"};return r.splice(r.length,0,a,c),{c:r,k:t,i:"\\S"}}),hljs.registerLanguage("javascript",function(e){var t="[A-Za-z$_][0-9A-Za-z$_]*",r={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},n={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},a={cN:"subst",b:"\\$\\{",e:"\\}",k:r,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,a]};a.c=[e.ASM,e.QSM,c,n,e.RM];var i=a.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:r,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,n,{b:/[{,]\s*/,r:0,c:[{b:t+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:t,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+t+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:t},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:r,c:i}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:t}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:i}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});
+</script>
+<script>
+  window.addEventListener('load', () => {
+    hljs.initHighlighting();
+  });
+</script> <script>
+  /*! lazysizes - v4.0.3 */
+  !function(a,b){var c=b(a,a.document);a.lazySizes=c,"object"==typeof module&&module.exports&&(module.exports=c)}(window,function(a,b){"use strict";if(b.getElementsByClassName){var c,d,e=b.documentElement,f=a.Date,g=a.HTMLPictureElement,h="addEventListener",i="getAttribute",j=a[h],k=a.setTimeout,l=a.requestAnimationFrame||k,m=a.requestIdleCallback,n=/^picture$/i,o=["load","error","lazyincluded","_lazyloaded"],p={},q=Array.prototype.forEach,r=function(a,b){return p[b]||(p[b]=new RegExp("(\\s|^)"+b+"(\\s|$)")),p[b].test(a[i]("class")||"")&&p[b]},s=function(a,b){r(a,b)||a.setAttribute("class",(a[i]("class")||"").trim()+" "+b)},t=function(a,b){var c;(c=r(a,b))&&a.setAttribute("class",(a[i]("class")||"").replace(c," "))},u=function(a,b,c){var d=c?h:"removeEventListener";c&&u(a,b),o.forEach(function(c){a[d](c,b)})},v=function(a,d,e,f,g){var h=b.createEvent("CustomEvent");return e||(e={}),e.instance=c,h.initCustomEvent(d,!f,!g,e),a.dispatchEvent(h),h},w=function(b,c){var e;!g&&(e=a.picturefill||d.pf)?e({reevaluate:!0,elements:[b]}):c&&c.src&&(b.src=c.src)},x=function(a,b){return(getComputedStyle(a,null)||{})[b]},y=function(a,b,c){for(c=c||a.offsetWidth;c<d.minSize&&b&&!a._lazysizesWidth;)c=b.offsetWidth,b=b.parentNode;return c},z=function(){var a,c,d=[],e=[],f=d,g=function(){var b=f;for(f=d.length?e:d,a=!0,c=!1;b.length;)b.shift()();a=!1},h=function(d,e){a&&!e?d.apply(this,arguments):(f.push(d),c||(c=!0,(b.hidden?k:l)(g)))};return h._lsFlush=g,h}(),A=function(a,b){return b?function(){z(a)}:function(){var b=this,c=arguments;z(function(){a.apply(b,c)})}},B=function(a){var b,c=0,e=d.throttleDelay,g=d.ricTimeout,h=function(){b=!1,c=f.now(),a()},i=m&&g>49?function(){m(h,{timeout:g}),g!==d.ricTimeout&&(g=d.ricTimeout)}:A(function(){k(h)},!0);return function(a){var d;(a=a===!0)&&(g=33),b||(b=!0,d=e-(f.now()-c),0>d&&(d=0),a||9>d?i():k(i,d))}},C=function(a){var b,c,d=99,e=function(){b=null,a()},g=function(){var a=f.now()-c;d>a?k(g,d-a):(m||e)(e)};return function(){c=f.now(),b||(b=k(g,d))}};!function(){var b,c={lazyClass:"lazyload",loadedClass:"lazyloaded",loadingClass:"lazyloading",preloadClass:"lazypreload",errorClass:"lazyerror",autosizesClass:"lazyautosizes",srcAttr:"data-src",srcsetAttr:"data-srcset",sizesAttr:"data-sizes",minSize:40,customMedia:{},init:!0,expFactor:1.5,hFac:.8,loadMode:2,loadHidden:!0,ricTimeout:0,throttleDelay:125};d=a.lazySizesConfig||a.lazysizesConfig||{};for(b in c)b in d||(d[b]=c[b]);a.lazySizesConfig=d,k(function(){d.init&&F()})}();var D=function(){var g,l,m,o,p,y,D,F,G,H,I,J,K,L,M=/^img$/i,N=/^iframe$/i,O="onscroll"in a&&!/glebot/.test(navigator.userAgent),P=0,Q=0,R=0,S=-1,T=function(a){R--,a&&a.target&&u(a.target,T),(!a||0>R||!a.target)&&(R=0)},U=function(a,c){var d,f=a,g="hidden"==x(b.body,"visibility")||"hidden"!=x(a,"visibility");for(F-=c,I+=c,G-=c,H+=c;g&&(f=f.offsetParent)&&f!=b.body&&f!=e;)g=(x(f,"opacity")||1)>0,g&&"visible"!=x(f,"overflow")&&(d=f.getBoundingClientRect(),g=H>d.left&&G<d.right&&I>d.top-1&&F<d.bottom+1);return g},V=function(){var a,f,h,j,k,m,n,p,q,r=c.elements;if((o=d.loadMode)&&8>R&&(a=r.length)){f=0,S++,null==K&&("expand"in d||(d.expand=e.clientHeight>500&&e.clientWidth>500?500:370),J=d.expand,K=J*d.expFactor),K>Q&&1>R&&S>2&&o>2&&!b.hidden?(Q=K,S=0):Q=o>1&&S>1&&6>R?J:P;for(;a>f;f++)if(r[f]&&!r[f]._lazyRace)if(O)if((p=r[f][i]("data-expand"))&&(m=1*p)||(m=Q),q!==m&&(y=innerWidth+m*L,D=innerHeight+m,n=-1*m,q=m),h=r[f].getBoundingClientRect(),(I=h.bottom)>=n&&(F=h.top)<=D&&(H=h.right)>=n*L&&(G=h.left)<=y&&(I||H||G||F)&&(d.loadHidden||"hidden"!=x(r[f],"visibility"))&&(l&&3>R&&!p&&(3>o||4>S)||U(r[f],m))){if(ba(r[f]),k=!0,R>9)break}else!k&&l&&!j&&4>R&&4>S&&o>2&&(g[0]||d.preloadAfterLoad)&&(g[0]||!p&&(I||H||G||F||"auto"!=r[f][i](d.sizesAttr)))&&(j=g[0]||r[f]);else ba(r[f]);j&&!k&&ba(j)}},W=B(V),X=function(a){s(a.target,d.loadedClass),t(a.target,d.loadingClass),u(a.target,Z),v(a.target,"lazyloaded")},Y=A(X),Z=function(a){Y({target:a.target})},$=function(a,b){try{a.contentWindow.location.replace(b)}catch(c){a.src=b}},_=function(a){var b,c=a[i](d.srcsetAttr);(b=d.customMedia[a[i]("data-media")||a[i]("media")])&&a.setAttribute("media",b),c&&a.setAttribute("srcset",c)},aa=A(function(a,b,c,e,f){var g,h,j,l,o,p;(o=v(a,"lazybeforeunveil",b)).defaultPrevented||(e&&(c?s(a,d.autosizesClass):a.setAttribute("sizes",e)),h=a[i](d.srcsetAttr),g=a[i](d.srcAttr),f&&(j=a.parentNode,l=j&&n.test(j.nodeName||"")),p=b.firesLoad||"src"in a&&(h||g||l),o={target:a},p&&(u(a,T,!0),clearTimeout(m),m=k(T,2500),s(a,d.loadingClass),u(a,Z,!0)),l&&q.call(j.getElementsByTagName("source"),_),h?a.setAttribute("srcset",h):g&&!l&&(N.test(a.nodeName)?$(a,g):a.src=g),f&&(h||l)&&w(a,{src:g})),a._lazyRace&&delete a._lazyRace,t(a,d.lazyClass),z(function(){(!p||a.complete&&a.naturalWidth>1)&&(p?T(o):R--,X(o))},!0)}),ba=function(a){var b,c=M.test(a.nodeName),e=c&&(a[i](d.sizesAttr)||a[i]("sizes")),f="auto"==e;(!f&&l||!c||!a[i]("src")&&!a.srcset||a.complete||r(a,d.errorClass)||!r(a,d.lazyClass))&&(b=v(a,"lazyunveilread").detail,f&&E.updateElem(a,!0,a.offsetWidth),a._lazyRace=!0,R++,aa(a,b,f,e,c))},ca=function(){if(!l){if(f.now()-p<999)return void k(ca,999);var a=C(function(){d.loadMode=3,W()});l=!0,d.loadMode=3,W(),j("scroll",function(){3==d.loadMode&&(d.loadMode=2),a()},!0)}};return{_:function(){p=f.now(),c.elements=b.getElementsByClassName(d.lazyClass),g=b.getElementsByClassName(d.lazyClass+" "+d.preloadClass),L=d.hFac,j("scroll",W,!0),j("resize",W,!0),a.MutationObserver?new MutationObserver(W).observe(e,{childList:!0,subtree:!0,attributes:!0}):(e[h]("DOMNodeInserted",W,!0),e[h]("DOMAttrModified",W,!0),setInterval(W,999)),j("hashchange",W,!0),["focus","mouseover","click","load","transitionend","animationend","webkitAnimationEnd"].forEach(function(a){b[h](a,W,!0)}),/d$|^c/.test(b.readyState)?ca():(j("load",ca),b[h]("DOMContentLoaded",W),k(ca,2e4)),c.elements.length?(V(),z._lsFlush()):W()},checkElems:W,unveil:ba}}(),E=function(){var a,c=A(function(a,b,c,d){var e,f,g;if(a._lazysizesWidth=d,d+="px",a.setAttribute("sizes",d),n.test(b.nodeName||""))for(e=b.getElementsByTagName("source"),f=0,g=e.length;g>f;f++)e[f].setAttribute("sizes",d);c.detail.dataAttr||w(a,c.detail)}),e=function(a,b,d){var e,f=a.parentNode;f&&(d=y(a,f,d),e=v(a,"lazybeforesizes",{width:d,dataAttr:!!b}),e.defaultPrevented||(d=e.detail.width,d&&d!==a._lazysizesWidth&&c(a,f,e,d)))},f=function(){var b,c=a.length;if(c)for(b=0;c>b;b++)e(a[b])},g=C(f);return{_:function(){a=b.getElementsByClassName(d.autosizesClass),j("resize",g)},checkElems:g,updateElem:e}}(),F=function(){F.i||(F.i=!0,E._(),D._())};return c={cfg:d,autoSizer:E,loader:D,init:F,uP:w,aC:s,rC:t,hC:r,fire:v,gW:y,rAF:z}}});
+</script>
+ <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').then(registration => {
+        console.log('service worker registration was successful')
+      }, err => {
+        console.log('service worker registration failed')
+      });
+    });
+  }
+</script>
+  
+    <script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-66348622-2', 'auto');
+  ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+</body>
+
+</html>
