@@ -9,7 +9,7 @@
 title: Houssein Djirdeh
 email: h.djirdeh@mail.utoronto.ca
 description: > # this means to ignore newlines until "baseurl:"
-  JavaScript, Angular and all things web
+  JavaScript and all things web
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://houssein.me" # the base hostname & protocol for your site
 linkedin_username: Houssein Djirdeh
