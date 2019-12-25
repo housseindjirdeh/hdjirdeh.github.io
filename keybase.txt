@@ -1,0 +1,69 @@
+==================================================================
+https://keybase.io/hdjirdeh
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://houssein.me
+  * I am hdjirdeh (https://keybase.io/hdjirdeh) on keybase.
+  * I have a public key with fingerprint EDEB 4E8F D4FD D11F BC9C  F8C5 A942 ED22 50A6 4588
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "01012c2d841706dfa002878e15472528f73de8a9b2e647c1ad93e304fa7de1ff445d0a",
+            "fingerprint": "edeb4e8fd4fdd11fbc9cf8c5a942ed2250a64588",
+            "host": "keybase.io",
+            "key_id": "a942ed2250a64588",
+            "kid": "01012c2d841706dfa002878e15472528f73de8a9b2e647c1ad93e304fa7de1ff445d0a",
+            "uid": "7fa01f311bbaa5506a755ec19f608719",
+            "username": "hdjirdeh"
+        },
+        "service": {
+            "hostname": "houssein.me",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1478650480,
+    "expire_in": 157680000,
+    "prev": "29d2c54e3118423056b2972b7c146df38d08e1beebd1b5454c7ff8be5a996e00",
+    "seqno": 11,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.58
+Comment: https://keybase.io/crypto
+
+yMInAnicrVJtbAxBGL4qRX01hJZINSua4DQzezM7s4doRESpPyfE99ndmW3X9W6v
+u3ulKaJUKb96IgShEqIEIU0QEqUECU0EiYgfPiJVkVCSEq22Zhv++Wn+TN53nueZ
+531m7o3JDGRn2MUlK5e462jGozuHU4HV0uZkjaTbrFoK10gxPrjxCsZdLxqzmBSW
+AARQNmRGESRAYaYGgEwJ5RAjImOZmiTEONVUXeYKIgbUmBriIYBMjTAOTRMhzIAm
+BSXTSpRxJ+lYCU/IcsZ1xKnJkMkYhKZuqIZJDaypSOZMljHQFIQpFcRy2/UZwpyu
+ubzIskVPFNFBe//A/2ffqUE5IgSgGYJQ1zUNY6BoBGNuQNVUACVQ9YEudxJanAt0
+OdtsOYyXS9uDkuhWWQb3g/Un+YuwU67LrUSRqIJS0rE927Ar/APPS7phn+hVJ33k
+Fq5H/2hEdSvBRIyCUcUd17ITUhgKpOFZvihEhCoYIAqCEt+atBwetXwEJgoFYvn3
+8CohKatMNjDiYhyK5BDAii6rRNZFDEhEFaIMiKB0znUGdYwwMohpUp2L11EVDoDk
+T1WZsIU2FD61MqHpWmUJzUs5XNrednv90EBGdiBr2BD/fwWyR+b8/XXN/cP7xg8s
+yCSzrtVvqOutW/l6V+7P7rya6fvvR7t+nW8oLMW7v15vaDnSdCDdHfxU+2FSbfri
+y1fz463W9/SOj5X5Hzalcw5eKOnYMvHMlH2jycuG5hm1YzvtFQVP1p/sYCx+uGdt
+ffHId6eO3b35wlnq9Z/rfcxIZ0V+p3NVmdo28C42+9miW8va05fGs+Cczhff6klr
+weWjh0ad3vh8bN71xtLjT7YdKF5T+YBEIrGmeQNzh1QuLpz6+ZS9d/aOTdP65ix7
+3zbpczgz1/kx5UugriR24s3C/smtpR1X4m+zJuyNXInnaSMe9pWnqs9d7Zo59Pvk
+nnERK39V+9k9NxqXt2yr2fl0WFbub+puP0A=
+=3EgV
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/hdjirdeh
+
+==================================================================
+
