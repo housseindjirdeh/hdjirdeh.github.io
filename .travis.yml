@@ -6,8 +6,13 @@ before_install:
   - nvm install 7
   - npm install
 
+install:
+  - gem uninstall bundler
+  - gem install bundler --version '1.17.1'
+
 script:
-  npm run build
+  - bundle install
+  - npm run build
 
 branches:
   only:
