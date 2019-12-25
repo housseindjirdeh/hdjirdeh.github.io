@@ -39,16 +39,9 @@ permalink: /:title
 </ol>
 </aside>
 
-Performance advocates, like me, spend a lot of time "advocating" for faster sites. Sometimes, it's a bit overwhelming.
+Performance advocates, like myself, spend a lot of time "advocating" for faster sites. At times however, we don't cover framework-specific optimizations that can be important to consider if you use a particular framework for your site.
 
-<video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/panda-wildin.mp4" type="video/mp4">
-  <source src="/assets/progressive-react/panda-wildin.webm" type="video/webm">
-</video>
-
-I'm going to take a leaf out of this panda's book and tell you why you should stop using React today.
-
-Okay, that's just a joke. This article will actually cover how you can continue to work on the same React apps that you build, but to consider adding a number of optimizations to it. The key point here is to try and build your React site so that **more people can use it**.
+This article will cover a number of performance optimizations you can add to your React sites. The key idea here is to ensure your site performs well enough so that **more people can use it**.
 
 ## Introduction
 
@@ -64,13 +57,9 @@ The numbers here are from v16.6.3.
 
 [WebPageTest](https://webpagetest.org) can be used to see how long it would take for a brand new CRA application to load on a Moto G4.
 
-<video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/cra-motog4.mp4" type="video/mp4">
-  <source src="/assets/progressive-react/cra-motog4.ogg" type="video/ogg">
-  <source src="/assets/progressive-react/cra-motog4.webm" type="video/webm">
-</video>
+<img alt="Create React App loading performance on different connections" title="Create React App loading performance on different connections" data-src="/assets/progressive-react/cra-motog4.png" class="lazyload shadow" />
 
-This "Hello, World" application is hosted on Firebase and viewed on Chrome with three different network connection types: 
+This "Hello, World" application is hosted on Firebase and viewed on Chrome with three different network connection types:
 
 * **4G** (9 Mbps)
 * **3G** (1.6 Mbps)
@@ -78,19 +67,15 @@ This "Hello, World" application is hosted on Firebase and viewed on Chrome with 
 
 Some latency needs to be accounted as well.
 
-Why use a Moto G4? It's a low-end mobile phone similar to what many people use in developing countries as their primary device. On 4G, the application finishes loading in 2 seconds. In 3G Slow, it takes more than 4 seconds for the page to become interactive. 
+Why use a Moto G4? It's a low-end mobile phone similar to what many people use in developing countries as their primary device. On 4G, the application finishes loading in 2 seconds. In 3G Slow, it takes more than 4 seconds for the page to become interactive.
 
 As interesting as these numbers may seem, they aren't very useful if you don’t know who your users are. Your definition of slow can be completely different from mine or somebody else's, and your perception on how fast a site loads can be skewed to the device and network connection that you use. Including a desktop machine (with cable connection) in this experiment shows how drastic the difference can be:
 
-<video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/cra-desktop-motog4.mp4" type="video/mp4">
-  <source src="/assets/progressive-react/cra-desktop-motog4.ogv" type="video/ogg">
-  <source src="/assets/progressive-react/cra-desktop-motog4.webm" type="video/webm">
-</video>
+<img alt="Create React App loading performance on mobile versus desktop" title="Create React App loading performance on mobile versus desktop" data-src="/assets/progressive-react/cra-desktop-motog4.png" class="lazyload shadow" />
 
 <aside>
 <h4>Updates to React DOM 🔥</h4>
-<p>In terms of how well a React app performs right out of the box, some changes are slated for React DOM that aim to simplify a few things. The event system contains a number of polyfills that aren't needed for many newer browsers, and the team is considering removing/simplifying them where possible.</p> 
+<p>In terms of how well a React app performs right out of the box, some changes are slated for React DOM that aim to simplify a few things. The event system contains a number of polyfills that aren't needed for many newer browsers, and the team is considering removing/simplifying them where possible.</p>
 <br>
 <p>You can keep track of these efforts in the <a href="https://github.com/facebook/react/issues/13525">GitHub issue.</a></p>
 </aside>
@@ -132,7 +117,7 @@ Fair point. Let's try to find the same results but for the top 10,000 Alexa site
 
 * **381.5 KB** for mobile webpages in December 15, 2018 ([*Query*](https://bigquery.cloud.google.com/savedquery/1086077897885:d5e03a92788a4a6d96aa65c00b08ff74))
 
-As a whole, we're building websites that ship more JavaScript than we did seven years ago, and this makes sense. Sites have become bigger, more interactive and more complex and this number is still gradually increasing in an upward trend year after year. You may have already heard this before, but the more JavaScript you send to the browser, the more time it needs to be parsed, compiled and executed. Consequently, this slows down your site. 
+As a whole, we're building websites that ship more JavaScript than we did seven years ago, and this makes sense. Sites have become bigger, more interactive and more complex and this number is still gradually increasing in an upward trend year after year. You may have already heard this before, but the more JavaScript you send to the browser, the more time it needs to be parsed, compiled and executed. Consequently, this slows down your site.
 
 It's important to note that every site and user base is different. Many developers that ship over 300 KB of JavaScript do not have a problem with how well it performs for most of their users, and that's fine. However, if you happen to be concerned that the performance of your React site could be better for your users, **profiling is always a good first step**.
 
@@ -140,7 +125,7 @@ It's important to note that every site and user base is different. Many develope
 
 Profiling and analyzing a React application can be looked at as a two-fold approach:
 
-* **Component-level performance**: This affects how users actually interact with your site. Clicking a button to load a list should feel snappy, but it most likely won't be if hundreds of components are re-rendering when they shouldn't. 
+* **Component-level performance**: This affects how users actually interact with your site. Clicking a button to load a list should feel snappy, but it most likely won't be if hundreds of components are re-rendering when they shouldn't.
 * **Initial app-level performance**: This affects how _soon_ users can begin interacting with you site. The amount of code that gets shipped to your users as soon as they load the first page is an example of a factor that affects this.
 
 ## Measure component-level performance
@@ -176,15 +161,9 @@ With `react-dom` 16.5, a newer Profiler panel within React DevTools can be used 
 
 The `Profiler` panel lives as a separate tab within [React DevTools](https://github.com/facebook/react-devtools). Similar to the Performance panel in Chrome DevTools, you can record user interactions and page reloads to analyze how well your components are performing.
 
-<video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/fetch-profiler.mp4" type="video/mp4">
-</video>
-
-When you stop recording, you're greeted with a flame chart that shows you how long each of the components in the page took to render.
-
 <img alt="Profiler Flame Chart" title="Profiler Flame Chart" data-src="/assets/progressive-react/profiler-flame-chart.png" class="lazyload" />
 
-You can switch between different _commits_, or states when DOM nodes are added, removed, or updated, to get more nuanced data of which components are taking their sweet time to render. 
+You can switch between different _commits_, or states when DOM nodes are added, removed, or updated, to get more nuanced data of which components are taking their sweet time to render.
 
 <img alt="Profiler Commit Chart" title="Profiler Commit Chart" data-src="/assets/progressive-react/profiler-commit-chart.png" class="lazyload" />
 
@@ -205,7 +184,7 @@ To complicate things up a bit, consider the same example but with multiple API c
 
 <img alt="Profiler - more commits" title="Profiler - more commits" data-src="/assets/progressive-react/profiler-more-commits.png" class="lazyload" />
 
-The later commits all have longer and more yellow bars in the chart. This means that the time it takes for all the components to finish rendering takes longer as the list on the page grows. This happens because _every_ component in the list re-renders with each new API call. This helps identify an issue that can be resolved relatively quickly: every single item on the list does not need to be re-rendered when new items are being added. 
+The later commits all have longer and more yellow bars in the chart. This means that the time it takes for all the components to finish rendering takes longer as the list on the page grows. This happens because _every_ component in the list re-renders with each new API call. This helps identify an issue that can be resolved relatively quickly: every single item on the list does not need to be re-rendered when new items are being added.
 
 ### Minimize unecessary re-renders
 
@@ -253,7 +232,7 @@ There are two videos by Brian Vaughn that are worth watching if you would like t
 
 ## Measure app-level performance
 
-Aside from specific DOM mutations and component re-renders, there are other higher level concerns worth profiling for as well. [Lighthouse](https://github.com/GoogleChrome/lighthouse) makes it easy to analyze and assess how a particular site performs. 
+Aside from specific DOM mutations and component re-renders, there are other higher level concerns worth profiling for as well. [Lighthouse](https://github.com/GoogleChrome/lighthouse) makes it easy to analyze and assess how a particular site performs.
 
 There are three ways to run Lighthouse tests on a webpage:
 
@@ -263,7 +242,7 @@ There are three ways to run Lighthouse tests on a webpage:
 
 <img alt="Lighthouse in the audits panel" title="Lighthouse in the audits panel" data-src="/assets/progressive-react/lighthouse-audits-panel.png" class="lazyload shadow" />
 
-Lighthouse usually takes a little time gathering all the data it needs from a page and then auditing it against a number of checks. Once that's complete, it generates a report with all of the final information. 
+Lighthouse usually takes a little time gathering all the data it needs from a page and then auditing it against a number of checks. Once that's complete, it generates a report with all of the final information.
 
 A number of audits can be used to identify if the amount of JavaScript being shipped to the browser should be reduced:
 
@@ -286,19 +265,6 @@ One way to code-split is to use **dynamic imports**:
 </pre>
 
 The import syntax may look like a function call, but it allows you to import any module asynchronously where a promise gets returned. In this example, the `sortby` method from `lodash` is imported where `doSomethingCool` is then fired.
-
-<video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/magic-sorter.mp4" type="video/mp4">
-  <source src="/assets/progressive-react/magic-sorter.ogg" type="video/ogg">
-</video>
-
-In this visualization:
-
-1. User clicks a button to sort three numbers 
-2. `lodash.sortby` is imported
-3. `doSomethingCool` method is fired which sorts the numbers and displays it in a new DOM node 
-
-Now this is a super contrived example, because you would probably just use `Array.prototype.sort()` if you really needed to sort numbers on a page. Hopefully it demonstrates why using dynamic imports on _specific user actions_ can be useful.
 
 Dynamic imports are a relatively new syntax and are currently in [stage 3](https://github.com/tc39/proposal-dynamic-import) of the TC39 process. The syntax is already supported in [Chrome and Safari](https://caniuse.com/#search=dynamic%20import) as well as module bundlers like [Webpack](https://webpack.js.org/guides/code-splitting/#dynamic-imports), [Rollup](https://rollupjs.org/guide/en#code-splitting) and [Parcel](https://parceljs.org/code_splitting.html).
 
@@ -332,13 +298,13 @@ import React from 'react';
 import loadable from '@loadable/component'
 import LoadingComponent from './LoadingComponent';
 
-const AvatarComponent = 
+const AvatarComponent =
   loadable(() => import('./AvatarComponent'), {
     LoadingComponent: () => LoadingComponent
   });
 {% endhighlight %}
 
-Loading components can also be used as indicators with `loadable-component` while the main component is still being fetched. 
+Loading components can also be used as indicators with `loadable-component` while the main component is still being fetched.
 
 <aside>
 <p>There are a <a href="https://www.smooth-code.com/open-source/loadable-components/docs/server-side-rendering/">few things</a> you'll need to set up in order to make <code>loadable-components</code> work with SSR.</p>
@@ -364,21 +330,18 @@ const AvatarComponent = loadableVisibility(() => import('./AvatarComponent'), {
 
 ### Cache things worth caching
 
-A **service worker** is a web worker that runs in the background of your browser when you view a webpage. 
+A **service worker** is a web worker that runs in the background of your browser when you view a webpage.
 
 The idea behind service workers is to include specific functionality on a separate thread that can improve the user experience. This includes caching important files so that when your users make a repeat visit, the browser can make a request to the service worker instead of all the way to the server which improves how fast the page loads on repeat visits.
 
-<video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/service-worker-vid.mp4" type="video/mp4">
-  <source src="/assets/progressive-react/service-worker-vid.ogg" type="video/ogg">
-</video>
+<img alt="Service worker caching behavior and performance" title="Service worker caching behavior and performance" data-src="/assets/progressive-react/service-worker-diff.png" class="lazyload shadow" />
 
 [Workbox](https://developers.google.com/web/tools/workbox/) is a set of libraries that can make it easier to include service workers without actually writing one from scratch. With CRA 2.0, you only need to remove 2 characters in `src/index.js` to have a workbox-powered service worker up and running with basic caching functionality.
 
 <pre>
   <code class="language-javascript hljs" data-lang="javascript">
   import React from 'react';
-  
+
   //...
 
   // If you want your app to work offline and load faster, you can change
@@ -398,7 +361,7 @@ The basic idea of server-side rendering on a mainly client-rendered application 
 
 To make sure this works well, you need to ensure that the browser re-uses the server-rendered DOM instead of re-creating the markup (with [`hydrate()`](https://reactjs.org/docs/react-dom.html#hydrate) for example in React). This makes things _seem_ like a page has loaded faster, but it can delay the time it takes for it to become interactive.
 
-With React 16, you can take advantage of **streaming** while server-side rendering your components. Instead of using `renderToString` to return an HTML string, you can use `renderToNodeStream` to return a Node `Readable` stream of bytes. Streaming from a server allows a client to receive and hydrate different parts of the HTML document instead of all at once. Although SSR should always improve First Paint times in your application, this would reduce that number even further. 
+With React 16, you can take advantage of **streaming** while server-side rendering your components. Instead of using `renderToString` to return an HTML string, you can use `renderToNodeStream` to return a Node `Readable` stream of bytes. Streaming from a server allows a client to receive and hydrate different parts of the HTML document instead of all at once. Although SSR should always improve First Paint times in your application, this would reduce that number even further.
 
 <aside>
 If you're using React to build a static site, use <a href="https://reactjs.org/docs/react-dom-server.html#rendertostaticnodestream"><code>renderToStaticNodeStream</code></a> instead.
@@ -428,10 +391,7 @@ If you've already incorporated some sort of server-side rendering into your appl
 
 Extracting critical styles can improve things quite substantially for users with weaker devices or network connections:
 
-<video class="shadow" autoplay loop muted playsinline>
-  <source src="/assets/progressive-react/css-in-js-updates.mp4" type="video/mp4">
-  <source src="/assets/progressive-react/css-in-js-updates.ogg" type="video/ogg">
-</video>
+<img alt="Flash of unstyled content without critical CSS" title="Flash of unstyled content without critical CSS" data-src="/assets/progressive-react/css-in-js-updates.png" class="lazyload shadow" />
 
 {:vid: .image-source}
 This is actually a Preact app, but you get the idea :) (optimizations by [denar90](https://github.com/GoogleChromeLabs/progressive-tooling/pull/26))
@@ -477,7 +437,7 @@ Create React App already sets up a default manifest for you when you create a ne
 
 ### Miscellaneous
 
-The new few sections will cover techniques commonly used to only improve developer experience but also have the advantage of minimizing the amount of code written. 
+The new few sections will cover techniques commonly used to only improve developer experience but also have the advantage of minimizing the amount of code written.
 
 Why is this useful? Less code = less bytes shipped = faster web page.
 
@@ -509,7 +469,7 @@ const Button = styled('button')`
 <Button>Click Me</Button>
 ```
 
-Although it may not be the primary reason why developers use atomic utility libraries like, removing the need to create new CSS selectors by relying entirely on a fixed set of single-use classes means that the amount of CSS shipped to the browser never changes. 
+Although it may not be the primary reason why developers use atomic utility libraries like, removing the need to create new CSS selectors by relying entirely on a fixed set of single-use classes means that the amount of CSS shipped to the browser never changes.
 
 #### Hooks
 
@@ -563,4 +523,3 @@ When a open-source tool, like React, ends up being used by so many developers - 
 * New third-party libraries built by the community that help make building applications easier
 
 "...make building applications easier" can mean a lot of things, and shipping apps that load faster with less effort is just a part of it.
-
